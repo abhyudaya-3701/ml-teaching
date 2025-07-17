@@ -24,7 +24,7 @@ category/
 │       ├── diagrams/
 │       ├── figures/
 │       └── notes/
-├── notebooks/
+├── notebooks/               # Empty - notebooks are in main /notebooks/
 └── slides/
     ├── topic-slide.tex
     ├── topic-slide.pdf
@@ -32,12 +32,14 @@ category/
     └── topic-slide.pptx       # PowerPoint presentations
 ```
 
+**Note**: All notebooks are stored flat in the main `/notebooks/` directory, not organized by category.
+
 ## Key Points
 1. **Slides (.tex files)** go directly in `category/slides/`
 2. **Presentation files (.key, .pptx)** go directly in `category/slides/`
 3. **Assets (figures, diagrams)** go in `category/assets/topic-name/`
 4. **Handwritten notes/PDFs** go in `category/assets/topic-name/notes/`
-5. **Notebooks** go in `category/notebooks/`
+5. **Notebooks** go in main `/notebooks/` directory (flat structure, not by category)
 6. **PDFs** are generated from .tex files and kept with slides
 
 ## Examples
@@ -46,11 +48,13 @@ category/
 - `maths/slides/gradient-descent.tex` - Gradient descent slides  
 - `maths/assets/optimization/gradient-descent/` - Gradient descent assets
 - `maths/assets/optimization/gradient-descent/notes/` - Handwritten gradient descent notes
+- `notebooks/tensor-factorisation.ipynb` - Matrix factorization notebook (flat structure)
 
 ## Migration Rules
 When moving content:
 1. Move .tex files to appropriate `category/slides/`
 2. Move supporting assets to `category/assets/topic-name/`
 3. Move handwritten notes/PDFs to `category/assets/topic-name/notes/`
-4. Keep related content together by topic
-5. Follow the existing naming conventions
+4. Move notebooks to main `/notebooks/` directory (flat structure)
+5. Keep related content together by topic
+6. Follow the existing naming conventions
