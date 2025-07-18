@@ -375,3 +375,232 @@ blockquote {
   color: #1e40af;
   font-style: italic;
 }
+
+// Notebook-specific styling
+.jupyter-notebook {
+  .cell {
+    margin: 1.5rem 0;
+    
+    &.code-cell {
+      .input {
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 0.5rem;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        
+        .sourceCode {
+          background: transparent;
+          border: none;
+          padding: 0;
+          margin: 0;
+        }
+      }
+      
+      .output {
+        background: white;
+        border: 1px solid #e2e8f0;
+        border-radius: 0.5rem;
+        padding: 1rem;
+        margin-top: 0.5rem;
+        
+        .output-stream {
+          background: #f1f5f9;
+          padding: 0.5rem;
+          border-radius: 0.25rem;
+          font-family: 'JetBrains Mono', 'Fira Code', monospace;
+          font-size: 0.875rem;
+          border-left: 3px solid $blue-500;
+        }
+        
+        .output-error {
+          background: #fef2f2;
+          border-left: 3px solid $danger;
+          padding: 0.5rem;
+          border-radius: 0.25rem;
+          color: #dc2626;
+        }
+      }
+    }
+    
+    &.markdown-cell {
+      .rendered_html {
+        h1, h2, h3, h4, h5, h6 {
+          color: #1e293b;
+          margin-top: 1.5rem;
+          margin-bottom: 1rem;
+        }
+        
+        h1 { 
+          font-size: 2rem;
+          border-bottom: 2px solid $blue-500;
+          padding-bottom: 0.5rem;
+        }
+        
+        h2 { 
+          font-size: 1.5rem;
+          color: $indigo-600;
+        }
+        
+        h3 { 
+          font-size: 1.25rem;
+          color: $purple-600;
+        }
+        
+        p {
+          line-height: 1.7;
+          margin-bottom: 1rem;
+          color: #334155;
+        }
+        
+        ul, ol {
+          margin: 1rem 0;
+          padding-left: 1.5rem;
+          
+          li {
+            margin: 0.5rem 0;
+            line-height: 1.6;
+          }
+        }
+        
+        img {
+          max-width: 100%;
+          height: auto;
+          border-radius: 0.5rem;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+          margin: 1rem 0;
+        }
+      }
+    }
+  }
+}
+
+// Enhanced code blocks for notebooks
+.sourceCode {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', monospace;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  overflow-x: auto;
+  
+  .kw { color: #7c3aed; font-weight: 600; } // Keywords
+  .dt { color: #059669; font-weight: 500; } // Data types
+  .dv { color: #dc2626; } // Decimal values
+  .bn { color: #dc2626; } // Base N
+  .fl { color: #dc2626; } // Float
+  .ch { color: #0891b2; } // Character
+  .st { color: #0891b2; } // String
+  .co { color: #64748b; font-style: italic; } // Comment
+  .op { color: #475569; } // Operator
+  .er { color: #dc2626; font-weight: bold; } // Error
+  .fu { color: #4f46e5; font-weight: 500; } // Function
+  .im { color: #059669; } // Import
+  .va { color: #1e293b; } // Variable
+}
+
+// Plotly and matplotlib figures
+.plotly-graph-div {
+  margin: 1.5rem 0;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.jp-RenderedImage {
+  img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin: 1rem 0;
+  }
+}
+
+// Pandas DataFrames
+.dataframe {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin: 1rem 0;
+  
+  thead {
+    background: linear-gradient(135deg, $blue-50 0%, $indigo-50 100%);
+    
+    th {
+      font-weight: 600;
+      color: #1e293b;
+      padding: 0.75rem;
+      text-align: left;
+      border-bottom: 2px solid #e2e8f0;
+    }
+  }
+  
+  tbody {
+    tr {
+      &:nth-child(even) {
+        background: #f8fafc;
+      }
+      
+      &:hover {
+        background: $blue-50;
+      }
+      
+      td {
+        padding: 0.75rem;
+        border-bottom: 1px solid #e2e8f0;
+        color: #475569;
+      }
+    }
+  }
+}
+
+// Progress bars and widgets
+.progress {
+  background: $blue-50;
+  border-radius: 0.5rem;
+  height: 1rem;
+  overflow: hidden;
+  
+  .progress-bar {
+    background: linear-gradient(90deg, $blue-500, $indigo-500);
+    height: 100%;
+    transition: width 0.3s ease;
+  }
+}
+
+// Alert boxes for notebook warnings/notes
+.alert {
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin: 1rem 0;
+  border-left: 4px solid;
+  
+  &.alert-info {
+    background: $blue-50;
+    border-color: $blue-500;
+    color: #1e40af;
+  }
+  
+  &.alert-success {
+    background: $green-50;
+    border-color: $green-500;
+    color: #166534;
+  }
+  
+  &.alert-warning {
+    background: #fef3c7;
+    border-color: $warning;
+    color: #92400e;
+  }
+  
+  &.alert-danger {
+    background: #fef2f2;
+    border-color: $danger;
+    color: #dc2626;
+  }
+}

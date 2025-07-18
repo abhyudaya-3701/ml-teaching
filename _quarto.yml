@@ -44,6 +44,25 @@ format:
     toc: true
     toc-location: right
     toc-depth: 3
+    
+  # Notebook-specific formatting
+  ipynb:
+    theme:
+      light: [cosmo, custom.scss]
+      dark: [darkly, custom-dark.scss]
+    highlight-style: github
+    mainfont: "Inter"
+    code-copy: true
+    code-overflow: wrap
+    code-fold: false
+    code-tools: true
+    toc: true
+    toc-location: right
+    toc-depth: 3
+    embed-resources: false
+    fig-width: 8
+    fig-height: 6
+    fig-dpi: 300
 
 execute:
   freeze: auto
