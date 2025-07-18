@@ -38,17 +38,44 @@ This file documents all content movements during the repository reorganization.
 - Cross-validation content → `supervised/`
 - Bias-variance content → `supervised/`
 
-## Final Structure Created
+## Final Cleanup Phase
+
+### PDFs Moved to Proper Categories:
+- `1-introduction-ml.pdf` → `basics/slides/`
+- `CNN.pdf`, `1d-cnn.pdf`, `mlp.pdf`, `autograd.pdf` → `neural-networks/slides/`
+- `KNN-approx.pdf`, `knn.pdf`, `Logistic-*.pdf`, `MovieRecommendation.pdf` → `supervised/slides/`
+- `lasso-regression.pdf`, `ridge-regression.pdf`, `Weighted-least.pdf` → `supervised/slides/`
+- `svm-intro.pdf`, `svm-soft-margin.pdf` → `supervised/slides/`
+- `SGD.pdf` → `optimization/slides/`
+- `ml-maths.pdf`, `constrained-*.pdf`, `time_complexity.pdf` → `maths/slides/`
+- `unsupervised.pdf` → `unsupervised/slides/`
+- `rl.pdf`, `rl.key` → `advanced/slides/`
+- `cross-validation.key`, `cross-validation.pdf` → `supervised/slides/`
+- `accuracy_convention.pdf` → `basics/slides/`
+
+### Generated PDFs Removed:
+- `bias-variance.pdf`, `ensemble.pdf`, `linear-regression.pdf` → Removed (generated from moved .tex files)
+- `convexity.pdf`, `find-widths.pdf`, `logistic-1.pdf` → Removed (generated from moved .tex files)
+- `ml-maths-2-contour.pdf` → Removed (generated from moved .tex files)
+
+### Auxiliary Files Cleaned:
+- All `decision-trees.*` auxiliary files → Removed (.tex moved to supervised/)
+
+### Style Files Moved:
+- `mycommonstyle.sty` → `shared/styles/`
+
+## Final Structure Created ✅
 
 ### New Category: optimization/
 - `optimization/slides/` - All optimization-related .tex files
 - `optimization/assets/optimization/` - Optimization figures and diagrams
 - `optimization/assets/optimization/*/notes/` - Handwritten optimization notes
 
-### Remaining in slides/ directory:
-- `misc.tex` → Keep in misc folder (general content)
+### Final slides/ directory contains only:
+- `misc.tex` and `misc.pdf` - General miscellaneous content
+- `misc/` folder - Guest lectures, quizzes, and other misc presentations
 
-## All Movements Completed ✅
+## Complete Reorganization Achieved ✅
 
 ## Rules Applied
 1. **Slides** (.tex files) → `category/slides/`
