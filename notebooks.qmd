@@ -1,12 +1,147 @@
 ---
-title: "Notebooks"
-listing:
-  contents: notebooks/*.ipynb
-  sort: "date desc"
-  type: default
-  categories: true
-  sort-ui: false
-  filter-ui: false
+title: "Interactive Notebooks"
 page-layout: full
 title-block-banner: true
 ---
+
+## Hands-On Learning with Jupyter Notebooks
+
+Interactive notebooks provide practical coding examples and visualizations to complement the lecture slides. All notebooks are runnable in Google Colab or local Jupyter environments.
+
+### Fundamentals & Data Science Basics
+
+- [Anscombe's Quartet](notebooks/anscombe.ipynb) - Why visualization matters
+- [Visualization Techniques](notebooks/visualisation.ipynb) - Comprehensive plotting guide
+- [NumPy & Pandas Basics](notebooks/numpy-pandas-basics.ipynb) - Essential data manipulation
+- [Binomial Distribution](notebooks/binomial.ipynb) - Probability foundations
+- [Tips Dataset Analysis](notebooks/tips.ipynb) - Real-world data exploration
+- [Rule-Based vs ML](notebooks/rule-based-vs-ml.ipynb) - When to use ML
+
+### Mathematical Foundations
+
+- [Basis Functions](notebooks/basis.ipynb) - Linear algebra foundations
+- [Basis Functions II](notebooks/basis2.ipynb) - Advanced basis concepts
+- [Contour Plots](notebooks/contour.ipynb) - Visualizing functions
+- [Meshgrid & Contours](notebooks/meshgrid-contour-explanation.ipynb) - Grid visualization
+- [Taylor Series](notebooks/taylor-series.ipynb) - Mathematical approximations
+- [Polynomial Features](notebooks/polynomial_features.ipynb) - Feature engineering
+- [Curse of Dimensionality](notebooks/curse-dimensionality.ipynb) - High-dimensional problems
+
+### Optimization & Gradient Methods
+
+- [Gradient Descent](notebooks/Gradient Descent.ipynb) - Core optimization
+- [Gradient Descent 2D](notebooks/Gradient Descent-2d.ipynb) - Visual optimization
+- [Cost vs Iterations](notebooks/cost-iteration-notebook.ipynb) - Convergence analysis
+- [Automatic Differentiation](notebooks/autodiff.ipynb) - Modern backpropagation
+
+### Supervised Learning Algorithms
+
+#### Linear Models
+- [Linear Regression](notebooks/linear-regression.ipynb) - Basic regression
+- [Linear Regression Tutorial](notebooks/lin-reg-tutorial.ipynb) - Step-by-step guide
+- [Geometric Linear Regression](notebooks/geometric-linear-regression.ipynb) - Visual interpretation
+- [Ridge Regression](notebooks/Ridge.ipynb) - Regularized regression
+- [Lasso Regression](notebooks/Lasso_Regression.ipynb) - Sparse solutions
+
+#### Classification Methods
+- [Logistic Regression](notebooks/logistic-regression-torch.ipynb) - PyTorch implementation
+- [Logistic Regression Cost](notebooks/logistic-regression-cost.ipynb) - Loss function analysis
+- [Logistic: Apples vs Oranges](notebooks/logistic-apple-oranges.ipynb) - Binary classification
+- [Logistic: Circular Data](notebooks/logistic-circular.ipynb) - Non-linear boundaries
+- [Logistic: Iris Dataset](notebooks/logistic-iris.ipynb) - Multi-class classification
+- [Logits Usage](notebooks/logits-usage.ipynb) - Understanding logits
+
+#### Tree-Based Methods
+- [Decision Trees: Discrete → Discrete](notebooks/decision-tree-discrete-input-discrete-output.ipynb)
+- [Decision Trees: Real → Discrete](notebooks/decision-tree-real-input-discrete-output.ipynb)
+- [Decision Trees: Real → Real](notebooks/decision-tree-real-input-real-output.ipynb)
+- [Decision Tree Classes](notebooks/classes-tree.ipynb) - Classification trees
+- [Weighted Decision Trees](notebooks/dt_weighted.ipynb) - Sample weighting
+- [Ensemble Feature Importance](notebooks/ensemble-feature-importance.ipynb)
+- [Boosting Explanation](notebooks/boosting-explanation.ipynb) - AdaBoost mechanics
+- [Ensemble Representations](notebooks/representation-ensemble.ipynb)
+
+#### Instance-Based Learning
+- [KNN Variants](notebooks/knn-variants.ipynb) - Different distance metrics
+- [Movie Recommendation](notebooks/movie-recommendation-knn-mf.ipynb) - Collaborative filtering
+
+#### Support Vector Machines
+- [SVM Basics](notebooks/svm.ipynb) - Introduction to SVMs
+- [SVM with CVXOPT](notebooks/svm-cvxopt.ipynb) - Optimization implementation
+- [SVM Kernel Understanding](notebooks/svm-kernel-understanding.ipynb) - Kernel trick
+- [SVM Kernels](notebooks/svm-kernel.ipynb) - Different kernel functions
+- [SVM Primal-Dual](notebooks/svm-primal-dual.ipynb) - Mathematical foundations
+- [SVM Soft Margin](notebooks/svm-soft-margin.ipynb) - Handling noise
+
+### Model Evaluation & Selection
+
+- [Bias-Variance Analysis](notebooks/bias-variance.ipynb) - Fundamental tradeoff
+- [Bias-Variance Charts](notebooks/bias-variance-charts.ipynb) - Visual analysis
+- [Cross-Validation Diagrams](notebooks/cross-validation-diagrams.ipynb) - Validation strategies
+- [PR Curves](notebooks/pr-curve.ipynb) - Precision-Recall analysis
+- [Dummy Baselines](notebooks/dummy-baselines.ipynb) - Baseline comparisons
+- [Dummy Variables](notebooks/dummy-variables-multi-colinearity.ipynb) - Encoding issues
+- [Hyperparameter Optimization](notebooks/hyperparameter-optimisation.ipynb)
+- [Hyperparameter Experiments](notebooks/hyperparams-experiments.ipynb)
+- [Confusion Matrix: MNIST](notebooks/confusion-mnist.ipynb) - Multi-class evaluation
+
+### Neural Networks & Deep Learning
+
+- [Perceptron Learning](notebooks/perceptron-learning.ipynb) - Basic neural unit
+- [Convolutional Operations](notebooks/convolution-operation.ipynb) - CNN fundamentals
+- [Convolution with Stride](notebooks/convolution-operation-stride.ipynb) - Parameter effects
+- [CNNs](notebooks/cnn.ipynb) - Complete CNN implementation
+- [1D CNNs](notebooks/1d-cnn.ipynb) - Sequence processing
+- [CNN Edge Detection](notebooks/cnn-edge.ipynb) - Feature visualization
+- [LeNet Architecture](notebooks/lenet.ipynb) - Classic CNN
+- [VGG on MNIST](notebooks/vgg-minst.ipynb) - Modern CNN
+- [MNIST Digits](notebooks/mnist-digits.ipynb) - Digit classification
+- [Image Generation](notebooks/generate-image.ipynb) - Generative models
+- [Object Detection](notebooks/object-detection.ipynb) - Computer vision
+- [SIREN Networks](notebooks/siren.ipynb) - Implicit neural representations
+- [NN Vectorization](notebooks/nn_vectorization_with_vmap_jaxtyping_and_beartype_zeel.ipynb) - Efficient implementation
+
+### Unsupervised Learning
+
+- [Principal Component Analysis](notebooks/pca.ipynb) - Dimensionality reduction
+- [Tensor Factorization](notebooks/tensor-factorisation.ipynb) - Matrix decomposition
+
+### Advanced Topics
+
+- [Autoregressive Models](notebooks/autoregressive_model.ipynb) - Time series prediction
+- [Q-Learning](notebooks/rl-qlearning.ipynb) - Reinforcement learning basics
+- [Deep Q-Learning](notebooks/rl-qlearning-deep.ipynb) - Neural RL
+- [RL Gym Environments](notebooks/rl-gym-environments.ipynb) - Practice environments
+- [Feature Selection](notebooks/SFS_and_BFS.ipynb) - Forward/backward selection
+- [Sklearn on GPU](notebooks/Sklearn_on_GPU.ipynb) - Performance optimization
+- [Zero/Few Shot Learning](notebooks/ZeroShot_FewShot.ipynb) - Modern ML paradigms
+
+### Special Applications
+
+- [Names Analysis](notebooks/names.ipynb) - Text processing
+- [Audio Transcription](notebooks/transcript.ipynb) - Speech processing
+
+---
+
+## Getting Started
+
+### Running Notebooks
+1. **Google Colab**: Click any notebook link above
+2. **Local Jupyter**: Clone the repository and run `jupyter notebook`
+3. **Binder**: Launch interactive environment (link coming soon)
+
+### Prerequisites
+- Basic Python knowledge
+- Familiarity with NumPy, Pandas, Matplotlib
+- Linear algebra and calculus basics
+
+## Tips for Success
+- **Start Sequential**: Begin with Fundamentals before diving into advanced topics
+- **Practice Regularly**: Code along with each notebook
+- **Experiment**: Modify parameters and observe changes
+- **Visualize**: Pay attention to plots and visual explanations
+
+## Quick Navigation
+- [Lecture Slides](slides.qmd) - Theoretical foundations
+- [Course Homepage](index.qmd) - Main course page
+- [Instructor](https://nipunbatra.github.io) - Nipun Batra's homepage

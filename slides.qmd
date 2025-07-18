@@ -1,12 +1,89 @@
 ---
-title: "Slides"
-listing:
-  contents: slides/*.pdf
-  sort: "date desc"
-  type: default
-  categories: true
-  sort-ui: false
-  filter-ui: false
+title: "Lecture Slides"
 page-layout: full
 title-block-banner: true
 ---
+
+## Course Materials by Category
+
+### Basics & Foundations
+Fundamental concepts and prerequisites for machine learning.
+
+- [Introduction and Logistics](basics/slides/1-introduction-ml.pdf)
+- [Convention, Metrics, Classification, Regression](basics/slides/accuracy_convention.pdf)
+- [Data Shuffling](basics/slides/shuffling.pdf)
+- [Miscellaneous Topics](basics/slides/misc.pdf)
+
+### Mathematical Foundations
+Core mathematical concepts underlying machine learning algorithms.
+
+- [Mathematical Foundations](maths/slides/ml-maths.pdf)
+- [Contour Plots & Visualization](maths/slides/ml-maths-2-contour.pdf)
+- [Multivariate Normal Distribution](maths/slides/mvn.pdf)
+- [Multivariate Normal II](maths/slides/mvn2.pdf)
+- [KKT Conditions](maths/slides/kkt-conditions/kkt-conditions.pdf)
+- [Finding Widths](maths/slides/find-widths.pdf)
+- [Time Complexity](maths/slides/time_complexity.pdf)
+
+### Optimization Algorithms
+Techniques for finding optimal solutions in machine learning.
+
+- [Gradient Descent](optimization/slides/gradient-descent.pdf)
+- [Coordinate Descent](optimization/slides/coordinate_descent.pdf)
+- [Subgradient Methods](optimization/slides/subgradient.pdf)
+- [Convexity](optimization/slides/convexity/convexity.pdf)
+- [Stochastic Gradient Descent](optimization/slides/SGD.pdf)
+
+### Supervised Learning
+Algorithms that learn from labeled data.
+
+- [Decision Trees](supervised/slides/decision-trees.pdf)
+- [Bias-Variance Tradeoff](supervised/slides/bias-variance.pdf)
+- [Bias-Variance II](supervised/slides/bias-variance-2.pdf)
+- [Cross-Validation](supervised/slides/cross-validation.pdf)
+- [Ensemble Methods](supervised/slides/ensemble.pdf)
+- [Linear Regression](supervised/slides/linear-regression.pdf)
+- [Logistic Regression](supervised/slides/logistic-1.pdf)
+- [K-Nearest Neighbors](supervised/slides/knn.pdf)
+- [Naive Bayes](supervised/slides/naive-bayes.pdf)
+- [Bayesian Networks](supervised/slides/bayesian-nets.pdf)
+- [Ridge Regression](supervised/slides/ridge.pdf)
+- [Lasso Regression](supervised/slides/Lasso.pdf)
+- [Feature Selection](supervised/slides/feature-selection.pdf)
+- [SVM Introduction](supervised/slides/svm-intro.pdf)
+- [SVM Soft Margin](supervised/slides/svm-soft-margin.pdf)
+- [SVM Kernel Methods](supervised/slides/svm-kernel.pdf)
+- [More SVM Topics](supervised/slides/svm-2-2.pdf)
+
+### Neural Networks & Deep Learning
+Modern neural network architectures and deep learning techniques.
+
+- [Multi-Layer Perceptrons](neural-networks/slides/MLP.pdf)
+- [Convolutional Neural Networks](neural-networks/slides/CNN.pdf)
+- [1D CNNs](neural-networks/slides/1d-cnn.pdf)
+- [Automatic Differentiation](neural-networks/slides/autograd.pdf)
+
+### Advanced Topics
+Specialized techniques and cutting-edge approaches.
+
+- [Time Series Forecasting](advanced/slides/forecasting.pdf)
+- [Reinforcement Learning](advanced/slides/rl.pdf)
+
+### Unsupervised Learning
+Algorithms that find patterns in unlabeled data.
+
+- [Clustering & Dimensionality Reduction](unsupervised/slides/unsupervised.pdf)
+
+---
+
+## How to Use These Materials
+
+- **For Students**: Navigate through topics sequentially, starting with Basics & Foundations
+- **For Instructors**: Each category is self-contained and can be taught independently
+- **PDF Quality**: All slides are optimized for both viewing and printing
+
+## Quick Links
+
+- [Interactive Notebooks](notebooks.qmd) - Hands-on coding examples
+- [Course Homepage](index.qmd) - Return to main page
+- [Instructor](https://nipunbatra.github.io) - Nipun Batra's homepage

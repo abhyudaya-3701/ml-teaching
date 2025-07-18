@@ -2,7 +2,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import matplotlib
-import os
 
 from math import sqrt
 SPINE_COLOR = 'gray'
@@ -26,10 +25,10 @@ def latexify(fig_width=None, fig_height=None, columns=1):
     assert(columns in [1,2])
 
     if fig_width is None:
-        fig_width = 2.0 if columns==1 else 4.0 # width in inches
+        fig_width = 3.39 if columns==1 else 6.9 # width in inches
 
     if fig_height is None:
-        golden_mean = 1/1.62  # Aesthetic ratio
+        golden_mean = (sqrt(5)-1.0)/2.0    # Aesthetic ratio
         fig_height = fig_width*golden_mean # height in inches
 
     MAX_HEIGHT_INCHES = 8.0
@@ -38,34 +37,18 @@ def latexify(fig_width=None, fig_height=None, columns=1):
               "so will reduce to" + MAX_HEIGHT_INCHES + "inches.")
         fig_height = MAX_HEIGHT_INCHES
 
-    # Check if we're running in an environment that supports LaTeX
-    try:
-        # Try to determine if LaTeX is available and if we should use it
-        use_latex = True
-        if os.environ.get('QUARTO_RENDER') or os.environ.get('JUPYTER_RUNTIME_DIR'):
-            # In Quarto or Jupyter environments, be more conservative with LaTeX
-            use_latex = False
-    except:
-        use_latex = False
-    
-    params = {'backend': 'Agg',
-              'axes.labelsize': 10, # fontsize for x and y labels (was 10)
-              'axes.titlesize': 10,
-              'font.size': 10, # was 10
-              'legend.fontsize': 10, # was 10
-              'xtick.labelsize': 10,
-              'ytick.labelsize': 10,
+    params = {'backend': 'ps',
+              'text.latex.preamble': ['\\usepackage{gensymb}'],
+              'axes.labelsize': 8, # fontsize for x and y labels (was 10)
+              'axes.titlesize': 8,
+              'font.size': 8, # was 10
+              'legend.fontsize': 8, # was 10
+              'xtick.labelsize': 8,
+              'ytick.labelsize': 8,
+              'text.usetex': True,
               'figure.figsize': [fig_width,fig_height],
               'font.family': 'serif'
     }
-    
-    # Only add LaTeX settings if LaTeX is available
-    if use_latex:
-        params['text.latex.preamble'] = '\\usepackage{gensymb}'
-        params['text.usetex'] = True
-    else:
-        # Use mathtext for LaTeX-like rendering without requiring LaTeX
-        params['text.usetex'] = False
 
     matplotlib.rcParams.update(params)
 
@@ -86,4 +69,3 @@ def format_axes(ax):
         axis.set_tick_params(direction='out', color=SPINE_COLOR)
 
     return ax
-

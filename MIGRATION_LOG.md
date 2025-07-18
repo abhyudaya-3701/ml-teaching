@@ -90,6 +90,48 @@ This file documents all content movements during the repository reorganization.
 4. **Notebooks** → main `/notebooks/` directory (flat structure)
 5. **Presentations** (.key, .pptx) → `category/slides/`
 
+### Additional Directory Removals
+- `linear-reg/` → DELETED (superseded by supervised/slides/linear-regression.tex)
+  - `Linear Regression Notebook.ipynb` → `notebooks/linear-regression.ipynb`
+  - `*.eps` files → `supervised/assets/linear-regression/figures/`
+- `linear-regression-geometric/` → DELETED (superseded by main linear regression slides)
+- `linear-regression-time-complexity/` → DELETED (superseded by main linear regression slides)
+- `naive-bayes/` → MIGRATED to supervised/
+  - `bayesian-nets.tex` → `supervised/slides/bayesian-nets.tex`
+  - `naive-bayes.tex` → `supervised/slides/naive-bayes.tex`
+  - `*.pdf` files → `supervised/assets/naive-bayes/figures/`
+- `mvn/` → MIGRATED to maths/
+  - `mvn.tex` → `maths/slides/mvn.tex`
+  - `mvn2.tex` → `maths/slides/mvn2.tex`
+  - `*.png` files → `maths/assets/multivariate-normal/figures/`
+- `knn/` → MIGRATED to supervised/
+  - `knn.tex` → `supervised/slides/knn.tex`
+  - `knn.pdf` → `supervised/slides/knn.pdf`
+- `forecasting/` → MIGRATED to advanced/
+  - `forecasting.tex` → `advanced/slides/forecasting.tex`
+  - `*.png` files → `advanced/assets/forecasting/figures/`
+- `ridge/` → MIGRATED to supervised/
+  - `ridge.tex` → `supervised/slides/ridge.tex`
+  - All assets → `supervised/assets/ridge/figures/`
+- `bias-variance/` → MIGRATED to supervised/
+  - `*.tex` files → `supervised/slides/`
+  - `Charts.ipynb` → `notebooks/bias-variance-charts.ipynb`
+  - `images/` and `imgs/` → `supervised/assets/bias-variance/figures/`
+- `shuffling/` → MIGRATED to basics/
+  - `shuffling.tex` → `basics/slides/shuffling.tex`
+  - `imgs/` → `basics/assets/shuffling/figures/`
+- Root SVM files → MIGRATED to supervised/
+  - `svm-*.tex` and `svm-*.pdf` → `supervised/slides/`
+  - `SVM/` directory → `supervised/assets/svm/notes/`
+- `entropy_calculation.numbers` → `supervised/assets/decision-trees/notes/`
+- `feature-selection/` → MIGRATED to supervised/
+  - `feature-selection.tex` → `supervised/slides/feature-selection.tex`
+- `MLP.tex` → `neural-networks/slides/MLP.tex`
+- `rl.tex` → `advanced/slides/rl.tex`
+
+### Deduplication
+- Removed duplicate `gradient-descent.tex` from supervised/ (kept in optimization/ where it belongs)
+
 ## Cleanup Actions
 - Remove duplicate .tex files from slides/ after moving to proper locations
 - Clean up empty directories
