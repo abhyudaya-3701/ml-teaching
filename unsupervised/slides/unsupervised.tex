@@ -1,34 +1,19 @@
 \documentclass{beamer}
-\usepackage{tcolorbox}
-\usepackage{graphicx}
-\usepackage{amsmath}
-\usepackage[labelformat=empty]{caption}
-\usepackage{subcaption}
+\usepackage{../../shared/styles/custom}
 
-\usepackage{hyperref}
-\hypersetup{
-    colorlinks=true,
-    linkcolor=blue,
-    filecolor=magenta,      
-    urlcolor=cyan,
-}
 
-\usepackage{tikz}
+
 \def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;} 
 
 
 %\beamerdefaultoverlayspecification{<+->}
-\newcommand{\data}{\mathcal{D}}
 
-\DeclareMathOperator*{\argmin}{arg\,min}
 
-\newcommand\Item[1][]{%
 	\ifx\relax#1\relax  \item \else \item[#1] \fi
 	\abovedisplayskip=0pt\abovedisplayshortskip=0pt~\vspace*{-\baselineskip}}
 	
 
 
-\usetheme{metropolis}           % Use metropolis theme
 
 
 \title{Unsupervised Learning}

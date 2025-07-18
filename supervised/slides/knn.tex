@@ -1,23 +1,8 @@
 \documentclass[usenames,dvipsnames]{beamer}
-\usepackage{xcolor}
-\usepackage{tcolorbox}
-\usepackage{graphicx}
-\usepackage{amsmath}
-\usepackage{subcaption}
-\usepackage{makecell}
-\usepackage[labelformat=empty]{caption}
+\usepackage{../../shared/styles/custom}
+
 \usepackage{color, colortbl}
-\usepackage{booktabs}
-\usepackage{pdfpages}
-\usepackage{multirow}
 \usepackage{comment}
-\usepackage{hyperref}
-\hypersetup{
-    colorlinks=true,
-    linkcolor=blue,
-    filecolor=magenta,      
-    urlcolor=cyan,
-}
 
 \newcommand*{\mathcolor}{}
 \def\mathcolor#1#{\mathcoloraux{#1}}
@@ -28,16 +13,11 @@
 	\endgroup
 }
 
-\usepackage{tikz}
 
-\usetikzlibrary{shapes.geometric, arrows}
-\tikzstyle{startstop} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm,text centered, draw=black, fill=brown!30]
 
-\tikzstyle{io} = [trapezium, trapezium left angle=70, trapezium right angle=110, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=blue!30]
 
 \def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;} 
 
-\tikzstyle{arrow} = [thick,->,>=stealth]
 
 
 \newcommand{\DoTikzmark}[1]{%
@@ -54,17 +34,13 @@
 \newcolumntype{t}{>{\columncolor{Tan}}c}
 
 %\beamerdefaultoverlayspecification{<+->}
-\newcommand{\data}{\mathcal{D}}
 
-\DeclareMathOperator*{\argmin}{arg\,min}
 
-\newcommand\Item[1][]{%
 	\ifx\relax#1\relax  \item \else \item[#1] \fi
 	\abovedisplayskip=0pt\abovedisplayshortskip=0pt~\vspace*{-\baselineskip}}
 	
 
 
-\usetheme{metropolis}           % Use metropolis theme
 
 
 \title{K-Nearest Neighbors}

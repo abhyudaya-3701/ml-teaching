@@ -1,17 +1,9 @@
 \documentclass{beamer}
-\usepackage{tcolorbox}
-\usepackage{caption}
-\usepackage{tikz}
-\usepackage{pgfplots}
-\usepackage{adjustbox}
-\usepackage{pgfplots}
-\usepackage{multicol}
-\usepackage{pdfpages}
-%\beamerdefaultoverlayspecification{<+->}
-\newcommand{\data}{\mathcal{D}}
+\usepackage{../../shared/styles/custom}
 
-\setlength{\abovedisplayskip}{1pt}
-\setlength{\belowdisplayskip}{1pt}
+\usepackage{multicol}
+%\beamerdefaultoverlayspecification{<+->}
+
 
 \makeatletter
 \def\magicomadjust{0em}  % a way to adjust if the spacing should be different
@@ -33,14 +25,11 @@
 
 
 
-\DeclareMathOperator*{\argmin}{arg\,min}
 
-\newcommand\Item[1][]{%
 	\ifx\relax#1\relax  \item \else \item[#1] \fi
 	\abovedisplayskip=0pt\abovedisplayshortskip=0pt~\vspace*{-\baselineskip}}
 
 
-\usetheme{metropolis}           % Use metropolis theme
 
 
 \title{Support Vector Machines}

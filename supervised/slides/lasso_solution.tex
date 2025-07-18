@@ -1,19 +1,13 @@
 \documentclass{beamer}
-\usepackage{tcolorbox}
-\usepackage{caption}
+\usepackage{../../shared/styles/custom}
+
 %\beamerdefaultoverlayspecification{<+->}
-\newcommand{\data}{\mathcal{D}}
-\usepackage{amsmath}
-\usepackage{pdfpages}
 
-\DeclareMathOperator*{\argmin}{arg\,min}
 
-\newcommand\Item[1][]{%
 	\ifx\relax#1\relax  \item \else \item[#1] \fi
 	\abovedisplayskip=0pt\abovedisplayshortskip=0pt~\vspace*{-\baselineskip}}
 
 
-\usetheme{metropolis}           % Use metropolis theme
 
 
 \title{Coordinate Descent}

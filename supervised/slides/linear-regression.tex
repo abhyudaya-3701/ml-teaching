@@ -1,14 +1,8 @@
 \documentclass{beamer}
-\usepackage{../../shared/styles/mycommonstyle}
-\usepackage{calculator}
+\usepackage{../../shared/styles/custom}
 
-\usepackage{tcolorbox}
-\usepackage{graphicx}
-\usepackage{pgfplots}
-\usepackage{adjustbox}
 
-\usepackage{tikz}
-\pgfplotsset{width=6cm,compat=1.14}
+
 \newcommand{\vecuvec}[2] %start point, end point (of vector)
 {   \VECTORSUB(#2)(#1)(\sola,\solb,\solc)
 	\UNITVECTOR(\sola, \solb, \solc)(\sola,\solb,\solc)
@@ -19,19 +13,14 @@
 	\temp
 }
 
-\usetikzlibrary{calc}
 
 %\beamerdefaultoverlayspecification{<+->}
-\newcommand{\data}{\mathcal{D}}
 
-\DeclareMathOperator*{\argmin}{arg\,min}
 
-\newcommand\Item[1][]{%
 	\ifx\relax#1\relax  \item \else \item[#1] \fi
 	\abovedisplayskip=0pt\abovedisplayshortskip=0pt~\vspace*{-\baselineskip}}
 
 
-\usetheme{metropolis}           % Use metropolis theme
 
 
 \title{Linear Regression}

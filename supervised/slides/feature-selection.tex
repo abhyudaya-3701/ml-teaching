@@ -1,15 +1,12 @@
 \documentclass{beamer}
-\usepackage{tcolorbox}
+\usepackage{../../shared/styles/custom}
+
 
 %\beamerdefaultoverlayspecification{<+->}
-\newcommand{\data}{\mathcal{D}}
 
-\DeclareMathOperator*{\argmin}{arg\,min}
 
-\newcommand\Item[1][]{%
 	\ifx\relax#1\relax  \item \else \item[#1] \fi
 	\abovedisplayskip=0pt\abovedisplayshortskip=0pt~\vspace*{-\baselineskip}}
-\usepackage{amsmath}
 
 % limits underneath
 \DeclareMathOperator*{\argminA}{arg\,min} % Jan Hlavacek
@@ -26,7 +23,6 @@
 \DeclareMathOperator{\argminH}{argmin}   % Jan Hlavacek
 \newcommand{\argminI}{\mathop{\mathrm{argmin}}\nolimits} % ASdeL
 
-\usetheme{metropolis}           % Use metropolis theme
 
 
 \title{Some Practical Tips And Feature Selection}

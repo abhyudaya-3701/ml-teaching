@@ -1,72 +1,111 @@
-# Required LaTeX Packages
+# LaTeX Package Dependencies
 
-This document lists the LaTeX packages needed for compiling the lecture slides.
+This document lists all the LaTeX packages required for building the ML teaching materials using the unified `custom.sty`.
 
-## TinyTeX Package Requirements
+## Required Packages
 
-Install these packages using `tlmgr install <package-name>`:
+The following packages are needed for the unified `custom.sty` to work properly:
 
+### Core LaTeX Packages
 ```bash
-# Core packages (usually included with TinyTeX)
-tlmgr install beamer
-tlmgr install beamertheme-metropolis
-tlmgr install pgfplots
-tlmgr install tcolorbox
-tlmgr install hyperref
-tlmgr install graphicx
+tlmgr install latex-bin
 tlmgr install amsmath
+tlmgr install amssymb
 tlmgr install amsfonts
-tlmgr install subcaption
-tlmgr install makecell
-tlmgr install booktabs
-tlmgr install multirow
-tlmgr install adjustbox
-tlmgr install siunitx
-tlmgr install forest
-tlmgr install tikz
-tlmgr install xcolor
-
-# Additional packages needed for ensemble slides
-tlmgr install forloop
-
-# If you encounter missing packages during compilation, install them:
-# tlmgr install <package-name>
+tlmgr install amsthm
 ```
 
-## Package Installation Script
+### Graphics and Visualization
+```bash
+tlmgr install graphicx
+tlmgr install xcolor
+tlmgr install tikz
+tlmgr install pgf
+tlmgr install pgfplots
+```
 
-You can also run this script to install all required packages:
+### Typography and Formatting
+```bash
+tlmgr install bm
+tlmgr install mathtools
+tlmgr install siunitx
+tlmgr install xspace
+```
+
+### Tables and Layout
+```bash
+tlmgr install booktabs
+tlmgr install multirow
+tlmgr install makecell
+tlmgr install adjustbox
+tlmgr install array
+tlmgr install colortbl
+```
+
+### Boxes and Styling
+```bash
+tlmgr install tcolorbox
+tlmgr install caption
+tlmgr install subcaption
+```
+
+### References and Links
+```bash
+tlmgr install hyperref
+tlmgr install url
+```
+
+### Beamer and Presentation
+```bash
+tlmgr install beamer
+tlmgr install beamertheme-metropolis
+```
+
+### Specialized Packages
+```bash
+tlmgr install pdfpages
+tlmgr install forloop
+tlmgr install calc
+tlmgr install forest
+tlmgr install calculator
+```
+
+## Complete Installation Script
+
+You can install all required packages at once using:
 
 ```bash
 #!/bin/bash
 # install_latex_packages.sh
+# Install all required LaTeX packages for ML teaching materials
 
-packages=(
-    "beamer"
-    "beamertheme-metropolis" 
-    "pgfplots"
-    "tcolorbox"
-    "hyperref"
-    "graphicx"
-    "amsmath"
-    "amsfonts"
-    "subcaption"
-    "makecell"
-    "booktabs"
-    "multirow"
-    "adjustbox"
-    "siunitx"
-    "forest"
-    "xcolor"
-    "forloop"
-)
+echo "Installing LaTeX packages for ML teaching materials..."
 
-for package in "${packages[@]}"; do
-    echo "Installing $package..."
-    tlmgr install "$package"
-done
+# Core packages
+tlmgr install latex-bin amsmath amssymb amsfonts amsthm
 
-echo "All packages installed!"
+# Graphics and visualization
+tlmgr install graphicx xcolor tikz pgf pgfplots
+
+# Typography and formatting
+tlmgr install bm mathtools siunitx xspace
+
+# Tables and layout
+tlmgr install booktabs multirow makecell adjustbox array colortbl
+
+# Boxes and styling
+tlmgr install tcolorbox caption subcaption
+
+# References and links
+tlmgr install hyperref url
+
+# Beamer and presentation
+tlmgr install beamer beamertheme-metropolis
+
+# Specialized packages
+tlmgr install pdfpages forloop calc forest calculator
+
+echo "All LaTeX packages installed successfully!"
 ```
 
 ## Compilation

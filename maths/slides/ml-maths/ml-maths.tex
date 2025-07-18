@@ -1,13 +1,10 @@
 \documentclass{beamer}
-\usepackage{tcolorbox}
-\usepackage{amsmath}
+\usepackage{../../../shared/styles/custom}
+
 
 %\beamerdefaultoverlayspecification{<+->}
-\newcommand{\data}{\mathcal{D}}
 
-\DeclareMathOperator*{\argmin}{arg\,min}
 
-\newcommand\Item[1][]{%
 	\ifx\relax#1\relax  \item \else \item[#1] \fi
 	\abovedisplayskip=0pt\abovedisplayshortskip=0pt~\vspace*{-\baselineskip}}
 
@@ -17,7 +14,6 @@
 \newcommand{\conti}{\setcounter{enumi}{\value{saveenumi}}}
 \resetcounteronoverlays{saveenumi}
 
-\usetheme{metropolis}           % Use metropolis theme
 
 
 \title{Maths for ML}

@@ -66,6 +66,9 @@ format:
 
 execute:
   freeze: auto
+  echo: true
+  warning: false
+  error: false
   
 jupyter:
   kernelspec:
