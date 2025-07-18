@@ -5,6 +5,7 @@ This document describes the organizational structure of the ml-teaching reposito
 ## Main Categories
 - `basics/` - Fundamental concepts
 - `maths/` - Mathematical foundations  
+- `optimization/` - Optimization algorithms and theory
 - `supervised/` - Supervised learning algorithms
 - `unsupervised/` - Unsupervised learning algorithms
 - `neural-networks/` - Neural network architectures
@@ -45,9 +46,10 @@ category/
 ## Examples
 - `supervised/slides/decision-trees.tex` - Decision tree slides
 - `supervised/assets/decision-trees/figures/` - Decision tree figures
-- `maths/slides/gradient-descent.tex` - Gradient descent slides  
-- `maths/assets/optimization/gradient-descent/` - Gradient descent assets
-- `maths/assets/optimization/gradient-descent/notes/` - Handwritten gradient descent notes
+- `optimization/slides/gradient-descent.tex` - Gradient descent slides  
+- `optimization/assets/optimization/gradient-descent/` - Gradient descent assets
+- `optimization/assets/optimization/gradient-descent/notes/` - Handwritten gradient descent notes
+- `maths/slides/kkt-conditions/kkt-conditions.tex` - Mathematical foundations
 - `notebooks/tensor-factorisation.ipynb` - Matrix factorization notebook (flat structure)
 
 ## Migration Rules

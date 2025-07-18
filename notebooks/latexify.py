@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import matplotlib
+import os
 
 from math import sqrt
 SPINE_COLOR = 'gray'
@@ -37,18 +38,34 @@ def latexify(fig_width=None, fig_height=None, columns=1):
               "so will reduce to" + MAX_HEIGHT_INCHES + "inches.")
         fig_height = MAX_HEIGHT_INCHES
 
-    params = {'backend': 'ps',
-              'text.latex.preamble': '\\usepackage{gensymb}',
+    # Check if we're running in an environment that supports LaTeX
+    try:
+        # Try to determine if LaTeX is available and if we should use it
+        use_latex = True
+        if os.environ.get('QUARTO_RENDER') or os.environ.get('JUPYTER_RUNTIME_DIR'):
+            # In Quarto or Jupyter environments, be more conservative with LaTeX
+            use_latex = False
+    except:
+        use_latex = False
+    
+    params = {'backend': 'Agg',
               'axes.labelsize': 10, # fontsize for x and y labels (was 10)
               'axes.titlesize': 10,
               'font.size': 10, # was 10
               'legend.fontsize': 10, # was 10
               'xtick.labelsize': 10,
               'ytick.labelsize': 10,
-              'text.usetex': True,
               'figure.figsize': [fig_width,fig_height],
               'font.family': 'serif'
     }
+    
+    # Only add LaTeX settings if LaTeX is available
+    if use_latex:
+        params['text.latex.preamble'] = '\\usepackage{gensymb}'
+        params['text.usetex'] = True
+    else:
+        # Use mathtext for LaTeX-like rendering without requiring LaTeX
+        params['text.usetex'] = False
 
     matplotlib.rcParams.update(params)
 
