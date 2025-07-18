@@ -280,6 +280,16 @@ TSWLatexianTemp*
 # .site from quarto
 _site
 
+# Quarto rendered files
+*.html
+!index.html
+!notebooks.html
+!slides.html
+
+# Temporary files
+*.tmp
+*.temp
+
 # py_cache
 __pycache__
 
