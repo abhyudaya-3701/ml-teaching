@@ -22,7 +22,6 @@ Core mathematical concepts underlying machine learning algorithms.
 - [Multivariate Normal Distribution](maths/slides/mvn.pdf)
 - [Multivariate Normal II](maths/slides/mvn2.pdf)
 - [KKT Conditions](maths/slides/kkt-conditions/kkt-conditions.pdf)
-- [Finding Widths](maths/slides/find-widths.pdf)
 - [Time Complexity](maths/slides/time_complexity.pdf)
 
 ### Optimization Algorithms

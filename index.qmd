@@ -8,18 +8,18 @@ title-block-banner: true
 
 Welcome to a complete collection of machine learning course materials developed at IIT Gandhinagar. This resource combines theoretical foundations with practical implementations, designed for both students and instructors.
 
-## 🎯 What You'll Find Here
+## What You'll Find Here
 
-### [📊 Interactive Notebooks](notebooks.qmd)
+### [Interactive Notebooks](notebooks.qmd)
 Over 100 Jupyter notebooks with hands-on coding examples, from basics to advanced topics. All notebooks are runnable in Google Colab.
 
-### [📚 Lecture Slides](slides.qmd)
+### [Lecture Slides](slides.qmd)
 Comprehensive slide decks covering all major machine learning topics, organized by category for easy navigation.
 
-### 🔧 Practical Applications
+### Practical Applications
 Real-world examples using datasets like MNIST, Iris, and custom problems across computer vision, NLP, and more.
 
-## 🏗️ Course Structure
+## Course Structure
 
 The materials are organized into six main categories:
 
@@ -30,14 +30,14 @@ The materials are organized into six main categories:
 - **Advanced Topics** - Time series, reinforcement learning, modern techniques
 - **Unsupervised Learning** - Clustering, dimensionality reduction
 
-## 🚀 Getting Started
+## Getting Started
 
 1. **New to ML?** Start with [Basics & Foundations](basics/slides/1-introduction-ml.pdf)
 2. **Hands-on Learning** Browse the [interactive notebooks](notebooks.qmd)
 3. **Theory First?** Explore the [lecture slides](slides.qmd)
 4. **Quick Practice** Try the [Anscombe's Quartet notebook](notebooks/anscombe.ipynb)
 
-## 👨‍🏫 About the Course
+## About the Course
 
 These materials represent several years of machine learning education at IIT Gandhinagar, developed by Prof. Nipun Batra and dedicated teaching assistants. The content emphasizes both theoretical understanding and practical implementation skills.
 

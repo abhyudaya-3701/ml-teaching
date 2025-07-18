@@ -9,7 +9,7 @@ on:
       - master
       - main
 
-name: 🚀 Build & Deploy ML Course Materials
+name: Build & Deploy ML Course Materials
 
 jobs:
   validate-and-build:
@@ -18,38 +18,38 @@ jobs:
       contents: read
       pull-requests: write
     steps:
-      - name: 📥 Check out repository
+      - name: Check out repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: 🔧 Set up Python
+      - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.11'
           cache: 'pip'
 
-      - name: 📦 Install Python dependencies
+      - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
           pip install jupyter nbconvert
 
-      - name: 🔍 Validate Jupyter notebooks
+      - name: Validate Jupyter notebooks
         run: |
-          echo "📓 Validating notebook syntax..."
-          find notebooks -name "*.ipynb" -type f | head -5 | xargs -I {} python -m nbconvert --to notebook --execute {} --output /tmp/test.ipynb 2>/dev/null || echo "⚠️  Some notebooks may require specific dependencies"
+          echo "Validating notebook syntax..."
+          find notebooks -name "*.ipynb" -type f | head -5 | xargs -I {} python -m nbconvert --to notebook --execute {} --output /tmp/test.ipynb 2>/dev/null || echo "Some notebooks may require specific dependencies"
 
-      - name: 📊 Repository statistics
+      - name: Repository statistics
         run: |
-          echo "📈 Repository Statistics:"
+          echo "Repository Statistics:"
           echo "- Total notebooks: $(find notebooks -name '*.ipynb' | wc -l)"
           echo "- Total LaTeX files: $(find . -name '*.tex' | wc -l)"
           echo "- Total PDF files: $(find . -name '*.pdf' | wc -l)"
           echo "- Categories: $(ls -1 | grep -E '^(basics|maths|supervised|neural-networks|advanced|unsupervised)$' | wc -l)"
 
-      - name: 🔗 Check for broken links in slides
+      - name: Check for broken links in slides
         run: |
-          echo "🔍 Checking slide references..."
+          echo "Checking slide references..."
           grep -r "includegraphics\|input\|include" . --include="*.tex" | head -10 || echo "No LaTeX references found"
 
   deploy:
@@ -59,27 +59,27 @@ jobs:
     permissions:
       contents: write
     steps:
-      - name: 📥 Check out repository
+      - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: 🔧 Set up Quarto
+      - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
         with:
           cache: true
 
-      - name: 📝 Build course website
+      - name: Build course website
         run: |
-          echo "🏗️  Building Quarto website..."
+          echo "Building Quarto website..."
           quarto render --to html
 
-      - name: 🌐 Deploy to GitHub Pages
+      - name: Deploy to GitHub Pages
         uses: quarto-dev/quarto-actions/publish@v2
         with:
           target: gh-pages
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: 🎉 Deployment complete
+      - name: Deployment complete
         run: |
-          echo "✅ Website deployed successfully!"
-          echo "🌐 Available at: https://$(echo $GITHUB_REPOSITORY | cut -d'/' -f1).github.io/$(echo $GITHUB_REPOSITORY | cut -d'/' -f2)/"
+          echo "Website deployed successfully!"
+          echo "Available at: https://$(echo $GITHUB_REPOSITORY | cut -d'/' -f1).github.io/$(echo $GITHUB_REPOSITORY | cut -d'/' -f2)/"
