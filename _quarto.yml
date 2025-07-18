@@ -1,5 +1,13 @@
 project:
   type: website
+  render:
+    - "*.qmd"
+    - "!MIGRATION*.md"
+    - "!PROJECT_STRUCTURE.md"
+    - "!LATEX_PACKAGES.md"
+    - "!check_migration.sh"
+    - "!finish_migration.sh"
+    - "!migrate_content.sh"
 
 website:
   title: "Machine Learning Resources"
@@ -16,12 +24,14 @@ website:
 format:
   html:
     theme:
-      light: [litera, styles.scss]
+      light: [flatly, styles.scss]
       dark: [darkly, styles-dark.scss]
     highlight-style: a11y-dark
-    mainfont: "Roboto"
+    mainfont: "Inter"
     code-copy: true
     code-overflow: wrap
+    toc: true
+    toc-depth: 3
 
 
 execute:
