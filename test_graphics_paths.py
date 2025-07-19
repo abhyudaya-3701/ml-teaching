@@ -212,26 +212,62 @@ class LaTeXGraphicsValidator:
             # Check if the referenced file actually exists
             asset_file = tex_file.parent / graphics_path
             if not asset_file.exists():
-                self.violations.append(GraphicsPathViolation(
-                    tex_file=str(tex_file),
-                    line_num=line_num,
-                    graphics_path=graphics_path,
-                    violation_type="MISSING_FILE",
-                    description=f"Referenced graphics file does not exist: {asset_file}",
-                    fix=f"Create the missing file or fix the path"
-                ))
+                # Check with common extensions if no extension provided
+                if '.' not in Path(graphics_path).name:
+                    extensions = ['.pdf', '.png', '.jpg', '.jpeg', '.svg', '.eps']
+                    file_found = False
+                    for ext in extensions:
+                        if (tex_file.parent / (graphics_path + ext)).exists():
+                            file_found = True
+                            break
+                    if not file_found:
+                        self.violations.append(GraphicsPathViolation(
+                            tex_file=str(tex_file),
+                            line_num=line_num,
+                            graphics_path=graphics_path,
+                            violation_type="MISSING_FILE",
+                            description=f"Referenced graphics file does not exist: {asset_file}",
+                            fix=f"Create the missing file or fix the path"
+                        ))
+                else:
+                    self.violations.append(GraphicsPathViolation(
+                        tex_file=str(tex_file),
+                        line_num=line_num,
+                        graphics_path=graphics_path,
+                        violation_type="MISSING_FILE",
+                        description=f"Referenced graphics file does not exist: {asset_file}",
+                        fix=f"Create the missing file or fix the path"
+                    ))
         elif cross_match:
             # Cross-category reference is valid, just check file exists
             asset_file = tex_file.parent / graphics_path
             if not asset_file.exists():
-                self.violations.append(GraphicsPathViolation(
-                    tex_file=str(tex_file),
-                    line_num=line_num,
-                    graphics_path=graphics_path,
-                    violation_type="MISSING_FILE",
-                    description=f"Referenced graphics file does not exist: {asset_file}",
-                    fix=f"Create the missing file or fix the path"
-                ))
+                # Check with common extensions if no extension provided
+                if '.' not in Path(graphics_path).name:
+                    extensions = ['.pdf', '.png', '.jpg', '.jpeg', '.svg', '.eps']
+                    file_found = False
+                    for ext in extensions:
+                        if (tex_file.parent / (graphics_path + ext)).exists():
+                            file_found = True
+                            break
+                    if not file_found:
+                        self.violations.append(GraphicsPathViolation(
+                            tex_file=str(tex_file),
+                            line_num=line_num,
+                            graphics_path=graphics_path,
+                            violation_type="MISSING_FILE",
+                            description=f"Referenced graphics file does not exist: {asset_file}",
+                            fix=f"Create the missing file or fix the path"
+                        ))
+                else:
+                    self.violations.append(GraphicsPathViolation(
+                        tex_file=str(tex_file),
+                        line_num=line_num,
+                        graphics_path=graphics_path,
+                        violation_type="MISSING_FILE",
+                        description=f"Referenced graphics file does not exist: {asset_file}",
+                        fix=f"Create the missing file or fix the path"
+                    ))
     
     def _is_topic_related(self, actual_topic: str, expected_topic: str, tex_file: Path) -> bool:
         """Check if actual topic name is reasonably related to expected"""
