@@ -25,7 +25,6 @@ category/
 │       ├── diagrams/
 │       ├── figures/
 │       └── notes/
-├── notebooks/               # Empty - notebooks are in main /notebooks/
 └── slides/
     ├── topic-slide.tex
     ├── topic-slide.pdf

@@ -7,13 +7,9 @@ project:
     - "!MIGRATION*.md"
     - "!PROJECT_STRUCTURE.md"
     - "!LATEX_PACKAGES.md"
-    - "!check_migration.sh"
-    - "!finish_migration.sh"
-    - "!migrate_content.sh"
     - "!NOTEBOOK_FIXES.md"
-    - "!fix_notebook_paths.py"
-    - "!verify_notebook_assets.py"
-    - "!update_tex_files.sh"
+    - "!*.py"
+    - "!*.sh"
 
 website:
   title: "Machine Learning Course"
