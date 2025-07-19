@@ -30,10 +30,12 @@ jobs:
 
       - name: Validate repository structure
         run: |
-          python test_structure.py
-          python test_graphics_paths.py
-          python test_notebook_paths.py
-          python test_notebook_conventions.py
+          python tests/test_structure.py
+          python tests/test_graphics_paths.py
+          python tests/test_notebook_paths.py
+          python tests/test_notebook_conventions.py
+          python tests/test_slide_conventions.py
+          python tests/test_missing_pdfs.py
 
       - name: Repository statistics
         run: |

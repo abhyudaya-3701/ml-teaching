@@ -4,7 +4,7 @@
 
 
 
-\title{Convention, Accuracy metrics, Classification, Regression}
+\title{Conventions, Accuracy Metrics, Classification, Regression}
 \date{\today}
 \author{Nipun Batra}
 \institute{IIT Gandhinagar}
@@ -13,24 +13,20 @@
   
   \begin{frame}{Demo}
 	\begin{itemize}
-		\item \href{https://storage.googleapis.com/tfjs-models/demos/posenet/camera.html}{PoseNet Whole}
+		\item \href{https://storage.googleapis.com/tfjs-models/demos/posenet/camera.html}{Complete PoseNet Demo}
 		\item \href{https://blog.tensorflow.org/2018/05/real-time-human-pose-estimation-in.html}{Blog post from Google}
-		\item \href{https://rps-tfjs.netlify.app}{Rock Papers Scissors}
+		\item \href{https://rps-tfjs.netlify.app}{Rock Paper Scissors}
 	\end{itemize}
-	
-	
-
-	
   \end{frame}
   
 
  
   \begin{frame}{Revision: What is Machine Learning}
-	 ``Field of study that give computers the ability to learn
+	 ``Field of study that gives computers the ability to learn
 		without being explicitly programmed'' - Arthur Samuel
 		[1959]
 
-		\pause Let us work on digit recognition problem.
+		\pause Let us work on the digit recognition problem.
 
 		\begin{figure}[htp]
 			\centering
@@ -67,7 +63,7 @@
 
 
 
-\begin{frame}
+\begin{frame}{Traditional Programming vs Machine Learning}
 
 \begin{tikzpicture}[node distance=2cm]
 \node (Data) [startstop] {Data};
@@ -100,8 +96,8 @@ tasks in T, as measured by P, improves with
 experience E.'' - Tom Mitchell
 \end{frame}
 
-\begin{frame}{First ML Task: Grocery store tomatoes quality prediction}
-Problem statement: You want to predict the quality/condition of a tomato given its visual features.
+\begin{frame}{First ML Task: Grocery store tomato quality prediction}
+Problem statement: You want to predict the quality of a tomato given its visual features.
 \end{frame}
 
 \begin{frame}{Dataset}
@@ -114,8 +110,8 @@ Imagine you have some past data on quality of tomatoes. What visual features do 
 \end{itemize}
 \end{frame}
   
-\begin{frame}{Dataset}
-Imagine you have some past data on quality of tomatoes. 
+\begin{frame}{Sample Dataset}
+Here is our example dataset with tomato features: 
 
 \begin{table}[]
 	\begin{tabular}{|l|l|l|l||l|}
@@ -132,7 +128,7 @@ Imagine you have some past data on quality of tomatoes.
 \begin{frame}{Useful Features}
 Is the sample number a useful feature for predicting quality of a tomato?
 
-\pause Answer: It depends! Maybe, all tomatoes received after a certain date are bad! Let us ignore that for now.
+\pause Answer: Usually no! Sample numbers are typically arbitrary identifiers and not meaningful features. Let us remove it.
 
 \pause Let us modify our data table for now.
 
@@ -152,7 +148,7 @@ Is the sample number a useful feature for predicting quality of a tomato?
 \begin{frame}{Training Set}
 
 \begin{table}[]
-	\begin{tabular}{|g|g|g||t|}
+	\begin{tabular}{|l|l|l||l|}
 		\hline 
 				\rowcolor{white}
 		\textbf{Colour} & \textbf{Size} & \textbf{Texture} & \textbf{Condition} \\ \hline 
@@ -166,7 +162,7 @@ Is the sample number a useful feature for predicting quality of a tomato?
 
 \pause The training set consists of two parts:
 \begin{enumerate}
-	\item \pause \color{Lavender}{Features, Attributes or Covariates}
+	\item \pause \color{Lavender}{Features (Input Variables)}
 	\item \pause \color{Tan}{Output or Response Variable}
 \end{enumerate}
 \end{frame}
@@ -174,7 +170,7 @@ Is the sample number a useful feature for predicting quality of a tomato?
 \begin{frame}{Training Set}
 \vspace{-5pt}
 \begin{table}[]
-	\begin{tabular}{|g|g|g||t|}
+	\begin{tabular}{|l|l|l||l|}
 		\hline 
 		\rowcolor{white}
 		\textbf{Colour} & \textbf{Size} & \textbf{Texture} & \textbf{Condition} \\ \hline 
@@ -191,13 +187,13 @@ Is the sample number a useful feature for predicting quality of a tomato?
 \begin{enumerate}
 	\item \pause Feature matrix ($\mX \in \Real^{n \times d}$) containing data of $n$ samples each of which is $d$ dimensional.
 	\begin{itemize}
-		\item \pause Thus, $\mX = \{\vx_i\tp\}_{i=1}^n$ where $\vx_i \in \Real^d$
-		\item \pause Example $\vx_1 = \begin{bmatrix}
-		Orange \\
-		Small \\
-		Smooth \\
-		\end{bmatrix}
-		$
+		\item \pause Thus, $\mX = \begin{bmatrix} \vx_1\tp \\ \vx_2\tp \\ \vdots \\ \vx_n\tp \end{bmatrix}$ where $\vx_i \in \Real^d$
+		\item \pause Example (after encoding): $\vx_1 = \begin{bmatrix}
+		1 \\ 
+		0 \\
+		1 \\
+		\end{bmatrix}$ (Orange=1, Small=0, Smooth=1)
+		
 	\end{itemize}
 \item \pause Output vector ($\vy \in \Real^n$) containing output variable for $n$ samples.
 \item \pause Thus, we can also write $\cD = \{(\vx_i\tp, y_i)\}_{i=1}^n$
@@ -329,12 +325,12 @@ Answer:\begin{itemize}
 
 
 
-\begin{frame}{Classification v/s Regression}
+\begin{frame}{Classification vs Regression}
 \begin{itemize}
 	\item Classification
 	\begin{itemize}
 		\item \pause Output variable is discrete
-		\item \pause i.e.  $y_i\in \{1, \cdots C\}$ 
+		\item \pause i.e.  $y_i \in \{1, 2, \ldots, k\}$ where $k$ is number of classes 
 		\item \pause Examples - Predicting: 
 		\begin{itemize}
 			\item \pause Will I get a loan? (Yes, No)
@@ -344,7 +340,7 @@ Answer:\begin{itemize}
 	\item \pause Regression
 	\begin{itemize}
 		\item \pause Output variable is continuous
-		\item \pause i.e.  $y_i\in \mathcal{R}$ 
+		\item \pause i.e.  $y_i \in \Real$ 
 		\item \pause Examples - Predicting: 
 		\begin{itemize}
 			\item \pause How much energy will campus consume? 
@@ -553,10 +549,28 @@ $$
 $$
 
 \pause \begin{align*}
-\text{Accuracy} &= \frac{||y = \hat{y}||}{||y||} \\ 
+\text{Accuracy} &= \frac{|\{i : y_i = \hat{y}_i\}|}{n} \\ 
 &= \frac{3}{5} = 0.6
 \end{align*}
 
+\end{frame}
+
+\begin{frame}{Mathematical Notation: Set Cardinality and Indicator Functions}
+\begin{itemize}
+	\item \pause \textbf{Set cardinality notation:} $|\{i : y_i = \hat{y}_i\}|$ 
+	\begin{itemize}
+		\item Reads as: ``Number of indices $i$ such that $y_i = \hat{y}_i$''
+		\item Counts how many samples satisfy the condition
+	\end{itemize}
+	
+	\item \pause \textbf{Alternative: Indicator function notation}
+	\begin{align*}
+	\text{Accuracy} &= \frac{\sum_{i=1}^n \mathbf{1}[y_i = \hat{y}_i]}{n}
+	\end{align*}
+	where $\mathbf{1}[\text{condition}] = \begin{cases} 1 & \text{if condition is true} \\ 0 & \text{if condition is false} \end{cases}$
+	
+	\item \pause Both notations are mathematically equivalent and commonly used in ML literature
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Types of Data: Imbalanced Classes}
@@ -609,7 +623,7 @@ $$
 $$
 
 \begin{align*}
-\pause \text{Precision} &= \frac{||y = \hat{y} = \text{Good}||}{||\hat{y} = \text{Good}||} = \frac{2}{4} = 0.5
+\pause \text{Precision} &= \frac{|\{i : y_i = \hat{y}_i = \text{Good}\}|}{|\{i : \hat{y}_i = \text{Good}\}|} = \frac{2}{4} = 0.5
 \end{align*}
 
 ``the fraction of relevant instances among the retrieved instances'', i.e. ``out of the number of times we predict \text{Good}, how many times is the condition actually \text{Good}''
@@ -634,7 +648,7 @@ $$
 $$
 
 \begin{align*}
-\text{Recall} &= \frac{||y = \hat{y} = \text{Good}||}{||y = \text{Good}||} = \frac{2}{3} = 0.67
+\text{Recall} &= \frac{|\{i : y_i = \hat{y}_i = \text{Good}\}|}{|\{i : y_i = \text{Good}\}|} = \frac{2}{3} = 0.67
 \end{align*}
 
 ``the fraction of the total amount of relevant instances that were actually retrieved''
@@ -723,7 +737,7 @@ $$
 	\end{tabular}\\
 	
 	\vspace{30pt}
-	Precision = $\frac{T.P.}{T.P. + F.P.}$
+	Precision = $\frac{\text{TP}}{\text{TP} + \text{FP}}$
 \end{center}
 \end{frame}
 
@@ -745,7 +759,7 @@ $$
 \end{tabular}\\
 
 \vspace{30pt}
-Precision = $\frac{T.P.}{T.P. + F.P.}$
+Precision = $\frac{\text{TP}}{\text{TP} + \text{FP}}$
 \end{center}
 \end{frame}
 
@@ -767,7 +781,7 @@ Precision = $\frac{T.P.}{T.P. + F.P.}$
 	\end{tabular}\\
 	
 	\vspace{30pt}
-	Recall = $\frac{T.P.}{T.P. + F.N.}$
+	Recall = $\frac{\text{TP}}{\text{TP} + \text{FN}}$
 \end{center}
 \end{frame}
 
@@ -789,7 +803,7 @@ Precision = $\frac{T.P.}{T.P. + F.P.}$
 	\end{tabular}\\
 	
 	\vspace{30pt}
-	Recall = $\frac{T.P.}{T.P. + F.N.}$
+	Recall = $\frac{\text{TP}}{\text{TP} + \text{FN}}$
 \end{center}
 \end{frame}
 
@@ -923,7 +937,7 @@ $$
 $$
 
 \begin{align*}
-\text{\textcolor{red}{Mean} \textcolor{green}{Squared} \textcolor{Tan}{Error} (MSE)} &=  \frac{\mathcolor{red}{\sum_{i=1}^{N}}(\mathcolor{Tan}{\hat{y}_i-y_i)}^{\mathcolor{green}2}}{\mathcolor{red}{N}} \\ 
+\text{\textcolor{red}{Mean} \textcolor{green}{Squared} \textcolor{Tan}{Error} (MSE)} &=  \frac{\mathcolor{red}{\sum_{i=1}^{n}}(\mathcolor{Tan}{\hat{y}_i-y_i)}^{\mathcolor{green}2}}{\mathcolor{red}{n}} \\ 
 \text{Root Mean Square Error (RMSE)} &=  \sqrt{\text{MSE}}
 \end{align*}
 
@@ -947,8 +961,8 @@ $$
 $$
 
 \begin{align*}
-\text{\textcolor{red}{Mean} \textcolor{green}{Absolute} \textcolor{Tan}{Error} (ME)} &=  \frac{\mathcolor{red}{\sum_{i=1}^{N}}\mathcolor{green}|\mathcolor{Tan}{\hat{y}_i-y_i\mathcolor{green}|}}{\mathcolor{red}{N}} \\ 
-\text{Mean Error} &=  \frac{\sum_{i=1}^{N}\hat{y}_i-y_i}{N}
+\text{\textcolor{red}{Mean} \textcolor{green}{Absolute} \textcolor{Tan}{Error} (MAE)} &=  \frac{\mathcolor{red}{\sum_{i=1}^{n}}\mathcolor{green}|\mathcolor{Tan}{\hat{y}_i-y_i\mathcolor{green}|}}{\mathcolor{red}{n}} \\ 
+\text{Mean Error} &=  \frac{\sum_{i=1}^{n}(\hat{y}_i-y_i)}{n}
 \end{align*}
 \pause Is there any downside with using mean error?\\
 \pause Errors can get cancelled out
@@ -966,7 +980,7 @@ $$
     \end{figure}
   \end{frame}
 
-  \begin{frame}
+  \begin{frame}{Dummy Baselines}
 	\begin{notebookbox}{https://nipunbatra.github.io/ml-teaching/notebooks/dummy-baselines.html}
 	  \end{notebookbox}
 \end{frame}
@@ -974,11 +988,11 @@ $$
 \begin{frame}{The Importance of Plotting}
 \begin{tabular}{|c|c|c|}
 \hline 
-Property & Value & Accross datasets \\ 
+Property & Value & Across datasets \\ 
 \hline 
 mean(X) & 9 & exact \\ 
-mean(Y) & 7.5 & upto 3 decimal places \\ 
-Linear regression line & 	y = 3.00 + 0.500x & upto 2 decimal places \\ 
+mean(Y) & 7.5 & up to 3 decimal places \\ 
+Linear regression line & 	y = 3.00 + 0.500x & up to 2 decimal places \\ 
 \hline 
 \end{tabular} 
 
