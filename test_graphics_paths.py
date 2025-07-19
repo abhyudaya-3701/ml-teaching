@@ -50,15 +50,33 @@ class LaTeXGraphicsValidator:
             
         print(f"📄 Found {len(tex_files)} .tex files to validate")
         
+        total_graphics = 0
+        compliant_graphics = 0
+        files_with_graphics = 0
+        
         for tex_file in tex_files:
-            self._validate_tex_file(tex_file)
+            file_graphics, file_compliant = self._validate_tex_file(tex_file)
+            if file_graphics > 0:
+                files_with_graphics += 1
+                total_graphics += file_graphics
+                compliant_graphics += file_compliant
+                print(f"   📝 {tex_file.name}: {file_compliant}/{file_graphics} graphics paths compliant")
+        
+        print(f"\n📊 Graphics validation summary:")
+        print(f"   📄 Files with graphics: {files_with_graphics}/{len(tex_files)}")
+        print(f"   🖼️  Total graphics found: {total_graphics}")
+        print(f"   ✅ Compliant paths: {compliant_graphics}")
+        print(f"   ❌ Non-compliant paths: {total_graphics - compliant_graphics}")
         
         if self.violations:
             print(f"\n❌ Found {len(self.violations)} graphics path violations:")
             self._report_violations()
             return False
         else:
-            print("\n✅ All \\includegraphics paths are compliant!")
+            print("\n🎉 All \\includegraphics paths are 100% compliant!")
+            print("✅ All paths follow ../assets/{topic}/{type}/filename pattern")
+            print("✅ All referenced graphics files exist")
+            print("✅ All topic names are properly matched")
             return True
     
     def _validate_tex_file(self, tex_file: Path):
@@ -68,10 +86,14 @@ class LaTeXGraphicsValidator:
                 content = f.read()
         except Exception as e:
             print(f"⚠️  Could not read {tex_file}: {e}")
-            return
+            return 0, 0
         
         # Determine expected topic name from file location and name
         expected_topic = self._get_expected_topic_name(tex_file)
+        
+        # Track graphics in this file
+        file_graphics_count = 0
+        file_violations_before = len(self.violations)
         
         # Find all \includegraphics commands
         lines = content.split('\n')
@@ -83,7 +105,15 @@ class LaTeXGraphicsValidator:
             matches = self.includegraphics_pattern.findall(line)
             for graphics_path in matches:
                 graphics_path = graphics_path.strip()
+                file_graphics_count += 1
                 self._validate_graphics_path(tex_file, line_num, graphics_path, expected_topic)
+        
+        # Calculate compliant graphics for this file
+        file_violations_after = len(self.violations)
+        file_violations_count = file_violations_after - file_violations_before
+        file_compliant_count = file_graphics_count - file_violations_count
+        
+        return file_graphics_count, file_compliant_count
     
     def _get_expected_topic_name(self, tex_file: Path) -> str:
         """Determine expected topic name from .tex file location"""

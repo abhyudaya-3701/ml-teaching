@@ -29,19 +29,44 @@ class RepositoryStructureValidator:
     def validate(self) -> bool:
         """Run all validation checks"""
         print(f"🔍 Validating repository structure at: {self.root}")
+        print(f"📂 Expected categories: {', '.join(self.categories)}")
         
+        print(f"\n🏗️  Checking main structure...")
+        main_issues = len(self.violations)
         self._check_main_structure()
+        print(f"   ✅ Main structure check: {len(self.violations) - main_issues} issues found")
+        
+        print(f"\n📄 Checking slide organization...")
+        slide_issues = len(self.violations)
         self._check_slide_structure()
-        self._check_asset_organization() 
+        print(f"   ✅ Slide structure check: {len(self.violations) - slide_issues} issues found")
+        
+        print(f"\n🗂️  Checking asset organization...")
+        asset_issues = len(self.violations)
+        self._check_asset_organization()
+        print(f"   ✅ Asset organization check: {len(self.violations) - asset_issues} issues found")
+        
+        print(f"\n🔗 Checking shared/ usage...")
+        shared_issues = len(self.violations)
         self._check_shared_usage()
+        print(f"   ✅ Shared usage check: {len(self.violations) - shared_issues} issues found")
+        
+        print(f"\n📓 Checking notebook structure...")
+        notebook_issues = len(self.violations)
         self._check_notebook_structure()
+        print(f"   ✅ Notebook structure check: {len(self.violations) - notebook_issues} issues found")
         
         if self.violations:
             print(f"\n❌ Found {len(self.violations)} structure violations:")
             self._report_violations()
             return False
         else:
-            print("\n✅ Repository structure is compliant!")
+            print("\n🎉 Repository structure is 100% compliant!")
+            print("✅ All categories have proper structure")
+            print("✅ All slides are properly organized")
+            print("✅ All assets follow the documented pattern")
+            print("✅ Shared/ directory contains only global resources")
+            print("✅ Notebooks are properly organized in flat structure")
             return True
     
     def _check_main_structure(self):
