@@ -28,7 +28,7 @@
 		\begin{figure}
 			
 			% From https://i.imgur.com/AyzVOIO.jpg
-			\includegraphics{../figures/logistic-regression/logistic-orange-tomatoes-original.pdf}
+			\includegraphics{../assets/logistic-regression/figures/logistic-orange-tomatoes-original.pdf}
 		\end{figure}
 	\end{minipage} \\
 
@@ -43,7 +43,7 @@
 		\begin{figure}
 			
 			% From https://i.imgur.com/AyzVOIO.jpg
-			\includegraphics{../figures/logistic-regression/logistic-orange-tomatoes.pdf}
+			\includegraphics{../assets/logistic-regression/figures/logistic-orange-tomatoes.pdf}
 		\end{figure}
 	\end{minipage} \\
 	%\vspace{-1.7cm}
@@ -60,7 +60,7 @@
 	\begin{figure}
 		
 		% From https://i.imgur.com/AyzVOIO.jpg
-		\includegraphics{../figures/logistic-regression/linear-orange-tomatoes.pdf}
+		\includegraphics{../assets/logistic-regression/figures/linear-orange-tomatoes.pdf}
 	\end{figure}
 \end{minipage} \\
 \begin{equation*}
@@ -81,18 +81,18 @@ But $P(y = 1 | \ldots) \in [0, 1]$
 \end{frame}
 
 \begin{frame}{Idea: Use Linear Regression}
-\includegraphics{../figures/logistic-regression/linear-orange-tomatoes-decision.pdf}
+\includegraphics{../assets/logistic-regression/figures/linear-orange-tomatoes-decision.pdf}
 \end{frame}
 
 \begin{frame}{Idea: Use Linear Regression}
-\includegraphics{../figures/logistic-regression/linear-orange-tomatoes-decision-modified.pdf}
+\includegraphics{../assets/logistic-regression/figures/linear-orange-tomatoes-decision-modified.pdf}
 
 
 Linear regression for classification gives a poor prediction!
 \end{frame}
 
 \begin{frame}{Ideal boundary}
-\includegraphics{../figures/logistic-regression/linear-orange-tomatoes-decision-ideal.pdf}
+\includegraphics{../assets/logistic-regression/figures/linear-orange-tomatoes-decision-ideal.pdf}
 
 \begin{itemize}[<+->]
 	\item Have a decision function similar to the above (but not so sharp and discontinuous)
@@ -104,7 +104,7 @@ Linear regression for classification gives a poor prediction!
 \hspace{1cm}
 \begin{minipage}{0.3\textwidth}
 % Show the image at item three and afterwards
-\includegraphics{../figures/logistic-regression/logistic.pdf}
+\includegraphics{../assets/logistic-regression/figures/logistic.pdf}
 \end{minipage} \\
 Question. Can we still use Linear Regression? \\
 Answer. Yes! Transform $\hat{y} \rightarrow [0, 1]$
@@ -119,7 +119,7 @@ $\phi(\hat{y}) \in [0, 1]$
 \begin{equation*}
 \sigma(z) = \frac{1}{1 + e^{-z}}
 \end{equation*}
-\includegraphics{../figures/logistic-regression/logistic-function.pdf}
+\includegraphics{../assets/logistic-regression/figures/logistic-function.pdf}
 \end{frame}
 
 \begin{frame}{Logistic / Sigmoid Function}
@@ -196,10 +196,10 @@ Answer: No (Non-Convex) \\ \hspace{1.2cm} (See Jupyter Notebook)
 \begin{frame}{Cost function convexity}
 \begin{columns}
 	\begin{column}{0.5\textwidth}
-		\includegraphics[scale=0.7]{../figures/logistic-regression/logistic-sse-loss-contour.pdf}
+		\includegraphics[scale=0.7]{../assets/logistic-regression/figures/logistic-sse-loss-contour.pdf}
 	\end{column}
 \begin{column}{0.5\textwidth}
-	\includegraphics[scale=0.7]{../figures/logistic-regression/logistic-sse-loss-3d.pdf}
+	\includegraphics[scale=0.7]{../assets/logistic-regression/figures/logistic-sse-loss-3d.pdf}
 \end{column}
 \end{columns}
 \end{frame}
@@ -225,7 +225,7 @@ P(y | X, \theta) &= \prod_{i=1}^{n} P(y_{i} | x_{i}, \theta) \\ &= \prod_{i=1}^{
 
 
 %\begin{frame}{Likelihood Visualisation}
-%\includegraphics{../figures/logistic-regression/logistic-likelihood.pdf}
+%\includegraphics{../assets/logistic-regression/figures/logistic-likelihood.pdf}
 %\end{frame}
 
 \begin{frame}{Aside on Bernoulli Likelihood}
@@ -275,7 +275,7 @@ J(\theta) &= -\bigg\{\sum_{i=1}^{n} y_{i} \log(\sigma_{\theta}(x_{i})) + (1 - y_
 
 \pause First, assume $y_i$ is 0, then if $\hat{y}_i$ is 0, the loss is 0; but, if $\hat{y}_i$ is 1, the loss tends towards infinity!
 
-	\includegraphics[scale=0.7]{../figures/logistic-regression/logistic-cross-cost-0}
+	\includegraphics[scale=0.7]{../assets/logistic-regression/figures/logistic-cross-cost-0}
 
 
 \end{frame}
@@ -292,7 +292,7 @@ J(\theta) &= -\bigg\{\sum_{i=1}^{n} y_{i} \log(\sigma_{\theta}(x_{i})) + (1 - y_
 
 \pause Now, assume $y_i$ is 1, then if $\hat{y}_i$ is 0, the loss is huge; but, if $\hat{y}_i$ is 1, the loss is zero!
 
-\includegraphics[scale=0.7]{../figures/logistic-regression/logistic-cross-cost-1}
+\includegraphics[scale=0.7]{../assets/logistic-regression/figures/logistic-cross-cost-1}
 
 
 \end{frame}
@@ -300,10 +300,10 @@ J(\theta) &= -\bigg\{\sum_{i=1}^{n} y_{i} \log(\sigma_{\theta}(x_{i})) + (1 - y_
 \begin{frame}{Cost function convexity}
 \begin{columns}
 	\begin{column}{0.5\textwidth}
-		\includegraphics[scale=0.7]{../figures/logistic-regression/logistic-cross-loss-contour.pdf}
+		\includegraphics[scale=0.7]{../assets/logistic-regression/figures/logistic-cross-loss-contour.pdf}
 	\end{column}
 	\begin{column}{0.5\textwidth}
-		\includegraphics[scale=0.7]{../figures/logistic-regression/logistic-cross-loss-surface.pdf}
+		\includegraphics[scale=0.7]{../assets/logistic-regression/figures/logistic-cross-loss-surface.pdf}
 	\end{column}
 \end{columns}
 \end{frame}
@@ -360,14 +360,14 @@ Now, just use Gradient Descent!
 \includepdf[pages=-]{Logistic-vectorisation.pdf}
 
 \begin{frame}{Logistic Regression with feature transformation}
-\includegraphics{../figures/logistic-regression/logisitic-circular-data.pdf}
+\includegraphics{../assets/logistic-regression/figures/logisitic-circular-data.pdf}
 
 What happens if you apply logistic regression on the above data?
 \end{frame}
 
 
 \begin{frame}{Logistic Regression with feature transformation}
-\includegraphics{../figures/logistic-regression/logisitic-linear-prediction.pdf}
+\includegraphics{../assets/logistic-regression/figures/logisitic-linear-prediction.pdf}
 
 Linear boundary will not be accurate here. What is the technical name of the problem?
 \pause Bias! 
@@ -393,7 +393,7 @@ $$
 
 
 \begin{frame}{Logistic Regression with feature transformation}
-\includegraphics{../figures/logistic-regression/logisitic-circular-prediction.pdf}
+\includegraphics{../assets/logistic-regression/figures/logisitic-circular-prediction.pdf}
 
 Using $x_1^2, x_2^2$ as additional features, we are able to learn a more accurate classifier. 
 \end{frame}
@@ -401,20 +401,20 @@ Using $x_1^2, x_2^2$ as additional features, we are able to learn a more accurat
 \begin{frame}{Logistic Regression with feature transformation}
 
 How would you expect the probability contours look like?
-\pause \includegraphics{../figures/logistic-regression/logisitic-circular-probability.pdf}
+\pause \includegraphics{../assets/logistic-regression/figures/logisitic-circular-probability.pdf}
 
 
 \end{frame}
 
 \begin{frame}{Multi-Class Prediction}
-\includegraphics{../figures/logistic-regression/logisitic-iris.pdf}
+\includegraphics{../assets/logistic-regression/figures/logisitic-iris.pdf}
 
 
 \pause How would you learn a classifier? Or, how would you expect the classifier to learn decision boundaries?
 \end{frame}
 
 \begin{frame}{Multi-Class Prediction}
-\includegraphics{../figures/logistic-regression/logisitic-iris-prediction.pdf}
+\includegraphics{../assets/logistic-regression/figures/logisitic-iris-prediction.pdf}
 \pause \begin{enumerate}
 \item Use one-vs.-all on \underline{Binary} Logistic Regression
 \item Use one-vs.-one on \underline{Binary} Logistic Regression
@@ -423,7 +423,7 @@ How would you expect the probability contours look like?
 \end{frame}
 
 \begin{frame}{Multi-Class Prediction}
-\includegraphics[scale=0.8]{../figures/logistic-regression/logisitic-iris-prediction.pdf}
+\includegraphics[scale=0.8]{../assets/logistic-regression/figures/logisitic-iris-prediction.pdf}
 \pause \begin{enumerate}
 	\item Learn P(setosa (class 1)) = $\mathcal{F}({X\theta_1})$
 	\item P(versicolor (class 2)) = $\mathcal{F}({X\theta_2})$
@@ -437,7 +437,7 @@ How would you expect the probability contours look like?
 \end{frame}
 
 \begin{frame}{Multi-Class Prediction}
-\includegraphics[scale=0.8]{../figures/logistic-regression/logisitic-iris-prediction.pdf}
+\includegraphics[scale=0.8]{../assets/logistic-regression/figures/logisitic-iris-prediction.pdf}
 \pause \begin{enumerate}
 	\item Question: What could be an $\mathcal{F}?$
 	\item Property: $\sum_{i=1}^{3}\mathcal{F}{({X\theta_i})} = 1$

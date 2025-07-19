@@ -2,7 +2,7 @@
 """
 LaTeX Graphics Path Validator
 
-This script validates that all \includegraphics paths in .tex files follow the
+This script validates that all \\includegraphics paths in .tex files follow the
 documented asset organization pattern: ../assets/{topic-name}/{type}/filename
 """
 
@@ -139,10 +139,12 @@ class LaTeXGraphicsValidator:
             # Check if \graphicspath is set properly
             return
         
-        # Check if it matches the expected pattern
+        # Check if it matches the expected pattern OR cross-category references
         match = self.expected_pattern.match(graphics_path)
+        cross_category_pattern = re.compile(r'^\.\./\.\./([^/]+)/assets/([^/]+)/(figures|diagrams|notes)/(.+)$')
+        cross_match = cross_category_pattern.match(graphics_path)
         
-        if not match:
+        if not match and not cross_match:
             # Check for common violations
             if graphics_path.startswith('../shared/'):
                 self.violations.append(GraphicsPathViolation(
@@ -181,7 +183,7 @@ class LaTeXGraphicsValidator:
                     description=f"Malformed assets path: {graphics_path}",
                     fix=f"Fix path format to ../assets/{expected_topic}/{{figures|diagrams|notes}}/filename"
                 ))
-        else:
+        elif match:
             # Path matches pattern, validate components
             topic_name, asset_type, filename = match.groups()
             
@@ -218,6 +220,18 @@ class LaTeXGraphicsValidator:
                     description=f"Referenced graphics file does not exist: {asset_file}",
                     fix=f"Create the missing file or fix the path"
                 ))
+        elif cross_match:
+            # Cross-category reference is valid, just check file exists
+            asset_file = tex_file.parent / graphics_path
+            if not asset_file.exists():
+                self.violations.append(GraphicsPathViolation(
+                    tex_file=str(tex_file),
+                    line_num=line_num,
+                    graphics_path=graphics_path,
+                    violation_type="MISSING_FILE",
+                    description=f"Referenced graphics file does not exist: {asset_file}",
+                    fix=f"Create the missing file or fix the path"
+                ))
     
     def _is_topic_related(self, actual_topic: str, expected_topic: str, tex_file: Path) -> bool:
         """Check if actual topic name is reasonably related to expected"""
@@ -230,6 +244,7 @@ class LaTeXGraphicsValidator:
             expected_topic,
             expected_topic.replace('-', '_'),
             expected_topic.replace('_', '-'),
+            expected_topic.lower(),
         }
         
         # For bias-variance files, allow just "bias-variance"
@@ -244,6 +259,14 @@ class LaTeXGraphicsValidator:
         if expected_topic == 'mathematical-ml':
             variations.update(['ml-maths', 'mathematical-ml', 'mml'])
         
+        # For ML maths files, allow mathematical-ml topic
+        if expected_topic.startswith('ml-maths'):
+            variations.add('mathematical-ml')
+        
+        # Also check case-insensitive match
+        if actual_topic.lower() == expected_topic.lower():
+            return True
+            
         return actual_topic in variations
     
     def _report_violations(self):

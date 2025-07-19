@@ -27,7 +27,7 @@ For the purpose of this lecture we assume that there exists a relation between \
 
 Here, the true function $f_{\theta (true)}$ is used to model the relation $y_t = f_{\theta (true)}(x_t)$
 \begin{figure}
-\includegraphics[width=0.6\textwidth]{images/true.pdf}
+\includegraphics[width=0.6\textwidth]{../assets/bias-variance/figures/true.pdf}
 \vspace*{-0.3cm}
 \caption{Modeling the relation}
 \end{figure}
@@ -63,12 +63,12 @@ This error can be captured by the error term $\epsilon$ which causes the final v
 This causes $y_t$ to become mean centered around the true relation.}
 \vspace*{-0.6cm}
 \only<4-4>{\begin{figure}
-\includegraphics[width=0.7\textwidth]{images/data.pdf}
+\includegraphics[width=0.7\textwidth]{../assets/bias-variance/figures/data.pdf}
 \vspace*{-0.3cm}
 \caption{Modeling the relation}
 \end{figure}}
 \only<5->{\begin{figure}
-\includegraphics[width=0.7\textwidth]{images/data_var.pdf}
+\includegraphics[width=0.7\textwidth]{../assets/bias-variance/figures/data_var.pdf}
 \vspace*{-0.3cm}
 \caption{Modeling the relation}
 \end{figure}}
@@ -83,13 +83,13 @@ This causes $y_t$ to become mean centered around the true relation.}
 To understand this let us take an example where we try to learn the relation that models the \textit{Price} and \textit{Size} of a house using a \textit{constant function}. \vspace*{-0.4cm}}
 
 \only<2>{\begin{figure}
-\includegraphics[width=0.7\textwidth]{images/biasn_1.pdf}
+\includegraphics[width=0.7\textwidth]{../assets/bias-variance/figures/biasn_1.pdf}
 \vspace*{-0.3cm}
 \caption{An example dataset}
 \end{figure}}
 
 \only<3>{\begin{figure}
-\includegraphics[width=0.8\textwidth]{images/biasn_2.pdf}
+\includegraphics[width=0.8\textwidth]{../assets/bias-variance/figures/biasn_2.pdf}
 \vspace*{-0.3cm}
 \caption{An example dataset}
 \end{figure}}
@@ -97,7 +97,7 @@ To understand this let us take an example where we try to learn the relation tha
 \only<4>{
 So the bias in this scenario looks something like this:
 \begin{figure}
-\includegraphics[width=0.8\textwidth]{images/biasn_3.pdf}
+\includegraphics[width=0.8\textwidth]{../assets/bias-variance/figures/biasn_3.pdf}
 \vspace*{-0.3cm}
 \caption{An example dataset}
 \end{figure}
@@ -111,21 +111,21 @@ So the bias in this scenario looks something like this:
 
 \only<2>{Assume that we have two datasets of houses sold.}
 \only<2>{\begin{figure}
-\includegraphics[width=\textwidth]{images/bias1.pdf}
+\includegraphics[width=\textwidth]{../assets/bias-variance/figures/bias1.pdf}
 \vspace*{-0.3cm}
 \caption{Two Datasets from same relation}
 \end{figure}}
 
 \only<3>{If we try to fit a constant function to them.}
 \only<3>{\begin{figure}
-\includegraphics[width=\textwidth]{images/bias2.pdf}
+\includegraphics[width=\textwidth]{../assets/bias-variance/figures/bias2.pdf}
 \vspace*{-0.3cm}
 \caption{Two Datasets from same relation}
 \end{figure}}
 
 \only<4>{We see that they show different predictions.}
 \only<4>{\begin{figure}
-\includegraphics[width=\textwidth]{images/bias3.pdf}
+\includegraphics[width=\textwidth]{../assets/bias-variance/figures/bias3.pdf}
 \vspace*{-0.3cm}
 \caption{Two Datasets from same relation}
 \end{figure}}
@@ -135,14 +135,14 @@ So the bias in this scenario looks something like this:
 \only<6>{A way of consolidating all these possible fits is to calculate an average fit that is weighted by how likely they are to appear.}
 
 \only<5-6>{\begin{figure}
-\includegraphics[width=0.8\textwidth]{images/bias4.pdf}
+\includegraphics[width=0.8\textwidth]{../assets/bias-variance/figures/bias4.pdf}
 \vspace*{-0.4cm}
 \caption{Fits on different training sets}
 \end{figure}}
 
 \only<7>{Averaging all the fits (as in this scenario all datasets are equally likely) we get the average fit.}
 \only<7>{\begin{figure}
-\includegraphics[width=0.7\textwidth]{images/bias5.pdf}
+\includegraphics[width=0.7\textwidth]{../assets/bias-variance/figures/bias5.pdf}
 \vspace*{-0.3cm}
 \caption{Average fit on all different training sets}
 \end{figure}}
@@ -153,7 +153,7 @@ So the bias in this scenario looks something like this:
 \only<1->{$$\text{Bias}(x) = f_{\theta(true)}(x) - f_{\bar\theta}(x)$$}
 \only<2->{It is measure of how flexible the fit is in capturing $f_{\theta(true)}(x)$}
 \only<1->{\begin{figure}
-\includegraphics[width=0.7\textwidth]{images/bias6.pdf}
+\includegraphics[width=0.7\textwidth]{../assets/bias-variance/figures/bias6.pdf}
 \vspace*{-0.3cm}
 \caption{Bias of the fit}
 \end{figure}}
@@ -163,12 +163,12 @@ So the bias in this scenario looks something like this:
 \begin{frame}{Bias Contribution: Effect of Complexity}
 \only<1->{As we increase the complexity of the fit \\ $\implies$ fit becomes more flexible \\ $\implies$ bias decreases}
 \only<1>{\begin{figure}
-\includegraphics[width=\textwidth]{images/bias7.pdf}
+\includegraphics[width=\textwidth]{../assets/bias-variance/figures/bias7.pdf}
 \vspace*{-0.3cm}
 \caption{Effect of degree on Bias of the fit}
 \end{figure}}
 \only<2>{\begin{figure}
-\includegraphics[width=\textwidth]{images/bias8.pdf}
+\includegraphics[width=\textwidth]{../assets/bias-variance/figures/bias8.pdf}
 \vspace*{-0.3cm}
 \caption{Effect of degree on Bias of the fit}
 \end{figure}}
@@ -183,7 +183,7 @@ Therefore, finding the bias for a model in the range $(a,b)$ is the calculation 
 \begin{frame}{Variance}
 \only<1->{Variance of the fit is a measure of the variation in the fits when trained across different training sets.}
 \only<1->{\begin{figure}
-\includegraphics[width=0.7\textwidth]{images/var1.pdf}
+\includegraphics[width=0.7\textwidth]{../assets/bias-variance/figures/var1.pdf}
 \vspace*{-0.3cm}
 \caption{Variance of the fit}
 \end{figure}}
@@ -192,19 +192,19 @@ Therefore, finding the bias for a model in the range $(a,b)$ is the calculation 
 \begin{frame}{Variance Contribution}
 \only<1>{For Low Complexity \\ $\implies$ variations between curves are less \\ $\implies$ Variance is less}
 \only<1>{\begin{figure}
-\includegraphics[width=0.7\textwidth]{images/var2.pdf}
+\includegraphics[width=0.7\textwidth]{../assets/bias-variance/figures/var2.pdf}
 \vspace*{-0.3cm}
 \caption{Variance of the low complexity fits}
 \end{figure}}
 \only<2>{\vspace*{0.3cm} For High Complexity we see very high variation}
 \only<2>{\begin{figure}
-\includegraphics[width=0.7\textwidth]{images/var3.pdf}
+\includegraphics[width=0.7\textwidth]{../assets/bias-variance/figures/var3.pdf}
 \vspace*{-0.3cm}
 \caption{Variance in high complexity fits}
 \end{figure}}
 \only<3>{\vspace*{0.3cm} For High Complexity \\ $\implies$ high variation \\ $\implies$ Variance is high}
 \only<3>{\begin{figure}
-\includegraphics[width=0.8\textwidth]{images/var4.pdf}
+\includegraphics[width=0.8\textwidth]{../assets/bias-variance/figures/var4.pdf}
 \vspace*{-0.3cm}
 \caption{Variance of the high complexity fits}
 \end{figure}}
@@ -213,7 +213,7 @@ Therefore, finding the bias for a model in the range $(a,b)$ is the calculation 
 
 \begin{frame}{The Bias-Variance Trade off}
 \only<1>{\begin{figure}
-\includegraphics[width=\textwidth]{images/bv-2.pdf}
+\includegraphics[width=\textwidth]{../assets/bias-variance/figures/bv-2.pdf}
 \vspace*{-0.3cm}
 \caption{Variance in high complexity fits}
 \end{figure}}
@@ -260,7 +260,7 @@ The equation of the relation becomes $y_t = f_{\theta (true)}(x_t)+\epsilon_t$}
 
 \vspace*{-0.6cm}
 \only<2>{\begin{figure}
-\includegraphics[width=0.7\textwidth]{images/data_var.pdf}
+\includegraphics[width=0.7\textwidth]{../assets/bias-variance/figures/data_var.pdf}
 \vspace*{-0.3cm}
 \caption{Variance in the noise}
 \end{figure}}
@@ -273,7 +273,7 @@ The equation of the relation becomes $y_t = f_{\theta (true)}(x_t)+\epsilon_t$}
 where $f_{\bar\theta}$ denotes the average fit over all datasets.
 }
 \only<1>{\begin{figure}
-\includegraphics[width=0.65\textwidth]{images/bias6.pdf}
+\includegraphics[width=0.65\textwidth]{../assets/bias-variance/figures/bias6.pdf}
 \vspace*{-0.3cm}
 \caption{Bias of the fit}
 \end{figure}}
@@ -291,7 +291,7 @@ $$\text{var}(f_{\hat{\theta}}(x_t)) = E_{train}[(f_{\hat{\theta}}(x) - f_{\bar\t
 where $f_{\hat{\theta}}(x) - f_{\bar\theta}(x_t)$ denotes the deviation that a specific fit has from the average.
 }
 \only<1>{\begin{figure}
-\includegraphics[width=0.8\textwidth]{images/var4.pdf}
+\includegraphics[width=0.8\textwidth]{../assets/bias-variance/figures/var4.pdf}
 \vspace*{-0.3cm}
 \caption{Variance of a fit}
 \end{figure}}
