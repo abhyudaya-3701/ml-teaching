@@ -1,5 +1,6 @@
 \documentclass{beamer}
 \usepackage{../../shared/styles/custom}
+\input{../../conventions}
 
 
 
@@ -17,8 +18,6 @@
 %\beamerdefaultoverlayspecification{<+->}
 
 
-	\ifx\relax#1\relax  \item \else \item[#1] \fi
-	\abovedisplayskip=0pt\abovedisplayshortskip=0pt~\vspace*{-\baselineskip}}
 
 
 
@@ -39,7 +38,7 @@
 \begin{itemize}
 	
 	
-	\item<+-> O/P is continuous in nature.
+	\item<+-> Output is continuous in nature.
 	\item<+-> Examples of linear systems:
 	\begin{itemize}
 		\item<+-> $F=ma$
@@ -75,7 +74,7 @@
 \end{tabular}
 
 \end{center}
-The first part of the dataset are the training points. The latter ones are testing points.	
+The first part of the dataset is the training points. The latter ones are testing points.	
 
 \end{frame}
 
@@ -136,21 +135,16 @@ coordinates{ % plot 1 data set
 
 
 \begin{itemize}
-\item $weight_{1}$ $\approx$
-$\theta_{0}$+$\theta_{1}$*$height_{1}$
+\item $weight_{1} \approx \theta_{0} + \theta_{1} \cdot height_{1}$
 
-\item $weight_{2}$ $\approx$
-$\theta_{0}$+$\theta_{1}$*$height_{2}$
+\item $weight_{2} \approx \theta_{0} + \theta_{1} \cdot height_{2}$
 
-
-\item $weight_{N}$ $\approx$
-$\theta_{0}$+$\theta_{1}$*$height_{N}$
+\item $weight_{N} \approx \theta_{0} + \theta_{1} \cdot height_{N}$
 
 \end{itemize}
 \begin{center}
 \pause	\begin{tcolorbox}
-		$weight_{i}$ $\approx$
-		$\theta_{0}$+$\theta_{1}$*$height_{i}$
+		$weight_{i} \approx \theta_{0} + \theta_{1} \cdot height_{i}$
 	\end{tcolorbox}
 \end{center}
 \end{frame}
@@ -178,7 +172,7 @@ $\theta_{0}$+$\theta_{1}$*$height_{N}$
     \theta_{1}
 \end{bmatrix}\] \\
 
-\pause \[W_{N \times 1}=X_{N \times 2}\theta_{2 \times 1} \]
+\pause \[\yhat_{n \times 1} = \mX_{n \times d} \vtheta_{d \times 1} \]
 
 
 %W(N \times 1); X(N\times 2); \theta(2 \times 1);
@@ -466,13 +460,13 @@ coordinates{ % plot 1 data set
 
 
 	\begin{itemize}[<+->]
-		\item $y_{i}$ = $\hat{y_{i}}$ + $\epsilon_{i}$ where $\epsilon_{i} \sim\mathcal{N}(0, \sigma^2)$
+		\item $y_{i} = \hat{y}_{i} + \epsilon_{i}$ where $\epsilon_{i} \sim \mathcal{N}(0, \sigma^2)$
 		\item $y_{i}$ denotes the ground truth for $i^{th}$ sample
-		\item $\hat{y_{i}}$ denotes the prediction for $i^{th}$ sample, where $\hat{y_{i}}$ = $x_{i}'^{T} \theta$
+		\item $\hat{y}_{i}$ denotes the prediction for $i^{th}$ sample, where $\hat{y}_{i} = \vx_{i}'^{T} \boldsymbol{\theta}$
 		\item $\epsilon_{i}$ denotes the error/residual for $i^{th}$ sample
 		\item $\theta_{0}, \theta_{1}$: The parameters of the linear regression
 		\item   $  \epsilon_{i} = y_{i} - \hat{y}_{i}$
-		\item     $\epsilon_{i} = y_{i} - (\theta_{0} + x_{i}\times\theta_{1})$
+		\item     $\epsilon_{i} = y_{i} - (\theta_{0} + x_{i} \cdot \theta_{1})$
 
 \end{itemize}
 
@@ -528,16 +522,11 @@ ${\text{minimize }} |\epsilon_{1}| + |\epsilon_{2}| + \dots + |\epsilon_{n}|$ - 
 \end{frame}
 
 \begin{frame}{Derivation of Normal Equation}
-\begin{align*}
-\label{eqn*:eqlabel}
-\begin{split}
-   \epsilon &= y - X\theta \\ 
-\epsilon^{T} &= (y-X\theta)^{T} = y^{T} - \theta^{T}X^{T}\\
-\epsilon^{T}\epsilon &= (y^{T} - \theta^{T}X^{T})(y - X\theta)\\
-&=y^{T}y - \theta^{T}X^{T}y - y^{T}X\theta+\theta^{T}X^{T}X\theta\\
-&=y^{T}y - 2y^{T}X\theta+\theta^{T}X^{T}X\theta
-\end{split}
-\end{align*}
+$$\vepsilon = \vy - \mX\vtheta$$
+
+$$\vepsilon\tp\vepsilon = (\vy - \mX\vtheta)\tp(\vy - \mX\vtheta)$$
+
+$$= \vy\tp\vy - 2\vy\tp\mX\vtheta + \vtheta\tp\mX\tp\mX\vtheta$$
 
 This is what we wish to minimize
 \end{frame}
@@ -545,20 +534,14 @@ This is what we wish to minimize
 \begin{frame}{Minimizing the objective function}
     
     
-    \begin{equation}
-        \frac{\partial \epsilon^{T} \epsilon}{\partial \theta} = 0    
-    \end{equation}
+    $$\frac{\partial \vepsilon\tp \vepsilon}{\partial \vtheta} = 0$$
     
     
     
     \begin{itemize}
-        \item $
-    \cfrac{\partial }{\partial \theta} y^{T}y= 0
-    $
-    \item $
-    \cfrac{\partial }{\partial \theta}(-2y^{T}X\theta ) = (-2y^{T}X)^{T} = -2X^{T}y
-    $
-    \item $ \cfrac{\partial}{\partial\theta} (\theta^{T}X^{T}X\theta) = 2X^{T}X\theta$
+        \item $\frac{\partial }{\partial \vtheta} \vy\tp\vy = 0$
+        \item $\frac{\partial }{\partial \vtheta}(-2\vy\tp\mX\vtheta ) = -2\mX\tp\vy$
+        \item $\frac{\partial}{\partial\vtheta} (\vtheta\tp\mX\tp\mX\vtheta) = 2\mX\tp\mX\vtheta$
     \end{itemize}
     
     Substitute the values in the top equation
@@ -567,18 +550,16 @@ This is what we wish to minimize
 
 \begin{frame}{Normal Equation derivation}
 $$
-    0 = -2X^{T}y + 2X^{T}X\theta
+    0 = -2\mX\tp\vy + 2\mX\tp\mX\vtheta
 $$
 
 $$
-    X^{T}y  = X^{T}X\theta
+    \mX\tp\vy  = \mX\tp\mX\vtheta
 $$
 
 \begin{tcolorbox}
 \begin{center}
-    
-
-        $\hat{\theta}_{OLS} = (X^{T}X)^{-1}X^{T}y$
+        $\hat{\vtheta}_{OLS} = (\mX\tp\mX)\inv\mX\tp\vy$
 \end{center}
 \end{tcolorbox}
 
@@ -637,35 +618,33 @@ Given the data above, find $\theta_{0}$ and $\theta_{1}$.
 
 
 \begin{frame}{Worked out example}
-\begin{align}
-    \begin{split}
-        X &= \begin{bmatrix}
+$$\mX = \begin{bmatrix}
             1 & 0\\
             1 & 1\\
             1 & 2\\
             1 & 3
-        \end{bmatrix}\\
-        X^{T} &= \begin{bmatrix}
+        \end{bmatrix}$$
+        
+$$\mX\tp = \begin{bmatrix}
             1&1&1&1\\
             0&1&2&3
-        \end{bmatrix}\\
-        X^{T}X &= \begin{bmatrix}
+        \end{bmatrix}$$
+        
+$$\mX\tp\mX = \begin{bmatrix}
             4 &6\\6&14
-        \end{bmatrix}
-    \end{split}
-\end{align}
+        \end{bmatrix}$$
+
 Given the data above, find $\theta_{0}$ and $\theta_{1}$.
 \end{frame}
 
 
 \begin{frame}{Worked out example}
-    \begin{align}
-        \begin{split}
-            (X^{T}X)^{-1} &= \frac{1}{20} \begin{bmatrix}
+    $$(\mX\tp\mX)\inv = \frac{1}{20} \begin{bmatrix}
                 14 & -6\\
                 -6& 4
-            \end{bmatrix}\\
-            X^{T}y &= \begin{bmatrix}
+            \end{bmatrix}$$
+            
+    $$\mX\tp\vy = \begin{bmatrix}
             1&1&1&1\\
             0&1&2&3
             \end{bmatrix}\begin{bmatrix}
@@ -673,20 +652,17 @@ Given the data above, find $\theta_{0}$ and $\theta_{1}$.
             \end{bmatrix}=\begin{bmatrix}
                 6\\
                 14
-            \end{bmatrix}
-        \end{split}
-    \end{align}
+            \end{bmatrix}$$
 \end{frame}
 
 
 \begin{frame}{Worked out example}
-    \begin{align}
-        \begin{split}
-            \theta &= (X^{T}X)^{-1}(X^{T}y)\\
-           \begin{bmatrix}
+    $$\theta = (X^{T}X)^{-1}(X^{T}y)$$
+    
+    $$\begin{bmatrix}
         \theta_{0}\\
         \theta_{1}
-    \end{bmatrix} &= \frac{1}{20} \begin{bmatrix}
+    \end{bmatrix} = \frac{1}{20} \begin{bmatrix}
     14 & -6\\
     -6& 4
     \end{bmatrix}\begin{bmatrix}
@@ -696,9 +672,7 @@ Given the data above, find $\theta_{0}$ and $\theta_{1}$.
     \begin{bmatrix}
         0\\
         1
-    \end{bmatrix} 
-        \end{split}
-    \end{align}
+    \end{bmatrix}$$
 \end{frame}
 
 \begin{frame}{Scatter Plot}
@@ -794,57 +768,50 @@ coordinates{ % plot 1 data set
 \end{frame}
 
 \begin{frame}{Worked out example}
-\begin{align}
-\begin{split}
-X &= \begin{bmatrix}
+$$X = \begin{bmatrix}
 1 & 1\\
 1 & 2\\
 1 & 3 \\
 1 & 4
-\end{bmatrix}\\
-X^{T} &= \begin{bmatrix}
+\end{bmatrix}$$
+
+$$X^{T} = \begin{bmatrix}
 1&1&1&1\\
 1&2&3&4
-\end{bmatrix}\\
-X^{T}X &= \begin{bmatrix}
+\end{bmatrix}$$
+
+$$X^{T}X = \begin{bmatrix}
 4 &10\\10&30
-\end{bmatrix}
-\end{split}
-\end{align}
+\end{bmatrix}$$
+
 Given the data above, find $\theta_{0}$ and $\theta_{1}$.
 \end{frame}
 
 
 \begin{frame}{Worked out example}
-\begin{align}
-\begin{split}
-(X^{T}X)^{-1} &= \frac{1}{20} \begin{bmatrix}
+$$(\mX\tp\mX)\inv = \frac{1}{20} \begin{bmatrix}
 30 & -10\\
 -10& 4
-\end{bmatrix}\\
-X^{T}y &= \begin{bmatrix}
+\end{bmatrix}$$
+
+$$\mX\tp\vy = \begin{bmatrix}
 6\\
 14
-\end{bmatrix}
-\end{split}
-\end{align}
+\end{bmatrix}$$
 \end{frame}
 
 
 \begin{frame}{Worked out example}
-\begin{align}
-\begin{split}
-\theta &= (X^{T}X)^{-1}(X^{T}y)\\
-\begin{bmatrix}
+$$\vtheta = (\mX\tp\mX)\inv(\mX\tp\vy)$$
+
+$$\begin{bmatrix}
 \theta_{0}\\
 \theta_{1}
-\end{bmatrix} &= 
+\end{bmatrix} = 
 \begin{bmatrix}
 2\\
 (-1/5)
-\end{bmatrix} 
-\end{split}
-\end{align}
+\end{bmatrix}$$
 \end{frame}
 
 \begin{frame}{Scatter Plot}
@@ -952,7 +919,7 @@ Add the higher degree features to the previous table
     \begin{itemize}
         \item Linear regression only refers to linear in the parameters
         \item We can perform an arbitrary nonlinear transformation $\phi(x)$ of the inputs $x$ and then linearly combine the components of this transformation.
-        \item $\phi: \mathbb{R}^D \rightarrow \mathbb{R}^K$ is called the basis function
+        \item $\phi: \Real^D \rightarrow \Real^K$ is called the basis function
     \end{itemize} 
     
 \end{frame}
@@ -971,14 +938,14 @@ Add the higher degree features to the previous table
 
 \section{Geometric Interpretation}
 \begin{frame}{Linear Combination of Vectors}
-    Let $v_{1},v_{2},v_{3},\dots,v_{i}$ be vectors in  ${\rm I\!R}^{D}$, where $D$ denotes the dimensions. \pause \\A linear combination of $v_{1},v_{2},v_{3},\dots,v_{i}$ is of the following form
+    Let $\vv_{1},\vv_{2},\vv_{3},\dots,\vv_{i}$ be vectors in  $\Real^{D}$, where $D$ denotes the dimensions. \pause \\A linear combination of $\vv_{1},\vv_{2},\vv_{3},\dots,\vv_{i}$ is of the following form
     
     \pause \begin{equation*}
-        \alpha_{1}v_{1}+			\alpha_{2}v_{2}+			\alpha_{3}v_{3}+
-        \dots+\alpha_{i}v_{i}
+        \alpha_{1}\vv_{1}+			\alpha_{2}\vv_{2}+			\alpha_{3}\vv_{3}+
+        \dots+\alpha_{i}\vv_{i}
     \end{equation*}
     
-    where $\alpha_{1},\alpha_{2},\alpha_{3},\dots,\alpha_{i} \in {\rm I\!R}$
+    where $\alpha_{1},\alpha_{2},\alpha_{3},\dots,\alpha_{i} \in \Real$
     
 \end{frame}
 
@@ -1059,28 +1026,28 @@ Find the span of ($\begin{bmatrix}
 \end{frame}
 
 \begin{frame}{Geometric Interpretation}
-Consider $X$ and $y$ as follows. 
+Consider $\mX$ and $\vy$ as follows. 
 $$
-\mathbf{X}=\left(\begin{array}{cc}
+\mX=\left(\begin{array}{cc}
 {1} & {2} \\
 {1} & {-2} \\
 {1} & {2}
-\end{array}\right), \quad \mathbf{y}=\left(\begin{array}{c}
+\end{array}\right), \quad \vy=\left(\begin{array}{c}
 {8.8957} \\
 {0.6130} \\
 {1.7761}
 \end{array}\right)
 $$
 \begin{itemize}[<+->]
-\item We are trying to learn $\theta$ for $\hat{y}=X\theta$ such that $\vert \vert y - \hat{y} \vert \vert_{2}$ is minimised
-\item Consider the two columns of X. Can we write $X\theta$ as the span of ($\begin{bmatrix}
+\item We are trying to learn $\vtheta$ for $\yhat=\mX\vtheta$ such that $\vert \vert \vy - \yhat \vert \vert_{2}$ is minimised
+\item Consider the two columns of $\mX$. Can we write $\mX\vtheta$ as the span of ($\begin{bmatrix}
 1 \\1\\1
 \end{bmatrix}, \begin{bmatrix}
 2 \\-2\\2
 \end{bmatrix}$)?
-\item We wish to find $\hat{y}$ such that 
+\item We wish to find $\yhat$ such that 
 $$
-\underset{\hat{y} \in SPAN\{\bar{x_{1}},\bar{x_{2}},\dots,\bar{x_{D}}\} } \argmin \vert \vert y - \hat{y} \vert \vert_{2}
+\underset{\yhat \in SPAN\{\bar{x_{1}},\bar{x_{2}},\dots,\bar{x_{D}}\} } \argmin \vert \vert \vy - \yhat \vert \vert_{2}
 $$
 \end{itemize}
 
@@ -1151,7 +1118,7 @@ Span of ($\begin{bmatrix}
     
     \begin{frame}{Multi-collinearity}
     
-    It arises when one or more predictor varibale/feature in X can be expressed as a linear combinations of others\\
+    It arises when one or more predictor variables/features in X can be expressed as a linear combination of others\\
     \vspace{5mm}
     
     
@@ -1247,7 +1214,7 @@ Span of ($\begin{bmatrix}
     \vspace{1em}
     \pause W and S are related by one bit. 
     
-    \pause This introduces dependencies between them, and this can confusion in classifiers.
+    \pause This introduces dependencies between them, and this can cause confusion in classifiers.
     \end{frame}
     
     \begin{frame}{Interpreting Dummy variables}
@@ -1297,7 +1264,7 @@ Span of ($\begin{bmatrix}
     \end{center}
     \pause $height_{i}$ = $\theta_{0}$ + $\theta_{1}$ *  (Is Female) + $\epsilon_{i}$\\
     \vspace{1em}
-    \pause We get $\theta_0$ = 5.8 and $\theta_0$ = 6\\
+    \pause We get $\theta_0$ = 5.9 and $\theta_1$ = -0.7\\
     \pause $\theta_{0}$ = Avg height of Male = 5.9\\
     \pause $\theta_{0} + \theta_{1}$ is chosen based (equal to) on 5, 5.2, 5.4 (for three records). \\
     \pause $\theta_{1}$ is chosen based on 5-5.9, 5.2-5.9, 5.4-5.9
