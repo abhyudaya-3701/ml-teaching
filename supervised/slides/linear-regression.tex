@@ -462,7 +462,7 @@ coordinates{ % plot 1 data set
 	\begin{itemize}[<+->]
 		\item $y_{i} = \hat{y}_{i} + \epsilon_{i}$ where $\epsilon_{i} \sim \mathcal{N}(0, \sigma^2)$
 		\item $y_{i}$ denotes the ground truth for $i^{th}$ sample
-		\item $\hat{y}_{i}$ denotes the prediction for $i^{th}$ sample, where $\hat{y}_{i} = \vx_{i}'^{T} \boldsymbol{\theta}$
+		\item $\hat{y}_{i}$ denotes the prediction for $i^{th}$ sample, where $\hat{y}_{i} = \vx_{i}\tp \vtheta$
 		\item $\epsilon_{i}$ denotes the error/residual for $i^{th}$ sample
 		\item $\theta_{0}, \theta_{1}$: The parameters of the linear regression
 		\item   $  \epsilon_{i} = y_{i} - \hat{y}_{i}$
@@ -1075,7 +1075,7 @@ Span of ($\begin{bmatrix}
 
 
 \begin{itemize}[<+->]
-\item We seek a $\hat{y}$ in the span of the columns of $X$ such that it is closest to $y$
+\item We seek a $\yhat$ in the span of the columns of $\mX$ such that it is closest to $\vy$
 \end{itemize}
 
 \end{frame}
@@ -1089,9 +1089,9 @@ Span of ($\begin{bmatrix}
 
 
 \begin{itemize}[<+->]
-\item This happens when $y-\hat{y}\perp x_j \forall j$ or $x_j^T(y-\hat{y})=0$
-\item $X^T(y-X\theta)=0$
-\item $X^Ty = X^TX\theta$ or $\hat{\theta} =(X^TX)^{-1}X^Ty$ 
+\item This happens when $\vy-\yhat\perp \vx_j \forall j$ or $\vx_j\tp(\vy-\yhat)=0$
+\item $\mX\tp(\vy-\mX\vtheta)=0$
+\item $\mX\tp\vy = \mX\tp\mX\vtheta$ or $\hat{\vtheta} =(\mX\tp\mX)\inv\mX\tp\vy$ 
 \end{itemize}
 
 \end{frame}

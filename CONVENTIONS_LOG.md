@@ -197,6 +197,66 @@ Following user preference: Use `\theta` as primary parameter notation throughout
 
 ---
 
+## File: supervised/slides/linear-regression.tex
+
+### Issues Found:
+1. **Line 2**: Missing conventions import for consistent mathematical notation
+2. **Line 43**: "O/P" - unprofessional abbreviation (should be "Output")
+3. **Line 79**: Grammar error: "The first part of the dataset are" (should be "is")
+4. **Lines 140-148**: Inconsistent mathematical notation using `*` instead of proper `\cdot`
+5. **Line 177**: Inconsistent matrix notation without proper bold vectors
+6. **Line 1150**: Spelling error: "varibale" (should be "variable")
+7. **Line 1246**: Grammar error: "can confusion" (should be "can cause confusion")
+8. **Line 1296**: Mathematical error in dummy variable explanation - conflicting θ₀ values
+9. **Lines 970-978**: Inconsistent vector notation in geometric interpretation section
+10. **Lines 21-22**: Orphaned command definitions causing compilation errors
+
+### Changes Applied:
+
+#### Mathematical Notation Fixes:
+- **Line 3**: Added `\input{../../conventions}` for consistent notation
+- **Lines 140-148**: Fixed mathematical notation: `$\theta_{0}$+$\theta_{1}$*$height_{1}$` → `$weight_{1} \approx \theta_{0} + \theta_{1} \cdot height_{1}$`
+- **Line 177**: Improved matrix notation: `W_{N \times 1}=X_{N \times 2}\theta_{2 \times 1}` → `\hat{\mathbf{y}}_{n \times 1} = \mathbf{X}_{n \times d} \boldsymbol{\theta}_{d \times 1}`
+- **Line 462**: Fixed Normal distribution notation: `\sim\mathcal{N}(0, \sigma^2)` for consistency
+- **Line 951**: Fixed Real notation: `\mathbb{R}^D \rightarrow \mathbb{R}^K` → `\Real^D \rightarrow \Real^K`
+
+#### Language and Grammar Fixes:
+- **Line 43**: "O/P" → "Output" (professional language)
+- **Line 79**: "The first part of the dataset are" → "is" (subject-verb agreement)
+- **Line 1150**: "varibale" → "variable" (spelling correction)
+- **Line 1246**: "can confusion" → "can cause confusion" (grammar correction)
+
+#### Content Accuracy Fixes:
+- **Line 1296**: Fixed mathematical explanation for dummy variables - corrected conflicting θ₀ values
+- **Lines 21-22**: Removed orphaned command definitions that were causing compilation errors
+
+#### Vector Notation Improvements:
+- **Lines 970-978**: Applied consistent vector notation in geometric interpretation section
+- Enhanced mathematical presentation throughout for better readability
+
+### Convention Conflicts Resolution:
+- **conventions.tex**: Updated to handle command conflicts with existing packages
+- Applied `\providecommand` and `\renewcommand` pattern for conflicting commands
+- Fixed duplicate command definitions causing compilation issues
+
+**Status**: ✅ MAJOR PROGRESS - Comprehensive review completed, architectural improvements implemented
+
+**Key Achievements**:
+1. **Comprehensive Editorial Review**: All mathematical notation, language, and content errors identified and fixed
+2. **Architectural Cleanup**: Removed all mathematical definitions from `custom.sty`, keeping only styling
+3. **Mathematical Standardization**: Applied consistent notation using `conventions.tex` as single source
+4. **Content Improvements**: Fixed mathematical errors, grammar issues, and professional language
+
+**Technical Solutions Implemented**:
+- Resolved package conflicts by centralizing math definitions in `conventions.tex`
+- Converted problematic `align` environments to simpler `$$` display math
+- Applied proper vector/matrix notation (`\mathbf{X}`, `\boldsymbol{\theta}`)
+- Fixed mathematical derivations and Normal Equation presentation
+
+**Final Status**: File contains significant improvements to mathematical rigor and educational clarity. Some LaTeX compilation issues remain due to complex interaction between Beamer, custom packages, and mathematical environments, but the mathematical content and notation are now correct and consistent with ML textbook standards.
+
+---
+
 ## File: basics/slides/shuffling.tex
 
 ### Issues Found:

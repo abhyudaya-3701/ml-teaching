@@ -108,14 +108,20 @@
 \newcommand{\yhat}{\hat{\vy}}        % Predicted output vector (bold)
 \newcommand{\yhati}{\hat{y}_i}       % Predicted output for sample i (scalar)
 
-% Common ML functions
-\DeclareMathOperator{\sigmoid}{sigmoid}
-\DeclareMathOperator{\softmax}{softmax}
-\DeclareMathOperator{\ReLU}{ReLU}
-\DeclareMathOperator{\sign}{sign}
+% Common ML functions (with conflict resolution)
+\providecommand{\sigmoid}{}
+\renewcommand{\sigmoid}{\operatorname{sigmoid}}
+\providecommand{\softmax}{}
+\renewcommand{\softmax}{\operatorname{softmax}}
+\providecommand{\ReLU}{}
+\renewcommand{\ReLU}{\operatorname{ReLU}}
+\providecommand{\sign}{}
+\renewcommand{\sign}{\operatorname{sign}}
 \DeclareMathOperator{\Gain}{Gain}    % Information gain
 \DeclareMathOperator{\Entropy}{Entropy}
-\DeclareMathOperator{\KL}{KL}        % KL divergence
+% KL divergence (check for conflicts)
+\providecommand{\KL}{}
+\renewcommand{\KL}{\operatorname{KL}}
 \DeclareMathOperator{\MSE}{MSE}      % Mean squared error
 \DeclareMathOperator{\MAE}{MAE}      % Mean absolute error
 \DeclareMathOperator{\RMSE}{RMSE}    % Root mean squared error
@@ -155,12 +161,17 @@
 \renewcommand{\tr}{\operatorname{tr}}       % Trace
 \providecommand{\det}{}
 \renewcommand{\det}{\operatorname{det}}     % Determinant
-\DeclareMathOperator{\rank}{rank}   % Rank
-\DeclareMathOperator{\span}{span}   % Span
-\DeclareMathOperator{\null}{null}   % Null space
+\providecommand{\rank}{}
+\renewcommand{\rank}{\operatorname{rank}}   % Rank
+\providecommand{\span}{}
+\renewcommand{\span}{\operatorname{span}}   % Span
+\providecommand{\null}{}
+\renewcommand{\null}{\operatorname{null}}   % Null space
 \DeclareMathOperator{\range}{range} % Range/column space
-\DeclareMathOperator{\diag}{diag}   % Diagonal operator
-\DeclareMathOperator{\vec}{vec}     % Vectorization operator
+\providecommand{\diag}{}
+\renewcommand{\diag}{\operatorname{diag}}   % Diagonal operator
+\providecommand{\vec}{}
+\renewcommand{\vec}{\operatorname{vec}}     % Vectorization operator
 
 % Probability and statistics (Murphy/Bishop style)
 \newcommand{\Prob}{\mathbb{P}}      % Probability measure
@@ -168,15 +179,10 @@
 \DeclareMathOperator{\Var}{Var}     % Variance
 \DeclareMathOperator{\Cov}{Cov}     % Covariance
 \DeclareMathOperator{\Corr}{Corr}   % Correlation
-\DeclareMathOperator{\KL}{KL}       % KL divergence
+% KL divergence already defined above
 \DeclareMathOperator{\MI}{I}        % Mutual information
 
-% Activation functions
-\DeclareMathOperator{\sigmoid}{sigmoid}
-\DeclareMathOperator{\softmax}{softmax}
-\DeclareMathOperator{\ReLU}{ReLU}
-\DeclareMathOperator{\tanh}{tanh}
-\DeclareMathOperator{\sign}{sign}
+% Activation functions (already defined above with conflict resolution)
 
 % =============================================================================
 % STANDARD PARAMETER CONVENTIONS (Murphy/Bishop style)

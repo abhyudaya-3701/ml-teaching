@@ -129,73 +129,10 @@
 \nodeDist=33mm
 
 % ==============================================================================
-% MATHEMATICAL NOTATION
+% MATHEMATICAL NOTATION REMOVED
 % ==============================================================================
-
-% Core mathematical operators
-\DeclareMathOperator*{\argmin}{arg\,min}
-\DeclareMathOperator*{\argmax}{arg\,max}
-\DeclareMathOperator{\sign}{sign}
-\DeclareMathOperator{\diag}{diag}
-\DeclareMathOperator{\rank}{rank}
-\DeclareMathOperator{\tr}{tr}
-\DeclareMathOperator{\Tr}{Tr}
-
-% Common ML notation
-\newcommand{\data}{\mathcal{D}}
-\newcommand{\set}[1]{\mathcal{#1}}
-\newcommand{\numberset}[1]{\mathbb{#1}}
-\newcommand{\reals}{\mathbb{R}}
-\newcommand{\integers}{\mathbb{Z}}
-\newcommand{\naturals}{\mathbb{N}}
-\newcommand{\complex}{\mathbb{C}}
-
-% Vector and matrix notation
-\newcommand{\vecMat}[1]{\bm{#1}}
-\newcommand{\transpose}{^T}
-\newcommand{\inverse}{^{-1}}
-\newcommand{\pseudoinverse}{^{\dagger}}
-\newcommand{\innerprod}[2]{\langle\vecMat{#1}, \ \vecMat{#2}\rangle}
-\newcommand{\dotprod}[2]{\vecMat{#1}\transpose\vecMat{#2}}
-\newcommand{\trace}[1]{\texttt{\textbf{tr}}\left(\vecMat{#1}\right)}
-\newcommand{\deter}[1]{\texttt{det}\left(\vecMat{#1}\right)}
-
-% Probability and statistics
-\newcommand{\prob}[1]{\mathbb{P}\left(#1\right)}
-\newcommand{\expect}[1]{\mathbb{E}\left[#1\right]}
-\newcommand{\variance}[1]{\text{Var}\left[#1\right]}
-\newcommand{\cov}[1]{\text{Cov}\left[#1\right]}
-\newcommand{\distrib}[3]{\mathcal{#1}\left(\vecMat{#2}, \ \vecMat{#3}\right)}
-\newcommand{\normal}[2]{\mathcal{N}\left(#1, #2\right)}
-\newcommand{\uniform}[2]{\mathcal{U}\left(#1, #2\right)}
-\newcommand{\bernoulli}[1]{\text{Bernoulli}\left(#1\right)}
-
-% Machine learning specific
-\newcommand{\param}{\vecMat{\theta}}
-\newcommand{\weight}{\vecMat{w}}
-\newcommand{\bias}{b}
-\newcommand{\loss}{\mathcal{L}}
-\newcommand{\risk}{\mathcal{R}}
-\newcommand{\hypothesis}{\mathcal{H}}
-\newcommand{\feature}{\vecMat{x}}
-\newcommand{\target}{y}
-\newcommand{\prediction}{\hat{y}}
-\newcommand{\model}{f}
-
-% Calculus and optimization
-\newcommand{\grad}{\nabla}
-\newcommand{\hessian}{\nabla^2}
-\newcommand{\lagra}{\mathfrak{L}}
-\newcommand{\lagrangian}{\mathcal{L}}
-\newcommand{\defined}{:=}
-\newcommand{\defeq}{\stackrel{\text{def}}{=}}
-% \approx is already defined in LaTeX, no need to redefine
-
-% Common functions
-\newcommand{\sigmoid}{\sigma}
-\newcommand{\softmax}{\text{softmax}}
-\newcommand{\relu}{\text{ReLU}}
-% \tanh is already defined in LaTeX
+% All mathematical notation has been moved to conventions.tex for consistency
+% This package now contains only styling and non-mathematical commands
 
 % ==============================================================================
 % FORMATTING COMMANDS
