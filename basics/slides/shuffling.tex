@@ -1,5 +1,6 @@
 \documentclass{beamer}
 \usepackage{../../shared/styles/custom}
+\input{../../conventions}
 
 
 %\beamerdefaultoverlayspecification{<+->}
@@ -20,8 +21,8 @@
 	\maketitle
 
 	\begin{frame}{Consider this dataset}
-		First 80 examples are of class ``Yes"\\
-		Remaining 20 examples are of class ``No".
+		First 80 examples are of class ``Yes''\\
+		Remaining 20 examples are of class ``No''.
 		\begin{table}[]
 		\centering
 		\begin{tabular}{|c|c|c|}
@@ -31,7 +32,7 @@
 		2 &  & Yes \\ \hline
 		3 &  & Yes \\ \hline
 		\begin{tabular}[c]{@{}c@{}}.\\ .\end{tabular} &  & \begin{tabular}[c]{@{}c@{}}.\\  .\end{tabular} \\ \hline
-		80 &  & No \\ \hline
+		80 &  & Yes \\ \hline
 		81 &  & No \\ \hline
 		\begin{tabular}[c]{@{}c@{}}.\\ .\end{tabular} &  & \begin{tabular}[c]{@{}c@{}}.\\ .\end{tabular} \\ \hline
 		100 &  & No \\ \hline
@@ -41,7 +42,7 @@
 	
 	\begin{frame}{Consider this dataset}
 	\only<1->{
-		While using a 80-20 train-test split , we will get the distribution shown below
+		While using an 80-20 train-test split, we will get the distribution shown below
 		\vspace{0.5cm}
 		\begin{center}
 		\includegraphics[]{img1}
@@ -55,7 +56,7 @@
 		\vspace{1cm}
 	}
 	
-	\only<4->{$Solution$ : Shuffle before learning}	
+	\only<4->{\textbf{Solution}: Shuffle before learning}	
 
 	\end{frame}	
 
