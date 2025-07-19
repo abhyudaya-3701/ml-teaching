@@ -192,7 +192,7 @@ Core idea: At each level, choose an attribute that gives
 \begin{figure}[htp]
     \centering
     \begin{notebookbox}{https://nipunbatra.github.io/ml-teaching/notebooks/entropy.html}
-      \includegraphics[scale=0.8]{../assets/decision-trees/figures/entropy.pdf}
+      \includegraphics[scale=0.6]{../assets/decision-trees/figures/entropy.pdf}
     \end{notebookbox}
   \end{figure}
 
@@ -403,10 +403,12 @@ $$
 \operatorname{Gain}(S, \text{Outlook}) = \text{Entropy}(S)-\sum_{v \in \{\text{Rain, Sunny, Overcast}\}} \frac{|S_{v}|}{|S|} \text{Entropy}(S_{v}) 
 $$
 
-Gain(S, Outlook) $=$ Entropy(S) $-$ $(5/14) \times$ Entropy($S_{\text{Sunny}}$) $-$ $(4/14) \times$ Entropy($S_{\text{Overcast}}$) $-$ $(5/14) \times$ Entropy($S_{\text{Rain}}$)
-
-$= 0.940 - (5/14) \times 0.971 - (4/14) \times 0 - (5/14) \times 0.971$
-$= 0.940 - 0.347 - 0 - 0.347 = 0.246$
+\begin{align}
+\Gain(S, \text{Outlook}) &= \Entropy(S) - \frac{5}{14} \Entropy(S_{\text{Sunny}}) \\
+&\quad - \frac{4}{14} \Entropy(S_{\text{Overcast}}) - \frac{5}{14} \Entropy(S_{\text{Rain}}) \\
+&= 0.940 - \frac{5}{14} \times 0.971 - \frac{4}{14} \times 0 - \frac{5}{14} \times 0.971 \\
+&= 0.940 - 0.347 - 0 - 0.347 = 0.246
+\end{align}
 
 \end{frame}
 

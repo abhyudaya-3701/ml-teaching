@@ -31,7 +31,7 @@
 		\begin{figure}[htp]
 			\centering
 			\begin{notebookbox}{https://nipunbatra.github.io/ml-teaching/notebooks/rule-based-vs-ml.html}
-			  \includegraphics[scale=0.45]{../assets/accuracy-convention/figures/mnist.pdf}
+			  \includegraphics[scale=0.35]{../assets/accuracy-convention/figures/mnist.pdf}
 			\end{notebookbox}
 		  \end{figure}
 		
@@ -185,19 +185,22 @@ Is the sample number a useful feature for predicting quality of a tomato?
 
 \pause We call this matrix as $\cD$, containing:
 \begin{enumerate}
-	\item \pause Feature matrix ($\mX \in \Real^{n \times d}$) containing data of $n$ samples each of which is $d$ dimensional.
-	\begin{itemize}
-		\item \pause Thus, $\mX = \begin{bmatrix} \vx_1\tp \\ \vx_2\tp \\ \vdots \\ \vx_n\tp \end{bmatrix}$ where $\vx_i \in \Real^d$
-		\item \pause Example (after encoding): $\vx_1 = \begin{bmatrix}
-		1 \\ 
-		0 \\
-		1 \\
-		\end{bmatrix}$ (Orange=1, Small=0, Smooth=1)
-		
-	\end{itemize}
-\item \pause Output vector ($\vy \in \Real^n$) containing output variable for $n$ samples.
-\item \pause Thus, we can also write $\cD = \{(\vx_i\tp, y_i)\}_{i=1}^n$
+	\item Feature matrix ($\mX \in \Real^{n \times d}$) containing data of $n$ samples each of which is $d$ dimensional.
+	\item Output vector ($\vy \in \Real^n$) containing output variable for $n$ samples.
 \end{enumerate}
+
+\end{frame}
+
+\begin{frame}{Data Matrix Details}
+\begin{itemize}
+	\item Feature matrix: $\mX = \begin{bmatrix} \vx_1\tp \\ \vx_2\tp \\ \vdots \\ \vx_n\tp \end{bmatrix}$ where $\vx_i \in \Real^d$
+	\item \pause Example (after encoding): $\vx_1 = \begin{bmatrix}
+	1 \\ 
+	0 \\
+	1 \\
+	\end{bmatrix}$ (Orange=1, Small=0, Smooth=1)
+	\item \pause Complete dataset: $\cD = \{(\vx_i\tp, y_i)\}_{i=1}^n$
+\end{itemize}
 
 \end{frame}
 
@@ -911,7 +914,7 @@ Matthew's Coeff. = 0.14
 	\begin{figure}[htp]
 		\centering
 		\begin{notebookbox}{https://nipunbatra.github.io/ml-teaching/notebooks/confusion-mnist.html}
-		  \includegraphics[scale=0.6]{../assets/accuracy-convention/figures/mnist-cm.png}
+		  \includegraphics[scale=0.5]{../assets/accuracy-convention/figures/mnist-cm.png}
 		\end{notebookbox}
 	  \end{figure}
 	
