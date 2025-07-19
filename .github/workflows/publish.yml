@@ -28,8 +28,14 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Validate repository structure
+      - name: Debug and validate repository structure
         run: |
+          echo "Current working directory: $(pwd)"
+          echo "Contents of current directory:"
+          ls -la
+          echo "Contents of tests directory:"
+          ls -la tests/
+          echo "Running validation tests..."
           python tests/test_structure.py
           python tests/test_graphics_paths.py
           python tests/test_notebook_paths.py
