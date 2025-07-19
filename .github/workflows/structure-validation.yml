@@ -22,7 +22,15 @@ jobs:
       run: |
         python test_structure.py
         
-    - name: Report structure violations
+    - name: Validate LaTeX graphics paths
+      run: |
+        python test_graphics_paths.py
+        
+    - name: Validate notebook image paths
+      run: |
+        python test_notebook_paths.py
+        
+    - name: Report validation failures
       if: failure()
       run: |
-        echo "::error::Repository structure validation failed. Please check the violations above and run the suggested fixes."
+        echo "::error::Repository validation failed. Please check the violations above and run the suggested fixes."
