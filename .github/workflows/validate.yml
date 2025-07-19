@@ -49,16 +49,14 @@ jobs:
       - name: Run validation tests
         run: |
           echo "=== Running Validation Tests ==="
-          cd tests
-          echo "Changed to tests directory: $(pwd)"
-          ls -la
+          echo "Running from repository root: $(pwd)"
           echo "Running tests..."
-          python test_structure.py
-          python test_graphics_paths.py
-          python test_notebook_paths.py
-          python test_notebook_conventions.py
-          python test_slide_conventions.py
-          python test_missing_pdfs.py
+          python tests/test_structure.py
+          python tests/test_graphics_paths.py
+          python tests/test_notebook_paths.py
+          python tests/test_notebook_conventions.py
+          python tests/test_slide_conventions.py
+          python tests/test_missing_pdfs.py
 
       - name: Repository statistics
         run: |
