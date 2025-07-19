@@ -215,54 +215,7 @@ code {
   font-size: 0.875em;
 }
 
-// Notebook-specific styling
-.cell-output-stdout,
-.cell-output-stderr {
-  background: #f8f9fa;
-  border: 1px solid #e9ecef;
-  border-radius: 6px;
-  padding: 0.75rem;
-  margin: 0.5rem 0;
-  font-family: 'SF Mono', Monaco, 'Inconsolata', monospace;
-  font-size: 0.875rem;
-}
-
-.sourceCode {
-  background: #f8f9fa;
-  border: 1px solid #e9ecef;
-  border-radius: 6px;
-  padding: 1rem;
-  font-family: 'SF Mono', Monaco, 'Inconsolata', monospace;
-  font-size: 0.875rem;
-  margin: 1rem 0;
-}
-
-// Clean dataframes
-.dataframe {
-  background: white;
-  border: 1px solid #e9ecef;
-  border-radius: 6px;
-  overflow: hidden;
-  margin: 1rem 0;
-  
-  thead th {
-    background: #f8f9fa;
-    font-weight: 600;
-    color: #2c3e50;
-    padding: 0.75rem;
-    text-align: left;
-  }
-  
-  tbody td {
-    padding: 0.75rem;
-    border-bottom: 1px solid #e9ecef;
-    color: #495057;
-  }
-  
-  tbody tr:nth-child(even) {
-    background: #f8f9fa;
-  }
-}
+// Let Quarto handle notebook styling with defaults
 
 // Simple footer
 .page-footer {
@@ -347,13 +300,4 @@ code {
   display: none !important;
 }
 
-// Clean notebook styling
-.quarto-notebook {
-  .cell-container {
-    margin: 1.5rem 0;
-  }
-  
-  .cell-output {
-    margin-top: 1rem;
-  }
-}
+// Use Quarto's default notebook styling

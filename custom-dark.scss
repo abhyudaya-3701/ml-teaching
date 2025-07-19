@@ -239,44 +239,7 @@ code {
   }
 }
 
-// Minimal dark notebook styling
-.sourceCode {
-  background: $blue-100;
-  border: 1px solid #404040;
-  border-radius: 0.375rem;
-  padding: 1rem;
-  font-family: 'SF Mono', Monaco, 'Inconsolata', 'Roboto Mono', monospace;
-  font-size: 0.875rem;
-  overflow-x: auto;
-  color: #e0e0e0;
-}
-
-// Clean dark dataframes
-.dataframe {
-  background: #2d2d2d;
-  border: 1px solid #404040;
-  border-radius: 0.375rem;
-  overflow: hidden;
-  margin: 1rem 0;
-  
-  thead th {
-    background: $blue-100;
-    font-weight: 600;
-    color: #ffffff;
-    padding: 0.75rem;
-    text-align: left;
-  }
-  
-  tbody td {
-    padding: 0.75rem;
-    border-bottom: 1px solid #404040;
-    color: #e0e0e0;
-  }
-  
-  tbody tr:nth-child(even) {
-    background: #333333;
-  }
-}
+// Use Quarto's default dark notebook styling
 
 // Dark feature cards for homepage
 .feature-grid {
