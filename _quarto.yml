@@ -43,8 +43,8 @@ format:
     mainfont: "Inter"
     code-copy: true
     code-overflow: wrap
-    code-fold: true
-    code-tools: true
+    code-fold: false
+    code-tools: false
     toc: true
     toc-location: right
     toc-depth: 3
@@ -59,7 +59,7 @@ format:
     code-copy: true
     code-overflow: wrap
     code-fold: false
-    code-tools: true
+    code-tools: false
     toc: true
     toc-location: right
     toc-depth: 3

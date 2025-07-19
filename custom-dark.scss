@@ -3,15 +3,15 @@
 // Import clean, simple fonts
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
-// Minimal dark theme color palette
-$primary: #4db6ac;        // Soft teal
-$secondary: #9e9e9e;      // Light gray
-$success: #66bb6a;        // Soft green
-$info: #4db6ac;           // Teal
-$warning: #ffb74d;        // Soft orange
-$danger: #ef5350;         // Soft red
-$light: #37474f;          // Dark gray
-$dark: #eceff1;           // Light text
+// Clean dark theme color palette  
+$primary: #4dabf7;        // Light blue for dark theme
+$secondary: #adb5bd;      // Light gray
+$success: #51cf66;        // Light green
+$info: #22d3ee;           // Light cyan
+$warning: #ffd43b;        // Light yellow
+$danger: #ff8787;         // Light red
+$light: #f8f9fa;          // Light gray
+$dark: #212529;           // Very dark gray
 
 // Dark blue variations
 $blue-50: #263238;
