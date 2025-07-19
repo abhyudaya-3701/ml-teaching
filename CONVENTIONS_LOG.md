@@ -190,6 +190,11 @@ Following user preference: Use `\theta` as primary parameter notation throughout
 
 **Status**: ✅ COMPLETED - All critical mathematical, conceptual, and notational errors fixed. Ready for classroom use.
 
+#### Overfull Box Fixes Applied:
+- **accuracy-convention.tex**: Split overcrowded slides for better layout, reduced image scales (0.45→0.35, 0.6→0.5)
+- **decision-trees.tex**: Applied align environment for long equations, reduced entropy figure scale (0.8→0.6)
+- **Slide Naming**: Fixed MLP.tex → mlp.tex and Lasso.tex → lasso.tex for compliance
+
 ---
 
 ## File: basics/slides/shuffling.tex
