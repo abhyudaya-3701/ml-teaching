@@ -1,0 +1,72 @@
+name: Repository Validation
+
+on:
+  workflow_dispatch:
+  push:
+    branches: 
+      - master
+      - main
+  pull_request:
+    branches:
+      - master
+      - main
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python  
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Debug environment
+        run: |
+          echo "=== Environment Debug ==="
+          echo "Working directory: $(pwd)"
+          echo "Python version: $(python --version)"
+          echo "Contents of root:"
+          ls -la
+          echo "Contents of tests directory:"
+          ls -la tests/ || echo "tests/ directory not found"
+          echo "=== File existence checks ==="
+          for file in test_structure.py test_graphics_paths.py test_notebook_paths.py test_notebook_conventions.py test_slide_conventions.py test_missing_pdfs.py; do
+            if [ -f "tests/$file" ]; then
+              echo "✅ tests/$file exists"
+            else
+              echo "❌ tests/$file missing"
+            fi
+          done
+
+      - name: Run validation tests
+        run: |
+          echo "=== Running Validation Tests ==="
+          echo "Running from repository root: $(pwd)"
+          echo "Running tests..."
+          python tests/test_structure.py
+          python tests/test_graphics_paths.py
+          python tests/test_notebook_paths.py
+          python tests/test_notebook_conventions.py
+          python tests/test_slide_conventions.py
+          python tests/test_missing_pdfs.py
+
+      - name: Repository statistics
+        run: |
+          echo "=== Repository Statistics ==="
+          echo "- Total notebooks: $(find notebooks -name '*.ipynb' | wc -l)"
+          echo "- Total LaTeX files: $(find . -name '*.tex' | wc -l)"
+          echo "- Total PDF files: $(find . -name '*.pdf' | wc -l)"
+          echo "- Categories: $(ls -1 | grep -E '^(basics|maths|supervised|neural-networks|advanced|unsupervised)$' | wc -l)"
+
+      - name: Check for broken links in slides
+        run: |
+          echo "=== Checking slide references ==="
+          grep -r "includegraphics\|input\|include" . --include="*.tex" | head -10 || echo "No LaTeX references found"
