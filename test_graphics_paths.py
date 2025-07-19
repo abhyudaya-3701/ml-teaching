@@ -138,6 +138,10 @@ class LaTeXGraphicsValidator:
         if '/' not in graphics_path and not graphics_path.startswith('..'):
             # Check if \graphicspath is set properly
             return
+            
+        # Skip paths with LaTeX variables (e.g., \i, \thetree, etc.)
+        if '\\' in graphics_path and any(var in graphics_path for var in ['\\i', '\\the']):
+            return
         
         # Check if it matches the expected pattern OR cross-category references
         match = self.expected_pattern.match(graphics_path)
