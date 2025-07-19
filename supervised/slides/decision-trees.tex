@@ -1,5 +1,6 @@
 \documentclass[usenames,dvipsnames]{beamer}
 \usepackage{../../shared/styles/custom}
+\input{../../conventions}
 
 
 
@@ -157,7 +158,7 @@ Core idea: At each level, choose an attribute that gives
 	\pause \item For examples, we have 9 Yes, 5 No
 	\pause \item Would it be trivial if we had 14 Yes or 14 No?
 	\pause \item Yes!
-	\pause \item Key insights:  Problem is ``easier'' when there is lesser disagreement
+	\pause \item Key insight: Problem is ``easier'' when there is less disagreement
 	\pause 	\item Need some statistical measure of ``disagreement'' 
 	\end{itemize}
 
@@ -186,7 +187,7 @@ Core idea: At each level, choose an attribute that gives
  Statistical measure to characterize the
 (im)purity of examples
 
-\pause $H(X) = -\sum_{i=1}^n p(x_i) \log p(x_i)$
+\pause $H(X) = -\sum_{i=1}^k p(x_i) \log_2 p(x_i)$
 
 \begin{figure}[htp]
     \centering
@@ -242,7 +243,7 @@ Core idea: At each level, choose an attribute that gives
  Reduction in entropy
 by partitioning examples (S) on attribute A
 $$
-\operatorname{Gain}(S, A) \equiv \text { Entropy }(S)-\sum_{v \in V a l u e s(A)} \frac{\left|S_{v}\right|}{|S|} \text {Entropy}\left(S_{v}\right)
+\operatorname{Gain}(S, A) \equiv \text{Entropy}(S)-\sum_{v \in \text{Values}(A)} \frac{|S_{v}|}{|S|} \text{Entropy}(S_{v})
 $$
 \end{frame}
 
@@ -310,10 +311,9 @@ node/.style={%
 \begin{frame}{Entropy calculated}
 We have 14 examples in $S$: 5 No, 9 Yes
 
-$$\operatorname{Entropy(S)} = -\operatorname{p}_{No}\operatorname{log_2}{\operatorname{p}_{No}}
--\operatorname{p}_{Yes}\operatorname{log_2}{\operatorname{p}_{Yes}}$$
+$$\Entropy(S) = -p_{\text{No}} \log_2 p_{\text{No}} - p_{\text{Yes}} \log_2 p_{\text{Yes}}$$
 $$
-=-(5 / 14) \log _{2}(5 / 14)-(9 / 14) \log _{2}(9 / 14) =0.94
+= -\frac{5}{14} \log_2\left(\frac{5}{14}\right) - \frac{9}{14} \log_2\left(\frac{9}{14}\right) = 0.940
 $$
 \end{frame}
 
@@ -354,7 +354,7 @@ Rain     & No  \\ \bottomrule
 \bottomrule
 \end{tabular}
 We have 2 Yes, 3 No
-Entropy = -3/5$\log_{2}$(3/5) - 2/5$\log_{2}$(2/5) = 0.971
+$\Entropy = -\frac{3}{5} \log_2\left(\frac{3}{5}\right) - \frac{2}{5} \log_2\left(\frac{2}{5}\right) = 0.971$
 \end{table}
 \end{column}
 
@@ -372,7 +372,7 @@ Entropy = -3/5$\log_{2}$(3/5) - 2/5$\log_{2}$(2/5) = 0.971
 
 \end{tabular}
 We have 4 Yes, 0 No
-Entropy = 0
+$\Entropy = 0$ (pure subset)
 
 
 	\end{table}
@@ -392,7 +392,7 @@ Entropy = 0
 	Rain     & No  \\ \bottomrule
 \end{tabular}
 We have 3 Yes, 2 No
-Entropy = -3/5$\log_{2}$(3/5) - 2/5$\log_{2}$(2/5) = 0.971
+$\Entropy = -\frac{3}{5} \log_2\left(\frac{3}{5}\right) - \frac{2}{5} \log_2\left(\frac{2}{5}\right) = 0.971$
 \end{table}
 \end{column}
 \end{columns}
@@ -400,13 +400,13 @@ Entropy = -3/5$\log_{2}$(3/5) - 2/5$\log_{2}$(2/5) = 0.971
 
 \begin{frame}{Information Gain}
 $$
-\operatorname{Gain}(S, Outlook) = \text { Entropy }(S)-\sum_{v \in \{Rain, Sunny, Windy\}} \frac{\left|S_{v}\right|}{|S|} \text {Entropy}\left(S_{v}\right) 
+\operatorname{Gain}(S, \text{Outlook}) = \text{Entropy}(S)-\sum_{v \in \{\text{Rain, Sunny, Overcast}\}} \frac{|S_{v}|}{|S|} \text{Entropy}(S_{v}) 
 $$
 
-Gain (S, Outlook) $=$ Entropy $(\mathrm{S})$ -$(5 / 14)$* Entropy(S\textsubscript{Sunny})- $(4 / 14)$* Entropy (S\textsubscript{overcast})$-(5 / 14)$* Entropy(S\textsubscript{Rain}) \\
+Gain(S, Outlook) $=$ Entropy(S) $-$ $(5/14) \times$ Entropy($S_{\text{Sunny}}$) $-$ $(4/14) \times$ Entropy($S_{\text{Overcast}}$) $-$ $(5/14) \times$ Entropy($S_{\text{Rain}}$)
 
-= 0.940 - 0.347 - 0.347 \\
-= 0.246
+$= 0.940 - (5/14) \times 0.971 - (4/14) \times 0 - (5/14) \times 0.971$
+$= 0.940 - 0.347 - 0 - 0.347 = 0.246$
 
 \end{frame}
 
@@ -463,9 +463,9 @@ node/.style={%
 \end{tabular}
 
 \begin{itemize}
-	\pause \item Gain(S\textsubscript{Outlook=Sunny}, Temp) = Entropy(3 Yes, 2 No) - (2/5)*Entropy(2 No, 0 Yes) -(2/5)*Entropy(1 No, 1 Yes) - (1/5)*Entropy(1 Yes) 
-	\pause \item Gain(S\textsubscript{Outlook=Sunny}, Humidity) = Entropy(3 Yes, 2 No) - (2/5)*Entropy(2 Yes) -(3/5)*Entropy(3 No) $\implies$ \textbf{maximum possible for the set}
-	\pause \item Gain(S\textsubscript{Outlook=Sunny}, Windy) = Entropy(3 Yes, 2 No) - (3/5)*Entropy(2 No, 1 Yes) -(2/5)*Entropy(1 No, 1 Yes) 
+	\pause \item Gain($S_{\text{Outlook=Sunny}}$, Temp) = Entropy(2 Yes, 3 No) - (2/5)*Entropy(0 Yes, 2 No) -(2/5)*Entropy(1 Yes, 1 No) - (1/5)*Entropy(1 Yes, 0 No) 
+	\pause \item Gain($S_{\text{Outlook=Sunny}}$, Humidity) = Entropy(2 Yes, 3 No) - (2/5)*Entropy(2 Yes, 0 No) -(3/5)*Entropy(0 Yes, 3 No) $\implies$ \textbf{maximum possible for the set}
+	\pause \item Gain($S_{\text{Outlook=Sunny}}$, Windy) = Entropy(2 Yes, 3 No) - (3/5)*Entropy(1 Yes, 2 No) -(2/5)*Entropy(1 Yes, 1 No) 
 \end{itemize}
 \end{frame}
 
@@ -573,7 +573,7 @@ node/.style={%
 \begin{frame}{Limiting Depth of Tree}
 Assuming if you were only allowed depth-$1$ trees, how would it look for the current dataset? \\
 
-\pause Apply the same rules, except when depth limit reached, the leaf node is assigned the ``most'' common occuring value in that path.
+\pause Apply the same rules, except when depth limit is reached, the leaf node is assigned the most common occurring value in that path.
 
 \pause What is depth-$0$ tree (no decision) for the examples? \\
 \pause Always predicting Yes
@@ -629,9 +629,10 @@ node/.style={%
 \begin{itemize}
 	\item \pause Any guesses?
 	\item \pause Mean Squared Error
-	\item \pause MSE(S) = 311.34
-	\item \pause Information Gain analogoue?
-	\item \pause Reduction in MSE (weighted)
+	\item \pause $\MSE(S) = 311.34$
+	\item \pause What about splitting criterion for regression?
+	\item \pause \textbf{MSE Reduction} (not Information Gain!)
+	\item \pause MSE Reduction = $\MSE(S) - \sum_{v} \frac{|S_v|}{|S|} \MSE(S_v)$
 \end{itemize}
 
 \end{frame}
@@ -681,7 +682,7 @@ node/.style={%
 		Weak          & 40                      \\
 		Weak          & 35                      \\ \bottomrule
 	\end{tabular}
-\caption{Weighted MSE(S\textsubscript{Wind=Weak}=(8/14)*277=159)}
+\caption{$\MSE(S_{\text{Wind=Weak}}) = 277$, Weight = $\frac{8}{14}$}
 \end{table}
 \vspace{-25pt}
 	\end{tiny}
@@ -700,7 +701,7 @@ node/.style={%
 			Strong        & 40                      \\
 			Strong        & 20                      \\ \bottomrule
 		\end{tabular}
-\caption{Weighted MSE(S\textsubscript{Wind=Strong}=(6/14)*218=93)}
+\caption{$\MSE(S_{\text{Wind=Strong}}) = 218$, Weight = $\frac{6}{14}$}
 	\end{table}
 \end{tiny}
 
@@ -708,12 +709,21 @@ node/.style={%
 \end{columns}
 \end{frame}
 
+\begin{frame}{MSE Reduction Calculation}
+\textbf{Correct calculation for Wind split:}
+\begin{align}
+\text{MSE Reduction} &= \MSE(S) - \text{Weighted Average MSE} \\
+&= 311.34 - \left[\frac{8}{14} \times 277 + \frac{6}{14} \times 218\right] \\
+&= 311.34 - [158.857 + 93.429] \\
+&= 311.34 - 252.286 = \mathbf{59.05}
+\end{align}
 
+\textbf{Key insight:} MSE Reduction $> 0$ means the split improves our model!
 
+\textbf{For regression:} Use MSE Reduction, NOT Information Gain!
+\end{frame}
 
-
-
-\begin{frame}{Information Gain}
+\begin{frame}{MSE Reduction for Regression Trees}
 
 	\begin{figure}[htp]
 		\centering
@@ -995,47 +1005,43 @@ What would be the decision tree with depth 2	?
 	\end{frame}
 	
 
-\begin{frame}{Objective function}
+\begin{frame}{Objective Function for Regression Trees}
 \only<1-4>{
-Here,  Feature is denoted by X and Label by Y.\\
-Let the ``decision boundary'' or ``split" be at X = S.\\
-Let the region X $<$ S, be region R$_1$.\\
-Let the region X $>$ S, be region R$_2$.\\
+Feature is denoted by $X$ and target by $Y$.\\
+Let the split be at $X = s$.\\
+Define regions: $R_1 = \{x : x \leq s\}$ and $R_2 = \{x : x > s\}$.\\
 \vspace{1cm}
 }
 \only<2-4>{
-Then, let \\
-$C_1$ = Mean ($Y_i | X_i \in R_1$) \\
-$C_2$ = Mean ($Y_i | X_i \in R_2$) \\
+For each region, compute the mean prediction:\\
+$c_1 = \frac{1}{|R_1|} \sum_{x_i \in R_1} y_i$ \\
+$c_2 = \frac{1}{|R_2|} \sum_{x_i \in R_2} y_i$ \\
 }
 \only<3-4>{
-Loss = $\sum\limits_i$(($Y_i - C_1 | X_i \in R_1$)$^2 $ +  ($Y_i - C_2 | X_i \in R_2$)$^2 $)\\
+The loss function is:\\
+$$\text{Loss}(s) = \sum_{x_i \in R_1} (y_i - c_1)^2 + \sum_{x_i \in R_2} (y_i - c_2)^2$$
 \vspace{1cm}
 }
 \only<4>{
-Our objective is to minimize the loss and find\\
-$min_S $ $\sum\limits_i\left((Y_i - C_1 | X_i \in R_1)^2  +  (Y_i - C_2 | X_i \in R_2)^2 \right)$
+Our objective is to find the optimal split:\\
+$$s^* = \argmin_{s} \left[ \sum_{x_i \in R_1(s)} (y_i - c_1(s))^2 + \sum_{x_i \in R_2(s)} (y_i - c_2(s))^2 \right]$$
 }
 \end{frame}
 
-\begin{frame}{How to find optimal split ``S"?}
-\end{frame}
-
-
-\begin{frame}{How to find optimal split ``S"?}
+\begin{frame}{Algorithm: Finding the Optimal Split}
 \begin{enumerate}
 \only<1-2>{
-\item Sort all datapoints (X,Y) in increasing order of X.
+\item Sort all data points $(x_i, y_i)$ in increasing order of $x_i$.
 \vspace{0.5cm}
 }
 \only<2>{
-\item Evaluate the loss function for all\\
+\item Evaluate the loss function for all candidate splits:
 \vspace{0.25cm}
 \begin{center}
-$S = \frac{X_i + X_{i+1}}{2}$\\
+$s = \frac{x_i + x_{i+1}}{2}$ for $i = 1, 2, \ldots, n-1$
 \end{center}
 \vspace{0.25cm}
-and the select the S with minimum loss.
+\item Select the split $s^*$ that minimizes the loss function.
 }
 \end{enumerate} 
 \end{frame}
@@ -1127,11 +1133,11 @@ It has of depth 4. The decision boundaries are in figure below.\\
 		\includegraphics{../assets/decision-trees/figures/dt_weighted/fig2.pdf}
 	\end{figure}
 	
-	\(ENTROPY = - P(+) \cdot \log_2 P(+) - P(-) \cdot \log_2 P(-)\)
+	$$\Entropy = -P(+) \log_2 P(+) - P(-) \log_2 P(-)$$
 	
-	\(P(+) = \left( \frac{0.1 + 0.1 + 0.3}{1} \right) = 0.5\),      \(P(-) = \left( \frac{0.3 + 0.1 + 0.1}{1} \right) = 0.5\)
+	$$P(+) = \frac{0.1 + 0.1 + 0.3}{1} = 0.5, \quad P(-) = \frac{0.3 + 0.1 + 0.1}{1} = 0.5$$
 	
-	\(ENTROPY  = E_s =  - \frac{1}{2} \cdot log_2 \frac{1}{2}  - \frac{1}{2} \cdot log_2 \frac{1}{2}  = 1\)
+	$$\Entropy = E_s = -\frac{1}{2} \log_2 \frac{1}{2} - \frac{1}{2} \log_2 \frac{1}{2} = 1$$
 	
 	\end{frame}
 	
@@ -1162,9 +1168,9 @@ It has of depth 4. The decision boundaries are in figure below.\\
 	
 	Entropy of \(X1 \leq X1^*  = E_{S(X1 < X1^*)}\)
 	
-	\(P(+) = \left( \frac{0.1 + 0.1}{0.1 + 0.1 + 0.3} \right) = \frac{2}{5}\)
+	$$P(+) = \frac{0.1 + 0.1}{0.1 + 0.1 + 0.3} = \frac{2}{5}$$
 	
-	\(P(-) = \frac{3}{5}\)
+	$$P(-) = \frac{3}{5}$$
 	
 	
 	\end{frame}
@@ -1176,11 +1182,11 @@ It has of depth 4. The decision boundaries are in figure below.\\
 		\centering
 		\includegraphics{../assets/decision-trees/figures/dt_weighted/fig5.pdf}
 	\end{figure}
-	Entropy of \(X1  > X1^*  = E_{S(X1 > X1^*)}\)
+	Entropy of $X_1 > X_1^* = E_{S(X_1 > X_1^*)}$
 	
-	\(P(+) = \frac{3}{5}\)
+	$$P(+) = \frac{3}{5}$$
 	
-	\(P(-) = \frac{2}{5}\)
+	$$P(-) = \frac{2}{5}$$
 	
 	\end{frame}
 	
@@ -1193,7 +1199,7 @@ It has of depth 4. The decision boundaries are in figure below.\\
 		\includegraphics{../assets/decision-trees/figures/dt_weighted/fig5.pdf}
 	\end{figure}
 	
-	\( IG(X1 = X1^* ) = E_S - \frac{0.5}{1} \cdot E_{S(X1 < X1^*)}  - \frac{0.5}{1} \cdot E_{S(X1 > X1^*)}\)
+	$$\text{IG}(X_1 = X_1^*) = E_S - \frac{0.5}{1} \cdot E_{S(X_1 < X_1^*)} - \frac{0.5}{1} \cdot E_{S(X_1 > X_1^*)}$$
 	
 	\end{frame}
 

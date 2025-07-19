@@ -104,6 +104,31 @@
 % OPERATORS AND FUNCTIONS (following standard conventions)
 % =============================================================================
 
+% Prediction notation (commonly used in ML)
+\newcommand{\yhat}{\hat{\vy}}        % Predicted output vector (bold)
+\newcommand{\yhati}{\hat{y}_i}       % Predicted output for sample i (scalar)
+
+% Common ML functions
+\DeclareMathOperator{\sigmoid}{sigmoid}
+\DeclareMathOperator{\softmax}{softmax}
+\DeclareMathOperator{\ReLU}{ReLU}
+\DeclareMathOperator{\sign}{sign}
+\DeclareMathOperator{\Gain}{Gain}    % Information gain
+\DeclareMathOperator{\Entropy}{Entropy}
+\DeclareMathOperator{\KL}{KL}        % KL divergence
+\DeclareMathOperator{\MSE}{MSE}      % Mean squared error
+\DeclareMathOperator{\MAE}{MAE}      % Mean absolute error
+\DeclareMathOperator{\RMSE}{RMSE}    % Root mean squared error
+
+% Classification metrics (upright text)
+\newcommand{\TP}{\text{TP}}          % True positives
+\newcommand{\TN}{\text{TN}}          % True negatives  
+\newcommand{\FP}{\text{FP}}          % False positives
+\newcommand{\FN}{\text{FN}}          % False negatives
+\DeclareMathOperator{\Precision}{Precision}
+\DeclareMathOperator{\Recall}{Recall}
+\DeclareMathOperator{\Accuracy}{Accuracy}
+
 % Transpose and inverse
 \newcommand{\tp}{^\top}             % Transpose (Bishop/Murphy style)
 \newcommand{\inv}{^{-1}}            % Matrix inverse
@@ -117,15 +142,19 @@
 \newcommand{\normF}[1]{\|#1\|_F}    % Frobenius norm
 
 % Optimization operators (upright as in Murphy)
-\DeclareMathOperator*{\argmin}{arg\,min}
-\DeclareMathOperator*{\argmax}{arg\,max}
+\providecommand{\argmin}{}
+\renewcommand{\argmin}{\operatorname*{arg\,min}}
+\providecommand{\argmax}{}
+\renewcommand{\argmax}{\operatorname*{arg\,max}}
 \DeclareMathOperator{\minimize}{minimize}
 \DeclareMathOperator{\maximize}{maximize}
 \DeclareMathOperator{\subjectto}{subject\,to}
 
-% Matrix operations (upright)
-\DeclareMathOperator{\tr}{tr}       % Trace
-\DeclareMathOperator{\det}{det}     % Determinant
+% Matrix operations (upright) - use conditional definitions
+\providecommand{\tr}{}
+\renewcommand{\tr}{\operatorname{tr}}       % Trace
+\providecommand{\det}{}
+\renewcommand{\det}{\operatorname{det}}     % Determinant
 \DeclareMathOperator{\rank}{rank}   % Rank
 \DeclareMathOperator{\span}{span}   % Span
 \DeclareMathOperator{\null}{null}   % Null space
