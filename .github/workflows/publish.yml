@@ -33,6 +33,7 @@ jobs:
           python test_structure.py
           python test_graphics_paths.py
           python test_notebook_paths.py
+          python test_notebook_conventions.py
 
       - name: Repository statistics
         run: |
