@@ -49,7 +49,7 @@ category/
 - `optimization/slides/gradient-descent.tex` - Gradient descent slides  
 - `optimization/assets/optimization/gradient-descent/` - Gradient descent assets
 - `optimization/assets/optimization/gradient-descent/notes/` - Handwritten gradient descent notes
-- `maths/slides/kkt-conditions/kkt-conditions.tex` - Mathematical foundations
+- `maths/slides/kkt-conditions.tex` - Mathematical foundations
 - `notebooks/tensor-factorisation.ipynb` - Matrix factorization notebook (flat structure)
 
 ## Migration Rules
