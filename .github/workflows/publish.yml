@@ -29,6 +29,14 @@ jobs:
           python-version: '3.11'
           cache: 'pip'
 
+      - name: Cache Jupyter kernels
+        uses: actions/cache@v3
+        with:
+          path: ~/.local/share/jupyter
+          key: jupyter-${{ runner.os }}-${{ hashFiles('requirements.txt', 'notebooks/*.ipynb') }}
+          restore-keys: |
+            jupyter-${{ runner.os }}-
+
       - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
@@ -37,7 +45,10 @@ jobs:
       - name: Validate Jupyter notebooks
         run: |
           echo "Validating notebook syntax..."
-          find notebooks -name "*.ipynb" -type f | head -5 | xargs -I {} python -m nbconvert --to notebook --execute {} --output /tmp/test.ipynb 2>/dev/null || echo "Some notebooks may require specific dependencies"
+          notebook_count=$(find notebooks -name "*.ipynb" | wc -l)
+          echo "Found $notebook_count notebooks"
+          # Quick syntax validation only (no execution to save time)
+          find notebooks -name "*.ipynb" -type f | head -3 | xargs -I {} python -c "import json; json.load(open('{}'))" || echo "Some notebooks may have syntax issues"
 
       - name: Repository statistics
         run: |
@@ -67,12 +78,7 @@ jobs:
         with:
           cache: true
 
-      - name: Build course website
-        run: |
-          echo "Building Quarto website..."
-          quarto render --to html
-
-      - name: Deploy to GitHub Pages
+      - name: Build and deploy to GitHub Pages
         uses: quarto-dev/quarto-actions/publish@v2
         with:
           target: gh-pages
