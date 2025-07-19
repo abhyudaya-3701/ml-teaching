@@ -1,5 +1,6 @@
 \documentclass[usenames,dvipsnames]{beamer}
 \usepackage{../../shared/styles/custom}
+\input{../../conventions}
 
 
 
@@ -186,20 +187,20 @@ Is the sample number a useful feature for predicting quality of a tomato?
 \end{table}
 
 
-\pause We call this matrix as $\mathcal{D}$, containing:
+\pause We call this matrix as $\cD$, containing:
 \begin{enumerate}
-	\item \pause Feature matrix ($\mathbf{X \in \mathcal{R}^{N\times P}}$) containing data of $N$ samples each of which is $P$ dimensional.
+	\item \pause Feature matrix ($\mX \in \Real^{n \times d}$) containing data of $n$ samples each of which is $d$ dimensional.
 	\begin{itemize}
-		\item \pause Thus, $\mathbf{X} = \{x_i^T\}_{i=1}^N$ where $x_i \in \mathcal{R}^P$
-		\item \pause Example $x_1 = \begin{bmatrix}
+		\item \pause Thus, $\mX = \{\vx_i\tp\}_{i=1}^n$ where $\vx_i \in \Real^d$
+		\item \pause Example $\vx_1 = \begin{bmatrix}
 		Orange \\
 		Small \\
 		Smooth \\
 		\end{bmatrix}
 		$
 	\end{itemize}
-\item \pause Output Vector ($y \in \mathcal{R}^N$) containing output variable for $N$ samples.
-\item \pause Thus, we can also write $\mathcal{D} = \{(x_i^T, y_i)\}_{i=1}^N$
+\item \pause Output vector ($\vy \in \Real^n$) containing output variable for $n$ samples.
+\item \pause Thus, we can also write $\cD = \{(\vx_i\tp, y_i)\}_{i=1}^n$
 \end{enumerate}
 
 \end{frame}
