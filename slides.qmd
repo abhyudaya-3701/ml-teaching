@@ -64,7 +64,7 @@ Modern neural network architectures and deep learning techniques.
 - [Multi-Layer Perceptrons](neural-networks/slides/mlp.pdf)
 - [Next Token Prediction](neural-networks/slides/next-token-prediction.pdf)
 - [Convolutional Neural Networks](neural-networks/slides/cnn.pdf)
-- [1D CNNs](neural-networks/slides/1d-cnn.pdf)
+- [1D CNNs](neural-networks/slides/cnn-1d.pdf)
 - [Automatic Differentiation](neural-networks/slides/autograd.pdf)
 
 ### Advanced Topics
