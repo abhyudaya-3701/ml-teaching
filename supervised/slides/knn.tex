@@ -5,40 +5,20 @@
 \usepackage{color, colortbl}
 \usepackage{comment}
 
-\newcommand*{\mathcolor}{}
-\def\mathcolor#1#{\mathcoloraux{#1}}
-\newcommand*{\mathcoloraux}[3]{%
-	\protect\leavevmode
-	\begingroup
-	\color#1{#2}#3%
-	\endgroup
-}
 
 
 
 
-\def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;} 
+ 
 
 
 
-\newcommand{\DoTikzmark}[1]{%
-	\tikz[remember picture] \coordinate[shift={(0,.7ex)}](#1);%
-}
-
-\newcommand{\colrow}[3][]{%
-	\tikz[overlay,remember picture, line width=10pt]
-	\draw[shorten >=-.1em, shorten <=-.1em, #1] (#2)--(#3);
-}
 
 
-\newcolumntype{g}{>{\columncolor{Lavender}}c}
-\newcolumntype{t}{>{\columncolor{Tan}}c}
 
 %\beamerdefaultoverlayspecification{<+->}
 
 
-	\ifx\relax#1\relax  \item \else \item[#1] \fi
-	\abovedisplayskip=0pt\abovedisplayshortskip=0pt~\vspace*{-\baselineskip}}
 	
 
 
@@ -58,7 +38,7 @@
 
 {
 	\setbeamercolor{background canvas}{bg=}
-	\includepdf[pages=1-25]{../assets/knn/figures/1nn.pdf}
+	\includepdf[pages=1-22]{../assets/knn/figures/1nn.pdf}
 }
 
 
