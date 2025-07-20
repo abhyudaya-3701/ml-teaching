@@ -22,6 +22,8 @@ Core mathematical concepts underlying machine learning algorithms.
 - [Multivariate Normal Distribution](maths/slides/mvn.pdf)
 - [Multivariate Normal II](maths/slides/mvn2.pdf)
 - [KKT Conditions](maths/slides/kkt-conditions/kkt-conditions.pdf)
+- [Constrained Optimization I](maths/slides/constrained-1.pdf)
+- [Constrained Optimization II](maths/slides/constrained-2.pdf)
 - [Time Complexity](maths/slides/time_complexity.pdf)
 
 ### Optimization Algorithms
@@ -42,8 +44,9 @@ Algorithms that learn from labeled data.
 - [Cross-Validation](supervised/slides/cross-validation.pdf)
 - [Ensemble Methods](supervised/slides/ensemble.pdf)
 - [Linear Regression](supervised/slides/linear-regression.pdf)
-- [Logistic Regression](supervised/slides/logistic-1.pdf)
+- [Logistic Regression](supervised/slides/logistic-regression.pdf)
 - [K-Nearest Neighbors](supervised/slides/knn.pdf)
+- [KNN Approximation Methods](supervised/slides/knn-approx.pdf)
 - [Naive Bayes](supervised/slides/naive-bayes.pdf)
 - [Bayesian Networks](supervised/slides/bayesian-nets.pdf)
 - [Ridge Regression](supervised/slides/ridge-regression.pdf)
