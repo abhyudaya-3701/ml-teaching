@@ -1,5 +1,6 @@
 \documentclass[usenames,dvipsnames]{beamer}
 \usepackage{../../shared/styles/custom}
+\input{../../conventions}
 
 
 \title{Cross-Validation}
@@ -17,7 +18,7 @@
 \includegraphics[width = 0.9\textwidth]{../assets/cross-validation/diagrams/general-workflow}
 \begin{itemize}
 	\item \pause Does not use the full dataset for training and does not test on the full dataset
-	\item \pause No way to optimise hyperparameters
+	\item \pause No way to optimize hyperparameters
 \end{itemize}
 \end{frame}
 
@@ -33,19 +34,19 @@
 	
 \end{frame}
 
-\begin{frame}{K-Fold cross-validation: Utilise full dataset for testing}
+\begin{frame}{K-Fold cross-validation: Utilize full dataset for testing}
 \includegraphics[width = \textwidth]{../assets/cross-validation/diagrams/cross-validation-train-test}
 \pause Each data point is used for testing exactly once.
 \end{frame}
 
-\begin{frame}{Optimizing hyperparameters via the Validation Set}
+\begin{frame}{Optimizing Hyperparameters via the Validation Set}
 \includegraphics[width = \textwidth]{../assets/cross-validation/diagrams/validation-workflow}
 \end{frame}
 
 \begin{frame}{Nested Cross Validation}
-Divide your training set into $K$ equal 	parts.\\
-Cyclically use 1 part as ``validation set" and the rest for training.\\
-Here $K = 4$
+Divide your training set into $k$ equal parts.\\
+Cyclically use 1 part as ``validation set'' and the rest for training.\\
+Here $k = 4$
 \begin{center}
 \includegraphics[scale=0.7]{../assets/cross-validation/diagrams/cross-validation.pdf}
 \end{center}

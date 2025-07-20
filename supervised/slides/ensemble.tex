@@ -1,5 +1,6 @@
 \documentclass{beamer}
 \usepackage{../../shared/styles/custom}
+\input{../../conventions}
 
 
 %\beamerdefaultoverlayspecification{<+->}
@@ -25,7 +26,7 @@
 \begin{frame}{Ensemble Methods}
   \only<1->{
     Use multiple models for prediction.\\
-    Most winning entries of Kaggle competition using ensemble learning.\\
+    Most winning entries of Kaggle competitions use ensemble learning.\\
     \vspace{1cm}
   }
   \only<2>{
@@ -42,7 +43,7 @@
     Regressor 2 - 30\\
     Regressor 3 - 30\\
     \vspace{0.5cm}
-    Using Average, we predict $\dfrac{80}{3}$
+    Using averaging, we predict $\frac{80}{3}$
   }
 \end{frame}
 
@@ -52,9 +53,9 @@
 
   Three reasons why ensembles make sense:
 
-  \pause 1) Statistical: Sometimes if \textbf{data is less, many competing hypothesis can be learnt} all giving same accuracy on training data.
+  \pause 1) Statistical: Sometimes if \textbf{data is limited, many competing hypotheses can be learned} all giving the same accuracy on training data.
 
-  \pause Eg. We can learn many decision trees for the same data giving same accuracy.
+  \pause E.g., we can learn many decision trees for the same data giving the same accuracy.
 
   \includegraphics[scale=0.2]{../assets/ensemble/diagrams/statistical.jpg}
 
@@ -62,9 +63,9 @@
   
 \begin{frame}{Intuition}
 
-  \pause 2) Computational: Even if data is enough, some \textbf{classifiers/regressors can get stuck in local optima/apply greedy strategies}. Computationally learning the ``best'' hypothesis can be non-trivial.
+  \pause 2) Computational: Even if data is sufficient, some \textbf{classifiers/regressors can get stuck in local optima or apply greedy strategies}. Computationally learning the ``best'' hypothesis can be non-trivial.
 
-  \pause Eg. Decision Trees employ greedy critera
+  \pause E.g., decision trees employ greedy criteria
 
   \includegraphics[scale=0.2]{../assets/ensemble/diagrams/computational.jpg}
 
@@ -73,9 +74,9 @@
 
 \begin{frame}{Intuition}
 
-  \pause 3) Representational: Some \textbf{classifiers/regressors can not learn the true form/representation.}
+  \pause 3) Representational: Some \textbf{classifiers/regressors cannot learn the true form or representation.}
 
-  \pause Eg. Decision Trees can only learn axis-parallel splits.
+  \pause E.g., decision trees can only learn axis-parallel splits.
 
   \includegraphics[scale=0.2]{../assets/ensemble/diagrams/representational.jpg}
 
@@ -111,7 +112,7 @@
   accurate than any of its individual members is if the classifiers are accurate and
   diverse.
 
-  \pause 2) An accurate classifer: \pause  is one that has an
+  \pause 2) An accurate classifier: \pause  is one that has an
   error rate of better than random guessing on new x values.
 
   \pause 3) Two classifiers are diverse: \pause  if they make different errors on new data points
@@ -128,7 +129,7 @@
 
   \pause However, if the errors made by the classifiers are uncorrelated, then when $h_1(x)$
   is wrong, $h_2(x)$ and $h_3(x)$ may be correct, so that a majority vote will correctly
-  class.
+  classify.
 
 \end{frame}
 \begin{frame}{Intuition for Ensemble Methods from Quantitative Perspective}
@@ -140,11 +141,29 @@
 \end{frame}
 
 \begin{frame}{Some calculations}
-  \input{../assets/ensemble/diagrams/test-0.3.tex}
+  % Table for Error Probability = 0.3
+  \begin{center}
+  \begin{tabular}{c|c|c}
+  Number of Models & Ensemble Error & Individual Error \\
+  \hline
+  1 & 0.3 & 0.3 \\
+  3 & 0.216 & 0.3 \\
+  5 & 0.163 & 0.3 \\
+  \end{tabular}
+  \end{center}
 \end{frame}
 
 \begin{frame}{Some calculations}
-  \input{../assets/ensemble/diagrams/test-0.6.tex}
+  % Table for Error Probability = 0.6
+  \begin{center}
+  \begin{tabular}{c|c|c}
+  Number of Models & Ensemble Error & Individual Error \\
+  \hline
+  1 & 0.6 & 0.6 \\
+  3 & 0.648 & 0.6 \\
+  5 & 0.683 & 0.6 \\
+  \end{tabular}
+  \end{center}
 \end{frame}
 \begin{frame}{Ensemble Methods}
   \only<1->{
@@ -181,13 +200,13 @@
 
 \begin{frame}{Bagging}
   \only<1->{
-    Consider our dataset has $n$ samples, $D_1, D_2, D_3, \dots, D_n$.\\
+    Consider our dataset has $n$ samples: $D_1, D_2, D_3, \ldots, D_n$.\\
     For each model in the ensemble, we create a new dataset of size $n$ by sampling uniformly with replacement.\\
     \vspace{1cm}
   }
   \only<2->{
-    Round 1 : $D_1, D_3, D_6, D_1, \dots, D_n$\\
-    Round 2 : $D_2, D_4, D_1, D_{80}, \dots, D_3$\\
+    Round 1: $D_1, D_3, D_6, D_1, \ldots, D_n$\\
+    Round 2: $D_2, D_4, D_1, D_{80}, \ldots, D_3$\\
     \vdots
   }
   \only<3->{
@@ -214,7 +233,7 @@
 \end{frame}
 
 \begin{frame}{Bagging : Classification Example}
-  Lets use bagging with ensemble of 5 trees.\\
+  Let's use bagging with an ensemble of 5 trees.\\
   \vspace{0.5cm}
   \begin{columns}
     \pause  \begin{column}{0.3\textwidth}
@@ -337,7 +356,7 @@
 
 \begin{frame}{Boosting : AdaBoost }
   Consider we have a dataset of $N$ samples.\\
-  Sample $i$ has weight $w_i$. There are $M$ classifers in ensemble.\\
+  Sample $i$ has weight $w_i$. There are $M$ classifiers in the ensemble.\\
   \vspace{0.5cm}
   \centering
   \includegraphics[width = 0.6\textwidth]{../assets/ensemble/diagrams/ada_data}
@@ -345,9 +364,9 @@
 
 \begin{frame}{Boosting : AdaBoost }
   Consider we have a dataset of $N$ samples.\\
-  Sample $i$ has weight $w_i$. There are $M$ classifers in ensemble.\\
+  Sample $i$ has weight $w_i$. There are $M$ classifiers in the ensemble.\\
   \begin{enumerate}
-    \item Initialize weights of data samples, $w_i = \dfrac{1}{N}$
+    \item Initialize weights of data samples: $w_i = \frac{1}{N}$
   \end{enumerate}
   \vspace{0.5cm}
   \centering
@@ -356,12 +375,12 @@
 
 \begin{frame}{Boosting : AdaBoost }
   Consider we have a dataset of $N$ samples.\\
-  Sample $i$ has weight $w_i$. There are $M$ classifers in ensemble.\\
+  Sample $i$ has weight $w_i$. There are $M$ classifiers in the ensemble.\\
   \begin{enumerate}
-    \item Initialize weights of data samples, $w_i = \dfrac{1}{N}$
-    \item For $m = 1\dots M$
+    \item Initialize weights of data samples: $w_i = \frac{1}{N}$
+    \item For $m = 1, \ldots, M$:
           \begin{enumerate}
-            \item Learn classifier using current weights $w_i's$
+            \item Learn classifier using current weights $w_i$'s
           \end{enumerate}
   \end{enumerate}
   \centering
@@ -370,12 +389,12 @@
 
 \begin{frame}{Boosting : AdaBoost }
   Consider we have a dataset of $N$ samples.\\
-  Sample $i$ has weight $w_i$. There are $M$ classifers in ensemble.\\
+  Sample $i$ has weight $w_i$. There are $M$ classifiers in the ensemble.\\
   \begin{enumerate}
-    \item Initialize weights of data samples, $w_i = \dfrac{1}{N}$
-    \item For $m = 1\dots M$
+    \item Initialize weights of data samples: $w_i = \frac{1}{N}$
+    \item For $m = 1, \ldots, M$:
           \begin{enumerate}
-            \item Learn classifier using current weights $w_i's$
+            \item Learn classifier using current weights $w_i$'s
           \end{enumerate}
   \end{enumerate}
   \centering
@@ -384,13 +403,13 @@
 
 \begin{frame}{Boosting : AdaBoost }
   Consider we have a dataset of $N$ samples.\\
-  Sample $i$ has weight $w_i$. There are $M$ classifers in ensemble.\\
+  Sample $i$ has weight $w_i$. There are $M$ classifiers in the ensemble.\\
   \begin{enumerate}
-    \item Initialize weights of data samples, $w_i = \dfrac{1}{N}$
-    \item For $m = 1\dots M$
+    \item Initialize weights of data samples: $w_i = \frac{1}{N}$
+    \item For $m = 1, \ldots, M$:
           \begin{enumerate}
-            \item Learn classifier using current weights $w_i's$
-            \item Compute the weighted error, $err_m = \dfrac{\sum\limits_iw_i(incorrect)}{\sum\limits_iw_i}$
+            \item Learn classifier using current weights $w_i$'s
+            \item Compute the weighted error: $\text{err}_m = \frac{\sum_i w_i(\text{incorrect})}{\sum_i w_i}$
           \end{enumerate}
   \end{enumerate}
   \begin{columns}
@@ -407,14 +426,14 @@
 
 \begin{frame}{Boosting : AdaBoost }
   Consider we have a dataset of $N$ samples.\\
-  Sample $i$ has weight $w_i$. There are $M$ classifers in ensemble.\\
+  Sample $i$ has weight $w_i$. There are $M$ classifiers in the ensemble.\\
   \begin{enumerate}
-    \item Initialize weights of data samples, $w_i = \dfrac{1}{N}$
-    \item For $m = 1\dots M$
+    \item Initialize weights of data samples: $w_i = \frac{1}{N}$
+    \item For $m = 1, \ldots, M$:
           \begin{enumerate}
-            \item Learn classifier using current weights $w_i's$
-            \item Compute the weighted error, $err_m = \dfrac{\sum\limits_iw_i(incorrect)}{\sum\limits_iw_i}$
-            \item Compute $\alpha_m = \dfrac{1}{2}log_e\left(\dfrac{1 - err_m}{err_m}\right)$
+            \item Learn classifier using current weights $w_i$'s
+            \item Compute the weighted error: $\text{err}_m = \frac{\sum_i w_i(\text{incorrect})}{\sum_i w_i}$
+            \item Compute $\alpha_m = \frac{1}{2}\log_e\left(\frac{1 - \text{err}_m}{\text{err}_m}\right)$
           \end{enumerate}
   \end{enumerate}
   \begin{columns}
@@ -431,16 +450,16 @@
 
 \begin{frame}{Boosting : AdaBoost }
   Consider we have a dataset of $N$ samples.\\
-  Sample $i$ has weight $w_i$. There are $M$ classifers in ensemble.\\
+  Sample $i$ has weight $w_i$. There are $M$ classifiers in the ensemble.\\
   \begin{enumerate}
-    \item Initialize weights of data samples, $w_i = \dfrac{1}{N}$
-    \item For $m = 1\dots M$
+    \item Initialize weights of data samples: $w_i = \frac{1}{N}$
+    \item For $m = 1, \ldots, M$:
           \begin{enumerate}
-            \item Learn classifier using current weights $w_i's$
-            \item Compute the weighted error, $err_m = \dfrac{\sum\limits_iw_i(incorrect)}{\sum\limits_iw_i}$
-            \item Compute $\alpha_m = \dfrac{1}{2}log_e\left(\dfrac{1 - err_m}{err_m}\right)$
-            \item For samples which were predicted correctly, $w_i = w_ie^{-\alpha_m}$
-            \item For samples which were predicted incorrectly, $w_i = w_ie^{\alpha_m}$
+            \item Learn classifier using current weights $w_i$'s
+            \item Compute the weighted error: $\text{err}_m = \frac{\sum_i w_i(\text{incorrect})}{\sum_i w_i}$
+            \item Compute $\alpha_m = \frac{1}{2}\log_e\left(\frac{1 - \text{err}_m}{\text{err}_m}\right)$
+            \item For samples which were predicted correctly: $w_i = w_i e^{-\alpha_m}$
+            \item For samples which were predicted incorrectly: $w_i = w_i e^{\alpha_m}$
           \end{enumerate}
   \end{enumerate}
 \end{frame}
@@ -459,17 +478,17 @@
 
 \begin{frame}{Boosting : AdaBoost }
   Consider we have a dataset of $N$ samples.\\
-  Sample $i$ has weight $w_i$. There are $M$ classifers in ensemble.\\
+  Sample $i$ has weight $w_i$. There are $M$ classifiers in the ensemble.\\
   \begin{enumerate}
-    \item Initialize weights of data samples, $w_i = \dfrac{1}{N}$
-    \item For $m = 1\dots M$
+    \item Initialize weights of data samples: $w_i = \frac{1}{N}$
+    \item For $m = 1, \ldots, M$:
           \begin{enumerate}
-            \item Learn classifier using current weights $w_i's$
-            \item Compute the weighted error, $err_m = \dfrac{\sum\limits_iw_i(incorrect)}{\sum\limits_iw_i}$
-            \item Compute $\alpha_m = \dfrac{1}{2}log_e\left(\dfrac{1 - err_m}{err_m}\right)$
-            \item For samples which were predicted correctly, $w_i = w_ie^{-\alpha_m}$
-            \item For samples which were predicted incorrectly, $w_i = w_ie^{\alpha_m}$
-            \item Normalize $w_i's$ to sum up to 1.
+            \item Learn classifier using current weights $w_i$'s
+            \item Compute the weighted error: $\text{err}_m = \frac{\sum_i w_i(\text{incorrect})}{\sum_i w_i}$
+            \item Compute $\alpha_m = \frac{1}{2}\log_e\left(\frac{1 - \text{err}_m}{\text{err}_m}\right)$
+            \item For samples which were predicted correctly: $w_i = w_i e^{-\alpha_m}$
+            \item For samples which were predicted incorrectly: $w_i = w_i e^{\alpha_m}$
+            \item Normalize $w_i$'s to sum to 1.
           \end{enumerate}
   \end{enumerate}
 \end{frame}
@@ -483,14 +502,14 @@
 
 \begin{frame}{Boosting : AdaBoost }
   Consider we have a dataset of $N$ samples.\\
-  Sample $i$ has weight $w_i$. There are $M$ classifers in ensemble.\\
+  Sample $i$ has weight $w_i$. There are $M$ classifiers in the ensemble.\\
   \begin{enumerate}
-    \item Initialize weights of data samples, $w_i = \dfrac{1}{N}$
-    \item For $m = 1\dots M$
+    \item Initialize weights of data samples: $w_i = \frac{1}{N}$
+    \item For $m = 1, \ldots, M$:
           \begin{enumerate}
-            \item Learn classifier using current weights $w_i's$
-            \item Compute the weighted error, $err_m = \dfrac{\sum\limits_iw_i(incorrect)}{\sum\limits_iw_i}$
-            \item Compute $\alpha_m = \dfrac{1}{2}log_e\left(\dfrac{1 - err_m}{err_m}\right)$
+            \item Learn classifier using current weights $w_i$'s
+            \item Compute the weighted error: $\text{err}_m = \frac{\sum_i w_i(\text{incorrect})}{\sum_i w_i}$
+            \item Compute $\alpha_m = \frac{1}{2}\log_e\left(\frac{1 - \text{err}_m}{\text{err}_m}\right)$
           \end{enumerate}
   \end{enumerate}
   \begin{columns}
@@ -507,16 +526,16 @@
 
 \begin{frame}{Boosting : AdaBoost }
   Consider we have a dataset of $N$ samples.\\
-  Sample $i$ has weight $w_i$. There are $M$ classifers in ensemble.\\
+  Sample $i$ has weight $w_i$. There are $M$ classifiers in the ensemble.\\
   \begin{enumerate}
-    \item Initialize weights of data samples, $w_i = \dfrac{1}{N}$
-    \item For $m = 1\dots M$
+    \item Initialize weights of data samples: $w_i = \frac{1}{N}$
+    \item For $m = 1, \ldots, M$:
           \begin{enumerate}
-            \item Learn classifier using current weights $w_i's$
-            \item Compute the weighted error, $err_m = \dfrac{\sum\limits_iw_i(incorrect)}{\sum\limits_iw_i}$
-            \item Compute $\alpha_m = \dfrac{1}{2}log_e\left(\dfrac{1 - err_m}{err_m}\right)$
-            \item For samples which were predicted correctly, $w_i = w_ie^{-\alpha_m}$
-            \item For samples which were predicted incorrectly, $w_i = w_ie^{\alpha_m}$
+            \item Learn classifier using current weights $w_i$'s
+            \item Compute the weighted error: $\text{err}_m = \frac{\sum_i w_i(\text{incorrect})}{\sum_i w_i}$
+            \item Compute $\alpha_m = \frac{1}{2}\log_e\left(\frac{1 - \text{err}_m}{\text{err}_m}\right)$
+            \item For samples which were predicted correctly: $w_i = w_i e^{-\alpha_m}$
+            \item For samples which were predicted incorrectly: $w_i = w_i e^{\alpha_m}$
           \end{enumerate}
   \end{enumerate}
 \end{frame}
@@ -529,17 +548,17 @@
 
 \begin{frame}{Boosting : AdaBoost }
   Consider we have a dataset of $N$ samples.\\
-  Sample $i$ has weight $w_i$. There are $M$ classifers in ensemble.\\
+  Sample $i$ has weight $w_i$. There are $M$ classifiers in the ensemble.\\
   \begin{enumerate}
-    \item Initialize weights of data samples, $w_i = \dfrac{1}{N}$
-    \item For $m = 1\dots M$
+    \item Initialize weights of data samples: $w_i = \frac{1}{N}$
+    \item For $m = 1, \ldots, M$:
           \begin{enumerate}
-            \item Learn classifier using current weights $w_i's$
-            \item Compute the weighted error, $err_m = \dfrac{\sum\limits_iw_i(incorrect)}{\sum\limits_iw_i}$
-            \item Compute $\alpha_m = \dfrac{1}{2}log_e\left(\dfrac{1 - err_m}{err_m}\right)$
-            \item For samples which were predicted correctly, $w_i = w_ie^{-\alpha_m}$
-            \item For samples which were predicted incorrectly, $w_i = w_ie^{\alpha_m}$
-            \item Normalize $w_i's$ to sum up to 1.
+            \item Learn classifier using current weights $w_i$'s
+            \item Compute the weighted error: $\text{err}_m = \frac{\sum_i w_i(\text{incorrect})}{\sum_i w_i}$
+            \item Compute $\alpha_m = \frac{1}{2}\log_e\left(\frac{1 - \text{err}_m}{\text{err}_m}\right)$
+            \item For samples which were predicted correctly: $w_i = w_i e^{-\alpha_m}$
+            \item For samples which were predicted incorrectly: $w_i = w_i e^{\alpha_m}$
+            \item Normalize $w_i$'s to sum to 1.
           \end{enumerate}
   \end{enumerate}
 \end{frame}
@@ -553,14 +572,14 @@
 
 \begin{frame}{Boosting : AdaBoost }
   Consider we have a dataset of $N$ samples.\\
-  Sample $i$ has weight $w_i$. There are $M$ classifers in ensemble.\\
+  Sample $i$ has weight $w_i$. There are $M$ classifiers in the ensemble.\\
   \begin{enumerate}
-    \item Initialize weights of data samples, $w_i = \dfrac{1}{N}$
-    \item For $m = 1\dots M$
+    \item Initialize weights of data samples: $w_i = \frac{1}{N}$
+    \item For $m = 1, \ldots, M$:
           \begin{enumerate}
-            \item Learn classifier using current weights $w_i's$
-            \item Compute the weighted error, $err_m = \dfrac{\sum\limits_iw_i(incorrect)}{\sum\limits_iw_i}$
-            \item Compute $\alpha_m = \dfrac{1}{2}log_e\left(\dfrac{1 - err_m}{err_m}\right)$
+            \item Learn classifier using current weights $w_i$'s
+            \item Compute the weighted error: $\text{err}_m = \frac{\sum_i w_i(\text{incorrect})}{\sum_i w_i}$
+            \item Compute $\alpha_m = \frac{1}{2}\log_e\left(\frac{1 - \text{err}_m}{\text{err}_m}\right)$
           \end{enumerate}
   \end{enumerate}
   \begin{columns}

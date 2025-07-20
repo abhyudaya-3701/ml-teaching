@@ -1,7 +1,7 @@
 \documentclass{beamer}
 \usepackage{../../shared/styles/custom}
+\input{../../conventions}
 
-\usepackage{subfig}
 
 %\beamerdefaultoverlayspecification{<+->}
 % \newcommand{\data}{\mathcal{D}}
@@ -32,22 +32,36 @@
 	\end{frame}
 
 	\begin{frame}{Decision Boundary for a tree with depth 1}
-	\begin{figure}%
+	\begin{figure}[h]
 	    \centering
-	    \subfloat[Decision Boundary]{{\includegraphics[width=0.45\textwidth]{example-1-depth-1-boundary} }}%
-	    \qquad
-	    \subfloat[Decision Tree]{{\includegraphics[width =0.45\textwidth]{example-1-depth-1-decision-tree} }}%
-	    \label{fig:example}%
+	    \begin{minipage}{0.45\textwidth}
+	        \centering
+	        \includegraphics[width=\textwidth]{example-1-depth-1-boundary}
+	        \caption{Decision Boundary}
+	    \end{minipage}
+	    \hfill
+	    \begin{minipage}{0.45\textwidth}
+	        \centering
+	        \includegraphics[width=\textwidth]{example-1-depth-1-decision-tree}
+	        \caption{Decision Tree}
+	    \end{minipage}
 	\end{figure}
 	\end{frame}
 	
 	\begin{frame}{Decision Boundary for a tree with no depth limit}
-	\begin{figure}%
+	\begin{figure}[h]
 	    \centering
-	    \subfloat[Decision Boundary]{{\includegraphics[width=0.45\textwidth]{example-1-nolimit-boundary} }}%
-	    \qquad
-	    \subfloat[Decision Tree]{{\includegraphics[width =0.45\textwidth]{example-1-nolimit-decision-tree} }}%
-	    \label{fig:example}%
+	    \begin{minipage}{0.45\textwidth}
+	        \centering
+	        \includegraphics[width=\textwidth]{example-1-nolimit-boundary}
+	        \caption{Decision Boundary}
+	    \end{minipage}
+	    \hfill
+	    \begin{minipage}{0.45\textwidth}
+	        \centering
+	        \includegraphics[width=\textwidth]{example-1-nolimit-decision-tree}
+	        \caption{Decision Tree}
+	    \end{minipage}
 	\end{figure}
 	\end{frame}
 	
@@ -59,34 +73,48 @@
 	
 	\only<2>{
 	\vspace{1cm}
-	But, sometimes this can lead to $poor$ $generalization$
+	But, sometimes this can lead to poor generalization
 	}	
 	\end{frame}
 
 	\begin{frame}{An example}
 	Consider the dataset below
-	\begin{figure}%
+	\begin{figure}[h]
 	    \centering
-	    \subfloat[Train Set]{{\includegraphics[width=0.45\textwidth]{dataset-2-train} }}%
-	    \qquad
-	    \subfloat[Test Set]{{\includegraphics[width =0.45\textwidth]{dataset-2-test} }}%
-	    \label{fig:example}%
+	    \begin{minipage}{0.45\textwidth}
+	        \centering
+	        \includegraphics[width=\textwidth]{dataset-2-train}
+	        \caption{Train Set}
+	    \end{minipage}
+	    \hfill
+	    \begin{minipage}{0.45\textwidth}
+	        \centering
+	        \includegraphics[width=\textwidth]{dataset-2-test}
+	        \caption{Test Set}
+	    \end{minipage}
 	\end{figure}
 	\end{frame}
 
 	\begin{frame}{Underfitting}
-	Underfitting is also known as $high$ $bias$, since it has a very biased incorrect assumption.
-	\begin{figure}%
+	Underfitting is also known as high bias, since it has a very biased incorrect assumption.
+	\begin{figure}[h]
 	    \centering
-	    \subfloat[Decision Boundary]{{\includegraphics[width=0.45\textwidth]{example-2-depth-1-boundary} }}%
-	    \qquad
-	    \subfloat[Decision Tree]{{\includegraphics[width =0.45\textwidth]{example-2-depth-1-decision-tree} }}%
-	    \label{fig:example}%
+	    \begin{minipage}{0.45\textwidth}
+	        \centering
+	        \includegraphics[width=\textwidth]{example-2-depth-1-boundary}
+	        \caption{Decision Boundary}
+	    \end{minipage}
+	    \hfill
+	    \begin{minipage}{0.45\textwidth}
+	        \centering
+	        \includegraphics[width=\textwidth]{example-2-depth-1-decision-tree}
+	        \caption{Decision Tree}
+	    \end{minipage}
 	\end{figure}
 	\end{frame}
 
 	\begin{frame}{Overfitting}
-	Overfitting is also known as $high$ $variance$, since very small changes in data can lead to very different models.\\
+	Overfitting is also known as high variance, since very small changes in data can lead to very different models.\\
 	Decision tree learned has depth of 10.
 	\begin{center}
 	\includegraphics[scale=0.5]{example-2-nolimit-boundary}
@@ -94,7 +122,7 @@
 	\end{frame}
 
 
-	\begin{frame}{Intution for Variance}
+	\begin{frame}{Intuition for Variance}
 	A small change in data can lead to very different models.\\
 	\vspace{1cm}
 	\begin{columns}
@@ -112,7 +140,7 @@
 	\end{frame}
 
 
-	\begin{frame}{Intution for Variance}
+	\begin{frame}{Intuition for Variance}
 	\begin{columns}
 		\begin{column}{0.5\textwidth}
 			\begin{center}
@@ -186,7 +214,7 @@
 
 
 	\begin{frame}{Our General Training Flow}
-	\includegraphics[width = \textwidth]{general-workflow}
+	\includegraphics[width = \textwidth]{../assets/bias-variance/diagrams/general-workflow}
 	\end{frame}
 
 	\begin{frame}{K-Fold cross-validation: Utilise full dataset for testing}
@@ -194,13 +222,13 @@
 	\end{frame}
 
 	\begin{frame}{The Validation Set}
-	\includegraphics[width = \textwidth]{validation-workflow}
+	\includegraphics[width = \textwidth]{../assets/bias-variance/diagrams/validation-workflow}
 	\end{frame}
 
 	\begin{frame}{Nested Cross Validation}
-	Divide your training set into $K$ equal 	parts.\\
-	 Cyclically use 1 part as ``validation set" and the rest for training.\\
-	Here $K = 4$
+	Divide your training set into $k$ equal parts.\\
+	 Cyclically use 1 part as ``validation set'' and the rest for training.\\
+	Here $k = 4$
 	\begin{center}
 	\includegraphics[scale=0.7]{../assets/bias-variance/diagrams/cross-validation}
 	\end{center}

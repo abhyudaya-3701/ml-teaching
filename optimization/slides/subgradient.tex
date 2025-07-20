@@ -1,5 +1,6 @@
 \documentclass{beamer}
 \usepackage{../../shared/styles/custom}
+\input{../../conventions}
 
 \graphicspath{ {../assets/subgradient/figures/} }
 
@@ -19,7 +20,7 @@
 \begin{itemize}
 	
 	
-	\item Generalizes gradient to convex but non-differentiable problems
+	\item Generalises gradient to convex but non-differentiable problems
 	\item Examples:
 	\begin{itemize}
 		\item $f(x) = |x|$
@@ -31,7 +32,7 @@
 \begin{frame}{Task at hand}
 \begin{itemize}
 
-\item TASK: find derivative of $f(x)$ at x = $x^0$
+\item TASK: find derivative of $f(x)$ at $x = x_0$
 \end{itemize}
 \begin{figure}
     \centering
@@ -46,7 +47,7 @@
 \begin{frame}{Solution}
 
 \begin{itemize}
-\item Construct a differentiable g(x) 
+\item Construct a differentiable $g(x)$ 
 \begin{itemize}
     \item Intersecting $f(x)$ at $x = x_0$
     \item Below or on $f(x)$ for all x
@@ -62,7 +63,7 @@
 \begin{frame}{Solution}
 
 \begin{itemize}
-\item Compute slope of g(x) at $x = x_0$
+\item Compute slope of $g(x)$ at $x = x_0$
 \end{itemize}
 \begin{figure}
     \centering
@@ -72,10 +73,10 @@
 \end{figure}
 \end{frame}
 
-\begin{frame}{Another Example: f(x) = $\mid x \mid$}
+\begin{frame}{Another Example: $f(x) = |x|$}
 
 \begin{itemize}
-\item Subgradient of f(x) belongs to [-1, 1]
+\item Subgradient of $f(x)$ belongs to $[-1, 1]$
 \end{itemize}
 \begin{figure}
     \centering

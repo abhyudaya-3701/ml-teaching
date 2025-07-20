@@ -1,16 +1,10 @@
 \documentclass{beamer}
 \usepackage{../../shared/styles/custom}
-
+\input{../../conventions}
 
 \def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;} 
 
-
 %\beamerdefaultoverlayspecification{<+->}
-
-
-	\ifx\relax#1\relax  \item \else \item[#1] \fi
-	\abovedisplayskip=0pt\abovedisplayshortskip=0pt~\vspace*{-\baselineskip}}
-	
 
 
 
@@ -23,7 +17,7 @@
   \maketitle
 
 \begin{frame}{Introduction}
-A know measure of over-fitting can be the magnitude of the coefficient. \\ \bigskip
+A known measure of overfitting can be the magnitude of the coefficient. \\ \bigskip
 \pause
 In $f(x) = c_0 + c_1x + c_2x^2 + \dots$ it is $\max|c_i|$ \\ \bigskip
 \end{frame}
@@ -44,7 +38,7 @@ In $f(x) = c_0 + c_1x + c_2x^2 + \dots$ it is $\max|c_i|$ \\ \bigskip
 
 \begin{frame}{Introduction}
 \vspace{0.4cm}
-In the examples we notice that as the degree increase (as the prediction starts to overfit the base data), the maximum coefficient also increases.
+In the examples we notice that as the degree increases (as the prediction starts to overfit the base data), the maximum coefficient also increases.
 %\vspace{-0.3cm}
 \begin{figure}\includegraphics[width=0.7\linewidth]{lin_plot_coef.pdf}\caption{Trend of the coefficients}\end{figure}
 
@@ -52,19 +46,19 @@ In the examples we notice that as the degree increase (as the prediction starts 
  
 \begin{frame}{Introduction}
 \vspace{0.4cm}
-To prevent over fitting we place penalties on large $\theta_i$
+To prevent overfitting we place penalties on large $\theta_i$
 \pause
  \\ \bigskip
 \begin{tcolorbox}{Objective}
 \begin{align*}
-\text{Minimize } & \left(y-X\theta\right)^T\left(y-X\theta\right) \\
-\text{s.t. } & \theta ^T\theta \leq S
+\text{Minimise } & \left(\vy-\mX\vtheta\right)^T\left(\vy-\mX\vtheta\right) \\
+\text{s.t. } & \vtheta ^T\vtheta \leq S
 \end{align*}
 \end{tcolorbox}
 \pause
 This is equivalent to \vspace{-0.4cm}
 $$
-\text{Minimize } \left(y-X\theta\right)^T\left(y-X\theta\right) + \delta ^2\theta ^T\theta
+\text{Minimise } \left(\vy-\mX\vtheta\right)^T\left(\vy-\mX\vtheta\right) + \delta ^2\vtheta ^T\vtheta
 $$
 \end{frame}  
 
@@ -86,9 +80,9 @@ $$
 To implement this we use KKT Conditions
 \pause
 \begin{align*}
-\text{Minimize } & \left(y-X\theta\right)^T\left(y-X\theta\right) \\
-\text{s.t. } & \theta ^T\theta \leq S \\
-L\left(\theta, \mu \right) =& \left(y-X\theta\right)^T\left(y-X\theta\right) + \mu\left(\theta^T\theta - S\right)
+\text{Minimise } & \left(\vy-\mX\vtheta\right)^T\left(\vy-\mX\vtheta\right) \\
+\text{s.t. } & \vtheta ^T\vtheta \leq S \\
+L\left(\vtheta, \mu \right) =& \left(\vy-\mX\vtheta\right)^T\left(\vy-\mX\vtheta\right) + \mu\left(\vtheta^T\vtheta - S\right)
 \end{align*}
 where, $\mu \geq 0$ (and $\mu = \delta^2$)\bigskip
 
@@ -102,7 +96,7 @@ No effect on constraint
 \pause
 \begin{column}{0.4\textwidth}
 If $\mu\neq 0$ \\
-$\implies \theta^T\theta - S = 0$ 
+$\implies \vtheta^T\vtheta - S = 0$ 
 \end{column}
 \end{columns}
 \end{frame}
@@ -144,14 +138,14 @@ $\implies \theta^T\theta - S = 0$
 \begin{tcolorbox}{Ridge Objective}
 \vspace{-0.4cm}
 $$
-\min_\theta \left(y-X\theta\right)^T\left(y-X\theta\right)+ \mu\theta^T\theta
+\min_{\vtheta} \left(\vy-\mX\vtheta\right)^T\left(\vy-\mX\vtheta\right)+ \mu\vtheta^T\vtheta
 $$
 \end{tcolorbox}
 \begin{align*}
-\frac{\partial L\left(\theta, \mu\right)}{\partial \theta} &= 0 \\ 
-\frac{\partial}{\partial \theta}\left\lbrace y^Ty - 2y^TX\theta + \theta^TX^TX\theta \right\rbrace +  \frac{\partial}{\partial \theta} \mu\theta^T\theta &= 0 \\
-\implies -X^Ty + \left(X^TX + \mu I\right)\theta &= 0 \\
-\implies \theta^* &= \left(X^TX + \mu I\right)^{-1}X^Ty
+\frac{\partial L\left(\vtheta, \mu\right)}{\partial \vtheta} &= 0 \\ 
+\frac{\partial}{\partial \vtheta}\left\lbrace \vy^T\vy - 2\vy^T\mX\vtheta + \vtheta^T\mX^T\mX\vtheta \right\rbrace +  \frac{\partial}{\partial \vtheta} \mu\vtheta^T\vtheta &= 0 \\
+\implies -\mX^T\vy + \left(\mX^T\mX + \mu \mI\right)\vtheta &= 0 \\
+\implies \vtheta^* &= \left(\mX^T\mX + \mu \mI\right)^{-1}\mX^T\vy
 \end{align*}
 \end{frame}
 
@@ -185,20 +179,20 @@ $\implies \, \mu \rightarrow \infty$
 \end{figure}
 \end{frame}
 
-\begin{frame}{Example: Unregularized}
+\begin{frame}{Example: Unregularised}
 \[
-\theta = (X^{T}X)^{-1}(X^{T}y)
+\vtheta = (\mX^{T}\mX)^{-1}(\mX^{T}\vy)
 \]
 \pause
 \begin{align*}
-X^{T}X &= \begin{bmatrix}
+\mX^{T}\mX &= \begin{bmatrix}
 4 &10\\10&30
 \end{bmatrix} \\
-(X^{T}X)^{-1} &= \frac{1}{20} \begin{bmatrix}
+(\mX^{T}\mX)^{-1} &= \frac{1}{20} \begin{bmatrix}
 30 & -10\\
 -10& 4
 \end{bmatrix}\\
-X^{T}y &= \begin{bmatrix}
+\mX^{T}\vy &= \begin{bmatrix}
 6\\
 14
 \end{bmatrix}
@@ -206,11 +200,11 @@ X^{T}y &= \begin{bmatrix}
 \end{frame}
 
 
-\begin{frame}{Example: Unregularized}
+\begin{frame}{Example: Unregularised}
 \vspace{0.4cm}
 \begin{align*}
 \begin{split}
-\theta &= (X^{T}X)^{-1}(X^{T}y)\\
+\vtheta &= (\mX^{T}\mX)^{-1}(\mX^{T}\vy)\\
 \begin{bmatrix}
 \theta_{0}\\
 \theta_{1}
@@ -227,34 +221,34 @@ X^{T}y &= \begin{bmatrix}
 \end{figure}
 \end{frame}
 
-\begin{frame}{Example: Regularized}
+\begin{frame}{Example: Regularised}
 \[
-\theta = (X^{T}X+\mu I)^{-1}(X^{T}y)
+\vtheta = (\mX^{T}\mX+\mu \mI)^{-1}(\mX^{T}\vy)
 \]
 \pause
 \begin{align*}
-X^{T}X &= \begin{bmatrix}
+\mX^{T}\mX &= \begin{bmatrix}
 4 &10\\10&30
 \end{bmatrix} \\
-X^{T}X+\mu I &= \begin{bmatrix}
+\mX^{T}\mX+\mu \mI &= \begin{bmatrix}
 6 &10\\10&32
 \end{bmatrix} \\
-(X^{T}X+\mu I)^{-1} &= \frac{1}{92} \begin{bmatrix}
+(\mX^{T}\mX+\mu \mI)^{-1} &= \frac{1}{92} \begin{bmatrix}
 32 & -10\\
 -10& 6
 \end{bmatrix}\\
-X^{T}y &= \begin{bmatrix}
+\mX^{T}\vy &= \begin{bmatrix}
 6\\
 14
 \end{bmatrix}
 \end{align*}
 \end{frame}
 
-\begin{frame}{Example: Regularized}
+\begin{frame}{Example: Regularised}
 \vspace{0.4cm}
 \begin{align*}
 \begin{split}
-\theta &= (X^{T}X+\mu I)^{-1}(X^{T}y) \\
+\vtheta &= (\mX^{T}\mX+\mu \mI)^{-1}(\mX^{T}\vy) \\
 \begin{bmatrix}
 \theta_{0}\\
 \theta_{1}
@@ -272,33 +266,33 @@ X^{T}y &= \begin{bmatrix}
 \end{frame}
 
 \begin{frame}{Multi-collinearity}
-$(X^{T}X)^{-1}$ is not computable when $|X^{T}X|$ = 0.
+$(\mX^{T}\mX)^{-1}$ is not computable when $|\mX^{T}\mX|$ = 0.
 
 This was a drawback of using linear regression
 
 \begin{equation*}
-X = \begin{bmatrix}
+\mX = \begin{bmatrix}
 1 & 1& 2\\
 1 & 2& 4\\
 1 & 3& 6\\
 \end{bmatrix}
 \end{equation*}
 
-The matrix X is not full rank. 
+The matrix $\mX$ is not full rank. 
 \end{frame}
 
 \begin{frame}{Multi-collinearity}
-But with ridge regression, the matrix to be inverted is $X^{T}X + \mu I$ and not $X^{T}X$.
+But with ridge regression, the matrix to be inverted is $\mX^{T}\mX + \mu \mI$ and not $\mX^{T}\mX$.
 
 \begin{equation*}
-X^TX + \mu I = \begin{bmatrix}
+\mX^T\mX + \mu \mI = \begin{bmatrix}
 3+\mu & 6& 12\\
 6 & 14+\mu & 28\\
 12 & 28& 56+\mu \\
 \end{bmatrix}
 \end{equation*}
 
-The matrix $X^TX$ would be full rank for $\mu>0$ . 
+The matrix $\mX^T\mX$ would be full rank for $\mu>0$. 
 
 \pause Another interpretation of ``regularisation''
 \end{frame}
@@ -307,9 +301,9 @@ The matrix $X^TX$ would be full rank for $\mu>0$ .
 \begin{frame}{Extension of the analytical model}
 For ridge with no penalty on $\theta_0$
 $$
-\hat{\theta} = \left(X^TX+\mu I^*\right)^{-1}X^Ty
+\hat{\vtheta} = \left(\mX^T\mX+\mu \mI^*\right)^{-1}\mX^T\vy
 $$
-where, $$I = \begin{bmatrix}
+where, $$\mI^* = \begin{bmatrix}
     \color{red}0 & 0 & 0 & \dots  & 0 \\
     0 & 1& 0 & \dots  & 0\\
     \vdots & \vdots & \vdots & \ddots & \vdots \\
@@ -318,36 +312,36 @@ where, $$I = \begin{bmatrix}
 \end{frame}
 
 
-{
-	\setbeamercolor{background canvas}{bg=}
-	\includepdf[page=-]{ridge-intercept.pdf}
-}
+%{
+%	\setbeamercolor{background canvas}{bg=}
+%	\includepdf[page=-]{ridge-intercept.pdf}
+%}
 
 
-{
-	\setbeamercolor{background canvas}{bg=}
-	\includepdf[page=-]{ridge-cv.pdf}
-}
+%{
+%	\setbeamercolor{background canvas}{bg=}
+%	\includepdf[page=-]{ridge-cv.pdf}
+%}
 
 \begin{frame}{Ridge Solution using Gradient Descent}
 \begin{itemize}[<+->]
-	\item \(\theta=\theta - \alpha \frac{\partial}{\partial \theta}(\left(y-X\theta\right)^{\top}\left(y-X\theta\right)+\mu\theta^{\top}\theta)\) 
-	\item \(\theta=\theta - \alpha(-2 X^{\top} y+2 X^{\top} X \theta + 2\mu I \theta)\)
-	\item \(\theta=(1-2\alpha\mu I)\theta - \alpha(-2 X^{\top} y+2 X^{\top} X \theta)\)
-	\item \(\theta=\underbrace{(1-2\alpha\mu I)\theta}_\text{Shrinking $\theta$} - \alpha(-2 X^{\top} y+2 X^{\top} X \theta)\)
+	\item \(\vtheta=\vtheta - \alpha \frac{\partial}{\partial \vtheta}(\left(\vy-\mX\vtheta\right)^{\top}\left(\vy-\mX\vtheta\right)+\mu\vtheta^{\top}\vtheta)\) 
+	\item \(\vtheta=\vtheta - \alpha(-2 \mX^{\top} \vy+2 \mX^{\top} \mX \vtheta + 2\mu \mI \vtheta)\)
+	\item \(\vtheta=(1-2\alpha\mu \mI)\vtheta - \alpha(-2 \mX^{\top} \vy+2 \mX^{\top} \mX \vtheta)\)
+	\item \(\vtheta=\underbrace{(1-2\alpha\mu \mI)\vtheta}_\text{Shrinking $\vtheta$} - \alpha(-2 \mX^{\top} \vy+2 \mX^{\top} \mX \vtheta)\)
 \end{itemize}
 \pause \begin{itemize}
 
 	\item Contrast with update equation for unregularised regression:
-	\item \(\theta=\underbrace{\theta}_\text{No Shrinking $\theta$} - \alpha(-2 X^{\top} y+2 X^{\top} X \theta)\)
+	\item \(\vtheta=\underbrace{\vtheta}_\text{No Shrinking $\vtheta$} - \alpha(-2 \mX^{\top} \vy+2 \mX^{\top} \mX \vtheta)\)
 	
 \end{itemize}
 
 \end{frame}
 
-{
-	\setbeamercolor{background canvas}{bg=}
-	\includepdf[page=-]{ridge-gd.pdf}
-}
+%{
+%	\setbeamercolor{background canvas}{bg=}
+%	\includepdf[page=-]{ridge-gd.pdf}
+%}
 
 \end{document}

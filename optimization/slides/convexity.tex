@@ -1,7 +1,6 @@
 \documentclass{beamer}
-\usepackage{../../../shared/styles/custom}
-
-\usepackage{../notation}
+\usepackage{../../shared/styles/custom}
+\input{../../conventions}
 
 %\beamerdefaultoverlayspecification{<+->}
 % \newcommand{\data}{\mathcal{D}}
@@ -22,8 +21,8 @@
 
 	\begin{frame}{Definition}
 	\begin{itemize}
-	\item Convexity is defined on an interval [$\alpha,\beta$]
-	\item The line segment joining $(a,f(a)) and (b, f(b))$ should be \textit{above or on} the function $f$ for all points in interval  [$\alpha,\beta$].
+	\item Convexity is defined on an interval $[\alpha,\beta]$
+	\item The line segment joining $(a,f(a))$ and $(b, f(b))$ should be \textit{above or on} the function $f$ for all points in interval $[\alpha,\beta]$.
 	\end{itemize}
 	\begin{center}
 	\includegraphics[scale=0.8]{fig1}
@@ -51,7 +50,7 @@
 	\end{center}
 	\end{frame}
 
-	\begin{frame}{Example: $y = log_ex$}
+	\begin{frame}{Example: $y = \ln x$}
 	Not convex on the entire real line i.e. $(-\infty, \infty)$
 	\begin{center}
 	\includegraphics[scale=0.5]{y-logx}
@@ -122,15 +121,15 @@
 	\vspace{1cm}
 	For example,\\
 	\vspace{1cm}
-	$\dfrac{\partial ^2( x^2)}{\partial x^2} = 2 > 0 \Rightarrow x^2$ is a Convex function.\\  
+	$\frac{\partial^2(x^2)}{\partial x^2} = 2 > 0 \Rightarrow x^2$ is a convex function.\\  
 	\end{frame}
 
 	\begin{frame}{Alternative ways to prove convexity}
-	The double derivate test for multi-parameter function is equal to using the Hessian Matrix\\
+	The double derivative test for multi-parameter function is equal to using the Hessian Matrix\\
 	\vspace{1cm}
-	A function $f(x_1,x_2,\dots,x_n)$ is convex iff its $n \times n$ Hessian Matrix is positive semidefinite for all posible values of $(x_1,x_2,\dots, x_n)$\\
+	A function $f(x_1,x_2,\ldots,x_n)$ is convex iff its $n \times n$ Hessian Matrix is positive semidefinite for all possible values of $(x_1,x_2,\ldots, x_n)$\\
 	\begin{equation*}
-\mathbf{H}=\left[\begin{array}{cccc}
+\mH=\left[\begin{array}{cccc}
 {\frac{\partial^{2} f}{\partial x_{1}^{2}}} & {\frac{\partial^{2} f}{\partial x_{1} \partial x_{2}}} & {\cdots} & {\frac{\partial^{2} f}{\partial x_{1} \partial x_{n}}} \\
 {\frac{\partial^{2} f}{\partial x_{2} \partial x_{1}}} & {\frac{\partial^{2} f}{\partial x_{2}^{2}}} & {\cdots} & {\frac{\partial^{2} f}{\partial x_{2} \partial x_{n}}} \\
 {\vdots} & {\vdots} & {\ddots} & {\vdots} \\
@@ -145,10 +144,10 @@
 	\vspace{1cm} 
 	\only<2->{
 	\begin{equation*}
-	H = 
+	\mH = 
 	\begin{bmatrix}
-		\dfrac{\partial ^2( x_1^2 + x_2^2)}{\partial x_1^2} & \dfrac{\partial ^2( x_1^2 + x_2^2)}{\partial x_1\partial x_2} \\
-		 \dfrac{\partial ^2( x_1^2 + x_2^2)}{\partial x_2\partial x_1} & \dfrac{\partial ^2( x_1^2 + x_2^2)}{\partial x_2^2} \\
+		\frac{\partial^2(x_1^2 + x_2^2)}{\partial x_1^2} & \frac{\partial^2(x_1^2 + x_2^2)}{\partial x_1\partial x_2} \\
+		 \frac{\partial^2(x_1^2 + x_2^2)}{\partial x_2\partial x_1} & \frac{\partial^2(x_1^2 + x_2^2)}{\partial x_2^2} \\
 	\end{bmatrix}
 	= 
 	\begin{bmatrix}
@@ -159,28 +158,28 @@
 	}
 	\only<3->{
 	\vspace{1cm}
-	Eigen Values of H are 2 and 2 $> 0 \Rightarrow$ H is positive semi-definite.\\
+	Eigenvalues of $\mH$ are 2 and 2 $> 0 \Rightarrow$ $\mH$ is positive semidefinite.\\
 	Hence, $f(x_1,x_2) = x_1^2 + x_2^2$ is convex. 
 	}
 	\end{frame}
 
 	\begin{frame}{Convexity of linear least squares}
-	Prove the convexity of linear least squares i.e. $f(\theta) = ||y - X\theta||^2$\\
+	Prove the convexity of linear least squares i.e. $f(\vtheta) = ||\vy - \mX\vtheta||^2$\\
 	\vspace{0.5cm}
 	\only<2->{
-	We will use the double derivate (Hessian)\\
+	We will use the double derivative (Hessian)\\
 	\vspace{0.5cm}
 	}
 	\only<3->{
-	$\dfrac{df}{d\theta} = \dfrac{d(||y^2||  - 2y^TX\theta + ||X\theta||^2)}{d\theta} = -2y^TX + 2(X\theta)^TX$\\
+	$\frac{df}{d\vtheta} = \frac{d(||\vy||^2  - 2\vy^T\mX\vtheta + ||\mX\vtheta||^2)}{d\vtheta} = -2\vy^T\mX + 2(\mX\vtheta)^T\mX$\\
 	\vspace{0.5cm}
 	}
 	\only<4->{
-	$\dfrac{d^2f}{d\theta^2} = H = 2X^TX$\\
+	$\frac{d^2f}{d\vtheta^2} = \mH = 2\mX^T\mX$\\
 	\vspace{1cm}
 	}
 	\only<5->{
-	$X^TX$ is positive semi-definite for any $X \in \mathbb{R}^{m\times n}$.\\
+	$\mX^T\mX$ is positive semidefinite for any $\mX \in \Real^{m\times n}$.\\
 	Hence, linear least squares function is convex.
 	}
 	\end{frame}
@@ -195,8 +194,8 @@
 	
 	\only<3>{Using this we can say that,
 	\begin{itemize}
-	\item $(y-x\theta)^T(y-x\theta) + \theta^T\theta$ is convex 
-	\item $(y-x\theta)^T(y-x\theta) + |\theta|$ is convex 
+	\item $(\vy-\mX\vtheta)^T(\vy-\mX\vtheta) + \vtheta^T\vtheta$ is convex 
+	\item $(\vy-\mX\vtheta)^T(\vy-\mX\vtheta) + ||\vtheta||_1$ is convex 
 	\end{itemize}
 	}
 	\end{frame}

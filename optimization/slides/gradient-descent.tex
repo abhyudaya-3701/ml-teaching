@@ -1,5 +1,6 @@
 \documentclass[usenames,dvipsnames]{beamer}
 \usepackage{../../shared/styles/custom}
+\input{../../conventions}
 
 
 
@@ -39,9 +40,9 @@
         \item We often want to minimize/maximize a function
         \item We wanted to minimize the cost function:
         \begin{equation}
-            f(\theta) = (y-X\theta)^T(y-X\theta)
+            f(\vtheta) = (\vy-\mX\vtheta)^T(\vy-\mX\vtheta)
         \end{equation}
-        \item Note, here $\theta$ is the parameter vector
+        \item Note, here $\vtheta$ is the parameter vector
         \end{itemize}   
   \end{frame}
 
@@ -53,7 +54,7 @@
         \item We will focus on minimization
         \item Goal: 
         \begin{equation}
-            \theta^* = \underset{\theta}{\arg\min}  f(\theta)
+            \vtheta^* = \underset{\vtheta}{\argmin}  f(\vtheta)
         \end{equation}
     \end{itemize}
     
@@ -73,11 +74,11 @@
 
 \begin{frame}{Gradient Descent Algorithm} 
     \begin{enumerate}[<+->]
-        \item Initialize $\theta$ to some random value
-        \item Compute the gradient of the cost function at $\theta$, $\nabla f(\theta)$
+        \item Initialize $\vtheta$ to some random value
+        \item Compute the gradient of the cost function at $\vtheta$, $\nabla f(\vtheta)$
         \item For Iteration $i$ ($i = 1,2,\ldots$) or until convergence:
         \begin{itemize}
-            \item $\theta_{i} \gets   \theta_{i-1} - \alpha \nabla f(\theta_{i-1})$
+            \item $\vtheta_{i} \gets   \vtheta_{i-1} - \alpha \nabla f(\vtheta_{i-1})$
         \end{itemize}
     \end{enumerate}
     
@@ -95,9 +96,9 @@
         \end{equation}
         \item The vector form of the above equation is given by:
         \begin{equation}
-            f(\vec{x}) = f(\vec{x_0}) + \nabla f(\vec{x_0})^T(\vec{x}-\vec{x_0}) + \frac{1}{2}(\vec{x}-\vec{x_0})^T\nabla^2 f(\vec{x_0})(\vec{x}-\vec{x_0}) + \ldots
+            f(\vx) = f(\vx_0) + \nabla f(\vx_0)^T(\vx-\vx_0) + \frac{1}{2}(\vx-\vx_0)^T\nabla^2 f(\vx_0)(\vx-\vx_0) + \ldots
         \end{equation}
-        \item where $\nabla^2 f(\vec{x_0})$ is the Hessian matrix and $\nabla f(\vec{x_0})$ is the gradient vector
+        \item where $\nabla^2 f(\vx_0)$ is the Hessian matrix and $\nabla f(\vx_0)$ is the gradient vector
     \end{itemize}
 \end{frame}
 
@@ -154,12 +155,12 @@
     \item Then, we have:
     $f(x_0 + \Delta x) \approx f(x_0) + \frac{f'(x_0)}{1!}\Delta x$
     \item Or, in vector form:
-    $f(\vec{x_0} + \Delta \vec{x}) \approx f(\vec{x_0}) + \nabla f(\vec{x_0})^T\Delta \vec{x}$
-    \item Goal: Find $\Delta \vec{x}$ such that $f(\vec{x_0} + \Delta \vec{x})$ is minimized
-    \item This is equivalent to minimizing $f(\vec{x_0}) + \nabla f(\vec{x_0})^T\Delta \vec{x}$
-    \item This happens when vectors $\nabla f(\vec{x_0})$ and $\Delta \vec{x}$ are at phase angle of $180^{\circ}$
-    \item This happens when $\Delta \vec{x} = -\alpha \nabla f(\vec{x_0})$ where $\alpha$ is a scalar
-    \item This is the gradient descent algorithm: $\vec{x_1} = \vec{x_0} - \alpha \nabla f(\vec{x_0})$
+    $f(\vx_0 + \Delta \vx) \approx f(\vx_0) + \nabla f(\vx_0)^T\Delta \vx$
+    \item Goal: Find $\Delta \vx$ such that $f(\vx_0 + \Delta \vx)$ is minimized
+    \item This is equivalent to minimizing $f(\vx_0) + \nabla f(\vx_0)^T\Delta \vx$
+    \item This happens when vectors $\nabla f(\vx_0)$ and $\Delta \vx$ are at phase angle of $180^{\circ}$
+    \item This happens when $\Delta \vx = -\alpha \nabla f(\vx_0)$ where $\alpha$ is a scalar
+    \item This is the gradient descent algorithm: $\vx_1 = \vx_0 - \alpha \nabla f(\vx_0)$
 \end{itemize}
   \end{frame}
 
@@ -189,16 +190,16 @@
 
     \begin{itemize}[<+->]
         \item \textbf{Loss function} is usually a function defined on a data point, prediction and label, and measures the penalty. 
-        \item square loss \(l\left(f\left(x_{i} | \theta\right), y_{i}\right)=\left(f\left(x_{i} | \theta\right)-y_{i}\right)^{2},\) used in linear regression
+        \item square loss \(l\left(f\left(x_{i} ; \vtheta\right), y_{i}\right)=\left(f\left(x_{i} ; \vtheta\right)-y_{i}\right)^{2},\) used in linear regression
         \item \textbf{Cost function} is usually more general. It might be a sum of loss functions over your training set plus some model complexity penalty (regularization). For example:
-        \item Mean Squared Error \(M S E(\theta)=\frac{1}{N} \sum_{i=1}^{N}\left(f\left(x_{i} | \theta\right)-y_{i}\right)^{2}\)
+        \item Mean Squared Error \(\MSE(\vtheta)=\frac{1}{n} \sum_{i=1}^{n}\left(f\left(x_{i} ; \vtheta\right)-y_{i}\right)^{2}\)
         \item \textbf{Objective function} is the most general term for any function that you optimize during training.
     \end{itemize}
     
     \end{frame}
 
     \begin{frame}{Gradient Descent : Example}
-        Learn $y = \theta_0 + \theta_1 x$ on following dataset, using gradient descent where initially $(\theta_0, \theta_1) = (4,0)$ and step-size, $\alpha  = 0.1$, for 2 iterations. 
+        Learn $y = \theta_0 + \theta_1 x$ on following dataset, using gradient descent where initially $(\theta_0, \theta_1) = (4,0)$ and step-size, $\alpha = 0.1$, for 2 iterations. 
         \begin{table}[]
             \centering
             \label{tab:my-table}
@@ -223,7 +224,7 @@
         $\epsilon_3 = 3 - \theta_0 - 3\theta_1$ \\
         
         \vspace{1cm}
-        MSE = $\dfrac{\epsilon_1^2 + \epsilon_2^2 + \epsilon_3^2}{3}$ = $\dfrac{14 + 3\theta_0^2 + 14\theta_1^2 -12\theta_0 - 28\theta_1 + 12\theta_0\theta_1}{3}$\\
+        MSE = $\frac{\epsilon_1^2 + \epsilon_2^2 + \epsilon_3^2}{3}$ = $\frac{14 + 3\theta_0^2 + 14\theta_1^2 -12\theta_0 - 28\theta_1 + 12\theta_0\theta_1}{3}$\\
         \end{frame}
         
             \begin{frame}{Difference between SSE and MSE}
@@ -247,16 +248,16 @@
         \end{frame}
 
         \begin{frame}{Gradient Descent : Example}
-            $\dfrac{\partial MSE}{\partial \theta_0} = \dfrac{2\sum\limits_i \left( y_i - \theta_0 -\theta_1x_i \right)\left(-1\right)}{N} = \dfrac{2\sum\limits_i \epsilon_i\left(-1\right)}{N}$  
+            $\frac{\partial \MSE}{\partial \theta_0} = \frac{2\sum_{i=1}^n \left( y_i - \theta_0 -\theta_1x_i \right)\left(-1\right)}{n} = \frac{2\sum_{i=1}^n \epsilon_i\left(-1\right)}{n}$  
             
             \vspace{2cm}
-            $\dfrac{\partial MSE}{\partial \theta_1} = \dfrac{2\sum\limits_i \left( y_i - \theta_0 -\theta_1x_i \right)\left(-x_i\right)}{N} = \dfrac{2\sum\limits_i \epsilon_i\left(-x_i\right)}{N}$ 
+            $\frac{\partial \MSE}{\partial \theta_1} = \frac{2\sum_{i=1}^n \left( y_i - \theta_0 -\theta_1x_i \right)\left(-x_i\right)}{n} = \frac{2\sum_{i=1}^n \epsilon_i\left(-x_i\right)}{n}$ 
             \end{frame}
             
             \begin{frame}{Gradient Descent : Example}
             \textbf{Iteration 1}\\
             \vspace{0.5cm}
-            $\theta_0 = \theta_0 - \alpha\dfrac{\partial MSE}{\partial \theta_0}$\\ 
+            $\theta_0 = \theta_0 - \alpha\frac{\partial MSE}{\partial \theta_0}$\\ 
             \vspace{0.5cm}
             \only<2->{
             $\theta_0 = 4 - 0.2\frac{\left( (1 - (4 + 0))(-1) + (2 - (4 + 0))(-1) +  (3 - (4 + 0))(-1)  \right)}{3}$\\
@@ -266,7 +267,7 @@
             \vspace{0.5cm}
             }
             
-            $\theta_1 = \theta_1 - \alpha\dfrac{\partial MSE}{\partial \theta_1}$\\ 
+            $\theta_1 = \theta_1 - \alpha\frac{\partial MSE}{\partial \theta_1}$\\ 
             \vspace{0.5cm}
             \only<3->{
             $\theta_1	 = 0 - 0.2\frac{\left( (1 - (4 + 0))(-1) + (2 - (4 + 0))(-2) +  (3 - (4 + 0))(-3)  \right)}{3} $\\
@@ -278,7 +279,7 @@
             \begin{frame}{Gradient Descent : Example}
                 \textbf{Iteration 2}\\
                 \vspace{0.5cm}
-                $\theta_0 = \theta_0 - \alpha\dfrac{\partial MSE}{\partial \theta_0}$\\ 
+                $\theta_0 = \theta_0 - \alpha\frac{\partial MSE}{\partial \theta_0}$\\ 
                 \vspace{0.5cm}
                 \only<2->{
                 $\theta_0 = 3.6 - 0.2\frac{\left( (1 - (3.6  - 0.67))(-1) + (2 - (3.6  - 0.67\times 2))(-1) +  (3 - (3.6  - 0.67\times3))(-1)  \right)}{3}$\\ 
@@ -288,7 +289,7 @@
                 
                 \vspace{0.5cm}
                 
-                $\theta_1 = \theta_1 - \alpha\dfrac{\partial MSE}{\partial \theta_1}$\\ 
+                $\theta_1 = \theta_1 - \alpha\frac{\partial MSE}{\partial \theta_1}$\\ 
                 \vspace{0.5cm}
                 \only<3->{
                 $\theta_0 = 3.6 - 0.2\frac{\left( (1 - (3.6  - 0.67))(-1) + (2 - (3.6  - 0.67\times 2))(-2) +  (3 - (3.6  - 0.67\times3))(-3)  \right)}{3}$\\ 
@@ -306,7 +307,7 @@
                         \end{frame}
                     }
 
-                    \begin{frame}{Iteration v/s Epcohs for gradient descent}
+                    \begin{frame}{Iteration vs Epochs for gradient descent}
                         \begin{itemize}[<+->]
                             \item Iteration: Each time you update the parameters of the model
                             \item Epoch: Each time you have seen all the set of examples
@@ -315,31 +316,31 @@
                     
                         \begin{frame}{Gradient Descent (GD)}
                         \begin{itemize}
-                            \item Dataset: $D = \{(X, y)\}$ of size $N$
-                            \item Initialize $\theta$
+                            \item Dataset: $\cD = \{(\mX, \vy)\}$ of size $n$
+                            \item Initialize $\vtheta$
                             \item For epoch $e$ in $[1, E]$
                             \begin{itemize}
-                                \item Predict $\hat{y} = pred(X, \theta)$
-                                \item Compute loss: $J(\theta) = loss(y, \hat{y})$
-                                \item Compute gradient: $\nabla J(\theta) = grad(J)(\theta)$
-                                \item Update: $\theta = \theta - \alpha \nabla J(\theta)$
+                                \item Predict $\yhat = \text{pred}(\mX, \vtheta)$
+                                \item Compute loss: $J(\vtheta) = \text{loss}(\vy, \yhat)$
+                                \item Compute gradient: $\nabla J(\vtheta) = \text{grad}(J)(\vtheta)$
+                                \item Update: $\vtheta = \vtheta - \alpha \nabla J(\vtheta)$
                             \end{itemize}
                         \end{itemize}
                     \end{frame}
                     
                     \begin{frame}{Stochastic Gradient Descent (SGD)}
                         \begin{itemize}
-                            \item Dataset: $D = \{(X, y)\}$ of size $N$
-                            \item Initialize $\theta$
+                            \item Dataset: $\cD = \{(\mX, \vy)\}$ of size $n$
+                            \item Initialize $\vtheta$
                             \item For epoch $e$ in $[1, E]$
                             \begin{itemize}
-                                \item Shuffle $D$
-                                \item For $i$ in $[1, N]$
+                                \item Shuffle $\cD$
+                                \item For $i$ in $[1, n]$
                                 \begin{itemize}
-                                    \item Predict $\hat{y_i} = pred(X_i, \theta)$
-                                    \item Compute loss: $J(\theta) = loss(y_i, \hat{y_i})$
-                                    \item Compute gradient: $\nabla J(\theta) = grad(J)(\theta)$
-                                    \item Update: $\theta = \theta - \alpha \nabla J(\theta)$
+                                    \item Predict $\yhat_i = \text{pred}(\vx_i, \vtheta)$
+                                    \item Compute loss: $J(\vtheta) = \text{loss}(y_i, \yhat_i)$
+                                    \item Compute gradient: $\nabla J(\vtheta) = \text{grad}(J)(\vtheta)$
+                                    \item Update: $\vtheta = \vtheta - \alpha \nabla J(\vtheta)$
                                 \end{itemize}
                             \end{itemize}
                         \end{itemize}
@@ -347,19 +348,19 @@
                     
                     \begin{frame}{Mini-Batch Gradient Descent (MBGD)}
                         \begin{itemize}
-                            \item Dataset: $D = \{(X, y)\}$ of size $N$
-                            \item Initialize $\theta$
+                            \item Dataset: $\cD = \{(\mX, \vy)\}$ of size $n$
+                            \item Initialize $\vtheta$
                             \item For epoch $e$ in $[1, E]$
                             \begin{itemize}
-                                \item Shuffle $D$
-                                \item $Batches = make\_batches(D, B)$
-                                \item For b in $Batches$
+                                \item Shuffle $\cD$
+                                \item $\text{Batches} = \text{make\_batches}(\cD, B)$
+                                \item For $b$ in $\text{Batches}$
                                 \begin{itemize}
-                                    \item $X\_b, y\_b = b$
-                                    \item Predict $\hat{y\_b} = pred(X\_b, \theta)$
-                                    \item Compute loss: $J(\theta) = loss(y\_b, \hat{y\_b})$
-                                    \item Compute gradient: $\nabla J(\theta) = grad(J)(\theta)$
-                                    \item Update: $\theta = \theta - \alpha \nabla J(\theta)$
+                                    \item $\mX_b, \vy_b = b$
+                                    \item Predict $\yhat_b = \text{pred}(\mX_b, \vtheta)$
+                                    \item Compute loss: $J(\vtheta) = \text{loss}(\vy_b, \yhat_b)$
+                                    \item Compute gradient: $\nabla J(\vtheta) = \text{grad}(J)(\vtheta)$
+                                    \item Update: $\vtheta = \vtheta - \alpha \nabla J(\vtheta)$
                                 \end{itemize}
                             \end{itemize}
                         \end{itemize}
@@ -434,15 +435,15 @@
                         \begin{frame}{Stochastic Gradient Descent : Example}
                         \textbf{For Iteration $i$}\\
                         \vspace{1cm}
-                        $\dfrac{\partial MSE}{\partial \theta_0} = 2\left( y_i - \theta_0 -\theta_1x_i \right)\left(-1\right) = 2\epsilon_i\left(-1\right)$ \\
+                        $\frac{\partial MSE}{\partial \theta_0} = 2\left( y_i - \theta_0 -\theta_1x_i \right)\left(-1\right) = 2\epsilon_i\left(-1\right)$ \\
                         \vspace{2cm}
-                        $\dfrac{\partial MSE}{\partial \theta_1} = 2\left( y_i - \theta_0 -\theta_1x_i \right)\left(-x_i\right) = 2\epsilon_i\left(-x_i\right)$ 
+                        $\frac{\partial MSE}{\partial \theta_1} = 2\left( y_i - \theta_0 -\theta_1x_i \right)\left(-x_i\right) = 2\epsilon_i\left(-x_i\right)$ 
                         \end{frame}
                         
                         \begin{frame}{Stochastic Gradient Descent : Example}
                         \textbf{Iteration 1}\\
                         \vspace{0.5cm}
-                        $\theta_0 = \theta_0 - \alpha\dfrac{\partial MSE}{\partial \theta_0}$\\ 
+                        $\theta_0 = \theta_0 - \alpha\frac{\partial MSE}{\partial \theta_0}$\\ 
                         \vspace{0.5cm}
                         \only<2->{
                         $\theta_0 = 4 - 0.1 \times 2 \times \left( 2 - (4 + 0) \right)(-1)$\\
@@ -452,7 +453,7 @@
                         \vspace{0.5cm}
                         }
                         
-                        $\theta_1 = \theta_1 - \alpha\dfrac{\partial MSE}{\partial \theta_1}$\\ 
+                        $\theta_1 = \theta_1 - \alpha\frac{\partial MSE}{\partial \theta_1}$\\ 
                         \vspace{0.5cm}
                         \only<3->{
                         $\theta_1 = 0 - 0.1 \times 2 \times \left( 2 - (4 + 0) \right)(-2)$\\
@@ -464,7 +465,7 @@
                         \begin{frame}{Stochastic Gradient Descent : Example}
                         \textbf{Iteration 2}\\
                         \vspace{0.5cm}
-                        $\theta_0 = \theta_0 - \alpha\dfrac{\partial MSE}{\partial \theta_0}$\\ 
+                        $\theta_0 = \theta_0 - \alpha\frac{\partial MSE}{\partial \theta_0}$\\ 
                         \vspace{0.5cm}
                         \only<2->{
                         $\theta_0 = 3.6 - 0.1 \times 2 \times \left( 3 - (3.6 - 0.8 \times 3 )\right)(-1) $\\
@@ -474,7 +475,7 @@
                         \vspace{0.5cm}
                         }
                         
-                        $\theta_1 = \theta_1 - \alpha\dfrac{\partial MSE}{\partial \theta_1}$\\ 
+                        $\theta_1 = \theta_1 - \alpha\frac{\partial MSE}{\partial \theta_1}$\\ 
                         \vspace{0.5cm}
                         \only<3->{
                         $\theta_0 = -0.8 - 0.1 \times 2 \times \left( 3 - (3.6 - 0.8 \times 3 ) \right)(-3)$\\
@@ -486,7 +487,7 @@
                         \begin{frame}{Stochastic Gradient Descent : Example}
                         \textbf{Iteration 3}\\
                         \vspace{0.5cm}
-                        $\theta_0 = \theta_0 - \alpha\dfrac{\partial MSE}{\partial \theta_0}$\\ 
+                        $\theta_0 = \theta_0 - \alpha\frac{\partial MSE}{\partial \theta_0}$\\ 
                         \vspace{0.5cm}
                         \only<2->{
                         $\theta_0 = 3.96 - 0.1 \times 2 \times \left( 1 - (3.96 + 0.28 \times 1 )\right)(-1) $\\
@@ -496,7 +497,7 @@
                         \vspace{0.5cm}
                         }
                         
-                        $\theta_1 = \theta_1 - \alpha\dfrac{\partial MSE}{\partial \theta_1}$\\ 
+                        $\theta_1 = \theta_1 - \alpha\frac{\partial MSE}{\partial \theta_1}$\\ 
                         \vspace{0.5cm}
                         \only<3->{
                         $\theta_0 = 0.28 - 0.1 \times 2 \times \left( 1 - (3.96 + 0.28 \times 1 )\right)(-1) $\\
@@ -568,19 +569,19 @@
         
     \end{frame}
 
-    {
-\setbeamercolor{background canvas}{bg=}
-\includepdf[pages=1-]{SGD.pdf}
-}
+    % {
+% \setbeamercolor{background canvas}{bg=}
+% \includepdf[pages=1-]{SGD.pdf}
+% }
                 
 
-  \section{Time Complexity: Gradient Descent v/s Normal Equation for Linear Regression}
+  \section{Time Complexity: Gradient Descent vs Normal Equation for Linear Regression}
   \begin{frame}{Normal Equation}
 
 	\begin{itemize}[<+->]
-		\item Consider $X\in \mathcal{R}^{N\times D}$
-		\item $N$ examples and $D$ dimensions
-		\item What is the time complexity of solving the normal equation $\hat{\theta} = (X^TX)^{-1}X^Ty$?
+		\item Consider $\mX \in \Real^{n \times d}$
+		\item $n$ examples and $d$ dimensions
+		\item What is the time complexity of solving the normal equation $\hat{\vtheta} = (\mX^T\mX)^{-1}\mX^T\vy$?
 	\end{itemize}
 	
 	
@@ -590,13 +591,13 @@
 \begin{frame}{Normal Equation}
 
 \begin{itemize}[<+->]
-	\item $X$ has dimensions $N\times D$, $X^T$ has dimensions $D \times N$
-	\item $X^TX$ is a matrix product of matrices of size: $D \times N$ and $N \times D$, which is $\mathcal{O}(D^{2}N)$
-	\item Inversion of $X^TX$ is an inversion of a $D\times D$ matrix, which is $\mathcal{O}(D^{3})$
-	\item $X^Ty$ is a matrix vector product of size $D \times N$ and $N \times 1$, which is $\mathcal{O}(DN)$
-	\item $(X^TX)^{-1}X^Ty$ is a matrix product of a  $D\times D$ matrix and $D \times 1$ matrix, which is $\mathcal{O}(D^2)$
-	\item Overall complexity: $\mathcal{O}(D^{2}N)$ + $\mathcal{O}(D^{3})$ + $\mathcal{O}(DN)$ + $\mathcal{O}(D^2)$ = $\mathcal{O}(D^{2}N)$ + $\mathcal{O}(D^{3})$
-	\item Scales cubic in the number of columns/features of $X$
+	\item $\mX$ has dimensions $n \times d$, $\mX^T$ has dimensions $d \times n$
+	\item $\mX^T\mX$ is a matrix product of matrices of size: $d \times n$ and $n \times d$, which is $\mathcal{O}(d^{2}n)$
+	\item Inversion of $\mX^T\mX$ is an inversion of a $d \times d$ matrix, which is $\mathcal{O}(d^{3})$
+	\item $\mX^T\vy$ is a matrix vector product of size $d \times n$ and $n \times 1$, which is $\mathcal{O}(dn)$
+	\item $(\mX^T\mX)^{-1}\mX^T\vy$ is a matrix product of a $d \times d$ matrix and $d \times 1$ matrix, which is $\mathcal{O}(d^2)$
+	\item Overall complexity: $\mathcal{O}(d^{2}n)$ + $\mathcal{O}(d^{3})$ + $\mathcal{O}(dn)$ + $\mathcal{O}(d^2)$ = $\mathcal{O}(d^{2}n)$ + $\mathcal{O}(d^{3})$
+	\item Scales cubic in the number of columns/features of $\mX$
 \end{itemize}
 
 
@@ -608,14 +609,14 @@
 Start with random values of $\theta_{0}$ and $\theta_{1}$\\
 Till convergence
 \begin{itemize}[<+->]
-	\item $\theta_{0} = \theta_{0} - \alpha\cfrac{\partial}{\partial \theta_{0}} (\sum \epsilon_{i}^{2}) $
-	\item $\theta_{1} = \theta_{1} - \alpha \cfrac{\partial}{\partial \theta_{1}} (\sum \epsilon_{i}^{2}) $
-	\item Question: Can you write the above for $D$ dimensional data in vectorised form?
-	\item	\(\theta_{0}=\theta_{0}-\alpha \frac{\partial}{\partial \theta_{0}}\left(y-X\theta\right)^{\top}\left(y-X\theta\right)\)
-	\(\theta_{1}=\theta_{1}-\alpha \frac{\partial}{\partial \theta_{1}}\left(y-X\theta\right)^{\top}\left(y-X\theta\right)\) 
+	\item $\theta_{0} = \theta_{0} - \alpha\frac{\partial}{\partial \theta_{0}} (\sum \epsilon_{i}^{2}) $
+	\item $\theta_{1} = \theta_{1} - \alpha \frac{\partial}{\partial \theta_{1}} (\sum \epsilon_{i}^{2}) $
+	\item Question: Can you write the above for $d$ dimensional data in vectorised form?
+	\item	\(\theta_{0}=\theta_{0}-\alpha \frac{\partial}{\partial \theta_{0}}\left(\vy-\mX\vtheta\right)^{\top}\left(\vy-\mX\vtheta\right)\)
+	\(\theta_{1}=\theta_{1}-\alpha \frac{\partial}{\partial \theta_{1}}\left(\vy-\mX\vtheta\right)^{\top}\left(\vy-\mX\vtheta\right)\) 
 	\\ $\vdots$
-	\\	\(\theta_{D}=\theta_{D}-\alpha \frac{\partial}{\partial \theta_{D}}\left(y-X\theta\right)^{\top}\left(y-X\theta\right)\)
-	\item \(\theta=\theta - \alpha \frac{\partial}{\partial \theta}\left(y-X\theta\right)^{\top}\left(y-X\theta\right)\) 
+	\\	\(\theta_{d}=\theta_{d}-\alpha \frac{\partial}{\partial \theta_{d}}\left(\vy-\mX\vtheta\right)^{\top}\left(\vy-\mX\vtheta\right)\)
+	\item \(\vtheta=\vtheta - \alpha \frac{\partial}{\partial \vtheta}\left(\vy-\mX\vtheta\right)^{\top}\left(\vy-\mX\vtheta\right)\) 
 
 \end{itemize}
 \end{frame}
@@ -623,11 +624,11 @@ Till convergence
 \begin{frame}{Gradient Descent}
 
 
-\(\frac{\partial}{\partial \theta}(y-X \theta)^{\top}(y-X \theta)\)
-\\ \(=\frac{\partial}{\partial \theta}\left(y^{\top}-\theta^{\top} X^{\top}\right)(y-X \theta)\)
-\\ \(=\frac{\partial}{\partial \theta}\left(y^{\top} y-\theta^{\top} X^{\top} y-y^{\top} x \theta+\theta^{\top} X^{\top} X \theta\right)\)
-\\ \(=-2 X^{\top} y+2 X^{\top} x \theta\)
-\\ \(=2 X^{\top}(X \theta-y)\)
+\(\frac{\partial}{\partial \vtheta}(\vy-\mX \vtheta)^{\top}(\vy-\mX \vtheta)\)
+\\ \(=\frac{\partial}{\partial \vtheta}\left(\vy^{\top}-\vtheta^{\top} \mX^{\top}\right)(\vy-\mX \vtheta)\)
+\\ \(=\frac{\partial}{\partial \vtheta}\left(\vy^{\top} \vy-\vtheta^{\top} \mX^{\top} \vy-\vy^{\top} \mX \vtheta+\vtheta^{\top} \mX^{\top} \mX \vtheta\right)\)
+\\ \(=-2 \mX^{\top} \vy+2 \mX^{\top} \mX \vtheta\)
+\\ \(=2 \mX^{\top}(\mX \vtheta-\vy)\)
 	
 
 \end{frame}
@@ -637,18 +638,18 @@ Till convergence
 
 We can write the vectorised update equation as follows, for each iteration
 
-\(\theta=\theta - \alpha X^{\top}(X \theta-y)\) 
+\(\vtheta=\vtheta - \alpha \mX^{\top}(\mX \vtheta-\vy)\) 
 
 
 \pause For $t$ iterations, what is the computational complexity of our gradient descent solution?
 
-\pause Hint, rewrite the above as: \(\theta=\theta - \alpha X^{\top}X \theta+ \alpha X^{\top}y\) 
+\pause Hint, rewrite the above as: \(\vtheta=\vtheta - \alpha \mX^{\top}\mX \vtheta+ \alpha \mX^{\top}\vy\) 
 
-\pause Complexity of computing $X^{\top}y$ is $\mathcal{O}(DN)$
+\pause Complexity of computing $\mX^{\top}\vy$ is $\mathcal{O}(dn)$
 
-\pause Complexity of computing $\alpha X^{\top}y$ once we have $X^{\top}y$ is $\mathcal{O}(D)$ since  $X^{\top}y$ has $D$ entries
+\pause Complexity of computing $\alpha \mX^{\top}\vy$ once we have $\mX^{\top}\vy$ is $\mathcal{O}(d)$ since $\mX^{\top}\vy$ has $d$ entries
 
-\pause Complexity of computing $X^{\top}X$ is $\mathcal{O}(D^2N)$ and then multiplying with $\alpha$ is  $\mathcal{O}(D^2)$
+\pause Complexity of computing $\mX^{\top}\mX$ is $\mathcal{O}(d^2n)$ and then multiplying with $\alpha$ is $\mathcal{O}(d^2)$
 
 \pause All of the above need only be calculated once!
 
@@ -659,31 +660,31 @@ We can write the vectorised update equation as follows, for each iteration
 
 
 \begin{frame}{Gradient Descent}
-\pause For each of the $t$ iterations, we now need to first multiply  $\alpha X^{\top}X$ with $\theta$ which is matrix multiplication of a $D \times D$ matrix with a $D \times 1$, which is $\mathcal{O}(D^2)$ 
+\pause For each of the $t$ iterations, we now need to first multiply $\alpha \mX^{\top}\mX$ with $\vtheta$ which is matrix multiplication of a $d \times d$ matrix with a $d \times 1$, which is $\mathcal{O}(d^2)$ 
 
-\pause The remaining subtraction/addition can be done in $\mathcal{O}(D)$ for each iteration.
+\pause The remaining subtraction/addition can be done in $\mathcal{O}(d)$ for each iteration.
 
 \pause What is overall computational complexity?
 
-\pause $\mathcal{O}(tD^2)$ + $\mathcal{O}(D^2N) = \mathcal{O}((t+N)D^2)$
+\pause $\mathcal{O}(td^2)$ + $\mathcal{O}(d^2n) = \mathcal{O}((t+n)d^2)$
 \end{frame}
 
 \begin{frame}{Gradient Descent (Alternative)}
 \pause If we do not rewrite the expression
-\(\theta=\theta - \alpha X^{\top}(X \theta-y)\) 
+\(\vtheta=\vtheta - \alpha \mX^{\top}(\mX \vtheta-\vy)\) 
 
 For each iteration, we have:
 \begin{itemize}[<+->]
-	\item Computing $X\theta$ is $\mathcal{O}(ND)$
-	\item Computing $X\theta - y$ is $\mathcal{O}(N)$
-	\item Computing $\alpha X^{\top}$ is $\mathcal{O}(ND)$
-	\item Computing $\alpha X^{\top}(X\theta - y)$ is $\mathcal{O}(ND)$
-	\item Computing \(\theta=\theta - \alpha X^{\top}(X \theta-y)\) is $\mathcal{O}(N)$
+	\item Computing $\mX\vtheta$ is $\mathcal{O}(nd)$
+	\item Computing $\mX\vtheta - \vy$ is $\mathcal{O}(n)$
+	\item Computing $\alpha \mX^{\top}$ is $\mathcal{O}(nd)$
+	\item Computing $\alpha \mX^{\top}(\mX\vtheta - \vy)$ is $\mathcal{O}(nd)$
+	\item Computing \(\vtheta=\vtheta - \alpha \mX^{\top}(\mX \vtheta-\vy)\) is $\mathcal{O}(n)$
 \end{itemize}
 
 \pause What is overall computational complexity?
 
-\pause $\mathcal{O}(NDt)$
+\pause $\mathcal{O}(ndt)$
 \end{frame}
 
  

@@ -1,7 +1,6 @@
 \documentclass{beamer}
 \usepackage{../../shared/styles/custom}
-
-\usepackage{subfig}
+\input{../../conventions}
 
 %\beamerdefaultoverlayspecification{<+->}
 % \newcommand{\data}{\mathcal{D}}
@@ -25,7 +24,7 @@
 For the purpose of this lecture we assume that there exists a relation between \textbf{Housing Prices} and \textbf{area of the house}.
 \pause
 
-Here, the true function $f_{\theta (true)}$ is used to model the relation $y_t = f_{\theta (true)}(x_t)$
+Here, the true function $f_{\vtheta_{\text{true}}}$ is used to model the relation $y_t = f_{\vtheta_{\text{true}}}(x_t)$
 \begin{figure}
 \includegraphics[width=0.6\textwidth]{../assets/bias-variance/figures/true.pdf}
 \vspace*{-0.3cm}
@@ -34,7 +33,7 @@ Here, the true function $f_{\theta (true)}$ is used to model the relation $y_t =
 \end{frame}
 
 \begin{frame}{The 3 Sources of Error}
-Any prediction made is effected by 3 sources of error:
+Any prediction made is affected by 3 sources of error:
 \begin{itemize}
 \item Noise
 \item Bias
@@ -51,14 +50,14 @@ Any prediction made is effected by 3 sources of error:
 \item sale prices of other houses in the neighborhood (measurements that have biases in themselves)
 \end{itemize}}
 
-\only<2-2>{It is because of this data is inherently noisy.}
-\only<3-4>{This is \textbf{not} a property of data and is instead an \textbf{irreducible error}.}
+\only<2-2>{Because of this, data is inherently noisy.}
+\only<3-4>{This is \textbf{not} a property of data but rather an \textbf{irreducible error}.}
 
 \only<4-4>{
-This error can be captured by the error term $\epsilon$ which causes the final value of the house to follow the equation: $y_t = f_{\theta (true)}(x_t)+\epsilon_t$
+This error can be captured by the error term $\epsilon$ which causes the final value of the house to follow the equation: $y_t = f_{\vtheta_{\text{true}}}(x_t) + \epsilon_t$
 }
 
-\only<5->{This noise can be assumed to be mean centered around $0$ and has spread that is called the variance of the noise. 
+\only<5->{This noise can be assumed to be mean-centered around $0$ with spread called the variance of the noise. 
 
 This causes $y_t$ to become mean centered around the true relation.}
 \vspace*{-0.6cm}
@@ -80,7 +79,7 @@ This causes $y_t$ to become mean centered around the true relation.}
 \only<1-2>{\textbf{Bias} is a measure of how well a model can fit a given relation.}
 
 \only<2-3>{
-To understand this let us take an example where we try to learn the relation that models the \textit{Price} and \textit{Size} of a house using a \textit{constant function}. \vspace*{-0.4cm}}
+To understand this, let us take an example where we try to learn the relation that models the \textit{Price} and \textit{Size} of a house using a \textit{constant function}. \vspace*{-0.4cm}}
 
 \only<2>{\begin{figure}
 \includegraphics[width=0.7\textwidth]{../assets/bias-variance/figures/biasn_1.pdf}
@@ -150,8 +149,8 @@ So the bias in this scenario looks something like this:
 \end{frame}
 
 \begin{frame}{Bias Contribution}
-\only<1->{$$\text{Bias}(x) = f_{\theta(true)}(x) - f_{\bar\theta}(x)$$}
-\only<2->{It is measure of how flexible the fit is in capturing $f_{\theta(true)}(x)$}
+\only<1->{$$\text{Bias}(x) = f_{\vtheta_{\text{true}}}(x) - f_{\bar{\vtheta}}(x)$$}
+\only<2->{It is a measure of how flexible the fit is in capturing $f_{\vtheta_{\text{true}}}(x)$}
 \only<1->{\begin{figure}
 \includegraphics[width=0.7\textwidth]{../assets/bias-variance/figures/bias6.pdf}
 \vspace*{-0.3cm}
@@ -237,7 +236,7 @@ gives a measure of the average error by doing an expectation of the errors of al
 \end{frame}
 
 \begin{frame}{Expected Prediction Error at a point}
-Any prediction made is effected by 3 sources of error:
+Any prediction made is affected by 3 sources of error:
 \begin{itemize}
 \item Noise
 \item Bias
@@ -250,13 +249,13 @@ Therefore, $E_{train}[\text{at a point } x_t] = f(\text{noise, bias, variance}) 
 \end{frame}
 
 \begin{frame}{Formally defining the 3 sources of error: Noise}
-\only<1->{Noise is an \textbf{irreducible error} that is capture by the error term $\epsilon$.
+\only<1->{Noise is an \textbf{irreducible error} captured by the error term $\epsilon$.
 
 The equation of the relation becomes $y_t = f_{\theta (true)}(x_t)+\epsilon_t$}
 
-\only<2->{The noise is mean centered around $0$ and has spread that is called the variance of the noise which is denoted by $\sigma^2$. }
+\only<2->{The noise is mean-centered around $0$ with spread called the variance of the noise, denoted by $\sigma^2$. }
 
-\only<3>{That is it can be denoted by $\epsilon_t \in \mathcal{N}(0, \sigma^2)$}
+\only<3>{That is, it can be denoted by $\epsilon_t \sim \cN(0, \sigma^2)$}
 
 \vspace*{-0.6cm}
 \only<2>{\begin{figure}
@@ -268,9 +267,9 @@ The equation of the relation becomes $y_t = f_{\theta (true)}(x_t)+\epsilon_t$}
 \end{frame}
 
 \begin{frame}{Formally defining the 3 sources of error: Bias}
-\only<1->{Bias is a measure of how flexible the fit is in capturing the true function $f_{\theta(true)}(x)$}
-\only<1->{$$\text{Bias}(x_t) = f_{\theta(true)}(x_t) - f_{\bar\theta}(x_t)$$
-where $f_{\bar\theta}$ denotes the average fit over all datasets.
+\only<1->{Bias is a measure of how flexible the fit is in capturing the true function $f_{\vtheta_{\text{true}}}(x)$}
+\only<1->{$$\text{Bias}(x_t) = f_{\vtheta_{\text{true}}}(x_t) - f_{\bar{\vtheta}}(x_t)$$
+where $f_{\bar{\vtheta}}$ denotes the average fit over all datasets.
 }
 \only<1>{\begin{figure}
 \includegraphics[width=0.65\textwidth]{../assets/bias-variance/figures/bias6.pdf}
@@ -278,7 +277,7 @@ where $f_{\bar\theta}$ denotes the average fit over all datasets.
 \caption{Bias of the fit}
 \end{figure}}
 
-\only<2->{As $f_{\bar\theta}$ denotes the average fit over all datasets, it can be expressed by $f_{\bar\theta}(x_t) = E_{train}[f_{\hat{\theta}}(x_t)]$
+\only<2->{As $f_{\bar{\vtheta}}$ denotes the average fit over all datasets, it can be expressed by $f_{\bar{\vtheta}}(x_t) = E_{\text{train}}[f_{\hat{\vtheta}}(x_t)]$
 }
 \end{frame}
 
@@ -286,9 +285,9 @@ where $f_{\bar\theta}$ denotes the average fit over all datasets.
 \only<1->{Variance of the fit is a measure of the variation in the fits when trained across different training sets.}
 
 \only<2->{Variance of the fit can be defined by
-$$\text{var}(f_{\hat{\theta}}(x_t)) = E_{train}[(f_{\hat{\theta}}(x) - f_{\bar\theta}(x_t))^2]$$
+$$\text{var}(f_{\hat{\vtheta}}(x_t)) = E_{\text{train}}[(f_{\hat{\vtheta}}(x) - f_{\bar{\vtheta}}(x_t))^2]$$
 
-where $f_{\hat{\theta}}(x) - f_{\bar\theta}(x_t)$ denotes the deviation that a specific fit has from the average.
+where $f_{\hat{\vtheta}}(x) - f_{\bar{\vtheta}}(x_t)$ denotes the deviation that a specific fit has from the average.
 }
 \only<1>{\begin{figure}
 \includegraphics[width=0.8\textwidth]{../assets/bias-variance/figures/var4.pdf}
