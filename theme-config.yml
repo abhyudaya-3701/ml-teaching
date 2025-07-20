@@ -1,0 +1,133 @@
+# ML Teaching Materials - Theme Configuration
+# This file controls the visual appearance of all slide presentations
+
+# ==============================================================================
+# BASIC INFORMATION
+# ==============================================================================
+course:
+  title: "Machine Learning"
+  year: "2024"
+  instructor: "Nipun Batra"
+  institution: "IIT Gandhinagar"
+  website: "https://nipunbatra.github.io/ml2024/"
+
+# ==============================================================================
+# THEME SELECTION
+# ==============================================================================
+theme:
+  # Base theme (metropolis, madrid, warsaw, etc.)
+  base: "metropolis"
+  
+  # Color scheme (light, dark, solarized, sky, custom)
+  colorscheme: "light"
+  
+  # Font size (8pt, 9pt, 10pt, 11pt, 12pt, 14pt, 17pt, 20pt)
+  fontsize: "11pt"
+
+# ==============================================================================
+# SLIDE ELEMENTS
+# ==============================================================================
+elements:
+  # Show slide numbers (true/false)
+  slide_numbers: true
+  
+  # Show progress bar (true/false)  
+  progress_bar: true
+  
+  # Show section navigation (true/false)
+  section_nav: false
+  
+  # Show logo (true/false)
+  show_logo: true
+  
+  # Logo position (top-left, top-right, bottom-left, bottom-right)
+  logo_position: "bottom-right"
+  
+  # Logo file (relative to shared/assets/)
+  logo_file: "iit-gandhinagar-logo.png"
+  
+  # Show date (true/false)
+  show_date: true
+  
+  # Date format (today, manual, none)
+  date_format: "today"
+
+# ==============================================================================
+# COLOR SCHEMES
+# ==============================================================================
+colors:
+  light:
+    primary: "#1f5582"      # IIT Gandhinagar Blue
+    secondary: "#f0f0f0"    # Light gray
+    accent: "#e74c3c"       # Red for emphasis
+    background: "#ffffff"   # White
+    text: "#333333"         # Dark gray
+    
+  dark:
+    primary: "#2980b9"      # Bright blue
+    secondary: "#34495e"    # Dark blue-gray
+    accent: "#e67e22"       # Orange
+    background: "#2c3e50"   # Dark blue
+    text: "#ecf0f1"         # Light gray
+    
+  solarized:
+    primary: "#268bd2"      # Solarized blue
+    secondary: "#eee8d5"    # Solarized base2
+    accent: "#cb4b16"       # Solarized orange
+    background: "#fdf6e3"   # Solarized base3
+    text: "#657b83"         # Solarized base00
+    
+  sky:
+    primary: "#0ea5e9"      # Sky blue
+    secondary: "#e0f2fe"    # Light sky
+    accent: "#f59e0b"       # Amber
+    background: "#f8fafc"   # Slate 50
+    text: "#1e293b"         # Slate 800
+
+# ==============================================================================
+# LAYOUT OPTIONS
+# ==============================================================================
+layout:
+  # Title slide layout (minimal, detailed, custom)
+  title_style: "detailed"
+  
+  # Section slides (true/false)
+  section_slides: true
+  
+  # Table of contents (none, beginning, sections)
+  toc: "none"
+  
+  # Bibliography style (none, inline, end)
+  bibliography: "none"
+
+# ==============================================================================
+# CONTENT OPTIONS
+# ==============================================================================
+content:
+  # Show code blocks with syntax highlighting (true/false)
+  syntax_highlighting: true
+  
+  # Default language for code blocks
+  default_language: "python"
+  
+  # Show mathematical equations in display style (true/false)
+  display_math: true
+  
+  # Use custom boxes for definitions, theorems, etc. (true/false)
+  custom_boxes: true
+
+# ==============================================================================
+# OUTPUT OPTIONS
+# ==============================================================================
+output:
+  # PDF compression (true/false)
+  compress_pdf: true
+  
+  # Include metadata (true/false)
+  include_metadata: true
+  
+  # Bookmark generation (true/false)
+  bookmarks: true
+  
+  # Hyperlink colors (true/false)
+  colored_links: true

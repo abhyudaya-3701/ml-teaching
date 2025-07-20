@@ -1,0 +1,254 @@
+% theme-processor.sty - Config-driven theme system for ML course materials
+% Reads theme-config.yml and applies settings dynamically
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{theme-processor}[2024/01/01 Config-driven Theme Processor]
+
+% ==============================================================================
+% THEME CONFIGURATION SYSTEM
+% ==============================================================================
+
+% For now, we'll use LaTeX-based configuration (YAML parsing requires external tools)
+% In the future, this could be enhanced with YAML preprocessing
+
+% Default theme settings (can be overridden)
+\providecommand{\themebase}{metropolis}
+\providecommand{\themecolorscheme}{light}
+\providecommand{\themefontsize}{11pt}
+\providecommand{\showslidenumbers}{true}
+\providecommand{\showprogressbar}{true}
+\providecommand{\showlogo}{true}
+\providecommand{\logoposition}{bottom-right}
+\providecommand{\courseyear}{2024}
+\providecommand{\courseinstructor}{Nipun Batra}
+\providecommand{\courseinstitution}{IIT Gandhinagar}
+
+% ==============================================================================
+% BASE THEME APPLICATION
+% ==============================================================================
+
+% Apply base theme
+\usetheme{\themebase}
+
+% Configure metropolis theme specifically
+\IfFileExists{beamerthememetropolis.sty}{
+    % Metropolis theme options
+    \metroset{
+        progressbar=foot,
+        numbering=fraction,
+        sectionpage=progressbar,
+        subsectionpage=progressbar,
+        background=light,
+        titleformat title=smallcaps,
+        titleformat subtitle=regular,
+        titleformat section=smallcaps,
+        titleformat frame=smallcaps,
+    }
+    
+    % Configure title page
+    \setbeamertemplate{title page}{
+        \begin{minipage}[b][\paperheight]{\textwidth}
+            \vfill%
+            \ifx\inserttitle\@empty\else
+            \begin{beamercolorbox}[sep=8pt,center]{title}
+                \usebeamerfont{title}\inserttitle\par%
+                \ifx\insertsubtitle\@empty\else%
+                    \vskip0.25em%
+                    {\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par}%
+                \fi%
+            \end{beamercolorbox}%
+            \fi%
+            \vskip1em\par
+            \begin{beamercolorbox}[sep=8pt,center]{author}
+                \usebeamerfont{author}\courseinstructor
+            \end{beamercolorbox}
+            \begin{beamercolorbox}[sep=8pt,center]{institute}
+                \usebeamerfont{institute}\courseinstitution
+            \end{beamercolorbox}
+            \begin{beamercolorbox}[sep=8pt,center]{date}
+                \usebeamerfont{date}\insertdate
+            \end{beamercolorbox}\vskip0.5em
+            {\usebeamercolor[fg]{titlegraphic}\inserttitlegraphic\par}
+            \vfill
+        \end{minipage}
+    }
+}{}
+
+% ==============================================================================
+% COLOR SCHEME APPLICATION
+% ==============================================================================
+
+% Light color scheme
+\newcommand{\applylightcolors}{
+    \definecolor{mlprimary}{RGB}{31,85,130}      % IIT Gandhinagar Blue
+    \definecolor{mlsecondary}{RGB}{240,240,240}  % Light gray
+    \definecolor{mlaccent}{RGB}{231,76,60}       % Red for emphasis
+    \definecolor{mlbackground}{RGB}{255,255,255} % White
+    \definecolor{mltext}{RGB}{51,51,51}          % Dark gray
+    
+    \setbeamercolor{palette primary}{bg=mlprimary,fg=white}
+    \setbeamercolor{palette secondary}{bg=mlsecondary,fg=mltext}
+    \setbeamercolor{structure}{fg=mlprimary}
+    \setbeamercolor{frametitle}{bg=mlprimary,fg=white}
+}
+
+% Dark color scheme
+\newcommand{\applydarkcolors}{
+    \definecolor{mlprimary}{RGB}{41,128,185}     % Bright blue
+    \definecolor{mlsecondary}{RGB}{52,73,94}     % Dark blue-gray
+    \definecolor{mlaccent}{RGB}{230,126,34}      % Orange
+    \definecolor{mlbackground}{RGB}{44,62,80}    % Dark blue
+    \definecolor{mltext}{RGB}{236,240,241}       % Light gray
+    
+    \setbeamercolor{palette primary}{bg=mlprimary,fg=white}
+    \setbeamercolor{palette secondary}{bg=mlsecondary,fg=mltext}
+    \setbeamercolor{structure}{fg=mlprimary}
+    \setbeamercolor{frametitle}{bg=mlprimary,fg=white}
+    \setbeamercolor{background canvas}{bg=mlbackground}
+    \setbeamercolor{normal text}{fg=mltext}
+}
+
+% Solarized color scheme
+\newcommand{\applysolarizedcolors}{
+    \definecolor{mlprimary}{RGB}{38,139,210}     % Solarized blue
+    \definecolor{mlsecondary}{RGB}{238,232,213}  % Solarized base2
+    \definecolor{mlaccent}{RGB}{203,75,22}       % Solarized orange
+    \definecolor{mlbackground}{RGB}{253,246,227} % Solarized base3
+    \definecolor{mltext}{RGB}{101,123,131}       % Solarized base00
+    
+    \setbeamercolor{palette primary}{bg=mlprimary,fg=white}
+    \setbeamercolor{palette secondary}{bg=mlsecondary,fg=mltext}
+    \setbeamercolor{structure}{fg=mlprimary}
+    \setbeamercolor{frametitle}{bg=mlprimary,fg=white}
+    \setbeamercolor{background canvas}{bg=mlbackground}
+    \setbeamercolor{normal text}{fg=mltext}
+}
+
+% Sky color scheme
+\newcommand{\applyskycolors}{
+    \definecolor{mlprimary}{RGB}{14,165,233}     % Sky blue
+    \definecolor{mlsecondary}{RGB}{224,242,254}  % Light sky
+    \definecolor{mlaccent}{RGB}{245,158,11}      % Amber
+    \definecolor{mlbackground}{RGB}{248,250,252} % Slate 50
+    \definecolor{mltext}{RGB}{30,41,59}          % Slate 800
+    
+    \setbeamercolor{palette primary}{bg=mlprimary,fg=white}
+    \setbeamercolor{palette secondary}{bg=mlsecondary,fg=mltext}
+    \setbeamercolor{structure}{fg=mlprimary}
+    \setbeamercolor{frametitle}{bg=mlprimary,fg=white}
+    \setbeamercolor{background canvas}{bg=mlbackground}
+    \setbeamercolor{normal text}{fg=mltext}
+}
+
+% Apply color scheme based on setting
+\ifx\themecolorscheme\undefined
+    \applylightcolors
+\else
+    \ifcsname apply\themecolorscheme colors\endcsname
+        \csname apply\themecolorscheme colors\endcsname
+    \else
+        \applylightcolors
+    \fi
+\fi
+
+% ==============================================================================
+% SLIDE ELEMENTS CONFIGURATION
+% ==============================================================================
+
+% Slide numbers
+\newcommand{\configureslideelements}{
+    % Progress bar
+    \ifthenelse{\equal{\showprogressbar}{true}}{
+        \setbeamertemplate{footline}[frame number]
+    }{
+        \setbeamertemplate{footline}{}
+    }
+    
+    % Slide numbers
+    \ifthenelse{\equal{\showslidenumbers}{true}}{
+        \setbeamertemplate{navigation symbols}{}
+        \setbeamertemplate{footline}{
+            \leavevmode%
+            \hbox{%
+                \begin{beamercolorbox}[wd=.3\paperwidth,ht=2.25ex,dp=1ex,left]{author in head/foot}%
+                    \usebeamerfont{author in head/foot}\hspace{1em}\courseinstructor
+                \end{beamercolorbox}%
+                \begin{beamercolorbox}[wd=.4\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+                    \usebeamerfont{title in head/foot}Machine Learning \courseyear
+                \end{beamercolorbox}%
+                \begin{beamercolorbox}[wd=.3\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+                    \usebeamerfont{date in head/foot}\insertframenumber{} / \inserttotalframenumber\hspace{1em}
+                \end{beamercolorbox}%
+            }%
+            \vskip0pt%
+        }
+    }{}
+}
+
+% Execute configuration
+\AtBeginDocument{\configureslideelements}
+
+% ==============================================================================
+% LOGO CONFIGURATION
+% ==============================================================================
+
+% Logo setup (if enabled)
+\ifthenelse{\equal{\showlogo}{true}}{
+    % Check if logo file exists
+    \IfFileExists{../../shared/assets/iit-gandhinagar-logo.png}{
+        \titlegraphic{\includegraphics[height=1cm]{../../shared/assets/iit-gandhinagar-logo.png}}
+    }{
+        % Fallback: use text logo
+        \titlegraphic{\textcolor{mlprimary}{\Large \textbf{IIT Gandhinagar}}}
+    }
+}{}
+
+% ==============================================================================
+% ENHANCED BOXES AND ELEMENTS
+% ==============================================================================
+
+% Override tcolorbox definitions from custom.sty with theme-aware colors
+\RequirePackage[most]{tcolorbox}
+
+% Definition box with theme colors
+\newtcolorbox{themedefinition}[1]{
+  colback=mlprimary!5!white,
+  colframe=mlprimary!75!black,
+  title={\textbf{Definition: #1}},
+  fonttitle=\bfseries,
+}
+
+% Theorem box with theme colors
+\newtcolorbox{themedtheorem}[1]{
+  colback=mlaccent!5!white,
+  colframe=mlaccent!75!black,
+  title={\textbf{Theorem: #1}},
+  fonttitle=\bfseries,
+}
+
+% Example box with theme colors
+\newtcolorbox{themedexample}[1]{
+  colback=mlsecondary!20!white,
+  colframe=mltext!75!black,
+  title={\textbf{Example: #1}},
+  fonttitle=\bfseries,
+}
+
+% ==============================================================================
+% HYPERLINK CONFIGURATION WITH THEME COLORS
+% ==============================================================================
+
+\RequirePackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=mlprimary,
+    filecolor=mlaccent,
+    urlcolor=mlprimary,
+    pdftitle={Machine Learning \courseyear},
+    pdfauthor={\courseinstructor},
+    pdfsubject={Machine Learning Course Materials},
+    pdfkeywords={Machine Learning, Data Science, AI, \courseyear}
+}
+
+% End of package
+\endinput

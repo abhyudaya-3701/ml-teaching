@@ -1,5 +1,6 @@
 \documentclass{beamer}
 \usepackage{../../shared/styles/custom}
+\input{../../conventions}
 
 \usepackage{multicol}
 %\beamerdefaultoverlayspecification{<+->}
@@ -54,29 +55,29 @@
 Equation of two planes is:
 $$
 \begin{aligned}
-&\vec{w}\cdot \vec{x}+b_1=0\\
-&\vec{w}\cdot \vec{x}+b_2=0
+&\vw\cdot \vx+b_1=0\\
+&\vw\cdot \vx+b_2=0
 \end{aligned}
 $$
 
 \pause For a point $\vec{x_1}$ on plane 1 and $\vec{x_2}$ on plane 2, we have:
 \pause $$
 \begin{array}{l}
-{\overrightarrow{x_{2}}=\overrightarrow{x_{1}}+t \vec{w}} \\
-{D=|t \vec{w}|=|t|||\vec{w}| |}
+{\overrightarrow{x_{2}}=\overrightarrow{x_{1}}+t \vw} \\
+{D=|t \vw|=|t|||\vw| |}
 \end{array}
 $$
 
 \pause We can rewrite as follows:
 \pause $$
 \begin{array}{c}
-{\vec{w} \cdot \vec{x}_{2}+b_{2}=0} \\
-{\Rightarrow \vec{w} \cdot\left(\vec{x}_{1}+t \vec{w}\right)+b_{2}=0}
+{\vw \cdot \vx_{2}+b_{2}=0} \\
+{\Rightarrow \vw \cdot\left(\vx_{1}+t \vw\right)+b_{2}=0}
 \end{array}
 $$
 \pause $$
-\Rightarrow \vec{w} \cdot \vec{x}_{1}+t\|\vec{w}\|^{2}+b_1-b_1+b_2 = 0
-\Rightarrow t = \frac{b_1 - b_2}{\|\vec{w}\|^{2}}  \Rightarrow D = t\|\vec{w}\| =  \frac{b_1 - b_2}{\|\vec{w}\|}
+\Rightarrow \vw \cdot \vx_{1}+t\|\vw\|^{2}+b_1-b_1+b_2 = 0
+\Rightarrow t = \frac{b_1 - b_2}{\|\vw\|^{2}}  \Rightarrow D = t\|\vw\| =  \frac{b_1 - b_2}{\|\vw\|}
 $$
 \end{frame}
 
@@ -92,12 +93,12 @@ $$
 \begin{frame}{Primal Formulation}
 	\begin{tcolorbox}{Objective}
 	\begin{align*}
-	\text{Minimize } & \frac{1}{2}||w||^{2} \\
+	\text{Minimize } & \frac{1}{2}||\vw||^{2} \\
 	\text{s.t. } & y_{i}(w.x_{i} + b) \geq 1 \hspace{2mm}\forall i
 	\end{align*}
 \end{tcolorbox}
 \pause 
-Q) What is $||w||$?
+Q) What is $||\vw||$?
 \pause
 \begin{multicols}{2}
 \begin{equation*}
@@ -109,7 +110,7 @@ Q) What is $||w||$?
 	\end{bmatrix}
 \end{equation*}\break
 \begin{align*}
-	 ||w|| &= \sqrt{w^{T}w}\\
+	 ||\vw|| &= \sqrt{w^{T}w}\\
 	 &= \sqrt{\begin{bmatrix}
 	 w_{1}, w_{2}, ... w_{n}
 	 \end{bmatrix}
@@ -246,7 +247,7 @@ Primal $\Rightarrow$ Dual Conversion using Lagrangian multipliers\\
 \begin{align*}
 &L(\bar{w},b,\alpha_{1},\alpha_{2},...\alpha_{n}) = \frac{1}{2}
 \sum_{i = 1}^{d} w_{i}^{2} - \sum_{i=1}^{N} \alpha_{i}(y_{i}(\bar{w}.\bar{x_i} + b) -1\\
-&= \frac{1}{2}||\bar{w}||^{2}-\sum_{i=1}^{N} \alpha_{i} y_{i} \vec{w}_{.} \bar{x_{i}}-\sum_{i=1}^{N} \alpha_{i} y_{i} b+\sum_{i=1}^{N} \alpha_{i}\\
+&= \frac{1}{2}||\bar{w}||^{2}-\sum_{i=1}^{N} \alpha_{i} y_{i} \vw_{.} \bar{x_{i}}-\sum_{i=1}^{N} \alpha_{i} y_{i} b+\sum_{i=1}^{N} \alpha_{i}\\
 &= \sum_{=1}^{N} \alpha_{i}+\frac{\left(\sum_{i} \alpha_{i} y_{i} \bar{x}_{i}\right)\left(\sum_{j} \alpha_{j} y_{j} \bar{x}_{j}\right)}{2}-\sum_{i} \alpha_{i} y_{i}\left(\sum_{j} \alpha_{j} y_{j} \bar{x}_{j}\right) \bar{x_{i}}
 \end{align*}
 \end{frame}
@@ -353,7 +354,7 @@ We know that only x = $\pm 1$ will take part in the constraint actively. Thus, $
 \end{aligned}\\
 \therefore \alpha_{1}=1/2 \hspace{2mm} \alpha_{2}=0 ; \hspace{2mm} \alpha_{3}=1/2 \hspace{2mm} \alpha_{4}=0
 \\
-\vec{w}=\sum_{i=1}^{N} \alpha_{i} y_{i} \bar{x}_{i} =1/2 \times 1 \times 1+0 \times 1 \times 2 \\
+\vw=\sum_{i=1}^{N} \alpha_{i} y_{i} \bar{x}_{i} =1/2 \times 1 \times 1+0 \times 1 \times 2 \\
 + 1/2 \times -1 \times -1 + 0\times -1 \times -2 \\
  = 1/2 + 1/2 = 1
 \end{align*}
@@ -363,7 +364,7 @@ We know that only x = $\pm 1$ will take part in the constraint actively. Thus, $
 \textbf{Finding b:}\\
 For the support vectors we have, \\
 
-$y_{i}(\vec{w} \cdot \overrightarrow{x_{i}}+b)-1=0$\\
+$y_{i}(\vw \cdot \overrightarrow{x_{i}}+b)-1=0$\\
 or, $y_{i}$ $\left(\bar{w} \cdot \bar{x}_{1}+b\right)=1$\\
 or, $y_{i}^{2}\left(\bar{w} \cdot \bar{x}_{i}+b\right)=y_{i}$\\
 or, $\quad \bar{w}, \bar{x}_{i}+b=y_{i} \hspace{2mm}(\because y_{i}^{2} = 1)$\\

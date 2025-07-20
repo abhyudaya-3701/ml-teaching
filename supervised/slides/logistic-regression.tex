@@ -1,5 +1,6 @@
 \documentclass{beamer}
 \usepackage{../../shared/styles/custom}
+\input{../../conventions}
 
 
 %\beamerdefaultoverlayspecification{<+->}
@@ -48,7 +49,7 @@
 	\end{minipage} \\
 	%\vspace{-1.7cm}
 	\pause Aim: Probability(Tomatoes $|$ Radius) ? or
-	\pause \framebox{More generally, P($y = 1 | X = x$)?}
+	\pause \framebox{More generally, P($y = 1 | \mX = \vx$)?}
 	
 \end{frame}
 
@@ -68,7 +69,7 @@ P(X = Orange | Radius) = \theta_{0} + \theta_{1} \times Radius
 \end{equation*}
 \pause Generally,
 \begin{equation*}
-P(y = 1 | x) = X\theta
+P(y = 1 | \vx) = \mX\vtheta
 \end{equation*}
 \end{frame}
 \begin{frame}{Idea: Use Linear Regression}
@@ -76,7 +77,7 @@ Prediction:\\
 If $\theta_{0} + \theta_{1}\times Radius > 0.5 \rightarrow$ Orange \\
 \hspace{3.3cm} Else $\rightarrow$ Tomato\\
 Problem:\\
-Range of $X\theta$ is $(-\infty, \infty)$\\
+Range of $\mX\vtheta$ is $(-\infty, \infty)$\\
 But $P(y = 1 | \ldots) \in [0, 1]$
 \end{frame}
 
@@ -141,22 +142,22 @@ Yes! But Logistic Regression works.
 \end{frame}
 \begin{frame}{Logistic / Sigmoid Function}
 \begin{equation*}
-P(y = 1 | X) = \sigma(X\theta) = \frac{1}{1 + e^{-X\theta}}    
+P(y = 1 | \mX) = \sigma(\mX\vtheta) = \frac{1}{1 + e^{-\mX\vtheta}}    
 \end{equation*}
-Q. Write $X\theta$ in a more convenient form (as $P(y = 1|X)$, $P(y = 0 | X)$)\\
+Q. Write $\mX\vtheta$ in a more convenient form (as $P(y = 1|X)$, $P(y = 0 | X)$)\\
 \end{frame}
 \begin{frame}{Logistic / Sigmoid Function}
 \begin{equation*}
-P(y = 1 | X) = \sigma(X\theta) = \frac{1}{1 + e^{-X\theta}}    
+P(y = 1 | \mX) = \sigma(\mX\vtheta) = \frac{1}{1 + e^{-\mX\vtheta}}    
 \end{equation*}
-Q. Write $X\theta$ in a more convenient form (as $P(y = 1|X)$, $P(y = 0 | X)$)\\
+Q. Write $\mX\vtheta$ in a more convenient form (as $P(y = 1|X)$, $P(y = 0 | X)$)\\
 \pause \begin{equation*}
-P(y = 0 | X) = 1 - P(y = 1 | X) = 1 - \frac{1}{1 + e^{-X\theta}} = \frac{e^{-X\theta}}{1 + e^{-X\theta}} 
+P(y = 0 | X) = 1 - P(y = 1 | X) = 1 - \frac{1}{1 + e^{-\mX\vtheta}} = \frac{e^{-\mX\vtheta}}{1 + e^{-\mX\vtheta}} 
 \end{equation*}
 
 \pause \begin{equation*}
-\therefore \frac{P(y = 1|X)}{1 - P(y = 1|X)} = e^{X\theta}
-\implies X\theta = \log\frac{P(y = 1|X)}{1 - P(y = 1 | X)}
+\therefore \frac{P(y = 1|X)}{1 - P(y = 1|X)} = e^{\mX\vtheta}
+\implies \mX\vtheta = \log\frac{P(y = 1|X)}{1 - P(y = 1 | X)}
 \end{equation*}
 \end{frame}
 \begin{frame}{Odds (Used in betting)}
@@ -164,7 +165,7 @@ $$\frac{P(win)}{P(loss)}$$ \\
 \hspace{3cm} Here,\\
 $$Odds = \frac{P(y = 1)}{P(y = 0)}$$ \\
 \centering
-\framebox{log-odds = $\log\frac{P(y = 1)}{P(y = 0)} = X\theta$}
+\framebox{log-odds = $\log\frac{P(y = 1)}{P(y = 0)} = \mX\vtheta$}
 \end{frame}
 \begin{frame}{Logistic Regression}
 Q. What is decision boundary for Logistic Regression?
@@ -173,11 +174,11 @@ Q. What is decision boundary for Logistic Regression?
 Q. What is decision boundary for Logistic Regression? \\
 \hspace{0.4cm} Decision Boundary: $P(y = 1|X) = P(y = 0 | X)$\\
 \vspace{0.3cm}
-\hspace{4cm} or $\frac{1}{1 + e^{-X\theta}} = \frac{e^{-X\theta}}{1 + e^{-X\theta}}$  \\
+\hspace{4cm} or $\frac{1}{1 + e^{-\mX\vtheta}} = \frac{e^{-\mX\vtheta}}{1 + e^{-\mX\vtheta}}$  \\
 \vspace{0.3cm}
-\hspace{4cm} or $e^{X\theta} = 1$\\
+\hspace{4cm} or $e^{\mX\vtheta} = 1$\\
 \vspace{0.3cm}
-\hspace{4cm} or $X\theta = 0$
+\hspace{4cm} or $\mX\vtheta = 0$
 \end{frame}
 \begin{frame}{Learning Parameters}
 Could we use cost function as:
@@ -185,7 +186,7 @@ Could we use cost function as:
 J(\theta) = \sum (y_{i} - \hat{y}_{i})^{2}
 \end{equation*}
 \begin{equation*}
-\hat{y}_{i} = \sigma(X\theta)
+\hat{y}_{i} = \sigma(\mX\vtheta)
 \end{equation*}
 Answer: No (Non-Convex) \\ \hspace{1.2cm} (See Jupyter Notebook)
 \end{frame}
@@ -219,7 +220,7 @@ P(y | X, \theta) &= \prod_{i=1}^{n} P(y_{i} | x_{i}, \theta) \\ &= \prod_{i=1}^{
 [Above: Similar to $P(D|\theta)$ for Linear Regression; \\
 \hspace{1.3cm} Difference Bernoulli instead of Gaussian]\\
 \begin{align*}
--\log P(y | X, \theta) &= \text{Negative Log Likelihood}\\ &= \text{Cost function will be minimising} \\ &= J(\theta)
+-\log P(y | \mX, \vtheta) &= \text{Negative Log Likelihood}\\ &= \text{Cost function will be minimising} \\ &= J(\vtheta)
 \end{align*}
 \end{frame}
 
@@ -260,7 +261,7 @@ P(y | X, \theta) &= \prod_{i=1}^{n} P(y_{i} | x_{i}, \theta) \\ &= \prod_{i=1}^{
 \begin{frame}{Learning Parameters}
 \begin{align*}
 J(\theta) &= -\log \bigg\{\prod_{i=1}^{n} \Big\{\frac{1}{1 + e^{-x_{i}^T\theta}}\Big\}^{y_{i}}\Big\{1 - \frac{1}{1 + e^{-x_{i}^T\theta}}\Big\}^{1 - y_{i}}\bigg\}\\
-J(\theta) &= -\bigg\{\sum_{i=1}^{n} y_{i} \log(\sigma_{\theta}(x_{i})) + (1 - y_{i})\log(1 - \sigma_{\theta}(x_{i}))\bigg\} \\
+J(\theta) &= -\bigg\{\sum_{i=1}^{N} y_{i} \log(\sigma_{\theta}(x_{i})) + (1 - y_{i})\log(1 - \sigma_{\theta}(x_{i}))\bigg\} \\
 \end{align*}
 \pause This cost function is called cross-entropy.
 
@@ -310,16 +311,16 @@ J(\theta) &= -\bigg\{\sum_{i=1}^{n} y_{i} \log(\sigma_{\theta}(x_{i})) + (1 - y_
 
 \begin{frame}{Learning Parameters}
 \begin{align*}
-\frac{\partial J(\theta)}{\partial \theta_{j}} &= -\frac{\partial }{\partial \theta_{j}} \bigg\{\sum_{i=1}^{n} y_{i} log(\sigma_{\theta}(x_{i})) + (1 - y_{i})log(1 - \sigma_{\theta}(x_{i}))\bigg\} \\
-&= -\sum_{i=1}^{n}\bigg[y_{i}\frac{\partial}{\partial \theta_{j}} \log(\sigma_{\theta}(x_{i})) + (1-y_{i})\frac{\partial}{\partial \theta_{j}} log(1 - \sigma_{\theta}(x_{i}))\bigg]
+\frac{\partial J(\theta)}{\partial \theta_{j}} &= -\frac{\partial }{\partial \theta_{j}} \bigg\{\sum_{i=1}^{N} y_{i} log(\sigma_{\theta}(x_{i})) + (1 - y_{i})log(1 - \sigma_{\theta}(x_{i}))\bigg\} \\
+&= -\sum_{i=1}^{N}\bigg[y_{i}\frac{\partial}{\partial \theta_{j}} \log(\sigma_{\theta}(x_{i})) + (1-y_{i})\frac{\partial}{\partial \theta_{j}} log(1 - \sigma_{\theta}(x_{i}))\bigg]
 \end{align*}
 \end{frame}
 \begin{frame}{Learning Parameters}
 \begin{align*}
-\frac{\partial J(\theta)}{\partial \theta_{j}} &= -\sum_{i=1}^{n}\bigg[y_{i}\frac{\partial}{\partial \theta_{j}} \log(\sigma_{\theta}(x_{i})) + (1-y_{i})\frac{\partial}{\partial \theta_{j}} log(1 - \sigma_{\theta}(x_{i}))\bigg]
+\frac{\partial J(\theta)}{\partial \theta_{j}} &= -\sum_{i=1}^{N}\bigg[y_{i}\frac{\partial}{\partial \theta_{j}} \log(\sigma_{\theta}(x_{i})) + (1-y_{i})\frac{\partial}{\partial \theta_{j}} log(1 - \sigma_{\theta}(x_{i}))\bigg]
 \end{align*}
 \begin{align}
-&= -\sum_{i=1}^{n}\bigg[\frac{y_{i}}{\sigma_{\theta}(x_{i})} \frac{\partial}{\partial \theta_{j}} \sigma_{\theta}(x_{i}) + \frac{1 - y_{i}}{1 - \sigma_{\theta}(x_{i})} \frac{\partial}{\partial \theta_{j}}(1 - \sigma_{\theta}(x_{i}))\bigg]
+&= -\sum_{i=1}^{N}\bigg[\frac{y_{i}}{\sigma_{\theta}(x_{i})} \frac{\partial}{\partial \theta_{j}} \sigma_{\theta}(x_{i}) + \frac{1 - y_{i}}{1 - \sigma_{\theta}(x_{i})} \frac{\partial}{\partial \theta_{j}}(1 - \sigma_{\theta}(x_{i}))\bigg]
 \end{align}
 Aside:
 \begin{equation*}
@@ -335,19 +336,19 @@ Aside:
 \begin{frame}{Learning Parameters}
 Resuming from (1)
 \begin{equation*}
-\frac{\partial J(\theta)}{\partial \theta_{j}} = -\sum_{i=1}^{n}\bigg[\frac{y_{i}}{\sigma_{\theta}(x_{i})} \frac{\partial}{\partial \theta_{j}} \sigma_{\theta}(x_{i}) + \frac{1 - y_{i}}{1 - \sigma_{\theta}(x_{i})} \frac{\partial}{\partial \theta_{j}}(1 - \sigma_{\theta}(x_{i}))\bigg]
+\frac{\partial J(\theta)}{\partial \theta_{j}} = -\sum_{i=1}^{N}\bigg[\frac{y_{i}}{\sigma_{\theta}(x_{i})} \frac{\partial}{\partial \theta_{j}} \sigma_{\theta}(x_{i}) + \frac{1 - y_{i}}{1 - \sigma_{\theta}(x_{i})} \frac{\partial}{\partial \theta_{j}}(1 - \sigma_{\theta}(x_{i}))\bigg]
 \end{equation*}
 \begin{equation*}
-\hspace{-0.7cm}= -\sum_{i=1}^{n}\bigg[\frac{y_{i}\sigma_{\theta}(x_{i})}{\sigma_{\theta}(x_{i})}(1 - \sigma_{\theta}(x_{i}))\frac{\partial}{\partial \theta_{j}} (x_{i}\theta) + \frac{1 - y_{i}}{1 - \sigma_{\theta}(x_{i})}(1 - \sigma_{\theta}(x_{i})) \frac{\partial}{\partial \theta_{j}}(1 - \sigma_{\theta}(x_{i}))\bigg]
+\hspace{-0.7cm}= -\sum_{i=1}^{N}\bigg[\frac{y_{i}\sigma_{\theta}(x_{i})}{\sigma_{\theta}(x_{i})}(1 - \sigma_{\theta}(x_{i}))\frac{\partial}{\partial \theta_{j}} (x_{i}\theta) + \frac{1 - y_{i}}{1 - \sigma_{\theta}(x_{i})}(1 - \sigma_{\theta}(x_{i})) \frac{\partial}{\partial \theta_{j}}(1 - \sigma_{\theta}(x_{i}))\bigg]
 \end{equation*}
 \begin{equation*}
-= -\sum_{i=1}^{n}\bigg[y_{i}(1 - \sigma_{\theta}(x_{i}))x_{i}^{j} - (1 - y_{i})\sigma_{\theta}(x_{i})x_{i}^{j}\bigg]
+= -\sum_{i=1}^{N}\bigg[y_{i}(1 - \sigma_{\theta}(x_{i}))x_{i}^{j} - (1 - y_{i})\sigma_{\theta}(x_{i})x_{i}^{j}\bigg]
 \end{equation*}
 \begin{equation*}
-= -\sum_{i=1}^{n}\bigg[(y_{i} - y_{i}\sigma_{\theta}(x_{i}) - \sigma_{\theta}(x_{i}) + y_{i}\sigma_{\theta}(x_{i}))x_{i}^{j}\bigg]
+= -\sum_{i=1}^{N}\bigg[(y_{i} - y_{i}\sigma_{\theta}(x_{i}) - \sigma_{\theta}(x_{i}) + y_{i}\sigma_{\theta}(x_{i}))x_{i}^{j}\bigg]
 \end{equation*}
 \begin{equation*}
-= \sum_{i=1}^{n}\bigg[\sigma_{\theta}(x_{i}) - y_{i}\bigg]x_{i}^{j}
+= \sum_{i=1}^{N}\bigg[\sigma_{\theta}(x_{i}) - y_{i}\bigg]x_{i}^{j}
 \end{equation*}
 \end{frame}
 \begin{frame}{Learning Parameters}
@@ -425,9 +426,9 @@ How would you expect the probability contours look like?
 \begin{frame}{Multi-Class Prediction}
 \includegraphics[scale=0.8]{../assets/logistic-regression/figures/logisitic-iris-prediction.pdf}
 \pause \begin{enumerate}
-	\item Learn P(setosa (class 1)) = $\mathcal{F}({X\theta_1})$
-	\item P(versicolor (class 2)) = $\mathcal{F}({X\theta_2})$
-	\item P(virginica (class 3)) = $\mathcal{F}({X\theta_3})$
+	\item Learn P(setosa (class 1)) = $\mathcal{F}({\mX\vtheta_1})$
+	\item P(versicolor (class 2)) = $\mathcal{F}({\mX\vtheta_2})$
+	\item P(virginica (class 3)) = $\mathcal{F}({\mX\vtheta_3})$
 	\item Goal: Learn $\theta_i \forall i \in \{1, 2, 3\}$
 	\item Question: What could be an $\mathcal{F}?$
 
@@ -440,7 +441,7 @@ How would you expect the probability contours look like?
 \includegraphics[scale=0.8]{../assets/logistic-regression/figures/logisitic-iris-prediction.pdf}
 \pause \begin{enumerate}
 	\item Question: What could be an $\mathcal{F}?$
-	\item Property: $\sum_{i=1}^{3}\mathcal{F}{({X\theta_i})} = 1$
+	\item Property: $\sum_{i=1}^{3}\mathcal{F}{({\mX\vtheta_i})} = 1$
 	\item Also $\mathcal{F}(z)\in [0, 1]$
 	\item Also, $\mathcal{F}(z)$ has squashing proprties: $R \mapsto [0, 1]$
 \end{enumerate}
@@ -472,21 +473,21 @@ $$
 \end{array}\right]
 $$
 \centering
-\framebox{$P(y = k|X, \theta) = \frac{e^{X\theta_{k}}}{\sum_{k=1}^{K}e^{X\theta_{k}}}$}
+\framebox{$P(y = k|X, \theta) = \frac{e^{\mX\vtheta_{k}}}{\sum_{k=1}^{K}e^{\mX\vtheta_{k}}}$}
 \end{frame}
 \begin{frame}{Softmax for Multi-Class Logistic Regression}
 For K = 2 classes,
 \begin{equation*}
-P(y = k|X, \theta) = \frac{e^{X\theta_{k}}}{\sum_{k=1}^{K}e^{X\theta_{k}}}
+P(y = k|X, \theta) = \frac{e^{\mX\vtheta_{k}}}{\sum_{k=1}^{K}e^{\mX\vtheta_{k}}}
 \end{equation*}
 \begin{equation*}
-P(y = 0|X, \theta) = \frac{e^{X\theta_{0}}}{e^{X\theta_{0}} + e^{X\theta_{1}}}
+P(y = 0|X, \theta) = \frac{e^{\mX\vtheta_{0}}}{e^{\mX\vtheta_{0}} + e^{\mX\vtheta_{1}}}
 \end{equation*}
 \begin{equation*}
-P(y = 1|X, \theta) = \frac{e^{X\theta_{1}}}{e^{X\theta_{0}} + e^{X\theta_{1}}} = \frac{e^{X\theta_{1}}}{e^{X\theta_{1}}\{1 + e^{X(\theta_{0} - \theta_{1})}\}}
+P(y = 1|X, \theta) = \frac{e^{\mX\vtheta_{1}}}{e^{\mX\vtheta_{0}} + e^{\mX\vtheta_{1}}} = \frac{e^{\mX\vtheta_{1}}}{e^{\mX\vtheta_{1}}\{1 + e^{X(\theta_{0} - \theta_{1})}\}}
 \end{equation*}
 \begin{equation*}
-= \frac{1}{1 + e^{-X\theta^{'}}}
+= \frac{1}{1 + e^{-\mX\vtheta^{'}}}
 \end{equation*}
 \begin{equation*}
 = \text{Sigmoid!}
@@ -552,21 +553,21 @@ meaning the true class is Class \#2
 
 For 2 class we had:
 \begin{equation*}
-J(\theta) = -\bigg\{\sum_{i=1}^{n}y_{i}\log(\sigma_{\theta}(x_{i})) + (1 - y_{i})\log(1 - \sigma_{\theta}(x_{i}))\bigg\}
+J(\theta) = -\bigg\{\sum_{i=1}^{N}y_{i}\log(\sigma_{\theta}(x_{i})) + (1 - y_{i})\log(1 - \sigma_{\theta}(x_{i}))\bigg\}
 \end{equation*}
 
 \pause More generally, 
 \pause \begin{equation*}
-J(\theta) = -\bigg\{\sum_{i=1}^{n}y_{i}\log(\hat{y}_i) + (1 - y_{i})\log(1 - \hat{y}_i)\bigg\}
+J(\theta) = -\bigg\{\sum_{i=1}^{N}y_{i}\log(\hat{y}_i) + (1 - y_{i})\log(1 - \hat{y}_i)\bigg\}
 \end{equation*}
 
 \pause \begin{equation*}
-J(\theta) = -\bigg\{\sum_{i=1}^{n}y_{i}\log(\hat{y}_i) + (1 - y_{i})\log(1 - \hat{y}_i)\bigg\}
+J(\theta) = -\bigg\{\sum_{i=1}^{N}y_{i}\log(\hat{y}_i) + (1 - y_{i})\log(1 - \hat{y}_i)\bigg\}
 \end{equation*}
 
 Extend to K-class:
 \begin{equation*}
-J(\theta) = -\bigg\{\sum_{i=1}^{n}\sum_{k=1}^{K}y_{i}^k\log(\hat{y}_{i}^k)\bigg\}
+J(\theta) = -\bigg\{\sum_{i=1}^{N}\sum_{k=1}^{K}y_{i}^k\log(\hat{y}_{i}^k)\bigg\}
 \end{equation*}
 \end{frame}
 \begin{frame}{Multi-Class Logistic Regression Cost}
@@ -574,7 +575,7 @@ J(\theta) = -\bigg\{\sum_{i=1}^{n}\sum_{k=1}^{K}y_{i}^k\log(\hat{y}_{i}^k)\bigg\
 \text{Now:}
 \end{equation*}
 \begin{equation*}
-\frac{\partial J(\theta)}{\partial \theta_{k}} = \sum_{i=1}^{n}\bigg[x_{i}\bigg\{I(y_{i} = k) - P(y_{i} = k | x_{i}, \theta)\bigg\}\bigg]
+\frac{\partial J(\theta)}{\partial \theta_{k}} = \sum_{i=1}^{N}\bigg[x_{i}\bigg\{I(y_{i} = k) - P(y_{i} = k | x_{i}, \theta)\bigg\}\bigg]
 \end{equation*}
 \end{frame}
 
@@ -596,13 +597,13 @@ differentiating and equating to zero to solve for $\theta_{k+1}$.
 \end{frame}
 \begin{frame}{Learning Parameters}
 Now assume:
-$$g(\theta) = \sum_{i=1}^{n}\bigg[\sigma_{\theta}(x_{i}) - y_{i}\bigg]x_{i}^{j} = \mathbf{X^{T}(\sigma_{\theta}(X) - y)}$$
+$$g(\theta) = \sum_{i=1}^{N}\bigg[\sigma_{\theta}(x_{i}) - y_{i}\bigg]x_{i}^{j} = \mathbf{X^{T}(\sigma_{\theta}(X) - y)}$$
 $$\pi_{i} = \sigma_{\theta}(x_{i})$$
 Let $\mathbb{H}$ represent the Hessian of $J(\theta)$
 \begin{align*}
-\mathbb{H} = \frac{\partial}{\partial \theta} g(\theta) &= \frac{\partial}{\partial \theta} \sum_{i=1}^{n} \bigg[\sigma_{\theta}(x_{i}) - y_{i}\bigg]x_{i}^{j} \\
-&= \sum_{i=1}^{n} \bigg[\frac{\partial}{\partial \theta}\sigma_{\theta}(x_{i})x_{i}^{j} - \frac{\partial}{\partial \theta} y_{i}x_{i}^{j}\bigg] \\
-&= \sum_{i=1}^{n} \sigma_{\theta}(x_{i}) (1 - \sigma_{\theta}(x_{i}))x_{i}x_{i}^{T} \\
+\mathbb{H} = \frac{\partial}{\partial \theta} g(\theta) &= \frac{\partial}{\partial \theta} \sum_{i=1}^{N} \bigg[\sigma_{\theta}(x_{i}) - y_{i}\bigg]x_{i}^{j} \\
+&= \sum_{i=1}^{N} \bigg[\frac{\partial}{\partial \theta}\sigma_{\theta}(x_{i})x_{i}^{j} - \frac{\partial}{\partial \theta} y_{i}x_{i}^{j}\bigg] \\
+&= \sum_{i=1}^{N} \sigma_{\theta}(x_{i}) (1 - \sigma_{\theta}(x_{i}))x_{i}x_{i}^{T} \\
 &= \mathbf{X^{T}}diag(\sigma_{\theta}(x_{i}) (1 - \sigma_{\theta}(x_{i})))\mathbf{X}
 \end{align*}
 \end{frame}
@@ -619,13 +620,13 @@ The Newton update at iteraion $k$ + 1 for this model is as follows:
 \theta_{k+1} &= \theta_{k} - \mathbb{H}^{-1}g_{k} \\
 &= \theta_{k} + (X^{T}S_{k}X)^{-1}X^{T}(y - \pi_{k}) \\
 &= (X^{T}S_{k}X)^{-1}[(X^{T}S_{k}X)\theta_{k} + X^{T}(y - \pi_{k})] \\
-&= (X^{T}S_{k}X)^{-1}X^{T}[S_{k}X\theta_{k} + y - \pi_{k}]
+&= (X^{T}S_{k}X)^{-1}X^{T}[S_{k}\mX\vtheta_{k} + y - \pi_{k}]
 \end{align*}
 \end{frame}
 \begin{frame}{Regularized Logistic Regression}
 Unregularised:
 \begin{equation*}
-J_{1}(\theta) = -\bigg\{\sum_{i=1}^{n}y_{i}\log(\sigma_{\theta}(x_{i})) + (1 - y_{i})\log(1 - \sigma_{\theta}(x_{i}))\bigg\}
+J_{1}(\theta) = -\bigg\{\sum_{i=1}^{N}y_{i}\log(\sigma_{\theta}(x_{i})) + (1 - y_{i})\log(1 - \sigma_{\theta}(x_{i}))\bigg\}
 \end{equation*}
 L2 Regularization:
 \begin{equation*}
