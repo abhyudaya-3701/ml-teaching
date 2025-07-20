@@ -21,6 +21,10 @@
 
 % Core LaTeX packages
 \RequirePackage{graphicx}
+% Fix xkeyval conflict between graphicx and pdfpages
+\RequirePackage{xkeyval}
+\define@key{Gin}{pages}{}  % Define dummy pages key for Gin family
+\RequirePackage{pdfpages}
 \RequirePackage{amsmath}
 \RequirePackage{amssymb}
 \RequirePackage{amsfonts}
@@ -52,7 +56,6 @@
 \RequirePackage{url}
 
 % Specialized packages
-\RequirePackage{pdfpages}
 \RequirePackage{forloop}
 \RequirePackage{calc}
 \RequirePackage{forest}

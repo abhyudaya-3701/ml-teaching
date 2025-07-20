@@ -213,15 +213,15 @@ $P(y | X, \theta) = \prod_{i=1}^{n} P(y_{i} | x_{i}, \theta)$ \\ where y = 0 or 
 \begin{frame}{Learning Parameters}
 Likelihood = $P(D | \theta)$ \\
 \vspace{-0.4cm}
-\begin{align*}
-P(y | X, \theta) &= \prod_{i=1}^{n} P(y_{i} | x_{i}, \theta) \\ &= \prod_{i=1}^{n} \Big\{\frac{1}{1 + e^{-x_{i}^{T}\theta}}\Big\}^{y_{i}}\Big\{1 - \frac{1}{1 + e^{-x_{i}^{T}\theta}}\Big\}^{1 - y_{i}} \\
-\end{align*}
+\[
+P(y | X, \theta) = \prod_{i=1}^{n} P(y_{i} | x_{i}, \theta) = \prod_{i=1}^{n} \Big\{\frac{1}{1 + e^{-x_{i}^{T}\theta}}\Big\}^{y_{i}}\Big\{1 - \frac{1}{1 + e^{-x_{i}^{T}\theta}}\Big\}^{1 - y_{i}}
+\]
 \vspace{0.2cm}
 [Above: Similar to $P(D|\theta)$ for Linear Regression; \\
 \hspace{1.3cm} Difference Bernoulli instead of Gaussian]\\
-\begin{align*}
--\log P(y | \mX, \vtheta) &= \text{Negative Log Likelihood}\\ &= \text{Cost function will be minimising} \\ &= J(\vtheta)
-\end{align*}
+\[
+-\log P(y | \mX, \vtheta) = \text{Negative Log Likelihood} = \text{Cost function will be minimising} = J(\vtheta)
+\]
 \end{frame}
 
 
@@ -259,10 +259,12 @@ P(y | X, \theta) &= \prod_{i=1}^{n} P(y_{i} | x_{i}, \theta) \\ &= \prod_{i=1}^{
 
 \section{Cross Entropy Cost Function}
 \begin{frame}{Learning Parameters}
-\begin{align*}
-J(\theta) &= -\log \bigg\{\prod_{i=1}^{n} \Big\{\frac{1}{1 + e^{-x_{i}^T\theta}}\Big\}^{y_{i}}\Big\{1 - \frac{1}{1 + e^{-x_{i}^T\theta}}\Big\}^{1 - y_{i}}\bigg\}\\
-J(\theta) &= -\bigg\{\sum_{i=1}^{N} y_{i} \log(\sigma_{\theta}(x_{i})) + (1 - y_{i})\log(1 - \sigma_{\theta}(x_{i}))\bigg\} \\
-\end{align*}
+\[
+J(\theta) = -\log \bigg\{\prod_{i=1}^{n} \Big\{\frac{1}{1 + e^{-x_{i}^T\theta}}\Big\}^{y_{i}}\Big\{1 - \frac{1}{1 + e^{-x_{i}^T\theta}}\Big\}^{1 - y_{i}}\bigg\}
+\]
+\[
+J(\theta) = -\bigg\{\sum_{i=1}^{N} y_{i} \log(\sigma_{\theta}(x_{i})) + (1 - y_{i})\log(1 - \sigma_{\theta}(x_{i}))\bigg\}
+\]
 \pause This cost function is called cross-entropy.
 
 \pause Why?
@@ -310,18 +312,20 @@ J(\theta) &= -\bigg\{\sum_{i=1}^{N} y_{i} \log(\sigma_{\theta}(x_{i})) + (1 - y_
 \end{frame}
 
 \begin{frame}{Learning Parameters}
-\begin{align*}
-\frac{\partial J(\theta)}{\partial \theta_{j}} &= -\frac{\partial }{\partial \theta_{j}} \bigg\{\sum_{i=1}^{N} y_{i} log(\sigma_{\theta}(x_{i})) + (1 - y_{i})log(1 - \sigma_{\theta}(x_{i}))\bigg\} \\
-&= -\sum_{i=1}^{N}\bigg[y_{i}\frac{\partial}{\partial \theta_{j}} \log(\sigma_{\theta}(x_{i})) + (1-y_{i})\frac{\partial}{\partial \theta_{j}} log(1 - \sigma_{\theta}(x_{i}))\bigg]
-\end{align*}
+\[
+\frac{\partial J(\theta)}{\partial \theta_{j}} = -\frac{\partial }{\partial \theta_{j}} \bigg\{\sum_{i=1}^{N} y_{i} log(\sigma_{\theta}(x_{i})) + (1 - y_{i})log(1 - \sigma_{\theta}(x_{i}))\bigg\}
+\]
+\[
+= -\sum_{i=1}^{N}\bigg[y_{i}\frac{\partial}{\partial \theta_{j}} \log(\sigma_{\theta}(x_{i})) + (1-y_{i})\frac{\partial}{\partial \theta_{j}} log(1 - \sigma_{\theta}(x_{i}))\bigg]
+\]
 \end{frame}
 \begin{frame}{Learning Parameters}
-\begin{align*}
-\frac{\partial J(\theta)}{\partial \theta_{j}} &= -\sum_{i=1}^{N}\bigg[y_{i}\frac{\partial}{\partial \theta_{j}} \log(\sigma_{\theta}(x_{i})) + (1-y_{i})\frac{\partial}{\partial \theta_{j}} log(1 - \sigma_{\theta}(x_{i}))\bigg]
-\end{align*}
-\begin{align}
-&= -\sum_{i=1}^{N}\bigg[\frac{y_{i}}{\sigma_{\theta}(x_{i})} \frac{\partial}{\partial \theta_{j}} \sigma_{\theta}(x_{i}) + \frac{1 - y_{i}}{1 - \sigma_{\theta}(x_{i})} \frac{\partial}{\partial \theta_{j}}(1 - \sigma_{\theta}(x_{i}))\bigg]
-\end{align}
+\[
+\frac{\partial J(\theta)}{\partial \theta_{j}} = -\sum_{i=1}^{N}\bigg[y_{i}\frac{\partial}{\partial \theta_{j}} \log(\sigma_{\theta}(x_{i})) + (1-y_{i})\frac{\partial}{\partial \theta_{j}} log(1 - \sigma_{\theta}(x_{i}))\bigg]
+\]
+\[
+= -\sum_{i=1}^{N}\bigg[\frac{y_{i}}{\sigma_{\theta}(x_{i})} \frac{\partial}{\partial \theta_{j}} \sigma_{\theta}(x_{i}) + \frac{1 - y_{i}}{1 - \sigma_{\theta}(x_{i})} \frac{\partial}{\partial \theta_{j}}(1 - \sigma_{\theta}(x_{i}))\bigg]
+\]
 Aside:
 \begin{equation*}
 \frac{\partial}{\partial z}\sigma(z) = \frac{\partial}{\partial z}\frac{1}{1 + e^{-z}} = -(1 + e^{-z})^{-2}\frac{\partial}{\partial z}(1 + e^{-z})
@@ -467,9 +471,9 @@ k = \{1, \ldots, k\} \text{classes}
 \end{equation*}
 $$
 \theta=\left[\begin{array}{llll}
-{\vdots} & {\vdots} & {\vdots} & {\vdots} \\
-{\theta_{1}} & {\theta_{2}} & {\cdots} & {\theta_{k}} \\
-{\vdots} & {\vdots} & {\vdots} & {\vdots} 	
+{\vdots} {\vdots} {\vdots} {\vdots} \\
+{\theta_{1}} {\theta_{2}} {\cdots} {\theta_{k}} \\
+{\vdots} {\vdots} {\vdots} {\vdots} 	
 \end{array}\right]
 $$
 \centering
@@ -583,7 +587,12 @@ J(\theta) = -\bigg\{\sum_{i=1}^{N}\sum_{k=1}^{K}y_{i}^k\log(\hat{y}_{i}^k)\bigg\
 \begin{frame}{Hessian Matrix}
 The Hessian matrix of f(.) with respect to $\theta$, written $\nabla _{\theta}^{2}f(\theta)$ or simply as $\mathbb{H}$, is the $d \times d$ matrix of partial derivatives,
 \begin{equation*}
-\nabla _{\theta}^{2}f(\theta) = \begin{bmatrix} \frac{\partial^{2}f(\theta)}{\partial \theta_{1}^{2}} & \frac{\partial^{2}f(\theta)}{\partial \theta_{1}\partial \theta_{2}} & \ldots & \frac{\partial^{2}f(\theta)}{\partial \theta_{1}\partial \theta_{n}} \\ \frac{\partial^{2}f(\theta)}{\partial \theta_{2}\partial \theta_{1}} & \frac{\partial^{2}f(\theta)}{\partial \theta_{2}^{2}} & \ldots & \frac{\partial^{2}f(\theta)}{\partial \theta_{2}\partial \theta_{n}} \\ \ldots & \ldots & \ldots & \ldots \\ \ldots & \ldots & \ldots & \ldots \\ \frac{\partial^{2}f(\theta)}{\partial \theta_{n} \partial \theta_{1}} & \frac{\partial^{2}f(\theta)}{\partial \theta_{n}\partial \theta_{2}} & \ldots & \frac{\partial^{2}f(\theta)}{\partial \theta_{n}^{2}}\end{bmatrix}
+\nabla _{\theta}^{2}f(\theta) = \begin{bmatrix} 
+\frac{\partial^{2}f(\theta)}{\partial \theta_{1}^{2}} \frac{\partial^{2}f(\theta)}{\partial \theta_{1}\partial \theta_{2}} \ldots \frac{\partial^{2}f(\theta)}{\partial \theta_{1}\partial \theta_{n}} \\
+\frac{\partial^{2}f(\theta)}{\partial \theta_{2}\partial \theta_{1}} \frac{\partial^{2}f(\theta)}{\partial \theta_{2}^{2}} \ldots \frac{\partial^{2}f(\theta)}{\partial \theta_{2}\partial \theta_{n}} \\
+\vdots \vdots \ddots \vdots \\
+\frac{\partial^{2}f(\theta)}{\partial \theta_{n} \partial \theta_{1}} \frac{\partial^{2}f(\theta)}{\partial \theta_{n}\partial \theta_{2}} \ldots \frac{\partial^{2}f(\theta)}{\partial \theta_{n}^{2}}
+\end{bmatrix}
 \end{equation*}
 
 \end{frame}
@@ -600,28 +609,37 @@ Now assume:
 $$g(\theta) = \sum_{i=1}^{N}\bigg[\sigma_{\theta}(x_{i}) - y_{i}\bigg]x_{i}^{j} = \mathbf{X^{T}(\sigma_{\theta}(X) - y)}$$
 $$\pi_{i} = \sigma_{\theta}(x_{i})$$
 Let $\mathbb{H}$ represent the Hessian of $J(\theta)$
-\begin{align*}
-\mathbb{H} = \frac{\partial}{\partial \theta} g(\theta) &= \frac{\partial}{\partial \theta} \sum_{i=1}^{N} \bigg[\sigma_{\theta}(x_{i}) - y_{i}\bigg]x_{i}^{j} \\
-&= \sum_{i=1}^{N} \bigg[\frac{\partial}{\partial \theta}\sigma_{\theta}(x_{i})x_{i}^{j} - \frac{\partial}{\partial \theta} y_{i}x_{i}^{j}\bigg] \\
-&= \sum_{i=1}^{N} \sigma_{\theta}(x_{i}) (1 - \sigma_{\theta}(x_{i}))x_{i}x_{i}^{T} \\
-&= \mathbf{X^{T}}diag(\sigma_{\theta}(x_{i}) (1 - \sigma_{\theta}(x_{i})))\mathbf{X}
-\end{align*}
+\[
+\mathbb{H} = \frac{\partial}{\partial \theta} g(\theta) = \frac{\partial}{\partial \theta} \sum_{i=1}^{N} \bigg[\sigma_{\theta}(x_{i}) - y_{i}\bigg]x_{i}^{j}
+\]
+\[
+= \sum_{i=1}^{N} \bigg[\frac{\partial}{\partial \theta}\sigma_{\theta}(x_{i})x_{i}^{j} - \frac{\partial}{\partial \theta} y_{i}x_{i}^{j}\bigg] = \sum_{i=1}^{N} \sigma_{\theta}(x_{i}) (1 - \sigma_{\theta}(x_{i}))x_{i}x_{i}^{T}
+\]
+\[
+= \mathbf{X^{T}}diag(\sigma_{\theta}(x_{i}) (1 - \sigma_{\theta}(x_{i})))\mathbf{X}
+\]
 \end{frame}
 \begin{frame}{Iteratively reweighted least squares (IRLS)}
 For binary logistic regression, recall that the gradient and Hessian of the negative log-likelihood are given by:
-\begin{align*}
-g(\theta)_{k} &= \mathbf{X^{T}(\pi_{k} - y)} \\
-\mathbf{H}_{k} &= \mathbf{X}^{T}S_{k}\mathbf{X} \\
-\mathbf{S}_{k} &= diag(\pi_{1k}(1 - \pi_{1k}), \ldots, \pi_{nk}(1 - \pi_{nk})) \\
-\pi_{ik} &= sigm(\mathbf{x_{i}\theta_{k}})
-\end{align*}
+\[
+g(\theta)_{k} = \mathbf{X^{T}(\pi_{k} - y)}
+\]
+\[
+\mathbf{H}_{k} = \mathbf{X}^{T}S_{k}\mathbf{X}
+\]
+\[
+\mathbf{S}_{k} = diag(\pi_{1k}(1 - \pi_{1k}), \ldots, \pi_{nk}(1 - \pi_{nk}))
+\]
+\[
+\pi_{ik} = sigm(\mathbf{x_{i}\theta_{k}})
+\]
 The Newton update at iteraion $k$ + 1 for this model is as follows:
-\begin{align*}
-\theta_{k+1} &= \theta_{k} - \mathbb{H}^{-1}g_{k} \\
-&= \theta_{k} + (X^{T}S_{k}X)^{-1}X^{T}(y - \pi_{k}) \\
-&= (X^{T}S_{k}X)^{-1}[(X^{T}S_{k}X)\theta_{k} + X^{T}(y - \pi_{k})] \\
-&= (X^{T}S_{k}X)^{-1}X^{T}[S_{k}\mX\vtheta_{k} + y - \pi_{k}]
-\end{align*}
+\[
+\theta_{k+1} = \theta_{k} - \mathbb{H}^{-1}g_{k} = \theta_{k} + (X^{T}S_{k}X)^{-1}X^{T}(y - \pi_{k})
+\]
+\[
+= (X^{T}S_{k}X)^{-1}[(X^{T}S_{k}X)\theta_{k} + X^{T}(y - \pi_{k})] = (X^{T}S_{k}X)^{-1}X^{T}[S_{k}\mX\vtheta_{k} + y - \pi_{k}]
+\]
 \end{frame}
 \begin{frame}{Regularized Logistic Regression}
 Unregularised:

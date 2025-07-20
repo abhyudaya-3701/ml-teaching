@@ -403,12 +403,12 @@ $$
 \operatorname{Gain}(S, \text{Outlook}) = \text{Entropy}(S)-\sum_{v \in \{\text{Rain, Sunny, Overcast}\}} \frac{|S_{v}|}{|S|} \text{Entropy}(S_{v}) 
 $$
 
-\begin{align}
-\Gain(S, \text{Outlook}) &= \Entropy(S) - \frac{5}{14} \Entropy(S_{\text{Sunny}}) \\
-&\quad - \frac{4}{14} \Entropy(S_{\text{Overcast}}) - \frac{5}{14} \Entropy(S_{\text{Rain}}) \\
-&= 0.940 - \frac{5}{14} \times 0.971 - \frac{4}{14} \times 0 - \frac{5}{14} \times 0.971 \\
-&= 0.940 - 0.347 - 0 - 0.347 = 0.246
-\end{align}
+\[
+\Gain(S, \text{Outlook}) = \Entropy(S) - \frac{5}{14} \Entropy(S_{\text{Sunny}}) - \frac{4}{14} \Entropy(S_{\text{Overcast}}) - \frac{5}{14} \Entropy(S_{\text{Rain}})
+\]
+\[
+= 0.940 - \frac{5}{14} \times 0.971 - \frac{4}{14} \times 0 - \frac{5}{14} \times 0.971 = 0.940 - 0.347 - 0 - 0.347 = 0.246
+\]
 
 \end{frame}
 
@@ -713,12 +713,12 @@ node/.style={%
 
 \begin{frame}{MSE Reduction Calculation}
 \textbf{Correct calculation for Wind split:}
-\begin{align}
-\text{MSE Reduction} &= \MSE(S) - \text{Weighted Average MSE} \\
-&= 311.34 - \left[\frac{8}{14} \times 277 + \frac{6}{14} \times 218\right] \\
-&= 311.34 - [158.857 + 93.429] \\
-&= 311.34 - 252.286 = \mathbf{59.05}
-\end{align}
+\[
+\text{MSE Reduction} = \MSE(S) - \text{Weighted Average MSE}
+\]
+\[
+= 311.34 - \left[\frac{8}{14} \times 277 + \frac{6}{14} \times 218\right] = 311.34 - [158.857 + 93.429] = 311.34 - 252.286 = \mathbf{59.05}
+\]
 
 \textbf{Key insight:} MSE Reduction $> 0$ means the split improves our model!
 
