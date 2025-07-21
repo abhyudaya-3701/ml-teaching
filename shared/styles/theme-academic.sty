@@ -1,0 +1,31 @@
+% theme-academic.sty - Traditional Academic Theme  
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{theme-academic}[2024/07/21 Traditional Academic Theme]
+
+% Use metropolis as base
+\usetheme{metropolis}
+
+% Traditional academic colors
+\definecolor{academicBlue}{HTML}{1565c0}
+\definecolor{academicNavy}{HTML}{0d47a1} 
+\definecolor{academicGray}{HTML}{424242}
+\definecolor{academicCream}{HTML}{fafafa}
+
+% Professional academic styling
+\setbeamercolor{normal text}{fg=black,bg=white}
+\setbeamercolor{alerted text}{fg=academicNavy}
+\setbeamercolor{example text}{fg=academicBlue}
+\setbeamercolor{frametitle}{fg=white,bg=academicNavy}
+\setbeamercolor{title}{fg=academicNavy}
+\setbeamercolor{progress bar}{fg=academicBlue,bg=academicCream}
+
+% Traditional block styling
+\setbeamercolor{block title}{fg=white,bg=academicBlue}
+\setbeamercolor{block body}{fg=black,bg=academicCream}
+\setbeamercolor{block title example}{fg=white,bg=academicGray}
+\setbeamercolor{block body example}{fg=black,bg=white}
+
+% Author and institute styling
+\setbeamercolor{author}{fg=academicGray}
+\setbeamercolor{institute}{fg=academicGray}
+\setbeamercolor{date}{fg=academicGray}

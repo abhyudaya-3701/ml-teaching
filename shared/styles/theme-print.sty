@@ -1,0 +1,34 @@
+% theme-print.sty - Print-Friendly Theme
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{theme-print}[2024/07/21 Print-Friendly Black & White Theme]
+
+% Use metropolis as base
+\usetheme{metropolis}
+
+% Print-friendly black and white colors
+\definecolor{printBlack}{HTML}{000000}
+\definecolor{printGray}{HTML}{404040} 
+\definecolor{printLightGray}{HTML}{f8f8f8}
+\definecolor{printDarkGray}{HTML}{2d2d2d}
+
+% High contrast for printing
+\setbeamercolor{normal text}{fg=printBlack,bg=white}
+\setbeamercolor{alerted text}{fg=printBlack}
+\setbeamercolor{example text}{fg=printGray}
+\setbeamercolor{frametitle}{fg=white,bg=printBlack}
+\setbeamercolor{title}{fg=printBlack}
+\setbeamercolor{progress bar}{fg=printBlack,bg=printLightGray}
+\setbeamercolor{progress bar in head/foot}{fg=printBlack,bg=printLightGray}
+
+% Block styling for print
+\setbeamercolor{block title}{fg=white,bg=printDarkGray}
+\setbeamercolor{block body}{fg=printBlack,bg=printLightGray}
+\setbeamercolor{block title alerted}{fg=white,bg=printBlack}
+\setbeamercolor{block body alerted}{fg=printBlack,bg=printLightGray}
+
+% Remove background colors that waste ink
+\setbeamercolor{background canvas}{fg=printBlack,bg=white}
+\setbeamertemplate{background}{}
+
+% Strong borders for tables (print visibility)
+\renewcommand{\arraystretch}{1.2}

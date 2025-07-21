@@ -1,0 +1,27 @@
+% theme-minimal.sty - Ultra Minimal Theme
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{theme-minimal}[2024/07/21 Ultra Minimal Theme]
+
+% Use metropolis as base
+\usetheme{metropolis}
+
+% Minimal color palette
+\definecolor{minimalGray}{HTML}{37474f}
+\definecolor{minimalLight}{HTML}{f5f5f5}
+\definecolor{minimalAccent}{HTML}{546e7a}
+
+% Very clean, minimal styling
+\setbeamercolor{normal text}{fg=black,bg=white}
+\setbeamercolor{alerted text}{fg=minimalAccent}
+\setbeamercolor{example text}{fg=minimalGray}
+\setbeamercolor{frametitle}{fg=minimalGray,bg=minimalLight}
+\setbeamercolor{title}{fg=minimalGray}
+\setbeamercolor{progress bar}{fg=minimalAccent,bg=minimalLight}
+
+% Minimal blocks
+\setbeamercolor{block title}{fg=minimalGray,bg=minimalLight}
+\setbeamercolor{block body}{fg=black,bg=white}
+
+% Remove extra decorations
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[frame number]

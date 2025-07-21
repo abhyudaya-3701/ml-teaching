@@ -1,0 +1,72 @@
+% theme-elegant.sty - Sophisticated Elegant Theme
+% Professional and refined color palette
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{theme-elegant}[2024/07/21 Sophisticated Elegant Theme]
+
+% Use metropolis as base
+\usetheme{metropolis}
+
+% Elegant color palette - sophisticated and professional
+\definecolor{elegantCharcoal}{HTML}{2c3e50}   % Deep charcoal for text
+\definecolor{elegantNavy}{HTML}{34495e}       % Navy blue for headings
+\definecolor{elegantGold}{HTML}{d4af37}       % Elegant gold accent
+\definecolor{elegantSage}{HTML}{95a5a6}       % Sage gray secondary
+\definecolor{elegantCream}{HTML}{fdfcf8}      % Warm cream background
+\definecolor{elegantLinen}{HTML}{f8f6f0}      % Linen for blocks
+\definecolor{elegantPearl}{HTML}{ecf0f1}      % Pearl gray for borders
+\definecolor{elegantTeal}{HTML}{16a085}       % Sophisticated teal
+
+% Main text styling - elegant readability
+\setbeamercolor{normal text}{fg=elegantCharcoal,bg=white}
+\setbeamercolor{alerted text}{fg=elegantGold}
+\setbeamercolor{example text}{fg=elegantTeal}
+
+% Title and frame styling - sophisticated navy
+\setbeamercolor{frametitle}{fg=white,bg=elegantNavy}
+\setbeamercolor{framesubtitle}{fg=elegantSage}
+\setbeamercolor{title}{fg=elegantNavy}
+\setbeamercolor{subtitle}{fg=elegantSage}
+\setbeamercolor{author}{fg=elegantSage}
+\setbeamercolor{institute}{fg=elegantSage}
+\setbeamercolor{date}{fg=elegantSage}
+
+% Progress bar - subtle gold accent
+\setbeamercolor{progress bar}{fg=elegantGold,bg=elegantPearl}
+\setbeamercolor{progress bar in head/foot}{fg=elegantGold,bg=elegantPearl}
+
+% Elegant block styling
+\setbeamercolor{block title}{fg=white,bg=elegantNavy}
+\setbeamercolor{block body}{fg=elegantCharcoal,bg=elegantLinen}
+\setbeamercolor{block title alerted}{fg=white,bg=elegantGold}
+\setbeamercolor{block body alerted}{fg=elegantCharcoal,bg=elegantCream}
+\setbeamercolor{block title example}{fg=white,bg=elegantTeal}
+\setbeamercolor{block body example}{fg=elegantCharcoal,bg=elegantLinen}
+
+% Item styling - refined colors
+\setbeamercolor{itemize item}{fg=elegantGold}
+\setbeamercolor{itemize subitem}{fg=elegantTeal}
+\setbeamercolor{enumerate item}{fg=elegantGold}
+\setbeamercolor{enumerate subitem}{fg=elegantTeal}
+
+% TOC styling - professional hierarchy
+\setbeamercolor{section in toc}{fg=elegantNavy}
+\setbeamercolor{subsection in toc}{fg=elegantSage}
+
+% Elegant background
+\setbeamercolor{background canvas}{fg=elegantCharcoal,bg=white}
+\setbeamertemplate{background}{}
+
+% Refined typography
+\setbeamerfont{frametitle}{size=\large,series=\bfseries}
+\setbeamerfont{title}{size=\Large,series=\bfseries}
+\setbeamerfont{subtitle}{size=\normalsize,series=\normalfont}
+
+% Clean navigation
+\setbeamertemplate{navigation symbols}{}
+
+% Elegant bullet points
+\setbeamertemplate{itemize item}{\color{elegantGold}$\diamond$}
+\setbeamertemplate{itemize subitem}{\color{elegantTeal}$\triangleright$}
+
+% Add subtle frame around slides for sophistication
+\setbeamercolor{separation line}{fg=elegantPearl}

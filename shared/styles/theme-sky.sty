@@ -1,0 +1,65 @@
+% theme-sky.sty - Beautiful Sky Light Theme
+% Inspired by Bodh sky.json theme
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{theme-sky}[2024/07/21 Beautiful Sky Light Theme]
+
+% Use metropolis as base
+\usetheme{metropolis}
+
+% Sky-inspired color palette (from Bodh sky.json)
+\definecolor{skyBackground}{HTML}{f0f8ff}    % Light blue background
+\definecolor{skyText}{HTML}{2c3e50}          % Dark blue-gray text
+\definecolor{skyHeading}{HTML}{1e3a8a}       % Deep blue headings
+\definecolor{skyAccent}{HTML}{3b82f6}        % Bright blue accent
+\definecolor{skySecondary}{HTML}{64748b}     % Slate gray secondary
+\definecolor{skyCodeBg}{HTML}{e0f2fe}        % Very light blue code background
+\definecolor{skyQuoteBg}{HTML}{dbeafe}       % Soft blue quote background
+\definecolor{skyBorder}{HTML}{bfdbfe}        % Light blue borders
+
+% Main text styling
+\setbeamercolor{normal text}{fg=skyText,bg=white}
+\setbeamercolor{alerted text}{fg=skyAccent}
+\setbeamercolor{example text}{fg=skySecondary}
+
+% Title and frame styling
+\setbeamercolor{frametitle}{fg=white,bg=skyHeading}
+\setbeamercolor{framesubtitle}{fg=skySecondary}
+\setbeamercolor{title}{fg=skyHeading}
+\setbeamercolor{subtitle}{fg=skySecondary}
+\setbeamercolor{author}{fg=skySecondary}
+\setbeamercolor{institute}{fg=skySecondary}
+\setbeamercolor{date}{fg=skySecondary}
+
+% Progress bar and navigation
+\setbeamercolor{progress bar}{fg=skyAccent,bg=skyBorder}
+\setbeamercolor{progress bar in head/foot}{fg=skyAccent,bg=skyBorder}
+
+% Block styling with sky theme
+\setbeamercolor{block title}{fg=white,bg=skyAccent}
+\setbeamercolor{block body}{fg=skyText,bg=skyCodeBg}
+\setbeamercolor{block title alerted}{fg=white,bg=skyHeading}
+\setbeamercolor{block body alerted}{fg=skyText,bg=skyQuoteBg}
+\setbeamercolor{block title example}{fg=white,bg=skySecondary}
+\setbeamercolor{block body example}{fg=skyText,bg=skyCodeBg}
+
+% Item and structure colors
+\setbeamercolor{itemize item}{fg=skyAccent}
+\setbeamercolor{itemize subitem}{fg=skySecondary}
+\setbeamercolor{enumerate item}{fg=skyAccent}
+\setbeamercolor{enumerate subitem}{fg=skySecondary}
+
+% Section and subsection
+\setbeamercolor{section in toc}{fg=skyHeading}
+\setbeamercolor{subsection in toc}{fg=skySecondary}
+
+% Clean background
+\setbeamercolor{background canvas}{fg=skyText,bg=white}
+\setbeamertemplate{background}{}
+
+% Enhanced typography for elegance
+\setbeamerfont{frametitle}{size=\large,series=\bfseries}
+\setbeamerfont{title}{size=\Large,series=\bfseries}
+\setbeamerfont{subtitle}{size=\normalsize,series=\normalfont}
+
+% Remove extra navigation symbols for clean look
+\setbeamertemplate{navigation symbols}{}

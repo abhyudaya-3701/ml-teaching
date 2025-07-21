@@ -1,0 +1,21 @@
+% theme-darkmode.sty - Dark Mode Beamer Theme
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{theme-darkmode}[2025/07/21 Modern Dark Theme]
+
+\RequirePackage{beamerthememetropolis}
+\usepackage{fontspec}
+\setmainfont{Inter}
+\usepackage[sfdefault]{inter}
+\usepackage{inconsolata}
+\usepackage{xcolor}
+
+\definecolor{bg}{HTML}{1E1E1E}
+\definecolor{fg}{HTML}{D4D4D4}
+\definecolor{accent}{HTML}{569CD6}
+\definecolor{titlecolor}{HTML}{9CDCFE}
+
+\setbeamercolor{background canvas}{bg=bg}
+\setbeamercolor{normal text}{fg=fg}
+\setbeamercolor{frametitle}{fg=titlecolor}
+\setbeamercolor{title}{fg=titlecolor}
+\setbeamercolor{item}{fg=accent}

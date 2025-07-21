@@ -1,0 +1,69 @@
+% theme-modern.sty - Clean Modern Theme  
+% Inspired by Bodh modern.json theme
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{theme-modern}[2024/07/21 Clean Modern Theme]
+
+% Use metropolis as base
+\usetheme{metropolis}
+
+% Modern color palette (from Bodh modern.json)
+\definecolor{modernBackground}{HTML}{ffffff}  % Pure white background
+\definecolor{modernText}{HTML}{2d3748}        % Dark gray text
+\definecolor{modernHeading}{HTML}{1a202c}     % Very dark gray headings
+\definecolor{modernAccent}{HTML}{1baee1}      % Bright blue accent
+\definecolor{modernSecondary}{HTML}{718096}   % Muted gray secondary
+\definecolor{modernCodeBg}{HTML}{f8fafc}      % Very light blue-gray
+\definecolor{modernQuoteBg}{HTML}{f7fafc}     % Very light blue-gray
+\definecolor{modernBorder}{HTML}{e2e8f0}      % Light gray borders
+
+% Main text styling - clean and readable
+\setbeamercolor{normal text}{fg=modernText,bg=white}
+\setbeamercolor{alerted text}{fg=modernAccent}
+\setbeamercolor{example text}{fg=modernSecondary}
+
+% Title and frame styling - sophisticated
+\setbeamercolor{frametitle}{fg=white,bg=modernHeading}
+\setbeamercolor{framesubtitle}{fg=modernSecondary}
+\setbeamercolor{title}{fg=modernHeading}
+\setbeamercolor{subtitle}{fg=modernSecondary}
+\setbeamercolor{author}{fg=modernSecondary}
+\setbeamercolor{institute}{fg=modernSecondary}
+\setbeamercolor{date}{fg=modernSecondary}
+
+% Progress bar - subtle but visible
+\setbeamercolor{progress bar}{fg=modernAccent,bg=modernBorder}
+\setbeamercolor{progress bar in head/foot}{fg=modernAccent,bg=modernBorder}
+
+% Modern block styling - clean lines
+\setbeamercolor{block title}{fg=white,bg=modernAccent}
+\setbeamercolor{block body}{fg=modernText,bg=modernCodeBg}
+\setbeamercolor{block title alerted}{fg=white,bg=modernHeading}
+\setbeamercolor{block body alerted}{fg=modernText,bg=modernQuoteBg}
+\setbeamercolor{block title example}{fg=white,bg=modernSecondary}
+\setbeamercolor{block body example}{fg=modernText,bg=modernCodeBg}
+
+% Item styling - modern and clean
+\setbeamercolor{itemize item}{fg=modernAccent}
+\setbeamercolor{itemize subitem}{fg=modernSecondary}
+\setbeamercolor{enumerate item}{fg=modernAccent}
+\setbeamercolor{enumerate subitem}{fg=modernSecondary}
+
+% TOC styling
+\setbeamercolor{section in toc}{fg=modernHeading}
+\setbeamercolor{subsection in toc}{fg=modernSecondary}
+
+% Clean white background
+\setbeamercolor{background canvas}{fg=modernText,bg=white}
+\setbeamertemplate{background}{}
+
+% Typography - medium weight for headings, normal for body
+\setbeamerfont{frametitle}{size=\large,series=\bfseries}
+\setbeamerfont{title}{size=\Large,series=\bfseries}
+\setbeamerfont{subtitle}{size=\normalsize,series=\normalfont}
+
+% Minimal navigation for clean presentation
+\setbeamertemplate{navigation symbols}{}
+
+% Custom itemize items for modern look
+\setbeamertemplate{itemize item}{\color{modernAccent}$\bullet$}
+\setbeamertemplate{itemize subitem}{\color{modernSecondary}$\circ$}
