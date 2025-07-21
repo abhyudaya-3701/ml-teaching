@@ -1032,21 +1032,17 @@ $$s^* = \argmin_{s} \left[ \sum_{x_i \in R_1(s)} (y_i - c_1(s))^2 + \sum_{x_i \i
 
 \begin{frame}{Algorithm: Finding the Optimal Split}
 \begin{enumerate}
-\only<1-2>{
-\item Sort all data points $(x_i, y_i)$ in increasing order of $x_i$.
-\vspace{0.5cm}
-}
-\only<2>{
-\item Evaluate the loss function for all candidate splits:
+\item<1-> Sort all data points $(x_i, y_i)$ in increasing order of $x_i$.
+\item<2-> Evaluate the loss function for all candidate splits:
 \vspace{0.25cm}
 \begin{center}
 $s = \frac{x_i + x_{i+1}}{2}$ for $i = 1, 2, \ldots, n-1$
 \end{center}
 \vspace{0.25cm}
-\item Select the split $s^*$ that minimizes the loss function.
-}
+\item<2-> Select the split $s^*$ that minimizes the loss function.
 \end{enumerate} 
 \end{frame}
+
 
 \begin{frame}{A Question!}
 Draw a regression tree for Y = sin(X), $0 \leq X \leq 2\pi$ 

@@ -60,4 +60,27 @@ We call this matrix as $\cD$, containing:
 \end{enumerate}
 \end{frame}
 
+\begin{frame}{Entropy calculated}
+We have 14 examples in $S$: 5 No, 9 Yes
+
+$$\Entropy(S) = -p_{\text{No}} \log_2 p_{\text{No}} - p_{\text{Yes}} \log_2 p_{\text{Yes}}$$
+$$
+= -\frac{5}{14} \log_2\left(\frac{5}{14}\right) - \frac{9}{14} \log_2\left(\frac{9}{14}\right) = 0.940
+$$
+\end{frame}
+
+\begin{frame}{Algorithm: Finding the Optimal Split}
+\begin{enumerate}
+\item<1-> Sort all data points $(x_i, y_i)$ in increasing order of $x_i$.
+\item<2-> Evaluate the loss function for all candidate splits:
+\vspace{0.25cm}
+\begin{center}
+$s = \frac{x_i + x_{i+1}}{2}$ for $i = 1, 2, \ldots, n-1$
+\end{center}
+\vspace{0.25cm}
+\item<2-> Select the split $s^*$ that minimizes the loss function.
+\end{enumerate} 
+\end{frame}
+
+
 \end{document}
