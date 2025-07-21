@@ -43,15 +43,19 @@
 \begin{document}
 \maketitle
 
+\begin{frame}{Outline}
+\tableofcontents
+\end{frame}
+
+
+\section{Introduction and Motivation}
 
 {
 	\setbeamercolor{background canvas}{bg=}
 	\includepdf[page=1-19]{svm/Svm-notes.pdf}
 }
 
-
-
-
+\section{Mathematical Foundation}
 
 \begin{frame}{Distance between 2 parallel hyperplanes}
 Equation of two planes is:
@@ -62,10 +66,10 @@ $$
 \end{aligned}
 $$
 
-\pause For a point $\vec{x_1}$ on plane 1 and $\vec{x_2}$ on plane 2, we have:
+\pause For a point $\vx_1$ on plane 1 and $\vx_2$ on plane 2, we have:
 \pause $$
 \begin{array}{l}
-{\overrightarrow{x_{2}}=\overrightarrow{x_{1}}+t \vw} \\
+{\vx_{2}=\vx_{1}+t \vw} \\
 {D=|t \vw|=|t|||\vw| |}
 \end{array}
 $$
@@ -83,43 +87,41 @@ $$
 $$
 \end{frame}
 
+\section{SVM Formulation}
+
 {
 	\setbeamercolor{background canvas}{bg=}
 	\includepdf[page=20-25]{svm/Svm-notes.pdf}
 }
 
-
-
-
-
 \begin{frame}{Primal Formulation}
 	\begin{tcolorbox}{Objective}
 	\begin{align*}
-	\text{Minimize } & \frac{1}{2}||\vw||^{2} \\
-	\text{s.t. } & y_{i}(w.x_{i} + b) \geq 1 \hspace{2mm}\forall i
+	\minimize & \frac{1}{2}\norm{\vw}^{2} \\
+	\subjectto & y_{i}(\vw \cdot \vx_{i} + b) \geq 1 \quad \forall i
 	\end{align*}
 \end{tcolorbox}
 \pause 
-Q) What is $||\vw||$?
+Q) What is $\norm{\vw}$?
 \pause
 \begin{multicols}{2}
 \begin{equation*}
-	 w = \begin{bmatrix}
+	 \vw = \begin{bmatrix}
 	 w_{1} \\
      w_{2} \\
-     ...  \\
+     \vdots  \\
      w_{n} \\
 	\end{bmatrix}
 \end{equation*}\break
 \begin{align*}
-	 ||\vw|| &= \sqrt{w^{T}w}\\
+	 \norm{\vw} &= \sqrt{\vw\tp\vw}\\
 	 &= \sqrt{\begin{bmatrix}
-	 w_{1}, w_{2}, ... w_{n}
+	 w_{1} & w_{2} & \cdots & w_{n}
 	 \end{bmatrix}
 	 \begin{bmatrix}
 	  w_{1} \\
 	  w_{2} \\
-     ...  \\
+     \vdots  \\
      w_{n} \\
 	 \end{bmatrix}}
 \end{align*}
@@ -128,12 +130,12 @@ Q) What is $||\vw||$?
 
 \end{frame}
 
+\section{Worked Example}
+
 {
 	\setbeamercolor{background canvas}{bg=}
 	\includepdf[page=27]{svm/Svm-notes.pdf}
 }
-
-
 
 \begin{frame}{Simple Exercise}
 
@@ -146,7 +148,7 @@ x && y \\
 -2 && -1\\
 \end{bmatrix}
 \end{align*}
-Separating Hyperplane: $wx + b = 0$
+Separating Hyperplane: $\vw \cdot \vx + b = 0$
 \end{frame}
 
 \begin{frame}{Simple Exercise}
@@ -366,7 +368,7 @@ We know that only x = $\pm 1$ will take part in the constraint actively. Thus, $
 \textbf{Finding b:}\\
 For the support vectors we have, \\
 
-$y_{i}(\vw \cdot \overrightarrow{x_{i}}+b)-1=0$\\
+$y_{i}(\vw \cdot \vx_{i}+b)-1=0$\\
 or, $y_{i}$ $\left(\bar{w} \cdot \bar{x}_{1}+b\right)=1$\\
 or, $y_{i}^{2}\left(\bar{w} \cdot \bar{x}_{i}+b\right)=y_{i}$\\
 or, $\quad \bar{w}, \bar{x}_{i}+b=y_{i} \hspace{2mm}(\because y_{i}^{2} = 1)$\\
@@ -399,8 +401,8 @@ For $x_{test} = 3$; $\hat{y}(3) = \operatorname{SIGN}(1 \times 3 + 0)$ = +ve cla
 \begin{array}{l}
 {\text {Alternatively, }} \\
 {\qquad \begin{aligned}
-\hat{y}\left(x_{TEST}\right) &=\operatorname{SIGN}\left(\bar{w} \cdot \bar{x}_{TEST}+b\right) \\
-&=\operatorname{SIGN} \left(\sum_{i=1}^{N_{S}} \alpha_{j} y_{j} x_{j} \cdot x_{test}+b\right)
+\yhat(\vx_{\text{test}}) &=\sign(\vw \cdot \vx_{\text{test}}+b) \\
+&=\sign \left(\sum_{i=1}^{N_{\text{SV}}} \alpha_{j} y_{j} \vx_{j} \cdot \vx_{\text{test}}+b\right)
 \end{aligned}}
 \end{array}
 \end{align*}
@@ -408,12 +410,250 @@ For $x_{test} = 3$; $\hat{y}(3) = \operatorname{SIGN}(1 \times 3 + 0)$ = +ve cla
 \begin{aligned}
 &\text{In our example,} \\
 &\alpha_{1}=1/2 ; \alpha_{2}=0 ; \quad \alpha_{3}=1/2 ; \alpha_{4}=0\\
-&\hat{y}(3) =\operatorname{SIGN}\left(\frac{1}{2} \times 1 \times (1 \times 3)+0+\frac{1}{2} \times (-1) \times (-1 \times 3)+0\right)\\
-&=\operatorname{SIGN} \left(\frac{6}{2}\right)=\operatorname{SIGN}(3)=+1
+&\yhat(3) =\sign\left(\frac{1}{2} \times 1 \times (1 \times 3)+0+\frac{1}{2} \times (-1) \times (-1 \times 3)+0\right)\\
+&=\sign \left(\frac{6}{2}\right)=\sign(3)=+1
 \end{aligned}
 \end{align*}
 
 \end{frame}
 
+\section{Kernel Methods}
+
+{
+	\setbeamercolor{background canvas}{bg=}
+	\includepdf[page=35-35]{svm/Svm-notes.pdf}
+}
+
+\begin{frame}{Non-Linearly Separable Data}
+	\begin{itemize}
+		\item Data is not linearly separable in $\mathbb{R}^d$.
+		\item Can we still use SVM?
+		\item Yes! Project data to a higher dimensional space.
+	\end{itemize}
+	\end{frame}
+
+\subsection{Kernel Motivation}
+
+{
+	\setbeamercolor{background canvas}{bg=}
+	\includepdf[page=36-41]{svm/Svm-notes.pdf}
+}
+
+\begin{frame}{Projection/Transformation Function}
+	        $\phi : \mathbb{R}^{d} \rightarrow \mathbb{R}^{D}$
+	    
+	    where, $d$ = original dimension \\
+	    \hspace{1cm} $D$ = new dimension \\
+	    In our example:\\
+	    \hspace{1cm} $d = 1; D = 2$ 
+	\end{frame}
+	\begin{frame}{From Linear to Kernel SVM}
+	    Linear SVM:\\
+	    \hspace{1cm} Maximize\\
+	    \begin{equation*}
+	        L(\alpha) = \sum_{i=1}^{N}\alpha_{i} - \frac{1}{2}\sum_{i=1}^{N}\sum_{j=1}^{N}\alpha_{i}\alpha_{j}y_{i}y_{j}\vx_{i} \cdot \vx_{j}
+	    \end{equation*}
+	    \hspace{1cm} such that constriants are satisfied.\\
+	   \hspace{5cm} $\downarrow$\\
+	   \hspace{3.8cm} Transformation ($\phi$)\\
+	   \hspace{5cm} $\downarrow$\\
+	   \begin{equation*}
+	       L(\alpha) = \sum_{i=1}^{N}\alpha_{i} - \frac{1}{2}\sum_{i=1}^{N}\sum_{j=1}^{N}\alpha_{i}\alpha_{j}y_{i}y_{j}\phi(\vx_{i}) \cdot \phi(\vx_{j})
+	   \end{equation*}
+	\end{frame}
+
+
+	\begin{frame}{Steps}
+	    \begin{enumerate}
+	        \item Compute $\phi(\vx)$ for each point \\
+	        \begin{equation*}
+	            \phi: \mathbb{R}^{d} \rightarrow \mathbb{R}^{D}
+	        \end{equation*}
+	        \item Compute dot products over $\mathbb{R}^{D}$ space
+	    \end{enumerate}
+	    \hspace{0.1cm} Q. If $D >> d$ \\
+	    \hspace{0.6cm} Both steps are expensive!
+	\end{frame}
+	\begin{frame}{The Kernel Trick}
+	\textbf{Brilliant idea:} Can we compute $K(\vx_{i}, \vx_{j})$ such that:
+	$$K(\vx_{i}, \vx_{j}) = \phi(\vx_{i}) \cdot \phi(\vx_{j})$$
+	
+	\textbf{Without explicitly computing $\phi$!}
+	
+	\begin{itemize}
+		\item $K(\vx_{i}, \vx_{j})$: Simple function in original space
+		\item $\phi(\vx_{i}) \cdot \phi(\vx_{j})$: Complex dot product in high-dimensional space
+	\end{itemize}
+	
+	\textbf{Result:} Get non-linear classification power without computational cost!
+	\end{frame}
+
+\subsection{Kernel Examples}
+
+	{
+	\setbeamercolor{background canvas}{bg=}
+	\includepdf[page=41-47]{svm/Svm-notes.pdf}
+}
+
+\begin{frame}{Kernel Trick}
+	   Q) Why did we use dual form? \\
+	   \hspace{0.5cm} Kernels again!! \\
+	   \vspace{1cm}
+	   Primal form doesn't allow for the kernel trick \\
+	   $K(\vx_{1}, \vx_{2})$ in dual and compute $\phi(\vx)$ and then dot product in $D$ dimensions
+	\end{frame}
+	\begin{frame}{Gram Matrix: (Positive Semi-Definite)}
+	$K(\vx_{i}, \vx_{j}) = (1 + \vx_{i} \cdot \vx_{j})^{2}$ \\
+	$$
+	\begin{matrix}
+	& x_{1} & x_{2} & x_{3} & x_{4} & x_{5} & x_{6} & x_{7} \\
+	x_{1} & 24 & 8 & 0 & 0 & 8 & 24 & 48 \\
+	x_{2} & 8 & 1 & 0 & -1 & 0 & \ldots & \\
+	x_{3} & 0 & \ldots & \ldots & \ldots & \ldots & \ldots & \ldots \\
+	x_{4} & 0 & & & & & & \\
+	x_{5} & 8 & & & & & & \\
+	x_{6} & 24 & & & & & & \\
+	x_{7} & 48 & & & & & & \\
+	\end{matrix}
+	$$
+	\end{frame}
+
+	\begin{frame}{Common Kernel Functions}
+	\textbf{Most frequently used kernels:}
+	    \begin{enumerate}
+	        \item \textbf{Linear:} $K(\vx_{1}, \vx_{2}) = \vx_{1} \cdot \vx_{2}$
+	        \item \textbf{Polynomial:} $K(\vx_{1}, \vx_{2}) = (c + \vx_{1} \cdot \vx_{2})^{d}$
+	        \item \textbf{RBF (Gaussian):} $K(\vx_{1}, \vx_{2}) = \exp(-\gamma\norm{\vx_{1} - \vx_{2}}^{2})$
+	    \end{enumerate}
+	    
+	    \vspace{0.5cm}
+	    \textbf{Parameters:}
+	    \begin{itemize}
+	    	\item $c$: constant term, $d$: degree (polynomial)
+	    	\item $\gamma$: bandwidth parameter (RBF)
+	    \end{itemize}
+	\end{frame}
+	\begin{frame}{Kernel Example: Polynomial Kernel}
+	    \textbf{Question:} For $\vx = \begin{bmatrix}x_{1} \\ x_{2} \end{bmatrix}$, what is the feature space for $K(\vx, \vz) = (1 + \vx \cdot \vz)^{3}$?
+	    
+	    \textbf{Given:} $\vx \in \Real^{2}$, find dimension of $\phi(\vx)$
+	    
+	    \textbf{Expansion:}
+	    \begin{align*}
+	        K(\vx, \vz) &= (1 + x_{1}z_{1} + x_{2}z_{2})^{3} \\
+	        &= \text{all terms of degree } \leq 3 \\
+	        &= \phi(\vx) \cdot \phi(\vz)
+	    \end{align*}
+	    
+	    \textbf{Feature map:} $\phi(\vx) = [1, \sqrt{3}x_1, \sqrt{3}x_2, \sqrt{3}x_1^2, \sqrt{3}x_2^2, \sqrt{6}x_1x_2, x_1^3, x_2^3, \sqrt{3}x_1^2x_2, \sqrt{3}x_1x_2^2]$
+	    
+	    \textbf{Answer:} $\phi(\vx) \in \Real^{10}$
+	\end{frame}
+	\begin{frame}{RBF Kernel: Infinite Dimensions}
+	    \textbf{Question:} What is the dimensionality of RBF kernel feature space?
+	    
+	    \textbf{RBF Kernel:}
+	    \begin{align*}
+	        K(x, z) &= \exp(-\gamma\norm{x - z}^{2})\\
+	        &= \exp(-\gamma(x - z)^{2})
+	    \end{align*}
+	    
+	    \textbf{Key insight:} Using Taylor series expansion
+	    $$\exp(\alpha) = \sum_{n=0}^{\infty}\frac{\alpha^{n}}{n!} = 1 + \alpha + \frac{\alpha^2}{2!} + \frac{\alpha^3}{3!} + \cdots$$
+	    
+	    \textbf{Result:} RBF kernel corresponds to $\infty$-dimensional feature space!
+	    
+	    \textbf{Amazing:} Infinite-dimensional classification with finite computation!
+	\end{frame}
+	
+	\begin{frame}{Does RBF Involve Dot Product in Lower-Dimensional Space?}
+	\textbf{Question:} Can we see the original dot product in RBF kernel?
+	
+	Assuming $\vx$ is a one-dimensional vector, we can rewrite the RBF kernel as:
+	$$K(x, z) = \exp(-\gamma\norm{x-z}^{2}) = \exp(-\gamma(x-z)^{2})$$
+	
+	\pause
+	\textbf{Expanding the squared term:}
+	$$(x - z)^{2} = x^{2} - 2xz + z^{2}$$
+	
+	\pause
+	\textbf{Substituting back into the RBF kernel:}
+	\begin{align*}
+	K(x, z) &= \exp(-\gamma(x^{2}-2xz+z^{2})) \\
+	&= \exp(-\gamma x^{2}) \cdot \exp(2\gamma xz) \cdot \exp(-\gamma z^{2})
+	\end{align*}
+	
+	\textbf{Key insight:} The middle term $\exp(2\gamma xz)$ contains the dot product $xz$ from the original space!
+	\end{frame}
+	
+	\begin{frame}{SVM: Parametric vs Non-Parametric}
+	    \textbf{Question:} Is SVM parametric or non-parametric?
+	    
+	    \pause
+	    \textbf{Answer:} It depends on the kernel!
+	    
+	    \begin{itemize}
+	    	\item \textbf{Parametric:} Linear and polynomial kernels
+	    		\begin{itemize}
+	    			\item Fixed functional form
+	    			\item Number of parameters independent of training data size
+	    		\end{itemize}
+	    	\item \textbf{Non-parametric:} RBF kernel
+	    		\begin{itemize}
+	    			\item Model complexity grows with data
+	    			\item Uses all support vectors for prediction
+	    		\end{itemize}
+	    \end{itemize}
+	\end{frame}
+	\begin{frame}{RBF is Non-Parametric}
+	    \begin{align*}
+	        \yhat(\vx_{\text{test}}) &= \sign(\vw \cdot \vx_{\text{test}} + b) \\
+	        &= \sign(\sum_{j=1}^{N_{\text{SV}}}\alpha_{j}y_{j}\vx_{j} \cdot \vx_{\text{test}} + b)\\
+	        \yhat(\vx_{\text{test}}) &= \sign(\sum_{j=1}^{N}\alpha_{j}y_{j} K(\vx_{j}, \vx_{\text{test}}) + b)
+	    \end{align*}
+	    $\alpha_{j} = 0$ where $j \neq$ S.V.
+	\end{frame}
+
+	\begin{frame}{Interpretation of RBF}
+		\begin{itemize}[<+->]
+			\item $\yhat(\vx) = \sign(\sum \alpha_{i}y_{i}\exp(-\norm{\vx - \vx_{i}}^{2}) + b)$
+			\item $-\norm{\vx - \vx_{i}}^{2}$ corresponds to radial term
+			\item $\sum \alpha_{i}y_{i}$ is the activation component
+			\item $\exp(-\norm{\vx - \vx_{i}}^{2})$ is the basis component
+		\end{itemize}
+	    
+	    
+	\end{frame}
+
+\subsection{Kernel Properties}
+
+		{
+	\setbeamercolor{background canvas}{bg=}
+	\includepdf[page=48-49]{svm/Svm-notes.pdf}
+}
+
+\section{Summary}
+
+\begin{frame}{Key Takeaways}
+\begin{itemize}
+	\item \textbf{Goal:} SVM finds optimal separating hyperplane by maximizing margin
+	\item \textbf{Math:} Dual formulation enables kernel trick
+	\item \textbf{Power:} Kernels enable non-linear classification without explicit mapping
+	\item \textbf{Popular kernels:} Linear, Polynomial, RBF (Gaussian)
+	\item \textbf{Remarkable:} RBF kernel $\leftrightarrow$ infinite-dimensional space
+	\item \textbf{Flexibility:} Parametric (linear/poly) or non-parametric (RBF)
+	\item \textbf{Efficiency:} Only support vectors matter for prediction
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Next Steps}
+\begin{itemize}
+	\item Soft-margin SVM for non-separable data
+	\item Hyperparameter tuning (C, $\gamma$)
+	\item Multi-class SVM extensions
+	\item Computational considerations and optimization
+	\item Comparison with other classifiers
+\end{itemize}
+\end{frame}
 
 \end{document}
