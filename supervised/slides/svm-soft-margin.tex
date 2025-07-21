@@ -25,6 +25,20 @@
 }
 
 	
+	\begin{frame}{Pop Quiz \#1}
+	\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Quick Question!]
+	Why might we need a "soft margin" SVM?
+	\begin{itemize}
+		\item a) Data is perfectly linearly separable
+		\item b) Data has some noise and outliers
+		\item c) We want smaller margins
+		\item d) To avoid using kernels
+	\end{itemize}
+	\pause
+	\textbf{Answer:} b) Data has some noise and outliers - soft margin allows controlled violations.
+	\end{tcolorbox}
+	\end{frame}
+
 	\begin{frame}{Soft-Margin SVM}
 	\begin{itemize}[<+->]
 		\item Can we learn SVM for ``slightly'' non-separable data without projecting to a higher space? 
@@ -48,9 +62,9 @@
 		
 		\vspace{0.2cm}
 		\pause In Dual:
-		$$\minimize \sum_{i=1}^{n}\alpha_{i} - \sum_{i=1}^{n}\sum_{j=1}^{n}\alpha_{i}\alpha_{j}y_{i}y_{j}\vx_{i} \cdot \vx_{j}$$
+		$$\minimize \sum_{i=1}^{n}\valpha_{i} - \sum_{i=1}^{n}\sum_{j=1}^{n}\valpha_{i}\valpha_{j}y_{i}y_{j}\vx_{i} \cdot \vx_{j}$$
 		s.t.
-		$$0 \leq \alpha_{i} \leq C \text{\hspace{0.3cm}\&\hspace{0.3cm}} \sum_{i=1}^{n}\alpha_{i}y_{i} = 0$$
+		$$0 \leq \valpha_{i} \leq C \text{\hspace{0.3cm}\&\hspace{0.3cm}} \sum_{i=1}^{n}\valpha_{i}y_{i} = 0$$
 		
 	\end{frame}
 
@@ -59,6 +73,20 @@
 	\setbeamercolor{background canvas}{bg=}
 	\includepdf[page=59-61]{Svm-notes.pdf}
 }
+
+\begin{frame}{Pop Quiz \#2}
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Quick Question!]
+What happens when the regularization parameter $C$ is very large?
+\begin{itemize}
+	\item a) The model becomes more tolerant to misclassifications
+	\item b) The model tries to classify all training points correctly
+	\item c) The margin becomes larger
+	\item d) Regularization increases
+\end{itemize}
+\pause
+\textbf{Answer:} b) The model tries to classify all training points correctly - high variance!
+\end{tcolorbox}
+\end{frame}
 
 \begin{frame}{Bias Variance Trade-off for Soft-Margin SVM}
 	Low C $\implies$ Higher train error (higher bias) \\
@@ -76,21 +104,32 @@
 		If C $\rightarrow \infty$ (or very large) 
 		\hspace{0.3cm} Objective $\rightarrow \minimize C\sum\xi_{i}$ or choose $\vw$, $b$, s.t. $\xi_{i}$ is small!
 	\end{frame}
-	\begin{frame}{Soft-Margin SVM}
-		Q) What is the equivalent of hard margin?
-		\hspace{0.5cm}\begin{enumerate}[a]
-			\item C $\rightarrow 0$
-			\item C $\rightarrow \infty$
-		\end{enumerate}
-	\end{frame}
-	\begin{frame}{Soft-Margin SVM}
-		Q) What is the equivalent of hard margin?
-		\hspace{0.5cm}\begin{enumerate}[a]
-			\item C $\rightarrow$ 0
-			\item \framebox{C $\rightarrow \infty$} $\implies$ No violations!!
-		\end{enumerate}
+	\begin{frame}{Pop Quiz \#3}
+	\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Quick Question!]
+	What is the equivalent of hard margin?
+	\begin{itemize}
+		\item a) C $\rightarrow 0$
+		\item b) C $\rightarrow \infty$
+	\end{itemize}
+	\pause
+	\textbf{Answer:} b) C $\rightarrow \infty$ - No violations allowed!
+	\end{tcolorbox}
 	\end{frame}
 	
+	\begin{frame}{Pop Quiz \#4}
+	\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Quick Question!]
+	For a support vector with slack variable $\xi_i = 1.5$, this point is:
+	\begin{itemize}
+		\item a) On the margin boundary
+		\item b) Correctly classified but within margin
+		\item c) Misclassified
+		\item d) Outside both margins
+	\end{itemize}
+	\pause
+	\textbf{Answer:} c) Misclassified - since $\xi_i > 1$!
+	\end{tcolorbox}
+	\end{frame}
+
 	\begin{frame}{Soft-Margin SVM}
 		Types of support vectors:
 		\begin{itemize}
@@ -111,6 +150,20 @@
 		But $\xi_{i} \geq 0$ \\
 		$$\therefore \xi_{i} = \max \big[0, 1 - y_{i}(\vw \cdot \vx_{i} + b)\big]$$
 	\end{frame}
+	\begin{frame}{Pop Quiz \#5}
+	\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Quick Question!]
+	The hinge loss function $\max[0, 1-y_i(\vw \cdot \vx_i + b)]$ is:
+	\begin{itemize}
+		\item a) Convex and differentiable everywhere
+		\item b) Convex but not differentiable at one point
+		\item c) Non-convex but differentiable
+		\item d) Neither convex nor differentiable
+	\end{itemize}
+	\pause
+	\textbf{Answer:} b) Convex but not differentiable at $y_i(\vw \cdot \vx_i + b) = 1$!
+	\end{tcolorbox}
+	\end{frame}
+
 	\begin{frame}{SVM Formulation in the Loss + Penalty Form}
 		$\therefore$ Objective is:
 		$$\minimize C \sum \xi_{i} + \frac{1}{2}\norm{\vw}^{2}$$

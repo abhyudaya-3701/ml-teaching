@@ -70,7 +70,7 @@ $$
 \pause $$
 \begin{array}{l}
 {\vx_{2}=\vx_{1}+t \vw} \\
-{D=|t \vw|=|t|||\vw| |}
+{D=|t \vw|=|t|\|\vw\|}
 \end{array}
 $$
 
@@ -83,8 +83,22 @@ $$
 $$
 \pause $$
 \Rightarrow \vw \cdot \vx_{1}+t\|\vw\|^{2}+b_1-b_1+b_2 = 0
-\Rightarrow t = \frac{b_1 - b_2}{\|\vw\|^{2}}  \Rightarrow D = t\|\vw\| =  \frac{b_1 - b_2}{\|\vw\|}
+\Rightarrow t = \frac{b_1 - b_2}{\|\vw\|^{2}}  \Rightarrow D = t\|\vw\| =  \frac{|b_1 - b_2|}{\|\vw\|}
 $$
+\end{frame}
+
+\begin{frame}{Pop Quiz \#1}
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Quick Question!]
+If two parallel hyperplanes are given by:
+\begin{itemize}
+	\item $\vw \cdot \vx + 3 = 0$
+	\item $\vw \cdot \vx - 1 = 0$
+\end{itemize}
+And $\|\vw\| = 2$, what is the distance between them?
+
+\pause
+\textbf{Answer:} $D = \frac{|3 - (-1)|}{2} = \frac{4}{2} = 2$ units
+\end{tcolorbox}
 \end{frame}
 
 \section{SVM Formulation}
@@ -155,7 +169,7 @@ Separating Hyperplane: $\vw \cdot \vx + b = 0$
 \begin{tcolorbox}
 
 \begin{equation*}
-y_{i}(w_{i}x_{i} + b) \geq 1
+y_{i}(\vw \cdot \vx_{i} + b) \geq 1
 \end{equation*}
 \end{tcolorbox}
 \begin{multicols}{2}
@@ -170,11 +184,11 @@ x_{1} && y \\
 \end{equation*}\break
 
 \begin{align*}
-&\Rightarrow y_{i}(w_{i}x_{i} + b) \geq 1\\
-&\Rightarrow 1(w_{1} + b) \geq 1\\
-&\Rightarrow 1(2w_{1} + b)\geq 1\\
-&\Rightarrow -1(-w_{1}+b) \geq 1\\
-&\Rightarrow -1(-2w_{1}+b) \geq 1\\
+&\Rightarrow y_{i}(w \cdot x_{i} + b) \geq 1\\
+&\Rightarrow 1(w \cdot 1 + b) \geq 1\\
+&\Rightarrow 1(w \cdot 2 + b)\geq 1\\
+&\Rightarrow -1(w \cdot (-1)+b) \geq 1\\
+&\Rightarrow -1(w \cdot (-2)+b) \geq 1\\
 \end{align*}
 
 
@@ -202,6 +216,22 @@ Minimum values satisfying constraints  $\Rightarrow$
 $w$ = 1 and $b = 0$\\
 $\therefore$ Max margin classifier $ \Rightarrow x = 0$
 
+\end{frame}
+
+\begin{frame}{Pop Quiz \#2}
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Think About This!]
+In our simple 1D example, why did we choose $w = 1$ and $b = 0$ as the optimal solution?
+
+\pause
+\begin{itemize}
+	\item Is this the \textbf{only} solution that separates the data?
+	\item What makes this solution \textbf{optimal} for SVM?
+\end{itemize}
+
+\pause
+\textbf{Answer:} No, infinitely many solutions exist (e.g., $w = 2, b = 0$ or $w = 0.5, b = 0$). \\
+SVM chooses $w = 1, b = 0$ because it minimizes $\|\vw\|^2$ while satisfying all constraints!
+\end{tcolorbox}
 \end{frame}
 
 \begin{frame}{Primal Formulation is a Quadratic Program}
@@ -232,61 +262,77 @@ Question
 \begin{frame}{Converting to Dual Problem}
 Primal $\Rightarrow$ Dual Conversion using Lagrangian multipliers\\
 \begin{align*}
-	\text{Minimize } & \frac{1}{2}||\bar{w}||^{2} \\
-	\text{s.t. } & y_{i}(\bar{w}.x_{i} + b) \geq 1\\
+	\text{Minimize } & \frac{1}{2}\|\vw\|^{2} \\
+	\text{s.t. } & y_{i}(\vw \cdot \vx_{i} + b) \geq 1\\
 	 \hspace{2mm}\forall i
 	\end{align*}
 \begin{align*}
-&L(\bar{w},b,\alpha_{1},\alpha_{2},...\alpha_{n}) = \frac{1}{2}
-\sum_{i = 1}^{d} w_{i}^{2} - \sum_{i=1}^{N} \alpha_{i}(y_{i}(\bar{w}.\bar{x_{i}} + b) - 1) \hspace{2mm} \forall \hspace{2mm}\alpha_{i} \geq 0\\
+&L(\vw,b,\valpha) = \frac{1}{2}
+\sum_{i = 1}^{d} w_{i}^{2} - \sum_{i=1}^{N} \alpha_{i}(y_{i}(\vw \cdot \vx_{i} + b) - 1) \hspace{2mm} \forall \hspace{2mm}\alpha_{i} \geq 0\\
 &\frac{\partial L}{\partial b} = 0 \Rightarrow \sum_{i=1}^{n}\alpha_{i}y_{i} = 0\\
 \end{align*}
 \end{frame}
 
 \begin{frame}{Converting to Dual Problem}
 \begin{align*}
-\frac{\partial L}{\partial w} = 0 \Rightarrow & \bar{w} - \sum_{i=1}^{n}\alpha_{i}y_{i}\bar{x_{i}} = 0\\
-& \bar{w} = \sum_{i=1}^{N}\alpha_{i}y_{i}\bar{x_{i}}
+\frac{\partial L}{\partial \vw} = 0 \Rightarrow & \vw - \sum_{i=1}^{n}\alpha_{i}y_{i}\vx_{i} = 0\\
+& \vw = \sum_{i=1}^{N}\alpha_{i}y_{i}\vx_{i}
 \end{align*}
 \begin{align*}
-&L(\bar{w},b,\alpha_{1},\alpha_{2},...\alpha_{n}) = \frac{1}{2}
-\sum_{i = 1}^{d} w_{i}^{2} - \sum_{i=1}^{N} \alpha_{i}(y_{i}(\bar{w}.\bar{x_i} + b) -1\\
-&= \frac{1}{2}||\bar{w}||^{2}-\sum_{i=1}^{N} \alpha_{i} y_{i} \vw_{.} \bar{x_{i}}-\sum_{i=1}^{N} \alpha_{i} y_{i} b+\sum_{i=1}^{N} \alpha_{i}\\
-&= \sum_{=1}^{N} \alpha_{i}+\frac{\left(\sum_{i} \alpha_{i} y_{i} \bar{x}_{i}\right)\left(\sum_{j} \alpha_{j} y_{j} \bar{x}_{j}\right)}{2}-\sum_{i} \alpha_{i} y_{i}\left(\sum_{j} \alpha_{j} y_{j} \bar{x}_{j}\right) \bar{x_{i}}
+&L(\vw,b,\valpha) = \frac{1}{2}
+\sum_{i = 1}^{d} w_{i}^{2} - \sum_{i=1}^{N} \alpha_{i}(y_{i}(\vw \cdot \vx_i + b) -1)\\
+&= \frac{1}{2}\|\vw\|^{2}-\sum_{i=1}^{N} \alpha_{i} y_{i} \vw \cdot \vx_{i}-\sum_{i=1}^{N} \alpha_{i} y_{i} b+\sum_{i=1}^{N} \alpha_{i}\\
+&= \sum_{i=1}^{N} \alpha_{i}+\frac{\left(\sum_{i} \alpha_{i} y_{i} \vx_{i}\right) \cdot \left(\sum_{j} \alpha_{j} y_{j} \vx_{j}\right)}{2}-\sum_{i} \alpha_{i} y_{i}\left(\sum_{j} \alpha_{j} y_{j} \vx_{j}\right) \cdot \vx_{i}
 \end{align*}
 \end{frame}
 
 \begin{frame}{Converting to Dual Problem}
 \begin{align*}
-&L(\alpha)=\sum_{i=1}^{N} \alpha_{i}-\frac{1}{2} \sum_{i=1}^{N} \sum_{j=1}^{N} \alpha_{i} \alpha_{j} y_{i} y_{j} \bar{x_{i}} \cdot \bar{x_{j}}\\
+&L(\valpha)=\sum_{i=1}^{N} \alpha_{i}-\frac{1}{2} \sum_{i=1}^{N} \sum_{j=1}^{N} \alpha_{i} \alpha_{j} y_{i} y_{j} \vx_{i} \cdot \vx_{j}\\
 \end{align*}
 \begin{tcolorbox}
 \begin{align*}
 &\begin{array}{ll}
-{\text { Minimize }\|\bar{w}\|^{2} \Rightarrow}&{\text{Maximize } L(\alpha)} \\
+{\text { Minimize }\|\vw\|^{2} \Rightarrow}&{\text{Maximize } L(\valpha)} \\
 {  s.t  } & {  s.t  } \\
-{y_{i}\left(\bar{w}, x_{i}+b\right) \geqslant 1} & {\sum_{i=1}^{N} \alpha_{i} y_{i}=0 \hspace{2mm}\forall \hspace{2mm} \alpha_{i}  \geq 0}
+{y_{i}\left(\vw \cdot \vx_{i}+b\right) \geqslant 1} & {\sum_{i=1}^{N} \alpha_{i} y_{i}=0 \hspace{2mm}\forall \hspace{2mm} \alpha_{i}  \geq 0}
 \end{array}
 \end{align*}
 \end{tcolorbox}
 \end{frame}
 
-\begin{frame}{Question}
+\begin{frame}{Pop Quiz \#3}
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Lagrangian Mystery!]
+Why do we convert the primal SVM problem to its dual formulation?
+
+\pause
+\textbf{Hint:} Think about what the dual formulation enables us to do that the primal doesn't...
+
+\pause
+\textbf{Answer:} The dual formulation enables the \textbf{kernel trick}! 
+\begin{itemize}
+	\item Primal: $\vw$ appears explicitly $\rightarrow$ no kernels
+	\item Dual: Only dot products $\vx_i \cdot \vx_j$ appear $\rightarrow$ can replace with $K(\vx_i, \vx_j)$
+\end{itemize}
+\end{tcolorbox}
+\end{frame}
+
+\begin{frame}{Question: KKT Complementary Slackness}
 \textbf{Question}:\\
 \vspace{2mm}
-$\alpha_{i}\left(y_{i}\left(\bar{w}, \bar{x}_{i}+b\right)-1\right)=0 \quad \forall i$ as per KKT slackness\\
+$\alpha_{i}\left(y_{i}\left(\vw \cdot \vx_{i}+b\right)-1\right)=0 \quad \forall i$ as per KKT slackness\\
 \vspace{2mm}
 What is $\alpha_{i}$ for support vector points?\\
 \vspace{4mm}
 \textbf{Answer:}
 For support vectors,\\
-\hspace{1in}$\bar{w}.\bar{x_{i}} + b  = -1$ (+ve class)\\
-\hspace{1in}$\bar{w}.\bar{x_{i}} + b  = +1$ (+ve class)\\
+\hspace{1in}$\vw \cdot \vx_{i} + b  = -1$ (for $y_i = -1$)\\
+\hspace{1in}$\vw \cdot \vx_{i} + b  = +1$ (for $y_i = +1$)\\
 \vspace{2mm}
-$\left.y_{i}\left(\bar{w} \cdot \bar{x}_{i}+b\right)-1\right)=0 \quad \text {for } i=\{\text{support vector points\}}$
-$\therefore \alpha_{i} \text { where i } \in \text{\{support vector points\}} \neq 0$
+$y_{i}\left(\vw \cdot \vx_{i}+b\right)-1=0 \quad \text {for } i \in \{\text{support vector points}\}$\\
+$\therefore \alpha_{i} \neq 0$ where $i \in \{\text{support vector points}\}$
 \vspace{5mm}
-$\text{For all non-support vector points }\alpha_{i} = 0$
+$\text{For all non-support vector points: }\alpha_{i} = 0$
 \end{frame}
 
 {
@@ -309,11 +355,28 @@ x_{1} && y \\
 \end{equation*}
 
 \begin{align*}
-L(\alpha) &= \sum_{i=1}^{4} \alpha_{i} - \frac{1}{2}\sum_{i=1}^{4}\sum_{j=1}^{4}\alpha_{i}\alpha_{j}y_{i}y_{j}\bar{x_i}\bar{x_j} \hspace{1cm}\alpha_{i} \geq 0 \\
+L(\valpha) &= \sum_{i=1}^{4} \alpha_{i} - \frac{1}{2}\sum_{i=1}^{4}\sum_{j=1}^{4}\alpha_{i}\alpha_{j}y_{i}y_{j}x_i x_j \hspace{1cm}\alpha_{i} \geq 0 \\
 &\sum \alpha_{i}y_{i} = 0 \hspace{1.5cm}
-\alpha_{i}(y_{i}(\bar{w}.\bar{x_i} + b - 1) = 0
+\alpha_{i}(y_{i}(w \cdot x_i + b) - 1) = 0
 \end{align*}
 
+\end{frame}
+
+\begin{frame}{Pop Quiz \#4}
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Support Vector Challenge!]
+In our 1D example with data points $\{(1,+1), (2,+1), (-1,-1), (-2,-1)\}$, which points will be the support vectors?
+
+\pause
+\textbf{Think:} Support vectors are the closest points to the decision boundary that actively constrain the solution.
+
+\pause
+\textbf{Answer:} Points $(1,+1)$ and $(-1,-1)$ are the support vectors!
+\begin{itemize}
+	\item These are closest to the decision boundary $x = 0$
+	\item They satisfy $y_i(w \cdot x_i + b) = 1$ exactly
+	\item Points $(2,+1)$ and $(-2,-1)$ are farther away $\Rightarrow$ $\alpha = 0$
+\end{itemize}
+\end{tcolorbox}
 \end{frame}
 
 \begin{frame}{Revisiting the Simple Example}
@@ -396,13 +459,13 @@ b &=\frac{1}{2}\{(1-(1)(1))+(-1-(1)(-1))\\
 For $x_{test} = 3$; $\hat{y}(3) = \operatorname{SIGN}(1 \times 3 + 0)$ = +ve class
 \end{frame}
 
-\begin{frame}{Making Predictions}\
+\begin{frame}{Making Predictions}
 \begin{align*}
 \begin{array}{l}
 {\text {Alternatively, }} \\
 {\qquad \begin{aligned}
 \yhat(\vx_{\text{test}}) &=\sign(\vw \cdot \vx_{\text{test}}+b) \\
-&=\sign \left(\sum_{i=1}^{N_{\text{SV}}} \alpha_{j} y_{j} \vx_{j} \cdot \vx_{\text{test}}+b\right)
+&=\sign \left(\sum_{j=1}^{N_{\text{SV}}} \alpha_{j} y_{j} \vx_{j} \cdot \vx_{\text{test}}+b\right)
 \end{aligned}}
 \end{array}
 \end{align*}
@@ -415,6 +478,22 @@ For $x_{test} = 3$; $\hat{y}(3) = \operatorname{SIGN}(1 \times 3 + 0)$ = +ve cla
 \end{aligned}
 \end{align*}
 
+\end{frame}
+
+\begin{frame}{Pop Quiz \#5}
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Prediction Power!]
+We found our SVM solution: $w = 1, b = 0$. Let's test it!
+
+What will our SVM predict for the test point $x_{\text{test}} = -0.5$?
+
+\pause
+\textbf{Method 1:} Direct: $\yhat(-0.5) = \sign(1 \times (-0.5) + 0) = \sign(-0.5) = -1$
+
+\pause  
+\textbf{Method 2:} Using support vectors:
+$\yhat(-0.5) = \sign(\frac{1}{2} \times 1 \times 1 \times (-0.5) + \frac{1}{2} \times (-1) \times (-1) \times (-0.5))$
+$ = \sign(-0.5) = -1$ (Correct!)
+\end{tcolorbox}
 \end{frame}
 
 \section{Kernel Methods}
