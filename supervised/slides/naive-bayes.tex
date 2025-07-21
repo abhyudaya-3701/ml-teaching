@@ -1,16 +1,9 @@
 \documentclass{beamer}
 \usepackage{../../shared/styles/custom}
-\input{../../conventions}
+\usepackage{../../shared/styles/conventions}
 
 
 %\beamerdefaultoverlayspecification{<+->}
-
-
-	\ifx\relax#1\relax  \item \else \item[#1] \fi
-	\abovedisplayskip=0pt\abovedisplayshortskip=0pt~\vspace*{-\baselineskip}}
-
-
-
 
 \title{Naive Bayes}
 \date{\today}
@@ -93,12 +86,12 @@
 \end{frame}
 
 \begin{frame}{Solution}
-    \begin{align*}
+    \[
         \begin{split}
             P(A|T) &= \frac{P(A,T)}{P(A)}\\
-            &=\frac{(A,T,E)+P(A,T,\bar{E})}{(A,T,E)+P(A,T,\bar{E}) + (A,\bar{T},E)+P(A,\bar{T},\bar{E})}
+            &=\frac{P(A,T,E)+P(A,T,\bar{E})}{P(A,T,E)+P(A,T,\bar{E}) + P(A,\bar{T},E)+P(A,\bar{T},\bar{E})}
         \end{split}
-    \end{align*}
+    \]
 \end{frame}
 
 \begin{frame}{Medical Diagnosis}
