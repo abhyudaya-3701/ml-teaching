@@ -1,0 +1,63 @@
+\documentclass{beamer}
+\usepackage{../shared/styles/custom}
+\usepackage{../shared/styles/conventions}
+
+\usepackage{tikz}
+\usetikzlibrary{positioning, arrows.meta}
+\usepackage{makecell}
+\usepackage{colortbl}
+
+\tikzstyle{startstop} = [rectangle, rounded corners, minimum width=2.8cm, minimum height=1cm, text centered, draw=black, fill=blue!20]
+\tikzstyle{arrow} = [thick,->,>=stealth]
+
+\makeatletter
+\@ifundefined{cD}{
+  \typeout{DEBUG: \string\cD is UNDEFINED}
+}{
+  \typeout{DEBUG: \string\cD is DEFINED}
+}
+
+\@ifundefined{mX}{
+  \typeout{DEBUG: \string\mX is UNDEFINED}
+}{
+  \typeout{DEBUG: \string\mX is DEFINED}
+}
+
+\@ifundefined{vy}{
+  \typeout{DEBUG: \string\vy is UNDEFINED}
+}{
+  \typeout{DEBUG: \string\vy is DEFINED}
+}
+
+\@ifundefined{Real}{
+  \typeout{DEBUG: \string\Real is UNDEFINED}
+}{
+  \typeout{DEBUG: \string\Real is DEFINED}
+}
+\makeatother
+
+\begin{document}
+
+\begin{frame}{Training Set}
+\vspace{-5pt}
+\begin{table}[]
+	\begin{tabular}{|l|l|l||l|}
+		\hline 
+		\rowcolor{white}
+		\textbf{Colour} & \textbf{Size} & \textbf{Texture} & \textbf{Condition} \\ \hline 
+		Orange & Small & Smooth  & Good      \\
+		Red    & Small  & Rough  & Good \\
+		Orange & Medium & Smooth & Bad \\
+		Yellow & Large  & Smooth & Bad \\ \hline 
+	\end{tabular}
+\end{table}
+
+\pause
+We call this matrix as $\cD$, containing:
+\begin{enumerate}
+	\item Feature matrix $\mX \in \Real^{n \times d}$
+	\item Output vector $\vy \in \Real^n$
+\end{enumerate}
+\end{frame}
+
+\end{document}

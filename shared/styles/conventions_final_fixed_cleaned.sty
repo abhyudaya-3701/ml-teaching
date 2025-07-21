@@ -1,0 +1,139 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{conventions_final_fixed}
+
+\RequirePackage{amsmath, amssymb, bm}
+
+% =============================================================================
+% VECTOR NOTATION (bold lowercase)
+% =============================================================================
+
+\providecommand{\vx}{\mathbf{x}}
+\providecommand{\vy}{\mathbf{y}}
+\providecommand{\vw}{\mathbf{w}}
+\providecommand{\vb}{\mathbf{b}}
+\providecommand{\vh}{\mathbf{h}}
+\providecommand{\vz}{\mathbf{z}}
+\providecommand{\vf}{\mathbf{f}}
+\providecommand{\vg}{\mathbf{g}}
+\providecommand{\vu}{\mathbf{u}}
+\providecommand{\vv}{\mathbf{v}}
+\providecommand{\vzero}{\mathbf{0}}
+\providecommand{\vone}{\mathbf{1}}
+
+\providecommand{\vmu}{\boldsymbol{\mu}}
+\providecommand{\vtheta}{\boldsymbol{\theta}}
+\providecommand{\vlambda}{\boldsymbol{\lambda}}
+\providecommand{\valpha}{\boldsymbol{\alpha}}
+\providecommand{\vbeta}{\boldsymbol{\beta}}
+\providecommand{\vxi}{\boldsymbol{\xi}}
+\providecommand{\vepsilon}{\boldsymbol{\epsilon}}
+
+% =============================================================================
+% MATRIX NOTATION (bold uppercase)
+% =============================================================================
+
+\providecommand{\mX}{\mathbf{X}}
+\providecommand{\mY}{\mathbf{Y}}
+\providecommand{\mW}{\mathbf{W}}
+\providecommand{\mA}{\mathbf{A}}
+\providecommand{\mB}{\mathbf{B}}
+\providecommand{\mC}{\mathbf{C}}
+\providecommand{\mH}{\mathbf{H}}
+\providecommand{\mI}{\mathbf{I}}
+\providecommand{\mJ}{\mathbf{J}}
+\providecommand{\mK}{\mathbf{K}}
+\providecommand{\mL}{\mathbf{L}}
+\providecommand{\mP}{\mathbf{P}}
+\providecommand{\mQ}{\mathbf{Q}}
+\providecommand{\mR}{\mathbf{R}}
+\providecommand{\mS}{\mathbf{S}}
+\providecommand{\mU}{\mathbf{U}}
+\providecommand{\mV}{\mathbf{V}}
+
+\providecommand{\mSigma}{\boldsymbol{\Sigma}}
+\providecommand{\mLambda}{\boldsymbol{\Lambda}}
+\providecommand{\mPhi}{\boldsymbol{\Phi}}
+\providecommand{\mPsi}{\boldsymbol{\Psi}}
+\providecommand{\mTheta}{\boldsymbol{\Theta}}
+
+% =============================================================================
+% SETS AND SPACES
+% =============================================================================
+
+\providecommand{\cD}{\mathcal{D}}
+\providecommand{\cH}{\mathcal{H}}
+\providecommand{\cX}{\mathcal{X}}
+\providecommand{\cY}{\mathcal{Y}}
+\providecommand{\cF}{\mathcal{F}}
+\providecommand{\cG}{\mathcal{G}}
+\providecommand{\cL}{\mathcal{L}}
+\providecommand{\cN}{\mathcal{N}}
+\providecommand{\cU}{\mathcal{U}}
+\providecommand{\cB}{\mathcal{B}}
+\providecommand{\cP}{\mathcal{P}}
+
+\providecommand{\Real}{\mathbb{R}}
+\providecommand{\Nat}{\mathbb{N}}
+\providecommand{\Int}{\mathbb{Z}}
+\providecommand{\Complex}{\mathbb{C}}
+
+% =============================================================================
+% OPERATORS AND FUNCTIONS
+% =============================================================================
+
+\providecommand{\yhat}{\hat{\vy}}
+\providecommand{\yhati}{\hat{y}_i}
+
+\renewcommand{\sigmoid}{\operatorname{sigmoid}}
+\renewcommand{\softmax}{\operatorname{softmax}}
+\renewcommand{\ReLU}{\operatorname{ReLU}}
+\renewcommand{\sign}{\operatorname{sign}}
+\DeclareMathOperator{\Gain}{Gain}
+\DeclareMathOperator{\Entropy}{Entropy}
+
+\renewcommand{\KL}{\operatorname{KL}}
+\DeclareMathOperator{\MSE}{MSE}
+\DeclareMathOperator{\MAE}{MAE}
+\DeclareMathOperator{\RMSE}{RMSE}
+
+\providecommand{\TP}{\text{TP}}
+\providecommand{\TN}{\text{TN}}
+\providecommand{\FP}{\text{FP}}
+\providecommand{\FN}{\text{FN}}
+\DeclareMathOperator{\Precision}{Precision}
+\DeclareMathOperator{\Recall}{Recall}
+\DeclareMathOperator{\Accuracy}{Accuracy}
+
+\providecommand{\tp}{^\top}
+\providecommand{\inv}{^{-1}}
+\providecommand{\pinv}{^{\dagger}}
+
+\providecommand{\norm}[1]{\|#1\|}
+\providecommand{\normone}[1]{\|#1\|_1}
+\providecommand{\normtwo}[1]{\|#1\|_2}
+\providecommand{\norminf}[1]{\|#1\|_\infty}
+\providecommand{\normF}[1]{\|#1\|_F}
+
+\renewcommand{\argmin}{\operatorname*{arg\,min}}
+\renewcommand{\argmax}{\operatorname*{arg\,max}}
+\DeclareMathOperator{\minimize}{minimize}
+\DeclareMathOperator{\maximize}{maximize}
+\DeclareMathOperator{\subjectto}{subject\,to}
+
+\renewcommand{\tr}{\operatorname{tr}}
+\renewcommand{\det}{\operatorname{det}}
+\renewcommand{\rank}{\operatorname{rank}}
+\renewcommand{\span}{\operatorname{span}}
+\renewcommand{\null}{\operatorname{null}}
+\DeclareMathOperator{\range}{range}
+\renewcommand{\diag}{\operatorname{diag}}
+\renewcommand{\vec}{\operatorname{vec}}
+
+\providecommand{\Prob}{\mathbb{P}}
+\providecommand{\Exp}{\mathbb{E}}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\Corr}{Corr}
+\DeclareMathOperator{\MI}{I}
+
+\endinput

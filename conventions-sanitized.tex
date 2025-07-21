@@ -1,0 +1,255 @@
+% =============================================================================
+% ML TEACHING MATHEMATICAL NOTATION CONVENTIONS
+% =============================================================================
+% Based on standard ML textbooks: Murphy's "Machine Learning: A Probabilistic Perspective",
+% Bishop's "Pattern Recognition and Machine Learning", and "Mathematics for Machine Learning"
+
+% =============================================================================
+% CORE NOTATION STANDARDS
+% =============================================================================
+
+% SCALARS: Regular italics (lowercase for variables, uppercase for constants)
+% Examples: x, y, n, d, k, \theta, \alpha, \lambda, \sigma
+
+% VECTORS: Bold lowercase letters
+% Examples: \mathbf{x}, \mathbf{w}, \mathbf{\mu}, \mathbf{\theta}
+
+% MATRICES: Bold uppercase letters
+% Examples: \mathbf{X}, \mathbf{W}, \mathbf{\Sigma}, \mathbf{\Lambda}
+
+% SETS: Calligraphic uppercase
+% Examples: \mathcal{D}, \mathcal{X}, \mathcal{Y}
+
+% SPACES: Blackboard bold
+% Examples: \mathbb{R}, \mathbb{Z}, \mathbb{N}
+
+% =============================================================================
+% VECTOR NOTATION (bold lowercase)
+% =============================================================================
+
+\providecommand{\vx}{\mathbf{x}}        % Input vector
+\providecommand{\vy}{\mathbf{y}}        % Output vector
+\providecommand{\vw}{\mathbf{w}}        % Weight vector
+\providecommand{\vb}{\mathbf{b}}        % Bias vector
+\providecommand{\vh}{\mathbf{h}}        % Hidden vector
+\providecommand{\vz}{\mathbf{z}}        % Latent vector
+\providecommand{\vf}{\mathbf{f}}        % Function vector
+\providecommand{\vg}{\mathbf{g}}        % Gradient vector
+\providecommand{\vu}{\mathbf{u}}        % Generic vector u
+\providecommand{\vv}{\mathbf{v}}        % Generic vector v
+\providecommand{\vzero}{\mathbf{0}}     % Zero vector
+\providecommand{\vone}{\mathbf{1}}      % Ones vector
+
+% Greek vectors (bold)
+\providecommand{\vmu}{\boldsymbol{\mu}}     % Mean vector
+\providecommand{\vtheta}{\boldsymbol{\theta}} % Parameter vector
+\providecommand{\vlambda}{\boldsymbol{\lambda}} % Lambda vector
+\providecommand{\valpha}{\boldsymbol{\alpha}}   % Alpha vector
+\providecommand{\vbeta}{\boldsymbol{\beta}}     % Beta vector
+\providecommand{\vxi}{\boldsymbol{\xi}}         % Xi vector
+\providecommand{\vepsilon}{\boldsymbol{\epsilon}} % Epsilon vector
+
+% =============================================================================
+% MATRIX NOTATION (bold uppercase)
+% =============================================================================
+
+\providecommand{\mX}{\mathbf{X}}        % Data matrix
+\providecommand{\mY}{\mathbf{Y}}        % Target matrix
+\providecommand{\mW}{\mathbf{W}}        % Weight matrix
+\providecommand{\mA}{\mathbf{A}}        % Generic matrix A
+\providecommand{\mB}{\mathbf{B}}        % Generic matrix B
+\providecommand{\mC}{\mathbf{C}}        % Generic matrix C
+\providecommand{\mH}{\mathbf{H}}        % Hidden layer matrix / Hessian
+\providecommand{\mI}{\mathbf{I}}        % Identity matrix
+\providecommand{\mJ}{\mathbf{J}}        % Jacobian matrix
+\providecommand{\mK}{\mathbf{K}}        % Kernel matrix
+\providecommand{\mL}{\mathbf{L}}        % Loss matrix / Cholesky factor
+\providecommand{\mP}{\mathbf{P}}        % Projection matrix
+\providecommand{\mQ}{\mathbf{Q}}        % Orthogonal matrix
+\providecommand{\mR}{\mathbf{R}}        % Rotation matrix
+\providecommand{\mS}{\mathbf{S}}        % Scatter matrix
+\providecommand{\mU}{\mathbf{U}}        % Left singular vectors
+\providecommand{\mV}{\mathbf{V}}        % Right singular vectors
+
+% Greek matrices (bold)
+\providecommand{\mSigma}{\boldsymbol{\Sigma}}   % Covariance matrix
+\providecommand{\mLambda}{\boldsymbol{\Lambda}} % Diagonal eigenvalue matrix
+\providecommand{\mPhi}{\boldsymbol{\Phi}}       % Feature matrix
+\providecommand{\mPsi}{\boldsymbol{\Psi}}       % Basis matrix
+\providecommand{\mTheta}{\boldsymbol{\Theta}}   % Parameter matrix
+
+% =============================================================================
+% SETS AND SPACES (following Bishop/Murphy conventions)
+% =============================================================================
+
+\providecommand{\cD}{\mathcal{D}}       % Dataset
+\providecommand{\cH}{\mathcal{H}}       % Hypothesis space
+\providecommand{\cX}{\mathcal{X}}       % Input space
+\providecommand{\cY}{\mathcal{Y}}       % Output space
+\providecommand{\cF}{\mathcal{F}}       % Function space
+\providecommand{\cG}{\mathcal{G}}       % Gaussian process
+\providecommand{\cL}{\mathcal{L}}       % Lagrangian / Loss
+\providecommand{\cN}{\mathcal{N}}       % Normal distribution
+\providecommand{\cU}{\mathcal{U}}       % Uniform distribution
+\providecommand{\cB}{\mathcal{B}}       % Bernoulli distribution
+\providecommand{\cP}{\mathcal{P}}       % Probability distribution
+
+% Number systems
+\providecommand{\Real}{\mathbb{R}}      % Real numbers
+\providecommand{\Nat}{\mathbb{N}}       % Natural numbers
+\providecommand{\Int}{\mathbb{Z}}       % Integers
+\providecommand{\Complex}{\mathbb{C}}   % Complex numbers
+
+% =============================================================================
+% OPERATORS AND FUNCTIONS (following standard conventions)
+% =============================================================================
+
+% Prediction notation (commonly used in ML)
+\providecommand{\yhat}{\hat{\vy}}        % Predicted output vector (bold)
+\providecommand{\yhati}{\hat{y}_i}       % Predicted output for sample i (scalar)
+
+% Common ML functions (with conflict resolution)
+\providecommand{\sigmoid}{}
+\renewcommand{\sigmoid}{\operatorname{sigmoid}}
+\providecommand{\softmax}{}
+\renewcommand{\softmax}{\operatorname{softmax}}
+\providecommand{\ReLU}{}
+\renewcommand{\ReLU}{\operatorname{ReLU}}
+\providecommand{\sign}{}
+\renewcommand{\sign}{\operatorname{sign}}
+\DeclareMathOperator{\Gain}{Gain}    % Information gain
+\DeclareMathOperator{\Entropy}{Entropy}
+% KL divergence (check for conflicts)
+\providecommand{\KL}{}
+\renewcommand{\KL}{\operatorname{KL}}
+\DeclareMathOperator{\MSE}{MSE}      % Mean squared error
+\DeclareMathOperator{\MAE}{MAE}      % Mean absolute error
+\DeclareMathOperator{\RMSE}{RMSE}    % Root mean squared error
+
+% Classification metrics (upright text)
+\providecommand{\TP}{\text{TP}}          % True positives
+\providecommand{\TN}{\text{TN}}          % True negatives  
+\providecommand{\FP}{\text{FP}}          % False positives
+\providecommand{\FN}{\text{FN}}          % False negatives
+\DeclareMathOperator{\Precision}{Precision}
+\DeclareMathOperator{\Recall}{Recall}
+\DeclareMathOperator{\Accuracy}{Accuracy}
+
+% Transpose and inverse
+\providecommand{\tp}{^\top}             % Transpose (Bishop/Murphy style)
+\providecommand{\inv}{^{-1}}            % Matrix inverse
+\providecommand{\pinv}{^{\dagger}}      % Pseudoinverse
+
+% Norms (consistent with Murphy/Bishop)
+\providecommand{\norm}[1]{\|#1\|}       % Generic norm
+\providecommand{\normone}[1]{\|#1\|_1}  % L1 norm
+\providecommand{\normtwo}[1]{\|#1\|_2}  % L2 norm
+\providecommand{\norminf}[1]{\|#1\|_\infty} % L-infinity norm
+\providecommand{\normF}[1]{\|#1\|_F}    % Frobenius norm
+
+% Optimization operators (upright as in Murphy)
+\providecommand{\argmin}{}
+\renewcommand{\argmin}{\operatorname*{arg\,min}}
+\providecommand{\argmax}{}
+\renewcommand{\argmax}{\operatorname*{arg\,max}}
+\DeclareMathOperator{\minimize}{minimize}
+\DeclareMathOperator{\maximize}{maximize}
+\DeclareMathOperator{\subjectto}{subject\,to}
+
+% Matrix operations (upright) - use conditional definitions
+\providecommand{\tr}{}
+\renewcommand{\tr}{\operatorname{tr}}       % Trace
+\providecommand{\det}{}
+\renewcommand{\det}{\operatorname{det}}     % Determinant
+\providecommand{\rank}{}
+\renewcommand{\rank}{\operatorname{rank}}   % Rank
+\providecommand{\span}{}
+\renewcommand{\span}{\operatorname{span}}   % Span
+\providecommand{\null}{}
+\renewcommand{\null}{\operatorname{null}}   % Null space
+\DeclareMathOperator{\range}{range} % Range/column space
+\providecommand{\diag}{}
+\renewcommand{\diag}{\operatorname{diag}}   % Diagonal operator
+\providecommand{\vec}{}
+\renewcommand{\vec}{\operatorname{vec}}     % Vectorization operator
+
+% Probability and statistics (Murphy/Bishop style)
+\providecommand{\Prob}{\mathbb{P}}      % Probability measure
+\providecommand{\Exp}{\mathbb{E}}       % Expectation
+\DeclareMathOperator{\Var}{Var}     % Variance
+\DeclareMathOperator{\Cov}{Cov}     % Covariance
+\DeclareMathOperator{\Corr}{Corr}   % Correlation
+% KL divergence already defined above
+\DeclareMathOperator{\MI}{I}        % Mutual information
+
+% Activation functions (already defined above with conflict resolution)
+
+% =============================================================================
+% STANDARD PARAMETER CONVENTIONS (Murphy/Bishop style)
+% =============================================================================
+
+% Primary parameters: θ (theta) - following Murphy's convention
+% Learning rates: α, η (alpha, eta)
+% Regularization: λ (lambda)
+% Precision: β (beta) - following Bishop
+% Variance: σ² (sigma squared)
+% Standard deviation: σ (sigma)
+% Mean: μ (mu)
+
+% Common scalars:
+% n - number of training examples
+% d - dimensionality of input
+% k - number of classes/clusters
+% m - number of hidden units
+% T - number of time steps
+% i, j - indices
+
+% =============================================================================
+% STANDARD NOTATION EXAMPLES (Murphy/Bishop style)
+% =============================================================================
+
+% Linear regression:      y = \vw\tp\vx + b
+% Matrix form:            \vy = \mX\vw + b\vone
+% Logistic regression:    p(y=1|\vx) = \sigmoid(\vw\tp\vx)
+% Gaussian:               \vx \sim \cN(\vmu, \mSigma)
+% Parameter update:       \vtheta_{t+1} = \vtheta_t - \alpha \nabla \cL(\vtheta_t)
+% Likelihood:             p(\cD|\vtheta) = \prod_{i=1}^n p(y_i|\vx_i, \vtheta)
+% Posterior:              p(\vtheta|\cD) \propto p(\cD|\vtheta)p(\vtheta)
+% Prediction:             p(y^*|\vx^*, \cD) = \int p(y^*|\vx^*, \vtheta)p(\vtheta|\cD)d\vtheta
+
+% =============================================================================
+% COMMON MISTAKES TO AVOID
+% =============================================================================
+
+% ❌ WRONG NOTATION          →  ✅ CORRECT NOTATION (Murphy/Bishop style)
+
+% Transpose:
+% ❌ x^t, X^t              →  ✅ \vx\tp, \mX\tp
+% ❌ x', X'                →  ✅ \vx\tp, \mX\tp
+
+% Vectors vs Matrices vs Scalars:
+% ❌ X (for vector)        →  ✅ \vx (bold lowercase)
+% ❌ w (for weight vector) →  ✅ \vw (bold lowercase)
+% ❌ x (for data matrix)   →  ✅ \mX (bold uppercase)
+% ❌ \mathbf{\theta}       →  ✅ \vtheta (Greek vectors are bold)
+% ❌ \mathbf{n}            →  ✅ n (scalars are not bold)
+
+% Sets and distributions:
+% ❌ R                     →  ✅ \Real (blackboard bold for number systems)
+% ❌ \mathcal{R}           →  ✅ \Real (use blackboard for reals)
+% ❌ Normal               →  ✅ \cN (calligraphic for distributions)
+
+% Functions and operators:
+% ❌ argmax                →  ✅ \argmax (upright operator)
+% ❌ E[X]                  →  ✅ \Exp[X] (blackboard E for expectation)
+% ❌ trace(A)              →  ✅ \tr(\mA) (upright operator)
+
+% =============================================================================
+% ALGORITHM NAME CONVENTIONS
+% =============================================================================
+
+% Use standard capitalizations as in textbooks:
+% k-NN, SVM, PCA, GMM, EM, MAP, ML, SGD, Adam, RMSprop
+% ReLU, tanh, sigmoid, softmax
+
+\endinput
