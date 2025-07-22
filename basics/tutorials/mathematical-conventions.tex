@@ -1,0 +1,421 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+% Essential packages for article format (must load before conventions)
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{bm}
+
+% Load conventions after math packages
+\usepackage{../../shared/styles/conventions}
+
+% Manual definition of key commands in case package loading fails
+\providecommand{\vx}{\mathbf{x}}
+\providecommand{\vy}{\mathbf{y}} 
+\providecommand{\vw}{\mathbf{w}}
+\providecommand{\vtheta}{\boldsymbol{\theta}}
+\providecommand{\mX}{\mathbf{X}}
+\providecommand{\mY}{\mathbf{Y}}
+\providecommand{\mZ}{\mathbf{Z}}
+\providecommand{\mA}{\mathbf{A}}
+\providecommand{\mB}{\mathbf{B}}
+\providecommand{\mI}{\mathbf{I}}
+\providecommand{\mSigma}{\boldsymbol{\Sigma}}
+\providecommand{\Real}{\mathbb{R}}
+\providecommand{\MSE}{\operatorname{MSE}}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{enumitem}
+
+% Additional packages for a nice tutorial format
+\usepackage[margin=1in]{geometry}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{enumitem}
+
+% Header and footer setup
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{ML Mathematical Conventions Tutorial}
+\lhead{ES335 - Machine Learning}
+\rfoot{Page \thepage}
+
+% Title formatting
+\titleformat{\section}{\Large\bfseries\color{blue!75!black}}{\thesection}{1em}{}
+\titleformat{\subsection}{\large\bfseries\color{blue!60!black}}{\thesubsection}{1em}{}
+
+% Define counter for exercises
+\newcounter{exercise}
+\setcounter{exercise}{0}
+
+% Define counter for coding problems
+\newcounter{coding}
+\setcounter{coding}{0}
+
+\title{\textbf{Mathematical Conventions Tutorial} \\ \textit{Essential Notation for Machine Learning}}
+\author{ES335 - Machine Learning \\ IIT Gandhinagar}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+This tutorial introduces the mathematical notation and conventions used throughout the Machine Learning course. Understanding these conventions is crucial for following lectures, reading research papers, and implementing algorithms. We cover scalar, vector, and matrix notation, common spaces like $\Real$ and $\Real^n$, and provide both theoretical exercises and coding problems to reinforce understanding.
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+\section{Scalar Notation}
+
+\subsection{Basic Scalars}
+A \textbf{scalar} is a single number. We typically use lowercase letters to denote scalars:
+\begin{itemize}
+    \item $a, b, c$ - generic scalars
+    \item $\alpha, \beta, \gamma$ - Greek letters for parameters
+    \item $n, m, d$ - dimensions and counts
+    \item $\epsilon$ - small positive number (tolerance)
+    \item $\lambda$ - regularization parameter
+\end{itemize}
+
+\begin{tcolorbox}[colback=green!5!white,colframe=green!75!black,title=Example]
+If we have a learning rate $\alpha = 0.01$ and a regularization parameter $\lambda = 0.1$, both are scalars.
+\end{tcolorbox}
+
+\subsection{Special Scalars}
+\begin{itemize}
+    \item $y_i$ - the $i$-th target value (scalar output)
+    \item $\hat{y}_i$ - predicted value for the $i$-th sample
+    \item $\ell(\hat{y}_i, y_i)$ - loss function (returns a scalar)
+\end{itemize}
+
+\section{Vector Notation}
+
+\subsection{Vector Representation}
+A \textbf{vector} is an ordered list of numbers. We use lowercase bold letters or arrows:
+\begin{itemize}
+    \item $\vx, \vy, \vz$ - generic vectors
+    \item $\vw$ - weight vector (parameters)
+    \item $\vtheta$ - parameter vector
+    \item $\valpha$ - vector of dual variables
+\end{itemize}
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Vector Examples]
+\begin{align}
+\vx &= \begin{bmatrix} x_1 \\ x_2 \\ \vdots \\ x_d \end{bmatrix} \in \Real^d \\
+\vw &= \begin{bmatrix} w_1 \\ w_2 \\ w_3 \end{bmatrix} \in \Real^3
+\end{align}
+\end{tcolorbox}
+
+\subsection{Vector Operations}
+\begin{itemize}
+    \item $\vx \cdot \vy = \sum_{i=1}^d x_i y_i$ - dot product (inner product)
+    \item $\|\vx\|$ - norm of vector $\vx$
+    \item $\|\vx\|_2 = \sqrt{\sum_{i=1}^d x_i^2}$ - L2 norm (Euclidean norm)
+    \item $\|\vx\|_1 = \sum_{i=1}^d |x_i|$ - L1 norm (Manhattan norm)
+    \item $\vx^T$ - transpose of vector (row vector)
+\end{itemize}
+
+\section{Matrix Notation}
+
+\subsection{Matrix Representation}
+A \textbf{matrix} is a rectangular array of numbers. We use uppercase bold letters:
+\begin{itemize}
+    \item $\mX, \mY, \mZ$ - generic matrices  
+    \item $\mA, \mB$ - coefficient matrices
+    \item $\mI$ - identity matrix
+    \item $\mSigma$ - covariance matrix
+\end{itemize}
+
+\begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black,title=Matrix Example]
+\begin{align}
+\mX = \begin{bmatrix} 
+x_{11} & x_{12} & \cdots & x_{1d} \\
+x_{21} & x_{22} & \cdots & x_{2d} \\
+\vdots & \vdots & \ddots & \vdots \\
+x_{n1} & x_{n2} & \cdots & x_{nd}
+\end{bmatrix} \in \Real^{n \times d}
+\end{align}
+where $n$ is the number of samples and $d$ is the number of features.
+\end{tcolorbox}
+
+\subsection{Matrix Operations}
+\begin{itemize}
+    \item $\mA^T$ - transpose of matrix $\mA$
+    \item $\mA^{-1}$ - inverse of matrix $\mA$ (if it exists)
+    \item $\mA\mB$ - matrix multiplication
+    \item $\text{tr}(\mA)$ - trace of matrix $\mA$
+    \item $\det(\mA)$ - determinant of matrix $\mA$
+\end{itemize}
+
+\section{Common Mathematical Spaces}
+
+\subsection{Real Number Spaces}
+\begin{itemize}
+    \item $\Real$ - the set of all real numbers
+    \item $\Real^d$ - $d$-dimensional real vector space
+    \item $\Real^{n \times d}$ - space of $n \times d$ real matrices
+    \item $\Real_+$ - positive real numbers
+    \item $\Real_{++}$ - strictly positive real numbers
+\end{itemize}
+
+\begin{tcolorbox}[colback=purple!5!white,colframe=purple!75!black,title=Space Examples]
+\begin{itemize}
+    \item A house price: $p \in \Real_+$ (positive real number)
+    \item Feature vector: $\vx \in \Real^d$ (d-dimensional vector)
+    \item Dataset: $\mX \in \Real^{n \times d}$ (n samples, d features)
+\end{itemize}
+\end{tcolorbox}
+
+\subsection{Other Important Spaces}
+\begin{itemize}
+    \item $\{0, 1\}$ - binary values
+    \item $\{1, 2, \ldots, k\}$ - discrete classes (for k-class classification)
+    \item $[0, 1]$ - unit interval (for probabilities)
+\end{itemize}
+
+\section{Dataset and ML-Specific Notation}
+
+\subsection{Dataset Representation}
+\begin{itemize}
+    \item $\cD = \{(\vx_i, y_i)\}_{i=1}^n$ - dataset with $n$ samples
+    \item $\vx_i \in \Real^d$ - $i$-th feature vector (input)
+    \item $y_i \in \Real$ - $i$-th target value (for regression)
+    \item $y_i \in \{1, 2, \ldots, k\}$ - $i$-th class label (for classification)
+    \item $\hat{y}_i$ - predicted output for sample $i$
+\end{itemize}
+
+\subsection{Model Parameters}
+\begin{itemize}
+    \item $\vtheta \in \Real^p$ - parameter vector with $p$ parameters
+    \item $\vw \in \Real^d$ - weight vector
+    \item $b \in \Real$ - bias term (intercept)
+    \item $f(\vx; \vtheta)$ - model function parameterized by $\vtheta$
+\end{itemize}
+
+\section{Exercises}
+
+\subsection{Theoretical Exercises}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Exercise \stepcounter{exercise}\#\theexercise: Vector Operations]
+Given vectors $\vx = [2, -1, 3]^T$ and $\vy = [1, 4, -2]^T$:
+\begin{enumerate}[label=(\alph*)]
+    \item Calculate the dot product $\vx \cdot \vy$
+    \item Find the L2 norm $\|\vx\|_2$
+    \item Compute the L1 norm $\|\vy\|_1$
+\end{enumerate}
+
+\textbf{Solutions:}
+\begin{enumerate}[label=(\alph*)]
+    \item $\vx \cdot \vy = 2(1) + (-1)(4) + 3(-2) = 2 - 4 - 6 = -8$
+    \item $\|\vx\|_2 = \sqrt{2^2 + (-1)^2 + 3^2} = \sqrt{4 + 1 + 9} = \sqrt{14}$
+    \item $\|\vy\|_1 = |1| + |4| + |-2| = 1 + 4 + 2 = 7$
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Exercise \stepcounter{exercise}\#\theexercise: Matrix Dimensions]
+For the following expressions, determine if they are valid and find the dimensions:
+\begin{enumerate}[label=(\alph*)]
+    \item $\mA \in \Real^{3 \times 4}$, $\mB \in \Real^{4 \times 2}$. What is the dimension of $\mA\mB$?
+    \item $\vx \in \Real^5$, $\mW \in \Real^{3 \times 5}$. What is the dimension of $\mW\vx$?
+    \item $\vx \in \Real^d$, $\vy \in \Real^d$. What is the dimension of $\vx^T\vy$?
+\end{enumerate}
+
+\textbf{Solutions:}
+\begin{enumerate}[label=(\alph*)]
+    \item Valid. $\mA\mB \in \Real^{3 \times 2}$
+    \item Valid. $\mW\vx \in \Real^3$
+    \item Valid. $\vx^T\vy \in \Real$ (scalar)
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Exercise \stepcounter{exercise}\#\theexercise: ML Notation]
+Given a dataset with 100 samples and 5 features:
+\begin{enumerate}[label=(\alph*)]
+    \item Write the dimensions of the feature matrix $\mX$
+    \item If this is a regression problem, what are the dimensions of the target vector $\vy$?
+    \item If the weight vector is $\vw \in \Real^5$ and bias is $b \in \Real$, write the prediction for sample $i$
+\end{enumerate}
+
+\textbf{Solutions:}
+\begin{enumerate}[label=(\alph*)]
+    \item $\mX \in \Real^{100 \times 5}$
+    \item $\vy \in \Real^{100}$
+    \item $\hat{y}_i = \vw^T \vx_i + b$ or $\hat{y}_i = \vx_i^T \vw + b$
+\end{enumerate}
+\end{tcolorbox}
+
+\subsection{Coding Exercises}
+
+\begin{tcolorbox}[colback=cyan!5!white,colframe=cyan!75!black,title=Coding Problem \stepcounter{coding}\#\thecoding: Vector Operations in Python]
+Implement the following functions in Python using NumPy:
+
+\begin{verbatim}
+import numpy as np
+
+def compute_dot_product(x, y):
+    """Compute dot product of two vectors"""
+    # TODO: Implement
+    pass
+
+def compute_l2_norm(x):
+    """Compute L2 norm of a vector"""
+    # TODO: Implement  
+    pass
+
+def compute_l1_norm(x):
+    """Compute L1 norm of a vector"""
+    # TODO: Implement
+    pass
+
+# Test your functions
+x = np.array([2, -1, 3])
+y = np.array([1, 4, -2])
+
+print(f"Dot product: {compute_dot_product(x, y)}")
+print(f"L2 norm of x: {compute_l2_norm(x)}")
+print(f"L1 norm of y: {compute_l1_norm(y)}")
+\end{verbatim}
+
+\textbf{Solution:}
+\begin{verbatim}
+def compute_dot_product(x, y):
+    return np.dot(x, y)  # or x @ y
+
+def compute_l2_norm(x):
+    return np.linalg.norm(x, ord=2)  # or np.sqrt(np.sum(x**2))
+
+def compute_l1_norm(x):
+    return np.linalg.norm(x, ord=1)  # or np.sum(np.abs(x))
+\end{verbatim}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=cyan!5!white,colframe=cyan!75!black,title=Coding Problem \stepcounter{coding}\#\thecoding: Dataset Creation]
+Create a synthetic dataset and verify its dimensions:
+
+\begin{verbatim}
+import numpy as np
+
+def create_regression_dataset(n_samples, n_features, noise_std=0.1):
+    """Create a synthetic regression dataset"""
+    # TODO: Create feature matrix X
+    # TODO: Create true weight vector w
+    # TODO: Create target vector y = X @ w + noise
+    # Return X, y, w
+    pass
+
+# Test with 50 samples, 3 features
+X, y, w_true = create_regression_dataset(50, 3)
+
+print(f"X shape: {X.shape}")
+print(f"y shape: {y.shape}")  
+print(f"w_true shape: {w_true.shape}")
+
+# Verify dimensions are correct for linear model
+print(f"X @ w_true shape: {(X @ w_true).shape}")
+\end{verbatim}
+
+\textbf{Solution:}
+\begin{verbatim}
+def create_regression_dataset(n_samples, n_features, noise_std=0.1):
+    np.random.seed(42)  # For reproducibility
+    X = np.random.randn(n_samples, n_features)
+    w = np.random.randn(n_features)
+    noise = np.random.normal(0, noise_std, n_samples)
+    y = X @ w + noise
+    return X, y, w
+\end{verbatim}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=cyan!5!white,colframe=cyan!75!black,title=Coding Problem \stepcounter{coding}\#\thecoding: Linear Model Implementation]
+Implement a simple linear regression model:
+
+\begin{verbatim}
+class LinearRegression:
+    def __init__(self):
+        self.w = None
+        self.b = None
+    
+    def fit(self, X, y):
+        """Fit linear regression using normal equation"""
+        # Add bias column to X
+        # TODO: Implement normal equation solution
+        pass
+    
+    def predict(self, X):
+        """Make predictions"""
+        # TODO: Implement prediction
+        pass
+    
+    def mse(self, X, y):
+        """Compute mean squared error"""
+        # TODO: Implement MSE calculation
+        pass
+
+# Test your implementation
+X, y, _ = create_regression_dataset(100, 2)
+model = LinearRegression()
+model.fit(X, y)
+predictions = model.predict(X)
+error = model.mse(X, y)
+print(f"MSE: {error}")
+\end{verbatim}
+\end{tcolorbox}
+
+\section{Common Mistakes and Tips}
+
+\subsection{Notation Mistakes to Avoid}
+\begin{enumerate}
+    \item \textbf{Scalar vs Vector confusion:} Always check if you're dealing with scalars (lowercase) or vectors (bold lowercase)
+    \item \textbf{Matrix dimension mismatch:} Always verify matrix multiplication dimensions: $(m \times n) \times (n \times p) = (m \times p)$
+    \item \textbf{Transpose confusion:} Remember $\vx^T \in \Real^{1 \times d}$ is a row vector, $\vx \in \Real^d$ is a column vector
+    \item \textbf{Index notation:} $x_i$ is the $i$-th element, $\vx_i$ is the $i$-th vector
+\end{enumerate}
+
+\subsection{Best Practices}
+\begin{enumerate}
+    \item Always write down matrix/vector dimensions when working through problems
+    \item Use consistent notation throughout your work
+    \item When coding, use meaningful variable names that reflect the mathematical notation
+    \item Verify your implementations with simple test cases where you know the answer
+\end{enumerate}
+
+\section{Reference Quick Sheet}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Notation} & \textbf{Type} & \textbf{Example/Description} \\
+\hline
+$a, \alpha, \lambda$ & Scalar & Single number \\
+$\vx, \vw, \vtheta$ & Vector & Column vector in $\Real^d$ \\
+$\mX, \mA, \mSigma$ & Matrix & 2D array in $\Real^{n \times d}$ \\
+$\Real$ & Space & Set of real numbers \\
+$\Real^d$ & Space & d-dimensional real vectors \\
+$\Real^{n \times d}$ & Space & n×d real matrices \\
+$\vx \cdot \vy$ & Operation & Dot product (inner product) \\
+$\|\vx\|$ & Operation & Vector norm \\
+$\mA^T$ & Operation & Matrix transpose \\
+$\cD$ & Set & Dataset \\
+$y_i, \hat{y}_i$ & Scalar & True/predicted output \\
+\hline
+\end{tabular}
+\caption{Mathematical Notation Reference}
+\end{table}
+
+\section{Further Reading}
+
+\begin{itemize}
+    \item \textbf{Linear Algebra:} Gilbert Strang, "Introduction to Linear Algebra"
+    \item \textbf{ML Math:} Deisenroth, Faisal, Ong, "Mathematics for Machine Learning" 
+    \item \textbf{Online Resources:} Khan Academy Linear Algebra, 3Blue1Brown Essence of Linear Algebra
+    \item \textbf{NumPy Documentation:} \url{https://numpy.org/doc/stable/}
+\end{itemize}
+
+\end{document}

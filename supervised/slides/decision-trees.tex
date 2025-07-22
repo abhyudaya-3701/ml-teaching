@@ -9,12 +9,29 @@
 \author{Nipun Batra and teaching staff}
 \institute{IIT Gandhinagar}
 
+% Define counter for pop quizzes
+\newcounter{popquiz}
+\setcounter{popquiz}{0}
+
 \begin{document}
 	\maketitle
 	
+	% Table of Contents
+	\begin{frame}{Outline}
+		\tableofcontents
+	\end{frame}
 	
+	\section{Introduction and Motivation}
 	\section{Discrete Input Discrete Output}
-	\begin{frame}{The need for interpretability}
+	\section{Discrete Input, Real Output}
+	\section{Real Input Discrete Output}
+	\section{Real Input Real Output}
+	\section{Weighted Entropy}
+	\section{Summary and Key Takeaways}
+	
+	\section{Introduction and Motivation}
+	\section{Discrete Input Discrete Output}
+\begin{frame}{The need for interpretability}
 	\begin{figure}
 		\centering
 		\includegraphics[scale=0.32]{../assets/decision-trees/diagrams/interpretability}
@@ -112,6 +129,20 @@ node/.style={%
 
 \end{frame}
 
+\begin{frame}{Pop Quiz \stepcounter{popquiz}\#\thepopquiz}
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Quick Question!]
+Why is finding the optimal decision tree NP-hard?
+\begin{enumerate}[A)]
+\item The number of possible trees grows exponentially with features
+\item We need to consider all possible splits at each node
+\item The problem requires checking all subsets of training data
+\item All of the above
+\end{enumerate}
+\pause
+\textbf{Answer: D) All of the above} - The search space is exponentially large, making brute force optimization computationally intractable.
+\end{tcolorbox}
+\end{frame}
+
 \begin{frame}{Greedy Algorithm}
 Core idea: At each level, choose an attribute that gives
 \textbf{biggest estimated} performance gain!
@@ -119,7 +150,7 @@ Core idea: At each level, choose an attribute that gives
 \begin{figure}
 	\centering
 	\includegraphics[width=0.8\linewidth]{../assets/decision-trees/diagrams/gredy}
-	\caption{Greedy!=Optimal}
+	\caption{Greedy $\neq$ Optimal}
 	\label{fig:gredy}
 \end{figure}
 
@@ -245,6 +276,20 @@ by partitioning examples (S) on attribute A
 $$
 \operatorname{Gain}(S, A) \equiv \text{Entropy}(S)-\sum_{v \in \text{Values}(A)} \frac{|S_{v}|}{|S|} \text{Entropy}(S_{v})
 $$
+\end{frame}
+
+\begin{frame}{Pop Quiz \stepcounter{popquiz}\#\thepopquiz}
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Quick Question!]
+What does entropy measure in the context of decision trees?
+\begin{enumerate}[A)]
+\item The depth of the tree
+\item The impurity or "disagreement" in a set of examples
+\item The number of features in the dataset
+\item The accuracy of the tree
+\end{enumerate}
+\pause
+\textbf{Answer: B) The impurity or "disagreement" in a set of examples} - Higher entropy means more mixed classes, lower entropy means more pure subsets.
+\end{tcolorbox}
 \end{frame}
 
 
@@ -602,6 +647,20 @@ node/.style={%
 
 \end{frame}
 
+\begin{frame}{Pop Quiz \stepcounter{popquiz}\#\thepopquiz}
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Quick Question!]
+In the tennis dataset, why did "Outlook" have the highest information gain?
+\begin{enumerate}[A)]
+\item It was the first feature in the dataset
+\item When Outlook=Overcast, all examples have Play=Yes (pure subset)
+\item It has the most possible values
+\item It was chosen randomly
+\end{enumerate}
+\pause
+\textbf{Answer: B) When Outlook=Overcast, all examples have Play=Yes} - This creates a pure subset with entropy=0, maximizing information gain.
+\end{tcolorbox}
+\end{frame}
+
 \section{Discrete Input, Real Output}
 
 \begin{frame}{Modified Dataset}
@@ -723,6 +782,20 @@ node/.style={%
 \textbf{Key insight:} MSE Reduction $> 0$ means the split improves our model!
 
 \textbf{For regression:} Use MSE Reduction, NOT Information Gain!
+\end{frame}
+
+\begin{frame}{Pop Quiz \stepcounter{popquiz}\#\thepopquiz}
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Quick Question!]
+For regression trees, what criterion do we use instead of Information Gain?
+\begin{enumerate}[A)]
+\item Information Gain
+\item Gini Impurity
+\item Mean Squared Error (MSE) Reduction
+\item Accuracy
+\end{enumerate}
+\pause
+\textbf{Answer: C) Mean Squared Error (MSE) Reduction} - For regression, we minimize MSE instead of maximizing information gain.
+\end{tcolorbox}
 \end{frame}
 
 \begin{frame}{MSE Reduction for Regression Trees}
@@ -920,6 +993,20 @@ node/.style={%
 
 
 
+\begin{frame}{Pop Quiz \stepcounter{popquiz}\#\thepopquiz}
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Quick Question!]
+When finding splits for continuous features, how do we determine candidate split points?
+\begin{enumerate}[A)]
+\item Use all feature values as split points
+\item Use midpoints between consecutive sorted feature values
+\item Use random values within the feature range
+\item Use only the minimum and maximum values
+\end{enumerate}
+\pause
+\textbf{Answer: B) Use midpoints between consecutive sorted feature values} - This ensures we test all meaningful boundaries between different class regions.
+\end{tcolorbox}
+\end{frame}
+
 \section{Real Input Real Output}
 
 \begin{frame}{Example 1}
@@ -989,7 +1076,7 @@ What would be the decision tree with depth 2	?
 \end{frame}
 
 \begin{frame}{Example 1}
-	Decision tree with depth 1
+	Decision tree with depth 2
 	\begin{center}
 		\begin{notebookbox}{https://nipunbatra.github.io/ml-teaching/notebooks/decision-tree-real-input-real-output.html}
 			\includegraphics{../assets/decision-trees/figures/ri-ro-depth-2.pdf}
@@ -1084,6 +1171,22 @@ It has of depth 4. The decision boundaries are in figure below.\\
 	  \end{notebookbox}
 \end{center}
 \end{frame}
+
+\begin{frame}{Pop Quiz \stepcounter{popquiz}\#\thepopquiz}
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Quick Question!]
+What is the prediction function for a regression tree leaf node?
+\begin{enumerate}[A)]
+\item The median of target values in that region
+\item The mode of target values in that region  
+\item The mean of target values in that region
+\item A linear function of the features
+\end{enumerate}
+\pause
+\textbf{Answer: C) The mean of target values in that region} - Each leaf predicts the average target value of training samples that reach that leaf.
+\end{tcolorbox}
+\end{frame}
+
+\section{Summary and Key Takeaways}
 
 \begin{frame}{Summary}
 \begin{itemize}

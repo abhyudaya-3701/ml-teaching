@@ -13,7 +13,18 @@
 \begin{document}
 %\input{../../conventions-sanitized.tex}
 
+  % Define counter for pop quizzes
+  \newcounter{popquiz}
+  \setcounter{popquiz}{0}
+
   \maketitle
+  
+  % Table of Contents
+  \begin{frame}{Outline}
+    \tableofcontents
+  \end{frame}
+  
+  \section{Introduction and Demos}
   
   \begin{frame}{Demo}
 	\begin{itemize}
@@ -63,6 +74,8 @@
 \end{frame}	
   
  
+\section{Machine Learning Fundamentals}
+
 \begin{frame}{Traditional Programming vs Machine Learning}
 \begin{center}
 \begin{tikzpicture}[node distance=2cm]
@@ -110,7 +123,23 @@ tasks in T, as measured by P, improves with
 experience E.'' - Tom Mitchell
 \end{frame}
 
-\begin{frame}{First ML Task: Grocery store tomato quality prediction}
+\section{First ML Example: Tomato Quality Prediction}
+
+\begin{frame}{Pop Quiz \stepcounter{popquiz}\#\thepopquiz}
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Quick Question!]
+In machine learning, which of the following is typically NOT a useful feature?
+\begin{itemize}
+	\item a) Color of a tomato for quality prediction
+	\item b) Size of a house for price prediction  
+	\item c) Sample ID number
+	\item d) Age for medical diagnosis
+\end{itemize}
+\pause
+\textbf{Answer:} c) Sample ID numbers are arbitrary identifiers, not meaningful features!
+\end{tcolorbox}
+\end{frame}
+
+\begin{frame}{First ML Task: Grocery Store Tomato Quality Prediction}
 Problem statement: You want to predict the quality of a tomato given its visual features.
 \end{frame}
 
@@ -342,6 +371,22 @@ Answer:\begin{itemize}
 
 
 
+\section{Classification vs Regression}
+
+\begin{frame}{Pop Quiz \stepcounter{popquiz}\#\thepopquiz}
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Quick Question!]
+Which of these is a regression problem?
+\begin{itemize}
+	\item a) Predicting if an email is spam or not
+	\item b) Classifying images as cat, dog, or bird
+	\item c) Predicting house prices
+	\item d) Determining if a tumor is malignant or benign
+\end{itemize}
+\pause
+\textbf{Answer:} c) House prices are continuous values - that's regression!
+\end{tcolorbox}
+\end{frame}
+
 \begin{frame}{Classification vs Regression}
 \begin{itemize}
 	\item Classification
@@ -519,6 +564,7 @@ Answer:\begin{itemize}
 %%\end{frame}
 
 
+\section{Classification Metrics}
 
 \begin{frame}{Metrics for Classification}
 
@@ -670,6 +716,20 @@ $$
 
 ``the fraction of the total amount of relevant instances that were actually retrieved''
 
+\end{frame}
+
+\begin{frame}{Pop Quiz \stepcounter{popquiz}\#\thepopquiz}
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Quick Question!]
+In a dataset of 1000 samples where only 10 are positive cases, what's the accuracy of a classifier that always predicts "negative"?
+\begin{itemize}
+	\item a) 1\%
+	\item b) 50\% 
+	\item c) 90\%
+	\item d) 99\%
+\end{itemize}
+\pause
+\textbf{Answer:} d) 99\% - but this classifier is useless! This shows why accuracy can be misleading.
+\end{tcolorbox}
 \end{frame}
 
 \begin{frame}{Types of Data: Imbalanced Classes}
@@ -914,7 +974,7 @@ For the same data
 $$
 \bordermatrix{&\text{G.T. Positive}&\text{G.T. Negative}\cr
                \text{Pred Positive}&90&4\cr
-               \text{Pred Positive}&1&1}
+               \text{Pred Negative}&1&1}
 $$
 
 Precision = $\frac{90}{94}$ \\
@@ -936,7 +996,23 @@ Matthew's Coeff. = 0.14
 
 
 
-\begin{frame}{Metrics for Regression MSE \& MAE}
+\section{Regression Metrics}
+
+\begin{frame}{Pop Quiz \stepcounter{popquiz}\#\thepopquiz}
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Quick Question!]
+Why might Mean Absolute Error (MAE) be preferred over Mean Squared Error (MSE)?
+\begin{itemize}
+	\item a) MAE is always smaller
+	\item b) MAE is less sensitive to outliers
+	\item c) MAE is easier to compute
+	\item d) MAE works only for classification
+\end{itemize}
+\pause
+\textbf{Answer:} b) MAE is less sensitive to outliers since it doesn't square the errors!
+\end{tcolorbox}
+\end{frame}
+
+\begin{frame}{Metrics for Regression: MSE \& MAE}
 $$
 \bordermatrix{&\text{Prediction}\;(\hat{y})\cr
                &10\cr
@@ -986,6 +1062,7 @@ $$
 
 \end{frame}
 
+\section{Data Visualization and Baselines}
 
 \begin{frame}{The Importance of Plotting}
     \begin{figure}[htp]
@@ -1014,6 +1091,52 @@ Linear regression line & 	y = 3.00 + 0.500x & up to 2 decimal places \\
 \end{tabular} 
 
 
+\end{frame}
+
+\section{Summary and Key Takeaways}
+
+\begin{frame}{Pop Quiz \stepcounter{popquiz}\#\thepopquiz}
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Final Challenge!]
+For imbalanced datasets, which metrics should you prioritize over accuracy?
+\begin{itemize}
+	\item a) Only precision
+	\item b) Only recall
+	\item c) Precision, recall, and F1-score
+	\item d) Only confusion matrix
+\end{itemize}
+\pause
+\textbf{Answer:} c) Precision, recall, and F1-score give a more complete picture!
+\end{tcolorbox}
+\end{frame}
+
+\begin{frame}{Key Takeaways}
+\begin{itemize}
+	\item \textbf{ML vs Traditional Programming:} ML learns rules from data, traditional programming uses predefined rules
+	\item \textbf{Features matter:} Choose meaningful features, avoid arbitrary identifiers
+	\item \textbf{Classification vs Regression:} Discrete outputs vs continuous outputs
+	\item \textbf{Accuracy isn't everything:} For imbalanced data, use precision, recall, F1-score
+	\item \textbf{Visualization is crucial:} Always plot your data (Anscombe's Quartet lesson)
+	\item \textbf{Use baselines:} Simple baseline models help validate your approach
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Summary: Evaluation Metrics}
+\begin{center}
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Task} & \textbf{Common Metrics} & \textbf{When to Use} \\
+\hline
+\textbf{Classification} & Accuracy, Precision, Recall, F1 & Balanced/Imbalanced data \\
+ & Confusion Matrix & Multi-class problems \\
+\hline
+\textbf{Regression} & MSE, RMSE, MAE & Continuous predictions \\
+ & Mean Error & Check for bias \\
+\hline
+\end{tabular}
+\end{center}
+
+\vspace{1cm}
+\textbf{Remember:} Choose metrics based on your problem's characteristics and business requirements!
 \end{frame}
 
 \end{document}
