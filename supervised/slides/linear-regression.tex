@@ -27,8 +27,11 @@
 \author{Nipun Batra and the teaching staff}
 \institute{IIT Gandhinagar}
 \begin{document}
-  \maketitle
-  
+\maketitle
+
+\begin{frame}{Table of Contents}
+\tableofcontents
+\end{frame}
 
 \section{Setup}
   
@@ -1280,8 +1283,31 @@ Span of ($\begin{bmatrix}
     
     
     \pause Now, $\theta_{0}$ can be interpreted as average person height. $\theta_{1}$ as the amount that female height is above average and male height is below average.
-    \end{frame}
+\end{frame}
 
+\section{Practice and Review}
 
+\begin{frame}{Pop Quiz: Linear Regression}
+\begin{enumerate}
+\item What is the geometric interpretation of least squares?
+\pause
+\item When does the normal equation have a unique solution?
+\pause
+\item How do polynomial features help with non-linear relationships?
+\pause
+\item What are the assumptions behind linear regression?
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Key Takeaways}
+\begin{itemize}[<+->]
+\item \textbf{Linear Model}: Assumes linear relationship between features and target
+\item \textbf{Least Squares}: Minimizes sum of squared residuals
+\item \textbf{Normal Equation}: Closed-form solution when $\mX\tp\mX$ is invertible
+\item \textbf{Geometric View}: Projection onto column space of design matrix
+\item \textbf{Feature Engineering}: Basis expansion enables non-linear modeling
+\item \textbf{Foundation}: Building block for more complex models
+\end{itemize}
+\end{frame}
 
 \end{document}

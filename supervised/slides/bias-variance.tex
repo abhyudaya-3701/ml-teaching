@@ -18,9 +18,15 @@
 \author{Nipun Batra and teaching staff}
 \institute{IIT Gandhinagar}
 \begin{document}
-	\maketitle
+\maketitle
 
-	\begin{frame}{A Question!}
+\begin{frame}{Table of Contents}
+\tableofcontents
+\end{frame}
+
+\section{Introduction to Bias-Variance}
+
+\begin{frame}{A Question!}
 	What would be the decision boundary of a decision tree classifier? 
 		
 	\begin{figure}
@@ -240,6 +246,31 @@
 	\includegraphics[width = \textwidth]{../assets/bias-variance/diagrams/cross-validation-avg}
 	\end{frame}
 
+\section{Practice and Review}
+
+\begin{frame}{Pop Quiz: Bias-Variance Concepts}
+\begin{enumerate}
+\item What causes high bias in a model? Give an example.
+\pause
+\item What causes high variance in a model? Give an example.
+\pause
+\item How does cross-validation help in model selection?
+\pause
+\item Why can't we directly optimize for test error?
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Key Takeaways}
+\begin{itemize}[<+->]
+\item \textbf{Bias-Variance Decomposition}: Total error = Bias² + Variance + Noise
+\item \textbf{High Bias}: Underfitting, model too simple
+\item \textbf{High Variance}: Overfitting, model too complex
+\item \textbf{Cross-Validation}: Essential for proper model evaluation
+\item \textbf{Model Selection}: Choose complexity that balances bias and variance
+\item \textbf{No Free Lunch}: Cannot reduce both bias and variance simultaneously
+\end{itemize}
+\end{frame}
+
 \begin{frame}{Next time: Ensemble Learning}
 \begin{itemize}
 	\item How to combine various models?
@@ -248,11 +279,5 @@
 	\item How can we reduce variance?
 \end{itemize}
 \end{frame}
-
-%	\begin{frame}{Code for examples}
-%	\begin{center}
-%	\href{https://colab.research.google.com/drive/18E4HCN82GSa8-81h9yw2daHVg146IuWe}{Google Colab}
-%	\end{center}
-%	\end{frame}
 
 \end{document}

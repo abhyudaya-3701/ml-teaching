@@ -17,9 +17,13 @@
 \author{Nipun Batra}
 \institute{IIT Gandhinagar}
 \begin{document}
-	\maketitle
+\maketitle
 
-	\section{Problem Setup}
+\begin{frame}{Table of Contents}
+\tableofcontents
+\end{frame}
+
+\section{Problem Setup}
 	
 	\begin{frame}{Classification Technique}
 	%\vspace{5cm}
@@ -655,4 +659,30 @@ L1 Regularization:
 J(\theta) = J_{1}(\theta) + \lambda|\theta|
 \end{equation*}
 \end{frame}
+
+\section{Practice and Review}
+
+\begin{frame}{Pop Quiz: Logistic Regression}
+\begin{enumerate}
+\item Why can't we use linear regression for classification problems?
+\pause 
+\item What is the key difference between sigmoid and softmax functions?
+\pause
+\item Why do we use cross-entropy loss instead of squared error?
+\pause
+\item How does regularization help in logistic regression?
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Key Takeaways}
+\begin{itemize}[<+->]
+\item \textbf{Probabilistic Model}: Outputs probabilities via sigmoid function
+\item \textbf{Linear Decision Boundary}: Creates linear separation in feature space
+\item \textbf{Maximum Likelihood}: Optimized using gradient-based methods
+\item \textbf{Cross-Entropy Loss}: Appropriate for classification problems
+\item \textbf{No Closed Form}: Requires iterative optimization (gradient descent)
+\item \textbf{Regularization}: L1/L2 help prevent overfitting
+\end{itemize}
+\end{frame}
+
 \end{document}

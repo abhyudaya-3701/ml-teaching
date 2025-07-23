@@ -10,11 +10,13 @@
 \author{Nipun Batra}
 \institute{IIT Gandhinagar}
 \begin{document}
-  \maketitle
-  
-  
-  
-% \section{Linear Regression}
+\maketitle
+
+\begin{frame}{Table of Contents}
+\tableofcontents
+\end{frame}
+
+\section{Introduction to Bayesian Classification}
 
 \begin{frame}{Bayesian Networks}
 \begin{itemize}
@@ -1116,23 +1118,29 @@ $$
 % % \end{frame}
 
 % % \begin{frame}{Beta Distribution}
-% % \end{frame}
+\section{Practice and Review}
 
-% % \begin{frame}{Beta Distribution}
-% % \end{frame}
+\begin{frame}{Pop Quiz: Naive Bayes Concepts}
+\begin{enumerate}
+\item What does the "naive" assumption in Naive Bayes refer to?
+\pause
+\item Why is Naive Bayes particularly effective for text classification?
+\pause
+\item What happens when a feature value appears in test data but not in training data?
+\pause
+\item Compare Naive Bayes with logistic regression - when would you choose each?
+\end{enumerate}
+\end{frame}
 
-% % \begin{frame}{Coin toss: MAP estimate}
-% % \end{frame}
-
-% % \begin{frame}{Linear Regression: MLE}
-% % We previously saw 
-% % \begin{tcolorbox}
-% % \begin{align*}
-% % \hat{\theta}_{least-square} = \argmin_\theta \epsilon^T\epsilon = \argmin_\theta (y-X\theta)^T(y-X\theta)
-% % \end{align*}
-% % \end{tcolorbox}
-
-
-% % \end{frame}
+\begin{frame}{Key Takeaways}
+\begin{itemize}[<+->]
+\item \textbf{Probabilistic Foundation}: Based on Bayes' theorem and conditional independence
+\item \textbf{Naive Assumption}: Features are conditionally independent given the class
+\item \textbf{Efficient Training}: Simple parameter estimation from training data
+\item \textbf{Handles Multiple Classes}: Naturally extends to multi-class problems
+\item \textbf{Good with Small Data}: Works well with limited training examples
+\item \textbf{Interpretable}: Probabilistic outputs provide confidence measures
+\end{itemize}
+\end{frame}
 
 \end{document}
