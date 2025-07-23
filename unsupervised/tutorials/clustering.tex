@@ -1,0 +1,301 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{bm}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage[bookmarks=false]{hyperref}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{enumitem}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning, shapes.geometric}
+\usepackage[margin=1in]{geometry}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Tutorial: Clustering}
+\lhead{ES335 - Machine Learning}
+\rfoot{Page \thepage}
+
+\titleformat{\section}{\Large\bfseries\color{blue!75!black}}{\thesection}{1em}{}
+\titleformat{\subsection}{\large\bfseries\color{blue!60!black}}{\thesubsection}{1em}{}
+
+\usepackage{../../shared/styles/conventions}
+
+\newcounter{exercise}
+\setcounter{exercise}{0}
+
+\title{\textbf{Tutorial: Clustering} \\ \textit{Cheat Sheet and Practice Problems}}
+\author{ES335 - Machine Learning \\ IIT Gandhinagar}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Summary from Slides}
+
+\subsection{Introduction to Unsupervised Learning}
+
+\textbf{Purpose of Unsupervised Learning}:
+\begin{itemize}
+    \item Aids the search for patterns in data
+    \item Find features for categorization
+    \item Easier to collect unlabeled data
+    \item Market segmentation based on customer preferences
+    \item Dimensionality reduction for modeling simplification
+\end{itemize}
+
+\textbf{Clustering Objective}: Find groups/subgroups in a dataset
+
+\textbf{Requirements}: A predefined notion of similarity/dissimilarity
+
+\subsection{K-Means Clustering}
+
+\textbf{Problem Setup}:
+\begin{itemize}
+    \item $N$ points in $\mathbb{R}^d$ space
+    \item $C_i$: set of points in the $i^{th}$ cluster
+    \item $C_1 \cup C_2 \cup \ldots \cup C_k = \{1, \ldots, n\}$ (partition)
+    \item $C_i \cap C_j = \emptyset$ for $i \neq j$ (non-overlapping)
+\end{itemize}
+
+\textbf{Objective Function}:
+$$\min_{C_1,\ldots,C_k} \left( \sum_{i=1}^{k} WCV(C_i) \right)$$
+
+Where Within-Cluster Variation (WCV) is:
+$$WCV(C_i) = \frac{1}{|C_i|}\sum_{a \in C_i}\sum_{b \in C_i}||x_a - x_b||_2^2$$
+
+\textbf{Equivalent Formulation}:
+$$WCV(C_i) = 2\sum_{a \in C_i} ||x_a - \mu_i||_2^2$$
+
+Where $\mu_i = \frac{1}{|C_i|}\sum_{a \in C_i} x_a$ is the centroid of cluster $i$.
+
+\textbf{K-Means Algorithm}:
+\begin{enumerate}
+    \item Randomly assign each point to one of $k$ clusters
+    \item Iterate until convergence:
+    \begin{enumerate}
+        \item For each cluster $C_i$, compute centroid $\mu_i$
+        \item Assign each point to the closest centroid
+    \end{enumerate}
+\end{enumerate}
+
+\textbf{Key Properties}:
+\begin{itemize}
+    \item Converges to local minimum (not necessarily global)
+    \item Minimizes within-cluster sum of squares
+    \item Sensitive to initialization
+    \item Assumes spherical clusters
+\end{itemize}
+
+\subsection{Hierarchical Clustering}
+
+\textbf{Advantages over K-Means}:
+\begin{itemize}
+    \item No need to specify $k$ in advance
+    \item Provides clustering at all scales
+    \item Works better with non-spherical clusters
+    \item Creates dendrogram showing cluster relationships
+\end{itemize}
+
+\textbf{Agglomerative Algorithm}:
+\begin{enumerate}
+    \item Start with each point as its own cluster
+    \item Repeat until all points are in one cluster:
+    \begin{enumerate}
+        \item Identify the two closest clusters
+        \item Merge them into a single cluster
+    \end{enumerate}
+\end{enumerate}
+
+\textbf{Linkage Criteria}:
+\begin{itemize}
+    \item \textbf{Complete Linkage}: Maximum inter-cluster similarity
+    $$d(C_i, C_j) = \max_{a \in C_i, b \in C_j} d(a,b)$$
+    \item \textbf{Single Linkage}: Minimum inter-cluster similarity  
+    $$d(C_i, C_j) = \min_{a \in C_i, b \in C_j} d(a,b)$$
+    \item \textbf{Centroid Linkage}: Dissimilarity between cluster centroids
+    $$d(C_i, C_j) = d(\mu_i, \mu_j)$$
+\end{itemize}
+
+\section{Practice Problems}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Basic K-Means Calculation]
+
+Given 4 points: $A(1,1)$, $B(2,1)$, $C(4,3)$, $D(5,4)$ and initial cluster assignment:
+- Cluster 1: $\{A, B\}$
+- Cluster 2: $\{C, D\}$
+
+a) Calculate the centroids of both clusters
+b) Reassign points based on closest centroid using Euclidean distance
+c) Do any points change clusters?
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Within-Cluster Variation]
+
+For cluster $C = \{(0,0), (1,0), (0,1)\}$:
+
+a) Calculate the centroid
+b) Compute $WCV(C)$ using the definition $WCV(C) = \frac{1}{|C|}\sum_{a \in C}\sum_{b \in C}||x_a - x_b||_2^2$
+c) Verify using the equivalent formula $WCV(C) = 2\sum_{a \in C} ||x_a - \mu||_2^2$
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: K-Means Convergence]
+
+Prove that the K-means algorithm decreases the objective function at each iteration:
+
+a) Show that updating centroids (step 1) decreases the objective
+b) Show that reassigning points (step 2) decreases the objective  
+c) Why does this guarantee convergence?
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Choosing Optimal K]
+
+You have clustering results for different values of $k$:
+- $k=2$: Total WCV = 150
+- $k=3$: Total WCV = 80  
+- $k=4$: Total WCV = 60
+- $k=5$: Total WCV = 55
+- $k=6$: Total WCV = 52
+
+a) Plot the "elbow curve" and identify the optimal $k$
+b) Calculate the percentage reduction in WCV for each increase in $k$
+c) What other methods could help choose $k$?
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Hierarchical Clustering Steps]
+
+Given points $A(0,0)$, $B(1,0)$, $C(0,1)$, $D(3,3)$ with Euclidean distance:
+
+a) Create the initial distance matrix between all pairs
+b) Using single linkage, show the first 3 merging steps
+c) Draw the resulting dendrogram
+d) How would the result differ with complete linkage?
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Linkage Criteria Comparison]
+
+For clusters $C_1 = \{(0,0), (1,1)\}$ and $C_2 = \{(3,0), (4,1)\}$:
+
+a) Calculate the distance using single linkage
+b) Calculate the distance using complete linkage  
+c) Calculate the distance using centroid linkage
+d) Which linkage method would merge these clusters first?
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: K-Means Limitations]
+
+Consider a dataset with two concentric circles (inner radius 1, outer radius 3):
+
+a) Why would K-means fail to separate these circles?
+b) How would hierarchical clustering perform?
+c) What preprocessing could help K-means succeed?
+d) Suggest an alternative clustering approach for this data.
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Initialization Effects]
+
+Run K-means with $k=2$ on points $(0,0)$, $(1,0)$, $(10,0)$, $(11,0)$ with different initializations:
+
+\textbf{Init 1}: Centroids at $(0.5, 0)$ and $(10.5, 0)$
+\textbf{Init 2}: Centroids at $(0, 0)$ and $(1, 0)$
+
+a) Show the final clustering for each initialization
+b) Calculate the final objective value for each
+c) Which initialization is better and why?
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: High-Dimensional Clustering]
+
+In high dimensions (curse of dimensionality):
+
+a) Why do distances between points become more similar?
+b) How does this affect K-means performance?
+c) What preprocessing techniques can help with high-dimensional data?
+d) Calculate the ratio of max to min distance for points uniformly distributed in unit hypercubes of dimensions 2, 10, and 100.
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Silhouette Analysis]
+
+The silhouette coefficient for point $i$ is: $s(i) = \frac{b(i) - a(i)}{\max(a(i), b(i))}$
+
+Where:
+- $a(i)$: average distance to points in same cluster
+- $b(i)$: average distance to points in nearest other cluster
+
+For point $P(1,1)$ in cluster $C_1 = \{(1,1), (2,1)\}$ with nearest cluster $C_2 = \{(5,5), (6,6)\}$:
+
+a) Calculate $a(P)$ and $b(P)$
+b) Compute the silhouette coefficient $s(P)$
+c) Interpret the result (good/poor clustering for this point)
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Computational Complexity]
+
+Compare the time complexity of clustering algorithms:
+
+a) What is the time complexity of K-means for $n$ points, $k$ clusters, $d$ dimensions, and $t$ iterations?
+b) What is the time complexity of agglomerative hierarchical clustering?
+c) For $n = 10,000$ points, when is each method preferred?
+d) How does the space complexity compare?
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Distance Metrics Impact]
+
+Compare clustering results using different distance metrics:
+
+For points $A(1,0)$, $B(0,1)$, $C(2,0)$:
+
+a) Calculate distances using Euclidean metric
+b) Calculate distances using Manhattan (L1) metric  
+c) Calculate distances using Cosine similarity
+d) How might the choice of metric affect clustering results?
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Market Segmentation Application]
+
+A company has customer data: [age, income, spending_score] for 1000 customers.
+
+a) Design a complete clustering pipeline including preprocessing
+b) How would you determine the optimal number of customer segments?
+c) How would you interpret and name the discovered clusters?
+d) What business actions would you recommend based on the clustering?
+e) How would you validate that your clustering is meaningful?
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Clustering Validation Methods]
+
+List and explain three internal clustering validation measures:
+
+a) Within-cluster sum of squares (WCSS)
+b) Silhouette coefficient
+c) Calinski-Harabasz index
+
+For each measure:
+- What does it quantify?
+- How do you interpret high vs. low values?
+- What are its limitations?
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Advanced Clustering Scenarios]
+
+Handle challenging clustering scenarios:
+
+\textbf{Scenario A}: Clusters with very different sizes
+\textbf{Scenario B}: Clusters with different densities  
+\textbf{Scenario C}: Overlapping clusters with noise
+
+For each scenario:
+a) Why would standard K-means struggle?
+b) Which modifications or alternative algorithms would help?
+c) Design a synthetic dataset to test your proposed solution.
+\end{tcolorbox}
+
+\end{document}

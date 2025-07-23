@@ -1,0 +1,257 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{../../shared/styles/conventions}
+\usepackage{../../shared/styles/tutorial-style}
+
+\tutorialtitle{Neural Networks}
+\setheader{Neural Networks}
+
+\begin{document}
+
+\maketitle
+
+\section{Summary from Slides}
+
+\subsection{Multi-Layer Perceptrons (MLPs)}
+
+\textbf{What is a Neural Network?}
+\begin{itemize}
+    \item Network of interconnected processing units (neurons)
+    \item Each neuron computes a weighted sum of inputs plus bias
+    \item Applies activation function to produce output
+    \item Multiple layers create complex decision boundaries
+\end{itemize}
+
+\textbf{Mathematical Representation}:
+For a single neuron: $z = \vw\tp\vx + b$, $a = \sigma(z)$
+
+For multi-layer network:
+$$\vz^{(l)} = \mW^{(l)}\vh^{(l-1)} + \vb^{(l)}, \quad \vh^{(l)} = \sigma(\vz^{(l)})$$
+
+Where:
+\begin{itemize}
+    \item $\vh^{(l)}$: activations at layer $l$
+    \item $\vz^{(l)}$: pre-activation values at layer $l$
+    \item $\mW^{(l)}$: weight matrix connecting layer $l-1$ to $l$
+    \item $\vb^{(l)}$: bias vector at layer $l$
+    \item $\sigma$: activation function
+\end{itemize}
+
+\subsection{Common Activation Functions}
+
+\textbf{Sigmoid}: $\sigma(z) = \frac{1}{1 + e^{-z}}$ (outputs between 0 and 1)
+
+\textbf{ReLU}: $\sigma(z) = \max(0, z)$ (most common in hidden layers)
+
+\textbf{Tanh}: $\sigma(z) = \frac{e^z - e^{-z}}{e^z + e^{-z}}$ (outputs between -1 and 1)
+
+\textbf{Softmax}: $\sigma(z_i) = \frac{e^{z_i}}{\sum_{j=1}^K e^{z_j}}$ (for multi-class classification)
+
+\subsection{Forward Propagation}
+
+\textbf{Algorithm}:
+\begin{enumerate}
+    \item Start with input $\vh^{(0)} = \vx$
+    \item For each layer $l = 1, 2, \ldots, L$:
+    \begin{enumerate}
+        \item Compute linear combination: $\vz^{(l)} = \mW^{(l)}\vh^{(l-1)} + \vb^{(l)}$
+        \item Apply activation: $\vh^{(l)} = \sigma(\vz^{(l)})$
+    \end{enumerate}
+    \item Final output: $\yhat = \vh^{(L)}$
+\end{enumerate}
+
+\subsection{Automatic Differentiation (Backpropagation)}
+
+\textbf{Purpose}: Efficiently compute gradients for parameter updates using chain rule
+
+\textbf{Loss Function}: $\cL(\vtheta) = \frac{1}{n}\sum_{i=1}^n \ell(\yhati, y_i)$
+
+\textbf{Chain Rule}: For composite function $f(g(x))$:
+$$\frac{df}{dx} = \frac{df}{dg} \cdot \frac{dg}{dx}$$
+
+\textbf{Backward Pass}:
+\begin{enumerate}
+    \item Compute output error: $\delta^{(L)} = \nabla_{\vh^{(L)}} \cL$
+    \item For each layer $l = L-1, L-2, \ldots, 1$:
+    \begin{enumerate}
+        \item $\delta^{(l)} = (\mW^{(l+1)})\tp \delta^{(l+1)} \odot \sigma'(\vz^{(l)})$
+    \end{enumerate}
+    \item Compute gradients:
+    \begin{align}
+        \frac{\partial \cL}{\partial \mW^{(l)}} &= \delta^{(l)} (\vh^{(l-1)})\tp \\
+        \frac{\partial \cL}{\partial \vb^{(l)}} &= \delta^{(l)}
+    \end{align}
+\end{enumerate}
+
+\subsection{Training Process}
+
+\textbf{Gradient Descent Update}:
+$$\vtheta \leftarrow \vtheta - \alpha \nabla_{\vtheta} \cL(\vtheta)$$
+
+\textbf{Key Challenges}:
+\begin{itemize}
+    \item \textbf{Vanishing Gradients}: Gradients become very small in deep networks
+    \item \textbf{Exploding Gradients}: Gradients become very large
+    \item \textbf{Local Minima}: Optimization may get stuck
+    \item \textbf{Overfitting}: Model memorizes training data
+\end{itemize}
+
+\section{Practice Problems}
+
+\begin{problembox}[title=Basic Neural Network Architecture]
+
+Design a neural network for binary classification with:
+\begin{itemize}
+    \item Input: 4 features
+    \item Hidden layer: 3 neurons with ReLU activation
+    \item Output: 1 neuron with sigmoid activation
+\end{itemize}
+
+a) Write the mathematical equations for forward propagation
+b) How many parameters (weights + biases) does this network have?
+c) What is the output range for this network?
+\end{problembox}
+
+\begin{problembox}[title= Activation Function Analysis]
+
+For the functions below, compute their derivatives:
+a) $\sigma(z) = \frac{1}{1 + e^{-z}}$ (sigmoid)
+b) $\sigma(z) = \max(0, z)$ (ReLU)
+c) $\sigma(z) = \tanh(z)$
+
+Explain why ReLU helps with the vanishing gradient problem.
+\end{problembox}
+
+\begin{problembox}[title= Forward Propagation Calculation]
+
+Given a simple network:
+- Input: $\vx = [1, 2]\tp$
+- Weight matrix: $\mW^{(1)} = \begin{bmatrix} 0.5 & 1.0 \\ -0.3 & 0.8 \end{bmatrix}$
+- Bias: $\vb^{(1)} = [0.1, -0.2]\tp$
+- Activation: ReLU
+
+Calculate the output of the hidden layer step by step.
+\end{problembox}
+
+\begin{problembox}[title= Chain Rule Application]
+
+For the composite function $f(x) = (x^2 + 1)^3$:
+a) Compute $\frac{df}{dx}$ using the chain rule
+b) If $x = 2$, what is the numerical value of the derivative?
+
+Relate this to how gradients flow through neural network layers.
+\end{problembox}
+
+\begin{problembox}[title= Backpropagation Setup]
+
+For a 2-layer network with MSE loss:
+$$\mathcal{L} = \frac{1}{2}(y - \hat{y})^2$$
+
+Where $\hat{y} = \sigma(\mathbf{w}_2^T \sigma(\mathbf{w}_1^T \mathbf{x} + b_1) + b_2)$
+
+Set up the backpropagation equations to compute $\frac{\partial \mathcal{L}}{\partial \mathbf{w}_1}$.
+\end{problembox}
+
+\begin{problembox}[title= Gradient Descent Parameter Update]
+
+Given current weights $\vw = [0.5, -0.2, 0.8]^T$, gradients $\nabla \mathcal{L} = [0.1, -0.05, 0.3]^T$, and learning rate $\alpha = 0.01$:
+
+a) Calculate the updated weights after one gradient descent step
+b) If the loss decreases, what does this indicate about the gradient direction?
+\end{problembox}
+
+\begin{problembox}[title= Network Capacity Analysis]
+
+Compare two networks for a classification task with 1000 training examples:
+- Network A: 10 inputs, 5 hidden neurons, 2 outputs
+- Network B: 10 inputs, 50 hidden neurons, 2 outputs
+
+a) Calculate the number of parameters for each network
+b) Which network is more likely to overfit? Why?
+c) How would you prevent overfitting in the larger network?
+\end{problembox}
+
+\begin{problembox}[title= Vanishing Gradient Problem]
+
+Consider a 5-layer network where each layer multiplies the gradient by 0.1:
+
+a) What is the gradient magnitude at the first layer relative to the output layer?
+b) How does this affect learning in early layers?
+c) Suggest two techniques to mitigate this problem.
+\end{problembox}
+
+\begin{problembox}[title= Multi-class Classification]
+
+Design a neural network for classifying images into 10 categories:
+- Input: 784 pixels (28×28 image)
+- Hidden layers: Your choice
+- Output: 10 classes
+
+a) What activation function should you use in the output layer?
+b) What loss function is appropriate?
+c) Write the mathematical form of the output layer computation.
+\end{problembox}
+
+\begin{problembox}[title= Computational Graph]
+
+For the expression $z = (x + y) \times (x - y)$ where $x = 3$ and $y = 2$:
+
+a) Draw the computational graph
+b) Compute the forward pass values at each node
+c) Compute the backward pass (gradients) using backpropagation
+d) Verify by computing $\frac{\partial z}{\partial x}$ and $\frac{\partial z}{\partial y}$ analytically
+\end{problembox}
+
+\begin{problembox}[title= Learning Rate Analysis]
+
+You're training a neural network and observe the following loss behavior:
+- Learning rate 0.001: Loss decreases slowly and steadily
+- Learning rate 0.1: Loss oscillates but generally decreases
+- Learning rate 1.0: Loss increases or diverges
+
+a) Explain what's happening in each case
+b) What learning rate would you choose and why?
+c) Describe adaptive learning rate methods that could help.
+\end{problembox}
+
+\begin{problembox}[title= Universal Approximation]
+
+The Universal Approximation Theorem states that neural networks can approximate any continuous function:
+
+a) What are the minimum requirements for this theorem to hold?
+b) Does this guarantee that gradient descent will find the approximating network?
+c) What practical limitations exist despite this theoretical result?
+\end{problembox}
+
+\begin{problembox}[title= Regularization Techniques]
+
+List and explain three regularization techniques for neural networks:
+
+a) How does each technique prevent overfitting?
+b) Which technique would you apply to each layer type (input, hidden, output)?
+c) How do these techniques affect the training and inference phases differently?
+\end{problembox}
+
+\begin{problembox}[title= Initialization Strategies]
+
+Proper weight initialization is crucial for neural network training:
+
+a) Why is initializing all weights to zero problematic?
+b) Explain Xavier/Glorot initialization and when to use it
+c) For a ReLU network with layers of sizes [100, 50, 25, 10], what variance should you use for initializing the weights of the second layer?
+\end{problembox}
+
+\begin{problembox}[title= Real-world Application]
+
+Design a complete neural network solution for predicting house prices:
+
+Input features: [square_feet, bedrooms, bathrooms, age, location_score]
+
+a) Propose a network architecture with justification
+b) What preprocessing steps would you apply to the inputs?
+c) What loss function and evaluation metrics would you use?
+d) How would you handle categorical variables like neighborhood?
+e) Describe your training strategy including validation and hyperparameter tuning.
+\end{problembox}
+
+\end{document}

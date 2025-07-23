@@ -1,0 +1,56 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{tutorial-style}[2025/07/23 Tutorial formatting package]
+
+\RequirePackage{amsmath, amssymb, amsfonts}
+\RequirePackage{bm}
+\RequirePackage{graphicx}
+\RequirePackage{xcolor}
+\RequirePackage{tcolorbox}
+\RequirePackage[bookmarks=false]{hyperref}
+\RequirePackage{url}
+\RequirePackage{booktabs}
+\RequirePackage{array}
+\RequirePackage{multirow}
+\RequirePackage{enumitem}
+\RequirePackage{tikz}
+\RequirePackage[margin=1in]{geometry}
+\RequirePackage{fancyhdr}
+\RequirePackage{titlesec}
+
+\usetikzlibrary{arrows.meta, positioning, shapes.geometric}
+
+% Page formatting
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{ES335 - Machine Learning}
+\rfoot{Page \thepage}
+
+% Section formatting
+\titleformat{\section}{\Large\bfseries\color{blue!75!black}}{\thesection}{1em}{}
+\titleformat{\subsection}{\large\bfseries\color{blue!60!black}}{\thesubsection}{1em}{}
+
+% Exercise counter
+\newcounter{exercise}
+\setcounter{exercise}{0}
+
+% Problem box environment
+\newtcolorbox{problembox}[1][]{
+    colback=gray!5!white,
+    colframe=gray!75!black,
+    title=Problem \stepcounter{exercise},
+    #1
+}
+
+% Tutorial title setup
+\newcommand{\tutorialtitle}[1]{
+    \title{\textbf{Tutorial: #1} \\ \textit{Cheat Sheet and Practice Problems}}
+    \author{ES335 - Machine Learning \\ IIT Gandhinagar}
+    \date{\today}
+}
+
+% Header setup for different tutorials
+\newcommand{\setheader}[1]{
+    \rhead{Tutorial: #1}
+}
+
+\endinput

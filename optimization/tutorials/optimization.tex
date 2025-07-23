@@ -1,0 +1,334 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{bm}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage[bookmarks=false]{hyperref}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{enumitem}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning, shapes.geometric}
+\usepackage[margin=1in]{geometry}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Tutorial: Optimization}
+\lhead{ES335 - Machine Learning}
+\rfoot{Page \thepage}
+
+\titleformat{\section}{\Large\bfseries\color{blue!75!black}}{\thesection}{1em}{}
+\titleformat{\subsection}{\large\bfseries\color{blue!60!black}}{\thesubsection}{1em}{}
+
+\usepackage{../../shared/styles/conventions}
+
+\newcounter{exercise}
+\setcounter{exercise}{0}
+
+\title{\textbf{Tutorial: Optimization} \\ \textit{Cheat Sheet and Practice Problems}}
+\author{ES335 - Machine Learning \\ IIT Gandhinagar}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Summary from Slides}
+
+\subsection{Optimization Fundamentals}
+
+\textbf{General Optimization Problem}:
+$$\vtheta^* = \underset{\vtheta}{\argmin} f(\vtheta)$$
+
+Where:
+\begin{itemize}
+    \item $f(\vtheta)$: objective function to minimize
+    \item $\vtheta$: parameter vector
+    \item $\vtheta^*$: optimal parameter values
+\end{itemize}
+
+\textbf{Gradient}: The gradient $\nabla f(\vtheta)$ points in the direction of steepest ascent:
+$$\nabla f(\vtheta) = \begin{bmatrix}
+\frac{\partial f}{\partial \theta_1} \\
+\frac{\partial f}{\partial \theta_2} \\
+\vdots \\
+\frac{\partial f}{\partial \theta_d}
+\end{bmatrix}$$
+
+\subsection{Gradient Descent Algorithm}
+
+\textbf{Basic Algorithm}:
+\begin{enumerate}
+    \item Initialize $\vtheta$ to random values
+    \item Compute gradient $\nabla f(\vtheta)$
+    \item Update: $\vtheta_{i+1} \leftarrow \vtheta_i - \alpha \nabla f(\vtheta_i)$
+    \item Repeat until convergence
+\end{enumerate}
+
+\textbf{Key Properties}:
+\begin{itemize}
+    \item First-order optimization method (uses gradients only)
+    \item Iterative algorithm
+    \item Local search (greedy approach)
+    \item Learning rate $\alpha$ controls step size
+\end{itemize}
+
+\subsection{Taylor Series Foundation}
+
+\textbf{First-order approximation}:
+$$f(\vx) \approx f(\vx_0) + \nabla f(\vx_0)^T(\vx - \vx_0)$$
+
+\textbf{Second-order approximation}:
+$$f(\vx) \approx f(\vx_0) + \nabla f(\vx_0)^T(\vx - \vx_0) + \frac{1}{2}(\vx - \vx_0)^T\nabla^2 f(\vx_0)(\vx - \vx_0)$$
+
+Where $\nabla^2 f(\vx_0)$ is the Hessian matrix of second derivatives.
+
+\subsection{Convexity}
+
+\textbf{Convex Function}: A function $f$ is convex if for any $\vx, \vy$ and $\lambda \in [0,1]$:
+$$f(\lambda \vx + (1-\lambda) \vy) \leq \lambda f(\vx) + (1-\lambda) f(\vy)$$
+
+\textbf{Examples of Convex Functions}:
+\begin{itemize}
+    \item $f(x) = x^2$ (quadratic)
+    \item $f(x) = |x|$ (absolute value)
+    \item $f(x) = e^x$ (exponential)
+    \item $f(x) = -\log(x)$ for $x > 0$
+\end{itemize}
+
+\textbf{Properties}:
+\begin{itemize}
+    \item Convex functions have unique global minimum
+    \item Any local minimum is a global minimum
+    \item Gradient descent converges to global optimum
+\end{itemize}
+
+\subsection{Coordinate Descent}
+
+\textbf{Algorithm}: Optimize one coordinate at a time while keeping others fixed
+
+\textbf{Steps}:
+\begin{enumerate}
+    \item Pick coordinate $j$ (random or cyclic)
+    \item Solve: $\theta_j^* = \argmin_{\theta_j} f(\theta_1, \ldots, \theta_j, \ldots, \theta_d)$
+    \item Update $\theta_j \leftarrow \theta_j^*$
+    \item Repeat until convergence
+\end{enumerate}
+
+\textbf{Advantages}:
+\begin{itemize}
+    \item No step-size selection needed
+    \item Each update solves a 1D optimization problem
+    \item Effective for certain problems (e.g., Lasso)
+\end{itemize}
+
+\subsection{Subgradients}
+
+For non-differentiable convex functions, use \textbf{subgradients}:
+
+\textbf{Definition}: $g$ is a subgradient of $f$ at $x_0$ if:
+$$f(x) \geq f(x_0) + g^T(x - x_0) \quad \forall x$$
+
+\textbf{Example}: For $f(x) = |x|$:
+$$\frac{\partial |x|}{\partial x} = \begin{cases}
+1 & \text{if } x > 0 \\
+[-1, 1] & \text{if } x = 0 \\
+-1 & \text{if } x < 0
+\end{cases}$$
+
+\subsection{Advanced Methods}
+
+\textbf{Stochastic Gradient Descent (SGD)}:
+$$\vtheta_{i+1} \leftarrow \vtheta_i - \alpha \nabla f_i(\vtheta_i)$$
+where $f_i$ is the loss for a single example or mini-batch.
+
+\textbf{Advantages}: Faster updates, better for large datasets
+\textbf{Disadvantages}: Noisy updates, may oscillate around optimum
+
+\section{Practice Problems}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Basic Gradient Calculation]
+
+For $f(x, y) = x^2 + 2y^2 + xy$:
+
+a) Calculate the gradient $\nabla f(x, y)$
+b) Evaluate the gradient at point $(1, 2)$
+c) In which direction should you move to decrease $f$ most rapidly?
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Gradient Descent Steps]
+
+Starting with $\vtheta_0 = [1, 1]^T$ and learning rate $\alpha = 0.1$, perform 2 iterations of gradient descent on $f(\theta_1, \theta_2) = \theta_1^2 + \theta_2^2$.
+
+a) Calculate $\vtheta_1$ and $\vtheta_2$
+b) Compute $f(\vtheta_0)$, $f(\vtheta_1)$, and $f(\vtheta_2)$
+c) Verify that the function value decreases
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Learning Rate Analysis]
+
+For $f(x) = x^2$ starting at $x_0 = 4$, analyze gradient descent with different learning rates:
+
+a) $\alpha = 0.1$: Calculate $x_1, x_2, x_3$
+b) $\alpha = 1.0$: Calculate $x_1, x_2, x_3$  
+c) $\alpha = 2.1$: Calculate $x_1, x_2, x_3$
+d) What happens in each case? When does the algorithm diverge?
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Convexity Verification]
+
+Determine if the following functions are convex:
+
+a) $f(x) = x^4$
+b) $f(x) = \sin(x)$
+c) $f(x) = \max(0, x)$ (ReLU function)
+d) $f(x, y) = x^2 + y^2 - xy$
+
+For each, either prove convexity or provide a counterexample.
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Taylor Series Approximation]
+
+For $f(x) = e^x$ around $x_0 = 0$:
+
+a) Write the first-order Taylor approximation
+b) Write the second-order Taylor approximation
+c) Evaluate both approximations at $x = 0.1$ and compare with the true value
+d) How does the approximation quality change as you move away from $x_0$?
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Coordinate Descent Implementation]
+
+Apply coordinate descent to minimize $f(\theta_1, \theta_2) = \theta_1^2 + 2\theta_2^2 + \theta_1\theta_2$ starting from $(2, 1)$:
+
+a) Fix $\theta_2 = 1$ and minimize over $\theta_1$
+b) Fix $\theta_1$ to the new value and minimize over $\theta_2$
+c) Compare this to one step of gradient descent with $\alpha = 0.5$
+d) Which method makes more progress toward the minimum?
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Subgradient Calculation]
+
+For $f(x) = |x - 2| + |x + 1|$:
+
+a) Find the subgradient at $x = 2$
+b) Find the subgradient at $x = -1$  
+c) Find the subgradient at $x = 0$
+d) Where is the minimum of this function?
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Linear Regression Optimization]
+
+For linear regression with $f(\vtheta) = \frac{1}{2}||\vy - \mX\vtheta||^2$:
+
+a) Derive the gradient $\nabla f(\vtheta)$
+b) Write the gradient descent update rule
+c) Show that the optimal solution is $\vtheta^* = (\mX^T\mX)^{-1}\mX^T\vy$
+d) When would you prefer gradient descent over the closed-form solution?
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Convergence Criteria]
+
+Design stopping criteria for gradient descent:
+
+a) Gradient magnitude: $||\nabla f(\vtheta)|| < \epsilon$
+b) Parameter change: $||\vtheta_{k+1} - \vtheta_k|| < \delta$
+c) Function value change: $|f(\vtheta_{k+1}) - f(\vtheta_k)| < \gamma$
+
+For each criterion:
+- When might it fail to detect convergence?
+- What are appropriate threshold values?
+- How do they perform on flat vs. steep functions?
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Stochastic Gradient Descent]
+
+Compare batch gradient descent and SGD for minimizing the average of functions:
+$$f(\vtheta) = \frac{1}{n}\sum_{i=1}^n f_i(\vtheta)$$
+
+a) Write the update rules for both methods
+b) What are the computational costs per iteration?
+c) How does the noise in SGD affect convergence?
+d) When is SGD preferred over batch gradient descent?
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Local vs Global Minima]
+
+Consider $f(x) = x^4 - 4x^3 + 4x^2$:
+
+a) Find all critical points by setting $f'(x) = 0$
+b) Classify each critical point (local min, local max, saddle)
+c) Starting from different initial points, where would gradient descent converge?
+d) How could you modify the algorithm to escape local minima?
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Momentum Methods]
+
+Standard momentum updates parameters as:
+$$\vv_{k+1} = \beta \vv_k + \alpha \nabla f(\vtheta_k)$$
+$$\vtheta_{k+1} = \vtheta_k - \vv_{k+1}$$
+
+a) How does momentum help with oscillations?
+b) What happens when $\beta = 0$ (no momentum)?
+c) What happens when $\beta \to 1$ (high momentum)?
+d) Apply momentum gradient descent to $f(x, y) = x^2 + 10y^2$ and observe the path.
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Newton's Method]
+
+Newton's method uses second-order information:
+$$\vtheta_{k+1} = \vtheta_k - (\nabla^2 f(\vtheta_k))^{-1} \nabla f(\vtheta_k)$$
+
+a) Apply Newton's method to $f(x) = x^2 - 4x + 3$ starting from $x_0 = 0$
+b) Compare convergence rate with gradient descent
+c) What are the computational advantages and disadvantages?
+d) Why is Newton's method rarely used in machine learning?
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Constrained Optimization Setup]
+
+Convert the constrained problem to unconstrained using Lagrangian:
+
+Minimize: $f(x, y) = x^2 + y^2$
+Subject to: $g(x, y) = x + y - 1 = 0$
+
+a) Write the Lagrangian function
+b) Find the KKT conditions  
+c) Solve for the optimal $(x^*, y^*, \lambda^*)$
+d) Verify that the constraint is satisfied
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Adaptive Learning Rates]
+
+AdaGrad adapts learning rates based on historical gradients:
+$$\vtheta_{k+1} = \vtheta_k - \frac{\alpha}{\sqrt{G_k + \epsilon}} \odot \nabla f(\vtheta_k)$$
+
+Where $G_k$ accumulates squared gradients.
+
+a) Explain why this helps with sparse gradients
+b) What problem does the $\epsilon$ term solve?
+c) Why might AdaGrad's learning rate become too small over time?
+d) How do newer methods like Adam address this issue?
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Real-world Optimization Strategy]
+
+Design an optimization strategy for training a neural network on image classification:
+
+Dataset: 1M images, 1000 classes
+Network: 50 million parameters
+
+a) Which optimization algorithm would you choose and why?
+b) How would you set the initial learning rate?
+c) Design a learning rate schedule for training
+d) What techniques would you use to avoid overfitting?
+e) How would you monitor and debug training progress?
+\end{tcolorbox}
+
+\end{document}
