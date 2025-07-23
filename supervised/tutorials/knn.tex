@@ -1,0 +1,352 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{bm}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage[bookmarks=false]{hyperref}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{enumitem}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning, shapes.geometric}
+\usepackage[margin=1in]{geometry}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Tutorial: K-Nearest Neighbors}
+\lhead{ES335 - Machine Learning}
+\rfoot{Page \thepage}
+
+\titleformat{\section}{\Large\bfseries\color{blue!75!black}}{\thesection}{1em}{}
+\titleformat{\subsection}{\large\bfseries\color{blue!60!black}}{\thesubsection}{1em}{}
+
+\usepackage{../../shared/styles/conventions}
+
+\newcounter{exercise}
+\setcounter{exercise}{0}
+
+\title{\textbf{Tutorial: K-Nearest Neighbors} \\ \textit{Cheat Sheet and Practice Problems}}
+\author{ES335 - Machine Learning \\ IIT Gandhinagar}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Summary from Slides}
+
+\subsection{Basic Concept}
+
+\textbf{K-Nearest Neighbors (KNN)}: Non-parametric, instance-based learning algorithm
+\begin{itemize}
+    \item Stores all training instances
+    \item Makes predictions based on k nearest neighbors
+    \item No explicit training phase - "lazy learning"
+    \item Works for both classification and regression
+\end{itemize}
+
+\subsection{Algorithm}
+
+\textbf{For Classification}:
+\begin{enumerate}
+    \item Calculate distance from query point to all training points
+    \item Find k nearest neighbors
+    \item Use majority vote among k neighbors
+    \item Predict the most frequent class
+\end{enumerate}
+
+\textbf{For Regression}:
+\begin{enumerate}
+    \item Calculate distance from query point to all training points
+    \item Find k nearest neighbors
+    \item Average the target values of k neighbors
+    \item Predict the average value
+\end{enumerate}
+
+\subsection{Distance Metrics}
+
+\textbf{Euclidean Distance}:
+$$d(\mathbf{x}, \mathbf{y}) = \sqrt{\sum_{i=1}^n (x_i - y_i)^2}$$
+
+\textbf{Manhattan Distance}:
+$$d(\mathbf{x}, \mathbf{y}) = \sum_{i=1}^n |x_i - y_i|$$
+
+\textbf{Minkowski Distance}:
+$$d(\mathbf{x}, \mathbf{y}) = \left(\sum_{i=1}^n |x_i - y_i|^p\right)^{1/p}$$
+
+\subsection{Key Properties}
+
+\textbf{Advantages}:
+\begin{itemize}
+    \item Simple to understand and implement
+    \item No assumptions about data distribution
+    \item Can model complex decision boundaries
+    \item Works well with small datasets
+\end{itemize}
+
+\textbf{Disadvantages}:
+\begin{itemize}
+    \item Computationally expensive for large datasets
+    \item Sensitive to irrelevant features
+    \item Sensitive to scale of features
+    \item Performance degrades in high dimensions
+\end{itemize}
+
+\subsection{Choosing K}
+
+\textbf{Small K}: 
+\begin{itemize}
+    \item More flexible, can model complex patterns
+    \item Higher variance, sensitive to noise
+    \item Risk of overfitting
+\end{itemize}
+
+\textbf{Large K}:
+\begin{itemize}
+    \item Smoother decision boundaries
+    \item Lower variance, more stable
+    \item Risk of underfitting
+\end{itemize}
+
+\textbf{Rule of thumb}: Use odd values to avoid ties, often $k = \sqrt{n}$
+
+\section{Practice Problems}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Basic KNN Classification]
+
+Given training data:
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+X1 & X2 & Class \\
+\hline
+1 & 2 & A \\
+2 & 3 & A \\
+3 & 1 & B \\
+4 & 2 & B \\
+2 & 1 & A \\
+\hline
+\end{tabular}
+\end{center}
+
+For query point (2, 2), predict the class using K=3 with Euclidean distance.
+
+a) Calculate distances to all training points
+b) Identify 3 nearest neighbors
+c) Make prediction using majority vote
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Distance Metrics Comparison]
+
+For points A(1,1) and B(4,5):
+
+a) Calculate Euclidean distance
+b) Calculate Manhattan distance  
+c) Calculate Minkowski distance with p=3
+d) Which distance metric would be most appropriate for different scenarios?
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Effect of K Value]
+
+Dataset with 9 points:
+- 5 points of class A: (1,1), (1,2), (2,1), (2,2), (1.5,1.5)
+- 4 points of class B: (4,4), (4,5), (5,4), (5,5)
+
+For query point (3,3), predict class using:
+a) K=1
+b) K=3  
+c) K=5
+d) K=7
+
+Explain how predictions change with different K values.
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: KNN Regression]
+
+Training data for house prices:
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+Size (sq ft) & Bedrooms & Price (\$1000s) \\
+\hline
+1000 & 2 & 150 \\
+1200 & 3 & 180 \\
+1500 & 3 & 220 \\
+1800 & 4 & 280 \\
+2000 & 4 & 320 \\
+\hline
+\end{tabular}
+\end{center}
+
+Predict price for a house with 1400 sq ft and 3 bedrooms using K=3.
+
+a) Normalize features before calculating distances
+b) Find 3 nearest neighbors
+c) Calculate predicted price
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Feature Scaling Impact]
+
+Two features with different scales:
+- Feature 1 (Age): ranges from 20-60
+- Feature 2 (Income): ranges from 20000-80000
+
+Query point: Age=30, Income=40000
+Training points: (25, 30000, Class A), (35, 45000, Class B)
+
+a) Calculate Euclidean distances without scaling
+b) Calculate Euclidean distances with standardization
+c) How does scaling affect the nearest neighbor?
+d) Why is feature scaling important for KNN?
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Weighted KNN]
+
+Implement weighted KNN where nearer neighbors have higher influence:
+
+Weight function: $w_i = \frac{1}{d_i^2}$ where $d_i$ is distance to neighbor $i$
+
+For the data in Problem 1, calculate weighted prediction for query point (2,2) using K=3.
+
+a) Calculate weights for each of the 3 nearest neighbors
+b) Compute weighted vote for classification
+c) Compare with unweighted KNN result
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Cross-Validation for K Selection]
+
+You have 20 training samples. Design a cross-validation procedure to select optimal K:
+
+a) What values of K should you test?
+b) How would you set up 5-fold cross-validation?
+c) What metric would you use to evaluate different K values?
+d) How do you handle the case where K > fold size?
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Curse of Dimensionality]
+
+Consider KNN performance as dimensionality increases:
+
+Given 1000 points uniformly distributed in a unit hypercube:
+
+a) In 2D: What's the expected distance to nearest neighbor?
+b) In 10D: How does this distance change?
+c) Why does KNN performance degrade in high dimensions?
+d) What preprocessing steps can help mitigate this?
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Computational Complexity]
+
+Analyze KNN computational complexity:
+
+For n training samples, d dimensions, and k neighbors:
+
+a) Training time complexity
+b) Prediction time complexity (naive approach)
+c) Space complexity
+d) How can you speed up nearest neighbor search?
+e) Compare with other algorithms like decision trees
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Handling Categorical Variables]
+
+Dataset with mixed features:
+- Age: 25, 30, 35, 40
+- City: NYC, LA, Chicago, Boston  
+- Salary: 50k, 60k, 70k, 80k
+
+a) How do you calculate distance when features are categorical?
+b) Implement Hamming distance for categorical features
+c) How do you combine continuous and categorical distances?
+d) What are alternative approaches for mixed data types?
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Imbalanced Datasets]
+
+Dataset with imbalanced classes:
+- Class A: 900 samples
+- Class B: 100 samples
+
+Query point has 5 nearest neighbors: 4 from class A, 1 from class B.
+
+a) What does standard KNN predict?
+b) How can you modify KNN to handle imbalance?
+c) Implement class-weighted KNN
+d) What other techniques can address this issue?
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Missing Values]
+
+Training data with missing values:
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+Feature 1 & Feature 2 & Class \\
+\hline
+1 & 2 & A \\
+? & 3 & A \\
+3 & ? & B \\
+4 & 2 & B \\
+\hline
+\end{tabular}
+\end{center}
+
+a) How do you calculate distance when values are missing?
+b) Implement distance calculation ignoring missing dimensions
+c) What are alternative approaches for handling missing data?
+d) When would you impute vs ignore missing values?
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Local vs Global Methods]
+
+Compare KNN with global methods like logistic regression:
+
+a) When would KNN outperform global methods?
+b) What type of decision boundaries can KNN model?
+c) How does sample size affect KNN vs global methods?
+d) In what scenarios would you choose KNN over other algorithms?
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: KNN Variants]
+
+Explore different KNN variants:
+
+a) **Radius-based neighbors**: Instead of K nearest, use all neighbors within radius r. How do you choose r?
+b) **Locally weighted regression**: Use distance-weighted averaging for regression. Implement this approach.
+c) **Condensed KNN**: Remove redundant training points. Design an algorithm to identify which points to keep.
+d) Compare these variants with standard KNN.
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Real-world Application]
+
+Design a KNN system for movie recommendation:
+
+Users rate movies on 1-5 scale. Predict rating for user-movie pairs.
+
+a) How do you represent users and movies as feature vectors?
+b) What distance metric is appropriate for this domain?
+c) How do you handle the cold start problem (new users/movies)?
+d) What are the scalability challenges with millions of users?
+e) How would you incorporate temporal information?
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Advanced Challenge]
+
+Implement an efficient KNN using KD-trees:
+
+a) Explain how KD-trees work for nearest neighbor search
+b) What is the time complexity for building and querying KD-trees?
+c) In what dimensions do KD-trees become ineffective?  
+d) What are alternative data structures (LSH, Ball trees)?
+e) Implement approximate KNN - when is this acceptable?
+
+Design a complete solution comparing exact vs approximate KNN on different datasets.
+\end{tcolorbox}
+
+\end{document}

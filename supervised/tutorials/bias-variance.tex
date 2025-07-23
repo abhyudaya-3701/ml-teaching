@@ -1,0 +1,359 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{bm}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage[bookmarks=false]{hyperref}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{enumitem}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning, shapes.geometric}
+\usepackage[margin=1in]{geometry}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Tutorial: Bias-Variance Decomposition}
+\lhead{ES335 - Machine Learning}
+\rfoot{Page \thepage}
+
+\titleformat{\section}{\Large\bfseries\color{blue!75!black}}{\thesection}{1em}{}
+\titleformat{\subsection}{\large\bfseries\color{blue!60!black}}{\thesubsection}{1em}{}
+
+\usepackage{../../shared/styles/conventions}
+
+\newcounter{exercise}
+\setcounter{exercise}{0}
+
+\title{\textbf{Tutorial: Bias-Variance Decomposition} \\ \textit{Cheat Sheet and Practice Problems}}
+\author{ES335 - Machine Learning \\ IIT Gandhinagar}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Summary from Slides}
+
+\subsection{The Three Sources of Error}
+
+Any prediction made by a machine learning model is affected by three sources of error:
+\begin{itemize}
+    \item \textbf{Noise}: Irreducible error inherent in the data
+    \item \textbf{Bias}: Error due to overly simplistic assumptions
+    \item \textbf{Variance}: Error due to sensitivity to small changes in training data
+\end{itemize}
+
+\textbf{Mathematical Formulation}: For a true function $f_{\theta_{\text{true}}}(x)$ with noise $\epsilon \sim \mathcal{N}(0, \sigma^2)$, the observed data follows:
+$$y_t = f_{\theta_{\text{true}}}(x_t) + \epsilon_t$$
+
+\subsection{Bias}
+
+\textbf{Definition}: Bias measures how well a model can capture the true underlying relationship. It represents the error introduced by approximating a complex real-world problem with a simplified model.
+
+\textbf{Mathematical Definition}:
+$$\text{Bias}(x_t) = f_{\theta_{\text{true}}}(x_t) - f_{\bar{\theta}}(x_t)$$
+where $f_{\bar{\theta}}(x_t) = E_{\text{train}}[f_{\hat{\theta}}(x_t)]$ is the average fit over all possible training sets.
+
+\textbf{Key Property}: As model complexity increases, bias decreases because the model becomes more flexible and can better approximate the true function.
+
+\subsection{Variance}
+
+\textbf{Definition}: Variance measures how much the predictions change when trained on different training sets. High variance indicates that small changes in training data lead to very different models.
+
+\textbf{Mathematical Definition}:
+$$\text{Variance}(f_{\hat{\theta}}(x_t)) = E_{\text{train}}[(f_{\hat{\theta}}(x_t) - f_{\bar{\theta}}(x_t))^2]$$
+
+\textbf{Key Property}: As model complexity increases, variance increases because complex models are more sensitive to small changes in training data.
+
+\subsection{The Bias-Variance Trade-off}
+
+\textbf{Fundamental Relationship}: There exists an inherent trade-off between bias and variance:
+\begin{itemize}
+    \item Simple models: High bias, low variance
+    \item Complex models: Low bias, high variance
+    \item Optimal models: Balance between bias and variance
+\end{itemize}
+
+\textbf{Expected Prediction Error Decomposition}:
+$$E_{\text{train},y_t}[(y_t - f_{\hat{\theta}}(x_t))^2] = \sigma^2 + [\text{Bias}(f_{\hat{\theta}}(x_t))]^2 + \text{Variance}(f_{\hat{\theta}}(x_t))$$
+
+\subsection{Underfitting and Overfitting}
+
+\textbf{Underfitting (High Bias)}:
+\begin{itemize}
+    \item Model is too simple to capture underlying patterns
+    \item Poor performance on both training and test data
+    \item Example: Linear model for non-linear data
+\end{itemize}
+
+\textbf{Overfitting (High Variance)}:
+\begin{itemize}
+    \item Model learns noise and specific patterns in training data
+    \item Good training performance, poor test performance
+    \item Example: Deep decision tree memorizing training data
+\end{itemize}
+
+\textbf{Good Fit}:
+\begin{itemize}
+    \item Balanced bias and variance
+    \item Generalizes well to unseen data
+    \item Found through techniques like cross-validation
+\end{itemize}
+
+\section{Practice Problems}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Basic Bias-Variance Concepts]
+
+Consider three different models trained to predict house prices:
+\begin{itemize}
+    \item Model A: Always predicts the average price (constant function)
+    \item Model B: Linear regression
+    \item Model C: Decision tree with maximum depth
+\end{itemize}
+
+a) Which model likely has the highest bias? Explain why.\\
+b) Which model likely has the highest variance? Explain why.\\
+c) If the true relationship is non-linear, how would this affect each model's bias?\\
+d) Rank the models from lowest to highest variance, justifying your answer.
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Mathematical Understanding]
+
+Given the bias-variance decomposition:
+$$\text{Expected Error} = \sigma^2 + \text{Bias}^2 + \text{Variance}$$
+
+Assume for a particular point:
+\begin{itemize}
+    \item Irreducible error: $\sigma^2 = 4$
+    \item Bias = 3
+    \item Variance = 5
+\end{itemize}
+
+a) Calculate the total expected error\\
+b) If we could reduce bias to 1, what would be the new expected error?\\
+c) If we could reduce variance to 2 (keeping original bias), what would be the expected error?\\
+d) Which reduction (bias or variance) provides greater improvement?
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Decision Tree Depth Analysis]
+
+Consider a decision tree classifier with varying depths on a dataset:
+
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+Depth & Training Accuracy & Test Accuracy \\
+\hline
+1 & 0.65 & 0.63 \\
+3 & 0.78 & 0.75 \\
+5 & 0.89 & 0.79 \\
+10 & 0.95 & 0.71 \\
+15 & 1.00 & 0.68 \\
+\hline
+\end{tabular}
+\end{center}
+
+a) Identify the underfitting, optimal, and overfitting regions\\
+b) At what depth does overfitting begin?\\
+c) Explain the bias-variance trade-off observed in this data\\
+d) What depth would you choose for deployment? Why?
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Ensemble Methods and Bias-Variance]
+
+Consider the following ensemble methods:
+\begin{itemize}
+    \item Bagging: Average of 100 decision trees trained on bootstrap samples
+    \item Single deep tree: One decision tree with maximum depth
+    \item Random Forest: 100 trees with random feature selection
+\end{itemize}
+
+a) Compare the bias of these three approaches\\
+b) Compare the variance of these three approaches\\
+c) Why does bagging reduce variance?\\
+d) How does random feature selection in Random Forest affect bias and variance?
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Polynomial Regression Analysis]
+
+You fit polynomial models of different degrees to a dataset:
+\begin{itemize}
+    \item Degree 1: $\hat{y} = \theta_0 + \theta_1 x$
+    \item Degree 5: $\hat{y} = \theta_0 + \theta_1 x + \theta_2 x^2 + ... + \theta_5 x^5$
+    \item Degree 15: High-degree polynomial
+\end{itemize}
+
+Assume the true function is quadratic: $y = 2 + 3x + 0.5x^2 + \epsilon$
+
+a) Which model has the highest bias? Explain.\\
+b) Which model has the highest variance? Explain.\\
+c) As training set size increases, how does bias change for each model?\\
+d) As training set size increases, how does variance change for each model?
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Regularization Effects]
+
+Consider three linear regression models:
+\begin{itemize}
+    \item Model A: Standard linear regression
+    \item Model B: Ridge regression with $\lambda = 0.1$
+    \item Model C: Ridge regression with $\lambda = 10.0$
+\end{itemize}
+
+a) Order these models from highest to lowest bias\\
+b) Order these models from highest to lowest variance\\
+c) How does increasing regularization strength affect the bias-variance trade-off?\\
+d) In what scenarios would you prefer Model C over Model A?
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Cross-Validation and Model Selection]
+
+You perform 5-fold cross-validation on different models:
+
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+Model & Mean CV Score & Standard Deviation \\
+\hline
+Linear & 0.75 & 0.02 \\
+Polynomial (degree 3) & 0.82 & 0.05 \\
+Polynomial (degree 10) & 0.78 & 0.15 \\
+\hline
+\end{tabular}
+\end{center}
+
+a) Which model shows the highest variance across folds?\\
+b) Which model likely has the best bias-variance trade-off?\\
+c) Why is the standard deviation a good indicator of model variance?\\
+d) How would you use this information for model selection?
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Learning Curves Analysis]
+
+You observe the following learning curves (training set size vs. error):
+
+For a simple model:
+\begin{itemize}
+    \item Training error: starts low, increases slowly, plateaus at high value
+    \item Validation error: starts high, decreases slowly, plateaus at high value
+    \item Final gap between training and validation: small
+\end{itemize}
+
+For a complex model:
+\begin{itemize}
+    \item Training error: stays very low throughout
+    \item Validation error: starts very high, decreases but remains high
+    \item Final gap between training and validation: large
+\end{itemize}
+
+a) Which model suffers from high bias?\\
+b) Which model suffers from high variance?\\
+c) What would adding more training data likely achieve for each model?\\
+d) Suggest remedies for each model's problems.
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: K-Nearest Neighbors Analysis]
+
+Consider K-NN with different values of K:
+\begin{itemize}
+    \item K = 1: Use only the nearest neighbor
+    \item K = 5: Use 5 nearest neighbors
+    \item K = 100: Use 100 nearest neighbors
+\end{itemize}
+
+a) Order these models from highest to lowest bias\\
+b) Order these models from highest to lowest variance\\
+c) How does the choice of K affect the decision boundary complexity?\\
+d) In a dataset with 1000 samples, what problems might K = 100 cause?
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Noise Impact Analysis]
+
+Two datasets with the same underlying function but different noise levels:
+\begin{itemize}
+    \item Dataset A: Low noise ($\sigma^2 = 0.1$)
+    \item Dataset B: High noise ($\sigma^2 = 5.0$)
+\end{itemize}
+
+You train the same model architecture on both datasets.
+
+a) How does noise level affect the optimal model complexity?\\
+b) Would you expect the same optimal regularization strength for both datasets?\\
+c) How does noise affect the bias-variance trade-off curve?\\
+d) Which dataset would benefit more from ensemble methods? Why?
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Feature Selection Impact]
+
+Consider three scenarios:
+\begin{itemize}
+    \item Scenario A: Use all 100 features
+    \item Scenario B: Use top 20 features selected by correlation
+    \item Scenario C: Use top 5 features selected by mutual information
+\end{itemize}
+
+a) How does feature selection affect model bias?\\
+b) How does feature selection affect model variance?\\
+c) Compare the bias-variance trade-off across the three scenarios\\
+d) When might Scenario A be preferred despite higher variance?
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Boosting vs Bagging]
+
+Compare two ensemble approaches:
+\begin{itemize}
+    \item AdaBoost: Sequential ensemble that focuses on difficult examples
+    \item Random Forest: Parallel ensemble with bootstrap sampling
+\end{itemize}
+
+Both use decision trees as base learners.
+
+a) Which method primarily reduces bias?\\
+b) Which method primarily reduces variance?\\
+c) How does the sequential nature of boosting affect the bias-variance trade-off?\\
+d) In what scenarios might boosting lead to overfitting?
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Derivation Challenge]
+
+Prove that for the squared loss function, the expected prediction error can be decomposed as:
+$$E[(y - \hat{f}(x))^2] = \text{Bias}^2 + \text{Variance} + \text{Irreducible Error}$$
+
+Given:
+\begin{itemize}
+    \item $y = f(x) + \epsilon$ where $E[\epsilon] = 0$ and $\text{Var}(\epsilon) = \sigma^2$
+    \item $\hat{f}(x)$ is our prediction
+    \item $\bar{f}(x) = E[\hat{f}(x)]$ is the expected prediction
+\end{itemize}
+
+a) Start with $E[(y - \hat{f}(x))^2]$ and add/subtract $\bar{f}(x)$ and $f(x)$\\
+b) Expand the squared terms\\
+c) Show that cross terms vanish due to independence assumptions\\
+d) Identify each component in the final decomposition
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Advanced Application]
+
+You're building a medical diagnosis system with the following constraints:
+\begin{itemize}
+    \item Limited training data (1000 samples)
+    \item High-dimensional features (500 features)
+    \item False negatives are more costly than false positives
+    \item Model interpretability is important for regulatory approval
+\end{itemize}
+
+a) Would you prefer a high-bias or high-variance model? Justify.\\
+b) How would the cost asymmetry affect your bias-variance considerations?\\
+c) Suggest three techniques to manage the bias-variance trade-off in this scenario\\
+d) How would you validate that your chosen model has the right bias-variance balance?\\
+e) If you could collect more data, how would this change your approach?
+\end{tcolorbox}
+
+\end{document}

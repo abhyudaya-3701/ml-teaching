@@ -1,0 +1,331 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{bm}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage[bookmarks=false]{hyperref}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{enumitem}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning, shapes.geometric}
+\usepackage[margin=1in]{geometry}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Tutorial: Ensemble Methods}
+\lhead{ES335 - Machine Learning}
+\rfoot{Page \thepage}
+
+\titleformat{\section}{\Large\bfseries\color{blue!75!black}}{\thesection}{1em}{}
+\titleformat{\subsection}{\large\bfseries\color{blue!60!black}}{\thesubsection}{1em}{}
+
+\usepackage{../../shared/styles/conventions}
+
+\newcounter{exercise}
+\setcounter{exercise}{0}
+
+\title{\textbf{Tutorial: Ensemble Methods} \\ \textit{Cheat Sheet and Practice Problems}}
+\author{ES335 - Machine Learning \\ IIT Gandhinagar}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Summary from Slides}
+
+\subsection{Basic Concept}
+
+\textbf{Ensemble Learning}: Use multiple models for prediction
+\begin{itemize}
+    \item Most winning entries of Kaggle competitions use ensemble learning
+    \item Combines predictions from multiple base learners
+    \item Often outperforms individual models
+\end{itemize}
+
+\textbf{Classification Example}:
+\begin{itemize}
+    \item Classifier 1: Good
+    \item Classifier 2: Good  
+    \item Classifier 3: Bad
+    \item Majority Voting: Predict "Good"
+\end{itemize}
+
+\textbf{Regression Example}:
+\begin{itemize}
+    \item Regressor 1: 20
+    \item Regressor 2: 30
+    \item Regressor 3: 30
+    \item Averaging: Predict $\frac{80}{3} = 26.67$
+\end{itemize}
+
+\subsection{Intuition and Conditions}
+
+\textbf{Why Ensembles Work}:
+\begin{itemize}
+    \item Individual models make different types of errors
+    \item Combining reduces overall error through error averaging
+    \item Diversity among base learners is crucial
+\end{itemize}
+
+\textbf{Necessary and Sufficient Conditions}:
+\begin{itemize}
+    \item Base learners should be better than random guessing
+    \item Base learners should be diverse (make different errors)
+    \item Independence of base learner errors is ideal
+\end{itemize}
+
+\subsection{Random Forests}
+
+\textbf{Key Concepts}:
+\begin{itemize}
+    \item Ensemble of decision trees
+    \item Uses bootstrap sampling (bagging)
+    \item Random feature selection at each split
+    \item Reduces overfitting compared to single deep trees
+\end{itemize}
+
+\textbf{Representation}:
+\begin{itemize}
+    \item Limited depth decision trees have limited representation
+    \item Random Forests expand representation through combination
+    \item Better generalization than individual trees
+\end{itemize}
+
+\subsection{Quantitative Perspective}
+
+\textbf{Error Reduction}: If individual classifiers have error rate $\epsilon < 0.5$ and are independent, ensemble error decreases exponentially with number of classifiers
+
+\textbf{Bias-Variance Trade-off}:
+\begin{itemize}
+    \item Bagging reduces variance
+    \item Boosting can reduce both bias and variance
+    \item Ensemble typically has lower generalization error
+\end{itemize}
+
+\section{Practice Problems}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Basic Ensemble Voting]
+
+Three binary classifiers make the following predictions on 5 test samples:
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+Sample & Classifier 1 & Classifier 2 & Classifier 3 & True Label \\
+\hline
+1 & 0 & 1 & 1 & 1 \\
+2 & 1 & 1 & 0 & 1 \\
+3 & 0 & 0 & 1 & 0 \\
+4 & 1 & 0 & 0 & 0 \\
+5 & 1 & 1 & 1 & 1 \\
+\hline
+\end{tabular}
+\end{center}
+
+a) Calculate individual classifier accuracies
+b) Calculate ensemble accuracy using majority voting
+c) Which performs better: individual classifiers or ensemble?
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Regression Ensemble]
+
+Four regression models predict house prices (in \$1000s):
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+House & Model 1 & Model 2 & Model 3 & Model 4 & True Price \\
+\hline
+A & 250 & 280 & 240 & 260 & 255 \\
+B & 180 & 200 & 170 & 190 & 185 \\
+C & 320 & 310 & 330 & 315 & 318 \\
+\hline
+\end{tabular}
+\end{center}
+
+a) Calculate individual model MSEs
+b) Calculate ensemble MSE using simple averaging
+c) Try weighted averaging with weights [0.4, 0.3, 0.2, 0.1] - does it improve?
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Diversity Analysis]
+
+Two classifiers have the following error patterns on 100 samples:
+- Classifier A: Correct on samples 1-70, wrong on 71-100
+- Classifier B: Correct on samples 21-90, wrong on 1-20 and 91-100
+
+a) What is the individual accuracy of each classifier?
+b) On how many samples do both classifiers agree?
+c) What is the ensemble accuracy using majority voting?
+d) Calculate the diversity between the two classifiers
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Bootstrap Sampling]
+
+You have a training set with 6 samples: [A, B, C, D, E, F]
+
+a) Create 3 different bootstrap samples of size 6
+b) Which samples might be out-of-bag for each bootstrap?
+c) How does bootstrap sampling introduce diversity?
+d) What fraction of original samples are expected to be in each bootstrap sample?
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Random Forest Construction]
+
+Design a Random Forest with the following specifications:
+- 5 trees
+- Maximum depth of 3
+- Consider $\sqrt{p}$ features at each split where $p=16$ total features
+
+a) How many features are considered at each split?
+b) Draw the structure for one possible tree
+c) How do you combine predictions for classification vs regression?
+d) What are the advantages over a single deep tree?
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Ensemble Error Analysis]
+
+Given $n$ independent binary classifiers, each with error rate $\epsilon = 0.3$:
+
+a) What is the ensemble error rate for $n=3$ using majority voting?
+b) Calculate for $n=5$ and $n=7$
+c) How does ensemble error change as $n$ increases?
+d) What happens if $\epsilon > 0.5$?
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Feature Importance in Random Forests]
+
+A Random Forest is trained on a dataset with features [Age, Income, Education, Location]:
+
+After training, the feature importance scores are:
+- Age: 0.4
+- Income: 0.3  
+- Education: 0.2
+- Location: 0.1
+
+a) Interpret these importance scores
+b) How are feature importances calculated in Random Forests?
+c) Which features would you select for a simpler model?
+d) How does random feature selection affect importance calculation?
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Bias-Variance in Ensembles]
+
+Compare bias and variance for:
+- Single decision tree (depth 10)
+- Random Forest (100 trees, depth 5)
+- Bagged trees (100 trees, depth 10)
+
+a) Which has highest bias? Why?
+b) Which has highest variance? Why?
+c) How does bootstrap sampling affect bias and variance?
+d) What is the bias-variance trade-off in each method?
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Ensemble Combination Methods]
+
+You have 5 binary classifiers with the following probability outputs for a sample:
+[0.8, 0.3, 0.6, 0.9, 0.4]
+
+Calculate the ensemble prediction using:
+a) Simple majority voting (threshold 0.5)
+b) Average probability  
+c) Weighted average with weights [0.3, 0.1, 0.2, 0.3, 0.1]
+d) Maximum probability
+e) Which methods agree and which disagree?
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Out-of-Bag Error Estimation]
+
+In a Random Forest with 100 trees:
+
+a) What fraction of samples are out-of-bag for each tree on average?
+b) How is out-of-bag error calculated?
+c) Why is OOB error a good estimate of generalization error?
+d) Compare OOB error with k-fold cross-validation - advantages and disadvantages?
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Ensemble Diversity Measures]
+
+Three classifiers make predictions on 8 samples:
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+Sample & C1 & C2 & C3 \\
+\hline
+1 & 1 & 1 & 1 \\
+2 & 1 & 1 & 0 \\
+3 & 1 & 0 & 1 \\
+4 & 1 & 0 & 0 \\
+5 & 0 & 1 & 1 \\
+6 & 0 & 1 & 0 \\
+7 & 0 & 0 & 1 \\
+8 & 0 & 0 & 0 \\
+\hline
+\end{tabular}
+\end{center}
+
+a) Calculate pairwise disagreement between classifiers
+b) Calculate Q-statistic for each pair
+c) Which pair is most diverse?
+d) How does diversity relate to ensemble performance?
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Stacking vs Voting]
+
+Design a two-level ensemble:
+- Level 1: Train 4 base models (SVM, Random Forest, Logistic Regression, KNN)
+- Level 2: Meta-learner combines Level 1 predictions
+
+a) What are the inputs to the meta-learner?
+b) How do you prevent overfitting in stacking?
+c) Compare stacking with simple voting
+d) When might stacking perform worse than voting?
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Computational Complexity]
+
+Compare computational costs:
+- Training: Single tree vs Random Forest (100 trees)
+- Prediction: Single tree vs Random Forest
+- Memory: Single tree vs Random Forest
+
+a) How does ensemble size affect training time?
+b) Can ensemble prediction be parallelized?
+c) What are the memory requirements for storing 100 trees?
+d) When might single models be preferred despite lower accuracy?
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Real-world Ensemble Design]
+
+You're building an ensemble for credit card fraud detection with:
+- Highly imbalanced data (0.1\% fraud)
+- Need real-time predictions (<100ms)
+- Interpretability required for regulatory compliance
+
+a) What base models would you choose and why?
+b) How would you handle class imbalance in each base model?
+c) What ensemble combination method is most appropriate?
+d) How would you ensure interpretability?
+e) What constraints does the timing requirement impose?
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Advanced Challenge]
+
+Prove mathematically that for binary classification with $n$ independent classifiers (each with error rate $\epsilon < 0.5$), the ensemble error using majority voting is:
+
+$$P(\text{ensemble error}) = \sum_{k=\lceil n/2 \rceil}^{n} \binom{n}{k} \epsilon^k (1-\epsilon)^{n-k}$$
+
+a) Derive this formula step by step
+b) Show that this error decreases as $n$ increases when $\epsilon < 0.5$
+c) What happens when $\epsilon = 0.5$?
+d) Extend to the case where classifiers have different error rates
+\end{tcolorbox}
+
+\end{document}
