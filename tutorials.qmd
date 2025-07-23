@@ -11,8 +11,8 @@ These comprehensive tutorials provide detailed mathematical foundations, worked 
 ### Mathematical Foundations
 Essential mathematical concepts that underlie all machine learning algorithms.
 
-- [Mathematical Prerequisites](basics/tutorials/mathematical-prerequisites.pdf) - Scalars, vectors, matrices, norms, probability, and statistics
-- [Accuracy Convention & ML Metrics](basics/tutorials/accuracy-convention.pdf) - Performance evaluation, confusion matrices, and metric interpretation
+- [Mathematical Prerequisites](basics/tutorials/tutorial-0-prerequisites.pdf) - Scalars, vectors, matrices, norms, probability, and statistics
+- [Accuracy Convention & ML Metrics](basics/tutorials/mathematical-conventions.pdf) - Performance evaluation, confusion matrices, and metric interpretation
 
 ### Core Algorithms
 Detailed tutorials on fundamental machine learning algorithms.

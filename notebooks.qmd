@@ -59,7 +59,7 @@ Interactive notebooks provide practical coding examples and visualizations to co
 - [Weighted Decision Trees](notebooks/dt-weighted.ipynb) - Sample weighting
 - [Ensemble Feature Importance](notebooks/ensemble-feature-importance.ipynb)
 - [Boosting Explanation](notebooks/boosting-explanation.ipynb) - AdaBoost mechanics
-- [Ensemble Representations](notebooks/representation-ensemble.ipynb)
+- [Ensemble Representations](notebooks/ensemble-representation.ipynb)
 
 #### Instance-Based Learning
 - [KNN Variants](notebooks/knn-variants.ipynb) - Different distance metrics
