@@ -18,14 +18,14 @@ Essential mathematical concepts that underlie all machine learning algorithms.
 Detailed tutorials on fundamental machine learning algorithms.
 
 - [Decision Trees](basics/tutorials/decision-trees.pdf) - Tree construction, pruning, information theory, and implementation
-- [Cross-Validation](basics/tutorials/cross-validation.pdf) - Model evaluation, hyperparameter tuning, and validation strategies
+- [Cross-Validation](supervised/tutorials/cross-validation.pdf) - Model evaluation, hyperparameter tuning, and validation strategies
 - [Linear Regression](supervised/tutorials/linear-regression.pdf) - Least squares, statistical properties, and regularization
+- [Logistic Regression](supervised/tutorials/logistic-regression.pdf) - Classification, maximum likelihood, and interpretation  
 
 ### Coming Soon
 Additional tutorials are being developed for:
 
-- **Ensemble Methods** - Random forests, boosting, and model combination
-- **Logistic Regression** - Classification, maximum likelihood, and interpretation  
+- **Ensemble Methods** - Random forests, boosting, and model combination  
 - **Neural Networks** - Multilayer perceptrons, backpropagation, and deep learning
 - **Support Vector Machines** - Margin maximization, kernel methods, and optimization
 - **Clustering** - K-means, hierarchical clustering, and dimensionality reduction
