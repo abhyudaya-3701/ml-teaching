@@ -1,0 +1,299 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{bm}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage[bookmarks=false]{hyperref}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{enumitem}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning, shapes.geometric}
+\usepackage[margin=1in]{geometry}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Tutorial: Cross-Validation}
+\lhead{ES335 - Machine Learning}
+\rfoot{Page \thepage}
+
+\titleformat{\section}{\Large\bfseries\color{blue!75!black}}{\thesection}{1em}{}
+\titleformat{\subsection}{\large\bfseries\color{blue!60!black}}{\thesubsection}{1em}{}
+
+\usepackage{../../shared/styles/conventions}
+
+\newcounter{exercise}
+\setcounter{exercise}{0}
+
+\title{\textbf{Tutorial: Cross-Validation} \\ \textit{Cheat Sheet and Practice Problems}}
+\author{ES335 - Machine Learning \\ IIT Gandhinagar}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Summary from Slides}
+
+\subsection{Introduction and Motivation}
+
+\textbf{Limitations of Single Train/Test Split}:
+\begin{itemize}
+    \item Does not utilize the full dataset for training
+    \item Cannot optimize hyperparameters systematically
+    \item Results depend on the particular split chosen
+    \item May not get reliable performance estimates
+\end{itemize}
+
+\textbf{Goal}: Use the full dataset for both training and testing to get robust performance estimates
+
+\subsection{K-Fold Cross-Validation}
+
+\textbf{Basic Procedure}:
+\begin{enumerate}
+    \item Divide dataset into $k$ equal parts (folds)
+    \item For each fold $i = 1, 2, ..., k$:
+    \begin{itemize}
+        \item Use fold $i$ as test set
+        \item Use remaining $k-1$ folds as training set
+        \item Train model and evaluate performance
+    \end{itemize}
+    \item Average the $k$ performance scores
+\end{enumerate}
+
+\textbf{Key Properties}:
+\begin{itemize}
+    \item Each data point is used for testing exactly once
+    \item Each data point is used for training $(k-1)/k$ of the time
+    \item Provides more robust performance estimates than single split
+\end{itemize}
+
+\subsection{Hyperparameter Optimization}
+
+\textbf{Train/Validation/Test Split}:
+\begin{itemize}
+    \item Training set: Train model with different hyperparameters
+    \item Validation set: Select best hyperparameters
+    \item Test set: Final evaluation (remains untouched until end)
+\end{itemize}
+
+\textbf{Purpose}: Prevents overfitting to the test set during hyperparameter tuning
+
+\subsection{Nested Cross-Validation}
+
+\textbf{Structure}: Cross-validation within cross-validation
+\begin{itemize}
+    \item Outer loop: Performance estimation
+    \item Inner loop: Hyperparameter optimization
+    \item Provides unbiased performance estimates with hyperparameter tuning
+\end{itemize}
+
+\subsection{Cross-Validation Variants}
+
+\textbf{Leave-One-Out CV (LOOCV)}:
+\begin{itemize}
+    \item Special case: $k = n$ (number of samples)
+    \item Maximum use of training data
+    \item Computationally expensive for large datasets
+    \item High variance in performance estimates
+\end{itemize}
+
+\textbf{Stratified K-Fold}:
+\begin{itemize}
+    \item Maintains class distribution in each fold
+    \item Important for imbalanced datasets
+    \item Ensures each fold is representative of the whole dataset
+\end{itemize}
+
+\subsection{Time Series Cross-Validation}
+
+\textbf{Forward Chaining}: 
+\begin{itemize}
+    \item Respects temporal order of data
+    \item Training set always precedes test set in time
+    \item Cannot use future data to predict past (no data leakage)
+\end{itemize}
+
+\textbf{Expanding Window}: Training set grows with each fold
+\textbf{Rolling Window}: Fixed-size training window
+
+\subsection{Best Practices and Pitfalls}
+
+\textbf{Common Pitfalls}:
+\begin{itemize}
+    \item Data leakage between folds
+    \item Inappropriate splitting for time series data
+    \item Not maintaining class balance in stratified scenarios
+    \item Performing feature selection on entire dataset before CV
+\end{itemize}
+
+\textbf{Best Practices}:
+\begin{itemize}
+    \item Choose appropriate $k$ (typically 5 or 10)
+    \item Use stratified CV for classification
+    \item Perform all preprocessing within CV folds
+    \item Use time-aware splits for temporal data
+\end{itemize}
+
+\section{Practice Problems}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Basic K-Fold Calculation]
+
+You have a dataset with 120 samples and want to use 6-fold cross-validation.
+
+a) How many samples will be in each fold?
+b) How many samples will be used for training in each iteration?
+c) How many samples will be used for testing in each iteration?
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: LOOCV Analysis]
+
+For a dataset with 50 samples:
+
+a) How many models will be trained in Leave-One-Out Cross-Validation?
+b) What is the size of each training set?
+c) What are the advantages and disadvantages compared to 5-fold CV?
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Stratified CV Design]
+
+You have a binary classification dataset with 1000 samples: 800 class A and 200 class B. Design a 5-fold stratified cross-validation setup.
+
+a) How many samples of each class should be in each fold?
+b) Why is stratification important for this dataset?
+c) What could go wrong with regular k-fold CV?
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Hyperparameter Tuning Setup]
+
+You want to tune the hyperparameter $C$ for SVM using values $[0.1, 1, 10, 100]$ with 5-fold cross-validation on 200 training samples.
+
+a) How many models will be trained in total?
+b) Design the complete evaluation procedure
+c) How do you select the final hyperparameter value?
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Nested CV Structure]
+
+Explain nested cross-validation with outer 5-fold and inner 3-fold CV:
+
+a) Draw the structure showing outer and inner loops
+b) If you have 150 samples, how many models are trained total?
+c) What is the purpose of each level of cross-validation?
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Time Series CV Design]
+
+Design a time series cross-validation for stock price prediction with 365 daily observations:
+
+a) Why can't you use standard k-fold CV?
+b) Design a forward-chaining approach with 5 splits
+c) What is the training and test size for each split?
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Data Leakage Identification]
+
+Identify the data leakage in these scenarios:
+
+a) Normalizing the entire dataset before splitting into folds
+b) Using future stock prices to predict past prices
+c) Feature selection on the entire dataset before CV
+d) Using validation set multiple times during hyperparameter tuning
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: CV Variance Analysis]
+
+You get these 5-fold CV scores: [0.85, 0.92, 0.78, 0.90, 0.88]
+
+a) Calculate the mean and standard deviation
+b) What does high variance in CV scores indicate?
+c) How would you interpret these results?
+d) Compare with LOOCV variance characteristics
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Computational Complexity]
+
+Compare the computational cost of different CV approaches for a dataset with $n$ samples:
+
+a) Single train/test split (70/30)
+b) 5-fold cross-validation  
+c) 10-fold cross-validation
+d) Leave-One-Out cross-validation
+
+Express in terms of number of model training operations.
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Feature Selection with CV]
+
+You want to perform feature selection with cross-validation. Design the correct procedure:
+
+a) Where should feature selection be performed in the CV loop?
+b) What happens if you do feature selection before CV?
+c) How does this affect computational cost?
+d) Design nested CV with feature selection and hyperparameter tuning
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Model Comparison]
+
+Compare three models (Linear Regression, SVM, Random Forest) using 10-fold CV:
+
+Results:
+- Linear Regression: Mean=0.82, Std=0.05
+- SVM: Mean=0.85, Std=0.12  
+- Random Forest: Mean=0.84, Std=0.03
+
+a) Which model would you choose and why?
+b) How would you test for statistical significance?
+c) What if you only had these single scores: LR=0.82, SVM=0.89, RF=0.81?
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Choosing K Value]
+
+For the following scenarios, recommend an appropriate value of $k$ and justify:
+
+a) Small dataset with 50 samples
+b) Large dataset with 1 million samples  
+c) Imbalanced dataset with 90\% majority class
+d) High-dimensional dataset with many features
+e) Time-constrained scenario needing quick results
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Cross-Validation Bias]
+
+Analyze potential biases in cross-validation:
+
+a) What is the bias of k-fold CV performance estimate?
+b) How does the choice of $k$ affect bias and variance?
+c) Why might CV overestimate performance for certain algorithms?
+d) How does sample size affect CV reliability?
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Practical Implementation]
+
+Design a complete cross-validation pipeline for image classification:
+
+a) How would you handle data augmentation?
+b) Where should normalization be applied?
+c) How to handle class imbalance?
+d) What metrics would you use for evaluation?
+e) How to ensure reproducible results across folds?
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Advanced Challenge]
+
+You're working with grouped data (e.g., multiple images per person):
+
+a) Why is standard k-fold CV problematic?
+b) Design a group-aware cross-validation strategy
+c) How does this affect your performance estimates?
+d) What are the implications for real-world deployment?
+e) How would you handle time series data with groups?
+\end{tcolorbox}
+
+\end{document}

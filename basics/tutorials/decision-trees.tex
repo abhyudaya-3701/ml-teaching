@@ -1,7 +1,5 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}
-
-% Essential packages for article format
 \usepackage{amsmath, amssymb, amsfonts}
 \usepackage{bm}
 \usepackage{graphicx}
@@ -15,33 +13,25 @@
 \usepackage{enumitem}
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta, positioning, shapes.geometric, trees}
-
-% Additional packages for a nice tutorial format
 \usepackage[margin=1in]{geometry}
 \usepackage{fancyhdr}
 \usepackage{titlesec}
 
-% Header and footer setup
 \pagestyle{fancy}
 \fancyhf{}
 \rhead{Tutorial: Decision Trees}
 \lhead{ES335 - Machine Learning}
 \rfoot{Page \thepage}
 
-% Title formatting
 \titleformat{\section}{\Large\bfseries\color{blue!75!black}}{\thesection}{1em}{}
 \titleformat{\subsection}{\large\bfseries\color{blue!60!black}}{\thesubsection}{1em}{}
 
-% Load conventions after math packages
 \usepackage{../../shared/styles/conventions}
 
-% Define counters for examples and exercises
-\newcounter{example}
-\setcounter{example}{0}
 \newcounter{exercise}
 \setcounter{exercise}{0}
 
-\title{\textbf{Tutorial: Decision Trees} \\ \textit{Building Interpretable Machine Learning Models}}
+\title{\textbf{Tutorial: Decision Trees} \\ \textit{Cheat Sheet and Practice Problems}}
 \author{ES335 - Machine Learning \\ IIT Gandhinagar}
 \date{\today}
 
@@ -49,98 +39,75 @@
 
 \maketitle
 
-\begin{abstract}
-Decision trees are among the most intuitive and interpretable machine learning algorithms. This tutorial covers the fundamental concepts, construction algorithms, evaluation metrics, and practical considerations for building effective decision tree models. We'll explore both classification and regression trees, discuss overfitting and pruning strategies, and examine real-world applications through comprehensive examples and exercises.
-\end{abstract}
+\section{Summary from Slides}
 
-\tableofcontents
-\newpage
+\subsection{Key Concepts}
 
-\section{Introduction: Why Decision Trees?}
-
-Imagine you're a doctor diagnosing a patient. You might ask:
+\textbf{What are Decision Trees?}
 \begin{itemize}
-    \item Is the patient's temperature above 38°C?
-    \item If yes, does the patient have a cough?
-    \item If yes to both, does the patient have difficulty breathing?
+    \item Tree-like model for making decisions through series of questions
+    \item Internal nodes: feature tests, Leaves: class labels (classification) or values (regression)
+    \item Interpretable - can trace prediction path
 \end{itemize}
 
-This logical sequence of questions forms a \textbf{decision tree} - a flowchart-like structure that makes decisions by asking a series of questions about the input features.
-
-\begin{center}
-\begin{tikzpicture}[
-  level distance=1.5cm,
-  level 1/.style={sibling distance=4cm},
-  level 2/.style={sibling distance=2cm},
-  level 3/.style={sibling distance=1.5cm}
-]
-\node [circle, draw] {Temp > 38°C?}
-  child {node [circle, draw] {Headache?}
-    child {node [rectangle, draw, fill=green!20] {Cold}}
-    child {node [rectangle, draw, fill=red!20] {Flu}}
-  }
-  child {node [circle, draw] {Cough?}
-    child {node [rectangle, draw, fill=blue!20] {Healthy}}
-    child {node [rectangle, draw, fill=yellow!20] {Allergy}}
-  };
-\end{tikzpicture}
-\end{center}
-
-\textbf{Key Advantages}:
+\textbf{Types of Decision Trees:}
 \begin{itemize}
-    \item \textbf{Interpretability}: Easy to understand and explain
-    \item \textbf{No assumptions}: Works with any data distribution
-    \item \textbf{Mixed data types}: Handles categorical and numerical features
-    \item \textbf{Feature selection}: Automatically identifies important features
-    \item \textbf{Non-linear patterns}: Captures complex relationships
+    \item \textbf{Discrete Input, Discrete Output}: Classification with categorical features
+    \item \textbf{Discrete Input, Real Output}: Regression with categorical features  
+    \item \textbf{Real Input, Discrete Output}: Classification with continuous features
+    \item \textbf{Real Input, Real Output}: Regression with continuous features
 \end{itemize}
 
-\section{Mathematical Foundation}
+\subsection{Information Theory}
 
-\subsection{Information Theory Basics}
-
-Decision trees work by asking questions that \textbf{reduce uncertainty}. We measure uncertainty using information theory concepts.
-
-\textbf{Entropy} measures the "impurity" or uncertainty in a dataset:
+\textbf{Entropy}: Measure of impurity/uncertainty
 $$H(S) = -\sum_{i=1}^c p_i \log_2(p_i)$$
 
-where $p_i$ is the proportion of samples belonging to class $i$.
-
-\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Example \stepcounter{example}\#\theexample: Calculating Entropy]
-Dataset with 8 positive and 2 negative examples:
-$$p_+ = \frac{8}{10} = 0.8, \quad p_- = \frac{2}{10} = 0.2$$
-$$H(S) = -0.8 \log_2(0.8) - 0.2 \log_2(0.2) = -0.8(-0.322) - 0.2(-2.322) = 0.722$$
-
-High entropy (close to 1) means high uncertainty, low entropy (close to 0) means low uncertainty.
-\end{tcolorbox}
-
-\textbf{Information Gain} measures how much a feature reduces entropy:
+\textbf{Information Gain}: Reduction in entropy after split
 $$\text{Gain}(S, A) = H(S) - \sum_{v \in \text{Values}(A)} \frac{|S_v|}{|S|} H(S_v)$$
 
-where $S_v$ is the subset of $S$ where feature $A$ has value $v$.
+\textbf{Weighted Entropy}: For weighted samples
+$$H_w(S) = -\sum_{i=1}^c p_{w,i} \log_2(p_{w,i})$$
+where $p_{w,i} = \frac{\sum_{j: y_j = i} w_j}{\sum_{j} w_j}$
 
-\subsection{Decision Tree Construction Algorithm}
-
-The \textbf{ID3 algorithm} builds trees by recursively selecting the feature with highest information gain:
+\subsection{Tree Construction Algorithm}
 
 \begin{enumerate}
-    \item Calculate entropy of current dataset $S$
-    \item For each feature $A$:
-    \begin{itemize}
-        \item Split dataset based on feature values
-        \item Calculate weighted average entropy of splits
-        \item Compute information gain
-    \end{itemize}
-    \item Select feature with maximum information gain
-    \item Create child nodes for each feature value
-    \item Recursively apply to each child node
-    \item Stop when: pure node, no more features, or minimum samples reached
+    \item Calculate entropy of current node
+    \item For each feature, calculate information gain
+    \item Choose feature with maximum information gain
+    \item Split on that feature
+    \item Recursively apply to child nodes
+    \item Stop when: pure node, max depth reached, min samples reached
 \end{enumerate}
 
-\begin{tcolorbox}[colback=green!5!white,colframe=green!75!black,title=Example \stepcounter{example}\#\theexample: Building a Tree Step by Step]
+\textbf{For Regression Trees}: Use variance reduction instead of information gain
+$$\text{VarReduction}(S, A) = \text{Var}(S) - \sum_{v} \frac{|S_v|}{|S|} \text{Var}(S_v)$$
 
-\textbf{Tennis Dataset}: Play tennis based on weather conditions.
+\subsection{Key Properties}
 
+\textbf{Advantages}:
+\begin{itemize}
+    \item Highly interpretable
+    \item No assumptions about data distribution
+    \item Handles both numerical and categorical features
+    \item Automatic feature selection
+    \item Non-parametric
+\end{itemize}
+
+\textbf{Disadvantages}:
+\begin{itemize}
+    \item Prone to overfitting
+    \item Unstable (small data changes can drastically change tree)
+    \item Biased toward features with more levels
+    \item Greedy algorithm (may not find globally optimal tree)
+\end{itemize}
+
+\section{Practice Problems}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Information Gain Calculation]
+
+Given the tennis dataset from slides:
 \begin{center}
 \begin{tabular}{|c|c|c|c|c|}
 \hline
@@ -164,320 +131,163 @@ Rain & Mild & High & Strong & No \\
 \end{tabular}
 \end{center}
 
-\textbf{Step 1}: Calculate root entropy
-- 9 "Yes", 5 "No" $\rightarrow$ $H(S) = -\frac{9}{14}\log_2(\frac{9}{14}) - \frac{5}{14}\log_2(\frac{5}{14}) = 0.940$
-
-\textbf{Step 2}: Calculate information gain for each feature
-
-For \textbf{Outlook}:
-- Sunny: 2 Yes, 3 No $\rightarrow$ $H = 0.971$
-- Overcast: 4 Yes, 0 No $\rightarrow$ $H = 0$  
-- Rain: 3 Yes, 2 No $\rightarrow$ $H = 0.971$
-
-$$\text{Gain}(Outlook) = 0.940 - [\frac{5}{14} \times 0.971 + \frac{4}{14} \times 0 + \frac{5}{14} \times 0.971] = 0.247$$
-
-\textbf{Result}: Outlook has highest gain $\rightarrow$ becomes root node!
+Calculate the information gain for splitting on the "Wind" attribute.
 \end{tcolorbox}
 
-\section{Regression Trees}
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Tree Construction]
 
-For continuous target variables, we use \textbf{regression trees} that predict numerical values instead of classes.
+Build a complete decision tree for this simple dataset:
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{X1} & \textbf{X2} & \textbf{Y} \\
+\hline
+0 & 0 & A \\
+0 & 1 & B \\
+1 & 0 & B \\
+1 & 1 & A \\
+\hline
+\end{tabular}
+\end{center}
 
-\textbf{Key Differences}:
-\begin{itemize}
-    \item \textbf{Split criterion}: Use variance reduction instead of information gain
-    \item \textbf{Leaf values}: Mean of target values in leaf
-    \item \textbf{Error measure}: Mean Squared Error (MSE) or Mean Absolute Error (MAE)
-\end{itemize}
+Show all entropy calculations and explain your splitting decisions.
+\end{tcolorbox}
 
-\textbf{Variance Reduction}:
-$$\text{VarReduction}(S, A) = \text{Var}(S) - \sum_{v} \frac{|S_v|}{|S|} \text{Var}(S_v)$$
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Regression Tree]
 
-where $\text{Var}(S) = \frac{1}{n}\sum_{i=1}^n (y_i - \bar{y})^2$
-
-\begin{tcolorbox}[colback=orange!5!white,colframe=orange!75!black,title=Example \stepcounter{example}\#\theexample: Predicting House Prices]
-
-\textbf{Dataset}: House size vs. Price
+For this regression dataset:
 \begin{center}
 \begin{tabular}{|c|c|}
 \hline
-\textbf{Size (sq ft)} & \textbf{Price (\$k)} \\
+\textbf{Size} & \textbf{Price} \\
 \hline
-1000 & 150 \\
-1200 & 180 \\
-1500 & 220 \\
-1800 & 280 \\
-2000 & 320 \\
-2200 & 350 \\
-\hline
-\end{tabular}
-\end{center}
-
-\textbf{Possible split}: Size $\leq$ 1500 vs Size $>$ 1500
-- Left: Mean = \$183k, Variance = 1156
-- Right: Mean = \$317k, Variance = 1344
-
-This split separates smaller, cheaper houses from larger, expensive ones!
-\end{tcolorbox}
-
-\section{Overfitting and Pruning}
-
-\subsection{The Overfitting Problem}
-
-Decision trees can grow very deep and memorize training data, leading to poor generalization.
-
-\begin{center}
-\begin{tikzpicture}[scale=0.8]
-    % Training accuracy
-    \draw[->] (0,0) -- (8,0) node[right] {Tree Depth};
-    \draw[->] (0,0) -- (0,6) node[above] {Accuracy};
-    
-    % Training curve (always increasing)
-    \draw[thick, blue] (0.5,2) -- (1,2.5) -- (2,3.5) -- (3,4.2) -- (4,4.7) -- (5,5.0) -- (6,5.2) -- (7,5.3);
-    \node[blue] at (7.5,5.5) {Training};
-    
-    % Validation curve (increases then decreases)
-    \draw[thick, red] (0.5,1.8) -- (1,2.2) -- (2,3.2) -- (3,4.0) -- (4,4.3) -- (5,4.2) -- (6,3.8) -- (7,3.2);
-    \node[red] at (7.5,3.5) {Validation};
-    
-    % Optimal point
-    \draw[dashed] (4,0) -- (4,4.3);
-    \node[below] at (4,0) {Optimal};
-\end{tikzpicture}
-\end{center}
-
-\subsection{Pruning Strategies}
-
-\textbf{1. Pre-pruning (Early Stopping)}:
-\begin{itemize}
-    \item Maximum depth limit
-    \item Minimum samples per leaf
-    \item Minimum information gain threshold
-\end{itemize}
-
-\textbf{2. Post-pruning}:
-\begin{itemize}
-    \item Build full tree, then remove branches
-    \item Use validation set to evaluate pruning
-    \item Cost-complexity pruning (minimal cost-complexity)
-\end{itemize}
-
-\textbf{Cost-Complexity Pruning}:
-$$R_\alpha(T) = R(T) + \alpha |T|$$
-
-where $R(T)$ is the error rate and $|T|$ is the number of leaves. Parameter $\alpha$ controls the trade-off between accuracy and complexity.
-
-\section{Advanced Topics}
-
-\subsection{Handling Categorical Features}
-
-For categorical features with $k$ values, there are $2^{k-1} - 1$ possible binary splits. For large $k$, this becomes computationally expensive.
-
-\textbf{Strategies}:
-\begin{itemize}
-    \item \textbf{Binary encoding}: Convert categories to binary features
-    \item \textbf{Frequency encoding}: Order by target frequency
-    \item \textbf{Target encoding}: Use target mean for ordering
-\end{itemize}
-
-\subsection{Handling Missing Values}
-
-\textbf{During Training}:
-\begin{itemize}
-    \item Ignore missing values when calculating information gain
-    \item Use probabilistic splits based on observed data
-\end{itemize}
-
-\textbf{During Prediction}:
-\begin{itemize}
-    \item Follow majority path
-    \item Use weighted combination of all paths
-    \item Surrogate splits (backup features)
-\end{itemize}
-
-\subsection{Feature Importance}
-
-Decision trees naturally provide feature importance scores:
-$$\text{Importance}(f) = \sum_{t \in \text{splits using } f} p(t) \times \Delta\text{Impurity}(t)$$
-
-where $p(t)$ is the proportion of samples reaching node $t$.
-
-\section{Implementation Considerations}
-
-\subsection{Algorithmic Complexity}
-
-\textbf{Training Time}: $O(n \times m \times \log n)$ where $n$ = samples, $m$ = features
-\textbf{Prediction Time}: $O(\log n)$ in balanced tree, $O(n)$ worst case
-\textbf{Space Complexity}: $O(n)$ for storing the tree
-
-\subsection{Practical Tips}
-
-\begin{enumerate}
-    \item \textbf{Feature scaling}: Not required (trees are scale-invariant)
-    \item \textbf{Cross-validation}: Essential for selecting optimal hyperparameters
-    \item \textbf{Ensemble methods}: Random Forests and Gradient Boosting improve performance
-    \item \textbf{Interpretability vs. accuracy}: Deeper trees are more accurate but less interpretable
-\end{enumerate}
-
-\section{Practice Problems}
-
-\subsection{Basic Problems}
-
-\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}\#\theexercise: Information Gain Calculation]
-
-Given this dataset for predicting "Buy Computer":
-
-\begin{center}
-\begin{tabular}{|c|c|c|c|}
-\hline
-\textbf{Age} & \textbf{Income} & \textbf{Student} & \textbf{Buy?} \\
-\hline
-Youth & High & No & No \\
-Youth & High & No & No \\
-Middle & High & No & Yes \\
-Senior & Medium & No & Yes \\
-Senior & Low & Yes & Yes \\
-Senior & Low & Yes & No \\
-Middle & Low & Yes & Yes \\
-Youth & Medium & No & No \\
-Youth & Low & Yes & Yes \\
-Senior & Medium & Yes & Yes \\
+1000 & 100 \\
+1200 & 120 \\
+1500 & 180 \\
+1800 & 200 \\
+2000 & 250 \\
 \hline
 \end{tabular}
 \end{center}
 
-Calculate the information gain for splitting on "Age".
-
-\textbf{Solution}:
-Root entropy: 6 Yes, 4 No $\rightarrow$ $H = -\frac{6}{10}\log_2(\frac{6}{10}) - \frac{4}{10}\log_2(\frac{4}{10}) = 0.971$
-
-Age splits:
-- Youth: 1 Yes, 3 No $\rightarrow$ $H = 0.811$
-- Middle: 2 Yes, 0 No $\rightarrow$ $H = 0$
-- Senior: 3 Yes, 1 No $\rightarrow$ $H = 0.811$
-
-$\text{Gain}(Age) = 0.971 - [\frac{4}{10} \times 0.811 + \frac{2}{10} \times 0 + \frac{4}{10} \times 0.811] = 0.322$
+Find the best split point using variance reduction. Calculate the variance before and after the split.
 \end{tcolorbox}
 
-\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}\#\theexercise: Regression Tree Construction]
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Weighted Entropy]
 
-Build a regression tree for this dataset:
+Given a weighted dataset where samples have weights [2, 1, 3, 1] and classes [A, B, A, B]:
+
+a) Calculate the weighted entropy
+b) Compare with unweighted entropy
+c) Explain when weighted entropy is useful
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Overfitting Analysis]
+
+You have a decision tree with the following training and validation accuracies at different depths:
 
 \begin{center}
-\begin{tabular}{|c|c|}
+\begin{tabular}{|c|c|c|}
 \hline
-\textbf{Hours Studied} & \textbf{Exam Score} \\
+\textbf{Depth} & \textbf{Training Acc} & \textbf{Validation Acc} \\
 \hline
-1 & 40 \\
-2 & 50 \\
-3 & 60 \\
-4 & 65 \\
-5 & 80 \\
-6 & 85 \\
-7 & 90 \\
-8 & 95 \\
+1 & 0.70 & 0.68 \\
+2 & 0.80 & 0.76 \\
+3 & 0.90 & 0.82 \\
+4 & 0.95 & 0.79 \\
+5 & 0.98 & 0.75 \\
+6 & 1.00 & 0.70 \\
 \hline
 \end{tabular}
 \end{center}
 
-Find the best first split using variance reduction.
-
-\textbf{Solution}:
-Root variance: $\text{Var} = 345.31$
-
-Test split at Hours = 4.5:
-- Left (1-4 hours): Mean = 53.75, Var = 91.67
-- Right (5-8 hours): Mean = 87.5, Var = 41.67
-
-$\text{VarReduction} = 345.31 - [\frac{4}{8} \times 91.67 + \frac{4}{8} \times 41.67] = 278.64$
-
-This split significantly reduces variance!
+a) At what depth does overfitting begin?
+b) What depth would you choose for deployment?
+c) Suggest three techniques to reduce overfitting.
 \end{tcolorbox}
 
-\subsection{Intermediate Problems}
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Feature Selection Bias]
 
-\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}\#\theexercise: Pruning Analysis]
+Explain why decision trees are biased toward features with more distinct values. Give a concrete example with:
+- Feature A: 2 possible values
+- Feature B: 10 possible values
+- Same information content
 
-You have a decision tree with the following validation accuracy at different depths:
-
-Depth 1: 75\%, Depth 2: 82\%, Depth 3: 88\%, Depth 4: 91\%, Depth 5: 89\%, Depth 6: 85\%
-
-\textbf{a)} What is the optimal depth for this tree?\\
-\textbf{b)} What does the accuracy pattern suggest about overfitting?\\
-\textbf{c)} How would you implement early stopping for this case?
-
-\textbf{Solutions}:
-a) Optimal depth is 4 (highest validation accuracy of 91\%)
-b) Accuracy decreases after depth 4, indicating overfitting to training data
-c) Set \texttt{max\_depth=4} or use validation-based early stopping with patience=1
+How would you address this bias?
 \end{tcolorbox}
 
-\subsection{Advanced Problems}
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Continuous Feature Splits]
 
-\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}\#\theexercise: Feature Importance Analysis]
+For a continuous feature "Age" with values [25, 30, 35, 40, 45, 50] and binary target [0, 0, 1, 1, 0, 1]:
 
-Given a decision tree that uses features in this order: [Age, Income, Age, Education, Income], calculate the relative feature importance if each split reduces impurity by [0.3, 0.2, 0.1, 0.15, 0.05] and reaches [100\%, 70\%, 30\%, 20\%, 10\%] of the training samples.
-
-\textbf{Solution}:
-Feature importance = $\sum$ (sample\_fraction × impurity\_reduction)
-
-- Age: $1.0 \times 0.3 + 0.3 \times 0.1 = 0.33$
-- Income: $0.7 \times 0.2 + 0.1 \times 0.05 = 0.145$  
-- Education: $0.2 \times 0.15 = 0.03$
-
-Normalized: Age: 65.3\%, Income: 28.7\%, Education: 5.9\%
+a) List all possible split points
+b) Calculate information gain for split at Age $\leq$ 37.5
+c) Find the optimal split point
 \end{tcolorbox}
 
-\section{Summary and Best Practices}
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Pruning Strategies]
 
-\subsection{When to Use Decision Trees}
+Compare pre-pruning vs post-pruning:
 
-\textbf{Ideal for}:
-\begin{itemize}
-    \item Interpretability is crucial
-    \item Mixed data types (numerical + categorical)
-    \item Non-linear relationships
-    \item Feature selection is needed
-    \item Quick prototyping
-\end{itemize}
+a) Define minimum samples per leaf = 3. How does this affect tree growth?
+b) For post-pruning, explain how you would use a validation set
+c) What is the trade-off between model complexity and generalization?
+\end{tcolorbox}
 
-\textbf{Avoid when}:
-\begin{itemize}
-    \item Linear relationships dominate
-    \item High-dimensional sparse data
-    \item Need probability estimates
-    \item Small datasets (prone to overfitting)
-\end{itemize}
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Missing Values]
 
-\subsection{Key Takeaways}
+How would you handle missing values in decision trees during:
+a) Training phase
+b) Prediction phase
 
-\begin{enumerate}
-    \item \textbf{Interpretability vs. Accuracy}: Simpler trees are more interpretable but may be less accurate
-    \item \textbf{Overfitting is common}: Always use validation and pruning
-    \item \textbf{Ensemble methods}: Random Forests and Gradient Boosting often perform better
-    \item \textbf{Feature engineering}: Good features are still important for tree performance
-    \item \textbf{Hyperparameter tuning}: max\_depth, min\_samples\_leaf, min\_samples\_split are crucial
-\end{enumerate}
+Propose two different strategies for each phase and discuss their pros/cons.
+\end{tcolorbox}
 
-\subsection{Implementation Checklist}
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Implementation Challenge]
 
-\begin{itemize}
-    \item[$\square$] Use cross-validation for hyperparameter selection
-    \item[$\square$] Set appropriate stopping criteria to prevent overfitting  
-    \item[$\square$] Visualize the tree for interpretability analysis
-    \item[$\square$] Calculate and analyze feature importance
-    \item[$\square$] Compare with ensemble methods (Random Forest, XGBoost)
-    \item[$\square$] Validate on held-out test set
-\end{itemize}
+Implement the decision tree algorithm pseudocode:
 
-\section{Further Reading}
+\begin{verbatim}
+function BuildTree(data, features, target):
+    if stopping_condition(data):
+        return create_leaf(data)
+    
+    best_feature = find_best_split(data, features)
+    tree = create_node(best_feature)
+    
+    for each value v in best_feature:
+        subset = filter_data(data, best_feature == v)
+        subtree = BuildTree(subset, features, target)
+        add_branch(tree, v, subtree)
+    
+    return tree
+\end{verbatim}
 
-\begin{itemize}
-    \item \textbf{Classic Paper}: Quinlan, J.R. "Induction of Decision Trees" (1986)
-    \item \textbf{Comprehensive Text}: Hastie et al. "Elements of Statistical Learning"
-    \item \textbf{Practical Guide}: Kuhn \& Johnson "Applied Predictive Modeling"
-    \item \textbf{Advanced Topics}: Breiman et al. "Classification and Regression Trees"
-    \item \textbf{Modern Implementations}: scikit-learn, xgboost, lightgbm documentation
-\end{itemize}
+Define each helper function and specify the stopping conditions.
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Ensemble Motivation]
+
+Given the instability of decision trees:
+
+a) Explain why small changes in data can lead to very different trees
+b) How does this motivate ensemble methods like Random Forests?
+c) Describe the bias-variance trade-off for decision trees
+d) How do ensembles help with this trade-off?
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Real-World Application]
+
+Design a decision tree for a loan approval system with features:
+- Income (continuous)
+- Credit Score (continuous) 
+- Employment Type (categorical: Full-time, Part-time, Self-employed, Unemployed)
+- Previous Defaults (binary)
+
+a) What would be appropriate stopping criteria?
+b) How would you handle class imbalance (more approvals than rejections)?
+c) What interpretability constraints might be required for regulatory compliance?
+d) How would you validate the model's fairness across different demographic groups?
+\end{tcolorbox}
 
 \end{document}
