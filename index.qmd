@@ -35,7 +35,7 @@ The materials are organized into six main categories:
 1. **New to ML?** Start with [Basics & Foundations](basics/slides/1-introduction-ml.pdf)
 2. **Hands-on Learning** Browse the [interactive notebooks](notebooks.qmd)
 3. **Theory First?** Explore the [lecture slides](slides.qmd)
-4. **Quick Practice** Try the [Anscombe's Quartet notebook](notebooks/anscombe.html)
+4. **Quick Practice** Try the [Anscombe's Quartet notebook](notebooks/anscombe.ipynb)
 
 ## About the Course
 

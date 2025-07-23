@@ -1,0 +1,35 @@
+name: Check and Fix Links
+
+on:
+  push:
+    branches: [ master, main ]
+  pull_request:
+    branches: [ master, main ]
+
+jobs:
+  check-links:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    
+    - name: Update notebook links automatically
+      run: python scripts/update_notebook_links.py
+      
+    - name: Check for broken links
+      run: python scripts/check_links.py
+      continue-on-error: true
+      
+    - name: Auto-commit fixed links
+      if: github.event_name == 'push'
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add *.qmd
+        git diff --staged --quiet || git commit -m "🔗 Auto-fix notebook links [skip ci]"
+        git push || echo "No changes to push"
