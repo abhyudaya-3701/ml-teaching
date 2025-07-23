@@ -24,6 +24,8 @@ website:
         text: Home
       - href: slides.qmd
         text: Slides
+      - href: tutorials.qmd
+        text: Tutorials
       - href: notebooks.qmd
         text: Notebooks
     right:
