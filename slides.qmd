@@ -21,7 +21,7 @@ Core mathematical concepts underlying machine learning algorithms.
 - [Contour Plots & Visualization](maths/slides/ml-maths-2-contour.pdf)
 - [Multivariate Normal Distribution](maths/slides/mvn.pdf)
 - [Multivariate Normal II](maths/slides/mvn2.pdf)
-- [KKT Conditions](maths/slides/kkt-conditions/kkt-conditions.pdf)
+- [KKT Conditions](maths/slides/kkt-conditions.pdf)
 - [Constrained Optimization I](maths/slides/constrained-1.pdf)
 - [Constrained Optimization II](maths/slides/constrained-2.pdf)
 - [Time Complexity](maths/slides/time_complexity.pdf)
@@ -32,7 +32,7 @@ Techniques for finding optimal solutions in machine learning.
 - [Gradient Descent](optimization/slides/gradient-descent.pdf)
 - [Coordinate Descent](optimization/slides/coordinate_descent.pdf)
 - [Subgradient Methods](optimization/slides/subgradient.pdf)
-- [Convexity](optimization/slides/convexity/convexity.pdf)
+- [Convexity](optimization/slides/convexity.pdf)
 - [Stochastic Gradient Descent](optimization/slides/SGD.pdf)
 
 ### Supervised Learning

@@ -1,0 +1,192 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{../../shared/styles/conventions}
+\usepackage{../../shared/styles/tutorial-style}
+
+\tutorialtitle{Matrix Factorization for Recommendation Systems}
+\setheader{Matrix Factorization}
+
+\begin{document}
+
+\maketitle
+
+\section{Summary from Slides}
+
+\subsection{Problem Setup}
+
+\textbf{Collaborative Filtering Problem}:
+\begin{itemize}
+    \item Users rate items (movies, products, songs)
+    \item Rating matrix $\mA \in \Real^{n \times m}$ where $\mA_{ij}$ is user $i$'s rating for item $j$
+    \item Most entries are missing (sparse matrix)
+    \item Goal: Predict missing ratings
+\end{itemize}
+
+\textbf{Real-world Scale}:
+\begin{itemize}
+    \item Netflix: 200M+ users, 15K+ movies
+    \item Amazon: 300M+ users, millions of products
+    \item Typical user rates < 1\% of available items
+\end{itemize}
+
+\subsection{Matrix Factorization Approach}
+
+\textbf{Key Insight}: User preferences and item characteristics can be captured by latent features.
+
+\textbf{Mathematical Formulation}:
+$$\mA \approx \mW \mH$$
+
+Where:
+\begin{itemize}
+    \item $\mA \in \Real^{n \times m}$: Rating matrix
+    \item $\mW \in \Real^{n \times r}$: User feature matrix (user $i$ preferences)
+    \item $\mH \in \Real^{r \times m}$: Item feature matrix (item $j$ characteristics)
+    \item $r$: Number of latent features (typically $r \ll \min(n,m)$)
+\end{itemize}
+
+\textbf{Prediction}: $\hat{\mA}_{ij} = \vw_i^T \vh_j = \sum_{k=1}^r \mW_{ik} \mH_{kj}$
+
+\subsection{Learning Algorithms}
+
+\textbf{Alternating Least Squares (ALS)}:
+\begin{enumerate}
+    \item Fix $\mH$, solve for $\mW$: $\min_{\mW} \|\mA_{\Omega} - \mW\mH_{\Omega}\|_F^2$
+    \item Fix $\mW$, solve for $\mH$: $\min_{\mH} \|\mA_{\Omega} - \mW\mH_{\Omega}\|_F^2$
+    \item Repeat until convergence
+\end{enumerate}
+
+\textbf{Stochastic Gradient Descent (SGD)}:
+For each observed rating $(i,j) \in \Omega$:
+\begin{enumerate}
+    \item Predict: $\hat{a}_{ij} = \vw_i^T \vh_j$
+    \item Compute error: $e_{ij} = a_{ij} - \hat{a}_{ij}$
+    \item Update: 
+    \begin{align}
+    \vw_i &\leftarrow \vw_i + \alpha \cdot e_{ij} \cdot \vh_j \\
+    \vh_j &\leftarrow \vh_j + \alpha \cdot e_{ij} \cdot \vw_i
+    \end{align}
+\end{enumerate}
+
+\textbf{Loss Function}: $L = \sum_{(i,j) \in \Omega} (a_{ij} - \vw_i^T \vh_j)^2$
+
+\section{Practice Problems}
+
+\begin{problembox}[title=Basic Matrix Factorization Setup]
+
+Consider a movie rating system with 4 users and 5 movies. The rating matrix is:
+$$\mA = \begin{bmatrix}
+5 & 4 & ? & 3 & ? \\
+? & 5 & 1 & 4 & ? \\
+4 & ? & 1 & 5 & 2 \\
+3 & 4 & ? & ? & 1
+\end{bmatrix}$$
+
+a) How many ratings are observed? What's the sparsity percentage?
+b) If we use $r=2$ latent features, what are the dimensions of $\mW$ and $\mH$?
+c) How many parameters do we need to learn in total?
+\end{problembox}
+
+\begin{problembox}[title=Prediction Calculation]
+
+Given user feature vector $\vw_1 = [0.8, 0.2]$ and movie feature vector $\vh_1 = [0.9, 0.3]^T$:
+
+a) Calculate the predicted rating $\hat{a}_{11}$
+b) If the actual rating is $a_{11} = 4$, what is the prediction error?
+c) Interpret what the feature values might represent (e.g., genres, preferences)
+\end{problembox}
+
+\begin{problembox}[title=SGD Update Step]
+
+For the previous problem, assume learning rate $\alpha = 0.01$:
+
+a) Calculate the SGD updates for $\vw_1$ and $\vh_1$
+b) What are the new feature vectors after one SGD step?
+c) How does the prediction change after the update?
+\end{problembox}
+
+\begin{problembox}[title=ALS Formulation]
+
+For the ALS algorithm, when fixing $\mH$ and solving for user $i$'s features:
+
+a) Write the optimization problem for $\vw_i$
+b) What is the closed-form solution?
+c) Why is this approach called "alternating" least squares?
+\end{problembox}
+
+\begin{problembox}[title=Latent Feature Interpretation]
+
+Consider a movie recommendation system where we discover these latent features:
+- Feature 1: Action movies have high values, Romance movies have low values
+- Feature 2: Bollywood movies have high values, Hollywood movies have low values
+
+a) What would a user vector $[0.9, 0.1]$ suggest about their preferences?
+b) How would you classify a movie with features $[0.2, 0.8]$?
+c) Predict who would rate this movie higher: User A $[0.8, 0.3]$ or User B $[0.1, 0.9]$?
+\end{problembox}
+
+\begin{problembox}[title=Regularization in Matrix Factorization]
+
+The regularized loss function is:
+$$L = \sum_{(i,j) \in \Omega} (a_{ij} - \vw_i^T \vh_j)^2 + \lambda(\|\mW\|_F^2 + \|\mH\|_F^2)$$
+
+a) Why is regularization necessary in matrix factorization?
+b) How does the parameter $\lambda$ affect the solution?
+c) Write the SGD updates with regularization
+\end{problembox}
+
+\begin{problembox}[title=Cold Start Problem]
+
+a) What is the "cold start" problem in recommendation systems?
+b) How can we handle new users who haven't rated any items?
+c) How can we handle new items that haven't been rated by any users?
+d) Suggest at least two approaches for each scenario
+\end{problembox}
+
+\begin{problembox}[title=Evaluation Metrics]
+
+For recommendation systems, we need appropriate evaluation metrics:
+
+a) Why is standard RMSE not always the best metric?
+b) What is the difference between rating prediction and ranking metrics?
+c) Explain precision@k and recall@k in the recommendation context
+d) When would you use each type of metric?
+\end{problembox}
+
+\begin{problembox}[title=Scalability Considerations]
+
+a) What is the computational complexity of one ALS iteration?
+b) What is the computational complexity of one SGD epoch?
+c) Why is SGD preferred for very large datasets?
+d) How can we parallelize ALS? What about SGD?
+\end{problembox}
+
+\begin{problembox}[title=Implicit Feedback]
+
+Many recommendation systems have implicit feedback (clicks, views, purchases) rather than explicit ratings:
+
+a) How does the problem formulation change for implicit feedback?
+b) What does the confidence matrix represent?
+c) How do the ALS updates change for implicit feedback?
+d) Give examples of implicit vs explicit feedback in real systems
+\end{problembox}
+
+\begin{problembox}[title=Advanced Extensions]
+
+a) How would you incorporate user and item biases into matrix factorization?
+b) What is non-negative matrix factorization (NMF) and when is it useful?
+c) How can temporal dynamics be incorporated (ratings change over time)?
+d) Describe how to handle multiple types of feedback (ratings, clicks, purchases)
+\end{problembox}
+
+\begin{problembox}[title=Real-world Implementation]
+
+Design a movie recommendation system for a streaming service:
+
+a) What data would you collect from users?
+b) How would you handle the cold start problem for new users?
+c) How would you evaluate your system before deploying?
+d) What are the key engineering challenges at scale?
+e) How would you ensure diversity in recommendations?
+\end{problembox}
+
+\end{document}

@@ -392,7 +392,7 @@ $$
 {x^{3}} \\
 {\vdots} \\
 {x^{K-1}}
-\end{array}\right] \in \mathbb{R}^{K}
+\end{array}\right] \in \Real^{K}
 $$
 \end{frame}
 
@@ -454,7 +454,7 @@ How would you expect the probability contours look like?
 \end{frame}
 \begin{frame}{Softmax}
 \begin{equation*}
-Z \in \mathbb{R}^{d}
+Z \in \Real^{d}
 \end{equation*}
 \begin{equation*}
 \mathcal{F}(z_{i}) = \frac{e^{z_{i}}}{\sum_{i=1}^{d}e^{z_{i}}}
@@ -606,7 +606,7 @@ differentiating and equating to zero to solve for $\theta_{k+1}$.
 \end{frame}
 \begin{frame}{Learning Parameters}
 Now assume:
-$$g(\theta) = \sum_{i=1}^{N}\bigg[\sigma_{\theta}(x_{i}) - y_{i}\bigg]x_{i}^{j} = \mathbf{X^{T}(\sigma_{\theta}(X) - y)}$$
+$$g(\theta) = \sum_{i=1}^{N}\bigg[\sigma_{\theta}(x_{i}) - y_{i}\bigg]x_{i}^{j} = \mX\tp(\sigma_{\theta}(X) - y)}$$
 $$\pi_{i} = \sigma_{\theta}(x_{i})$$
 Let $\mathbb{H}$ represent the Hessian of $J(\theta)$
 \[
@@ -616,16 +616,16 @@ Let $\mathbb{H}$ represent the Hessian of $J(\theta)$
 = \sum_{i=1}^{N} \bigg[\frac{\partial}{\partial \theta}\sigma_{\theta}(x_{i})x_{i}^{j} - \frac{\partial}{\partial \theta} y_{i}x_{i}^{j}\bigg] = \sum_{i=1}^{N} \sigma_{\theta}(x_{i}) (1 - \sigma_{\theta}(x_{i}))x_{i}x_{i}^{T}
 \]
 \[
-= \mathbf{X^{T}}diag(\sigma_{\theta}(x_{i}) (1 - \sigma_{\theta}(x_{i})))\mathbf{X}
+= \mX\tp\text{diag}(\sigma_{\theta}(x_{i}) (1 - \sigma_{\theta}(x_{i})))\mathbf{X}
 \]
 \end{frame}
 \begin{frame}{Iteratively reweighted least squares (IRLS)}
 For binary logistic regression, recall that the gradient and Hessian of the negative log-likelihood are given by:
 \[
-g(\theta)_{k} = \mathbf{X^{T}(\pi_{k} - y)}
+g(\theta)_{k} = \mX\tp(\pi_{k} - y)}
 \]
 \[
-\mathbf{H}_{k} = \mathbf{X}^{T}S_{k}\mathbf{X}
+\mH_k = \mX\tp S_k \mX
 \]
 \[
 \mathbf{S}_{k} = diag(\pi_{1k}(1 - \pi_{1k}), \ldots, \pi_{nk}(1 - \pi_{nk}))

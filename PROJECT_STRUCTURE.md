@@ -25,22 +25,27 @@ category/
 │       ├── diagrams/
 │       ├── figures/
 │       └── notes/
-└── slides/
-    ├── topic-slide.tex
-    ├── topic-slide.pdf
-    ├── topic-slide.key        # Keynote presentations
-    └── topic-slide.pptx       # PowerPoint presentations
+├── slides/
+│   ├── topic-slide.tex
+│   ├── topic-slide.pdf
+│   ├── topic-slide.key        # Keynote presentations
+│   └── topic-slide.pptx       # PowerPoint presentations
+└── tutorials/                  # Comprehensive practice materials
+    ├── topic-tutorial.tex
+    ├── topic-tutorial.pdf
+    └── solutions/              # Solution files if separate
 ```
 
 **Note**: All notebooks are stored flat in the main `/notebooks/` directory, not organized by category.
 
 ## Key Points
 1. **Slides (.tex files)** go directly in `category/slides/`
-2. **Presentation files (.key, .pptx)** go directly in `category/slides/`
-3. **Assets (figures, diagrams)** go in `category/assets/topic-name/`
-4. **Handwritten notes/PDFs** go in `category/assets/topic-name/notes/`
-5. **Notebooks** go in main `/notebooks/` directory (flat structure, not by category)
-6. **PDFs** are generated from .tex files and kept with slides
+2. **Tutorials (.tex files)** go directly in `category/tutorials/`
+3. **Presentation files (.key, .pptx)** go directly in `category/slides/`
+4. **Assets (figures, diagrams)** go in `category/assets/topic-name/`
+5. **Handwritten notes/PDFs** go in `category/assets/topic-name/notes/`
+6. **Notebooks** go in main `/notebooks/` directory (flat structure, not by category)
+7. **PDFs** are generated from .tex files and kept with slides/tutorials
 
 ## Examples
 - `supervised/slides/decision-trees.tex` - Decision tree slides

@@ -28,6 +28,7 @@ Detailed tutorials on fundamental machine learning algorithms.
 - [Naive Bayes](supervised/tutorials/naive-bayes.pdf) - Probabilistic classification and Bayesian inference
 - [Feature Selection](supervised/tutorials/feature-selection.pdf) - Variable selection and dimensionality reduction
 - [Lasso Regression](supervised/tutorials/lasso-regression.pdf) - L1 regularization and sparse feature selection
+- [Matrix Factorization](supervised/tutorials/matrix-factorization.pdf) - Collaborative filtering and recommendation systems
 
 ### Coming Soon
 Additional tutorials are being developed for:
@@ -39,12 +40,12 @@ Additional tutorials are being developed for:
 
 Each tutorial includes:
 
-- **📚 Comprehensive Theory** - Mathematical foundations with intuitive explanations
-- **🎯 Real-World Examples** - Practical applications with step-by-step solutions
-- **📊 Visual Learning** - Diagrams, plots, and geometric interpretations
-- **💡 Practice Problems** - Graded exercises from basic to advanced levels
-- **🔍 Implementation Tips** - Practical guidance for coding and debugging
-- **📈 Best Practices** - Industry-standard approaches and common pitfalls
+- **Comprehensive Theory** - Mathematical foundations with intuitive explanations
+- **Real-World Examples** - Practical applications with step-by-step solutions
+- **Visual Learning** - Diagrams, plots, and geometric interpretations
+- **Practice Problems** - Graded exercises from basic to advanced levels
+- **Implementation Tips** - Practical guidance for coding and debugging
+- **Best Practices** - Industry-standard approaches and common pitfalls
 
 ## How to Use These Tutorials
 
@@ -82,10 +83,10 @@ All tutorials are written in LaTeX and compiled to high-quality PDFs. The source
 
 ## Quick Navigation
 
-- [🏠 Course Homepage](index.qmd) - Return to main page
-- [📽️ Lecture Slides](slides.qmd) - Companion presentation materials
-- [💻 Interactive Notebooks](notebooks.qmd) - Hands-on coding examples
-- [👨‍🏫 Instructor](https://nipunbatra.github.io) - Nipun Batra's homepage
+- [Course Homepage](index.qmd) - Return to main page
+- [Lecture Slides](slides.qmd) - Companion presentation materials
+- [Interactive Notebooks](notebooks.qmd) - Hands-on coding examples
+- [Instructor](https://nipunbatra.github.io) - Nipun Batra's homepage
 
 ## Feedback
 
