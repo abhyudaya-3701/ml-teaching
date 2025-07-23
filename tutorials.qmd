@@ -25,12 +25,12 @@ Detailed tutorials on fundamental machine learning algorithms.
 - [K-Nearest Neighbors](supervised/tutorials/knn.pdf) - Instance-based learning and distance metrics
 - [Support Vector Machines](supervised/tutorials/svm.pdf) - Margin maximization, kernels, and optimization
 - [Bias-Variance Analysis](supervised/tutorials/bias-variance.pdf) - Model complexity and generalization trade-offs
+- [Naive Bayes](supervised/tutorials/naive-bayes.pdf) - Probabilistic classification and Bayesian inference
+- [Feature Selection](supervised/tutorials/feature-selection.pdf) - Variable selection and dimensionality reduction
+- [Lasso Regression](supervised/tutorials/lasso-regression.pdf) - L1 regularization and sparse feature selection
 
 ### Coming Soon
 Additional tutorials are being developed for:
-
-- **Naive Bayes** - Probabilistic classification and Bayesian inference
-- **Feature Selection** - Variable selection and dimensionality reduction
 - **Neural Networks** - Multilayer perceptrons, backpropagation, and deep learning
 - **Clustering** - K-means, hierarchical clustering, and dimensionality reduction
 - **Optimization** - Gradient descent, convex optimization, and advanced methods

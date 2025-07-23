@@ -1,0 +1,358 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{bm}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage[bookmarks=false]{hyperref}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{enumitem}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning, shapes.geometric}
+\usepackage[margin=1in]{geometry}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Tutorial: Feature Selection}
+\lhead{ES335 - Machine Learning}
+\rfoot{Page \thepage}
+
+\titleformat{\section}{\Large\bfseries\color{blue!75!black}}{\thesection}{1em}{}
+\titleformat{\subsection}{\large\bfseries\color{blue!60!black}}{\thesubsection}{1em}{}
+
+\usepackage{../../shared/styles/conventions}
+
+\newcounter{exercise}
+\setcounter{exercise}{0}
+
+\DeclareMathOperator*{\argminF}{argmin}
+
+\title{\textbf{Tutorial: Feature Selection} \\ \textit{Cheat Sheet and Practice Problems}}
+\author{ES335 - Machine Learning \\ IIT Gandhinagar}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Summary from Slides}
+
+\subsection{Baseline Models}
+
+Before applying sophisticated feature selection techniques, it's important to establish simple baseline models to compare against:
+
+\begin{itemize}
+    \item \textbf{Mean Model}: $\hat{y} = \text{mean of training set}$
+    \item \textbf{Median Model}: $\hat{y} = \text{median of training set}$  
+    \item \textbf{Mode Model}: $\hat{y} = \text{mode of training set}$
+    \item \textbf{Random Model}: $\hat{y} \sim \text{Uniform}(\min(\text{training set}), \max(\text{training set}))$
+\end{itemize}
+
+These baselines help establish whether more complex feature selection methods provide meaningful improvements.
+
+\subsection{The Feature Selection Problem}
+
+When selecting the best subset of features from $d$ available features, exhaustive enumeration considers all possible feature combinations. Each feature can either be included or excluded, leading to a binary choice table:
+
+\begin{center}
+\begin{tabular}{c|c|c|c}
+$\text{Feature}_1$ & $\text{Feature}_2$ & $\cdots$ & $\text{Feature}_d$ \\
+\hline
+True & False & $\cdots$ & False \\
+False & True & $\cdots$ & False \\
+True & True & $\cdots$ & False \\
+$\vdots$ & $\vdots$ & $\vdots$ & $\vdots$ \\
+True & True & $\cdots$ & True \\
+\end{tabular}
+\end{center}
+
+This results in $2^d$ possible feature combinations, making exhaustive enumeration computationally prohibitive for large $d$.
+
+\subsection{Stepwise Forward Selection (SFS)}
+
+Forward selection is a greedy algorithm that starts with an empty feature set and iteratively adds the best feature:
+
+\textbf{Algorithm}:
+\begin{enumerate}
+    \item Initialize: $F = \{\}$ (empty feature set)
+    \item For $i = 1$ to $K$ (desired number of features):
+    \begin{enumerate}
+        \item $F_i = \argminF_{\text{feature} \notin F} \text{Loss}(F \cup \{\text{feature}\})$
+        \item $F = F \cup \{F_i\}$
+    \end{enumerate}
+\end{enumerate}
+
+Where $\text{Loss}(\text{features})$ denotes the loss incurred by the model trained with the specified features.
+
+\textbf{California Housing Example}:
+The algorithm was applied to the California Housing Dataset to predict median selling price. Results showed:
+
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Iteration} & \textbf{Added Feature} & \textbf{MSE} \\
+\hline
+1 & Median Income of block & 0.97 \\
+2 & Avg. number of rooms in the block & 0.63 \\
+3 & Latitude & 0.65 \\
+4 & Longitude & 0.66 \\
+\hline
+\end{tabular}
+\end{center}
+
+This example demonstrates that after the first two features, additional features provide minimal improvement or even degrade performance.
+
+\subsection{Stepwise Backward Selection (SBS)}
+
+Backward selection operates in the opposite direction of forward selection:
+\begin{itemize}
+    \item Start with all features
+    \item Iteratively remove the feature whose removal causes the least increase in loss
+    \item Continue until desired number of features is reached
+\end{itemize}
+
+\subsection{Time Complexity Analysis}
+
+Both forward and backward selection have $O(d^2)$ time complexity where $d$ is the number of features.
+
+For forward selection, the number of evaluations is:
+\begin{align}
+\text{Total evaluations} &= d + (d-1) + (d-2) + \cdots + 1 \\
+&= \sum_{i=1}^{d} i \\
+&= \frac{d(d+1)}{2} \\
+&= O(d^2)
+\end{align}
+
+This quadratic complexity makes forward and backward selection much more tractable than exhaustive enumeration's $O(2^d)$ complexity.
+
+\section{Practice Problems}
+
+\stepcounter{exercise}
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=\textbf{Exercise \theexercise: Baseline Model Selection}]
+For a regression dataset with training targets $y = [2.1, 3.5, 1.8, 4.2, 2.7, 3.1, 2.9, 3.8, 2.4, 3.6]$:
+
+\begin{enumerate}[label=(\alph*)]
+    \item Calculate the mean model prediction
+    \item Calculate the median model prediction  
+    \item If the test set has targets $y_{test} = [2.8, 3.2, 2.5]$, compute the MSE for both baseline models
+    \item Which baseline performs better on the test set?
+\end{enumerate}
+\end{tcolorbox}
+
+\stepcounter{exercise}
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=\textbf{Exercise \theexercise: Exhaustive Search Complexity}]
+You are working with different sized feature sets. Calculate the number of model evaluations required for exhaustive feature selection:
+
+\begin{enumerate}[label=(\alph*)]
+    \item Dataset with 5 features
+    \item Dataset with 10 features
+    \item Dataset with 20 features
+    \item If each evaluation takes 2 seconds, how long would exhaustive selection take for each case?
+    \item At what point does exhaustive selection become impractical (assume 1 day = reasonable time limit)?
+\end{enumerate}
+\end{tcolorbox}
+
+\stepcounter{exercise}
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=\textbf{Exercise \theexercise: Forward Selection Algorithm Trace}]
+Given a dataset with features $\{x_1, x_2, x_3, x_4\}$ and their individual performance when used alone:
+\begin{itemize}
+    \item Feature $x_1$: MSE = 3.2
+    \item Feature $x_2$: MSE = 2.1
+    \item Feature $x_3$: MSE = 4.5  
+    \item Feature $x_4$: MSE = 2.8
+\end{itemize}
+
+Second iteration MSE values (adding to best single feature):
+\begin{itemize}
+    \item $\{x_2, x_1\}$: MSE = 1.5
+    \item $\{x_2, x_3\}$: MSE = 2.0
+    \item $\{x_2, x_4\}$: MSE = 1.8
+\end{itemize}
+
+Show the complete forward selection trace for 2 iterations, explaining your feature choices at each step.
+\end{tcolorbox}
+
+\stepcounter{exercise}
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=\textbf{Exercise \theexercise: Time Complexity Derivation}]
+Derive the time complexity for backward selection:
+
+\begin{enumerate}[label=(\alph*)]
+    \item Starting with $d$ features, how many models are evaluated in the first iteration?
+    \item How many models in the second iteration?
+    \item Write the general formula for total evaluations over all iterations
+    \item Show that this leads to $O(d^2)$ complexity
+    \item Compare the exact number of evaluations between forward and backward selection for $d=6$
+\end{enumerate}
+\end{tcolorbox}
+
+\stepcounter{exercise}
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=\textbf{Exercise \theexercise: California Housing Analysis}]
+Based on the California Housing example from the slides:
+
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Iteration} & \textbf{Added Feature} & \textbf{MSE} \\
+\hline
+1 & Median Income & 0.97 \\
+2 & Avg. rooms & 0.63 \\
+3 & Latitude & 0.65 \\
+4 & Longitude & 0.66 \\
+\hline
+\end{tabular}
+\end{center}
+
+\begin{enumerate}[label=(\alph*)]
+    \item Why did the MSE increase from iteration 2 to 3?
+    \item At which iteration should feature selection stop? Justify your answer
+    \item What does this suggest about the importance of geographic features vs. economic features?
+    \item How would you modify the stopping criterion to prevent overfitting?
+\end{enumerate}
+\end{tcolorbox}
+
+\stepcounter{exercise}
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=\textbf{Exercise \theexercise: Forward vs Backward Selection Comparison}]
+Consider a dataset with 4 features where forward selection gives the order $x_2 \to x_1 \to x_4 \to x_3$ and backward selection removes features in order $x_3 \to x_4 \to x_1 \to x_2$.
+
+\begin{enumerate}[label=(\alph*)]
+    \item Are these results consistent? Explain why or why not
+    \item Which features appear to be most important according to both methods?
+    \item In what scenarios might forward and backward selection give different rankings?
+    \item Given computational constraints, which method would you choose and why?
+\end{enumerate}
+\end{tcolorbox}
+
+\stepcounter{exercise}
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=\textbf{Exercise \theexercise: Greedy Algorithm Limitations}]
+Forward selection is a greedy algorithm that makes locally optimal choices.
+
+\begin{enumerate}[label=(\alph*)]
+    \item Construct a simple example where forward selection fails to find the globally optimal feature subset
+    \item Explain why this happens in terms of feature interactions
+    \item What are the advantages of using greedy approaches despite this limitation?
+    \item How does the $O(d^2)$ complexity compare to exhaustive search $O(2^d)$ for $d = \{5, 10, 15, 20\}$?
+\end{enumerate}
+\end{tcolorbox}
+
+\stepcounter{exercise}
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=\textbf{Exercise \theexercise: Feature Interaction Effects}]
+Consider features $x_1$, $x_2$, and $x_3$ with the following performance:
+\begin{itemize}
+    \item Individual: MSE($x_1$) = 5.0, MSE($x_2$) = 4.5, MSE($x_3$) = 6.0
+    \item Pairs: MSE($x_1, x_2$) = 4.2, MSE($x_1, x_3$) = 3.0, MSE($x_2, x_3$) = 4.1
+    \item All three: MSE($x_1, x_2, x_3$) = 2.8
+\end{itemize}
+
+\begin{enumerate}[label=(\alph*)]
+    \item Trace through forward selection step by step
+    \item Which feature combination would exhaustive search find as optimal?
+    \item Does forward selection find the optimal solution in this case?
+    \item What does this reveal about feature interactions?
+\end{enumerate}
+\end{tcolorbox}
+
+\stepcounter{exercise}
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=\textbf{Exercise \theexercise: Stopping Criteria Design}]
+Design appropriate stopping criteria for forward selection in different scenarios:
+
+\begin{enumerate}[label=(\alph*)]
+    \item \textbf{Scenario 1}: Limited computational budget - can only evaluate 20 models
+    \item \textbf{Scenario 2}: Performance-based - stop when improvement is less than 5\%
+    \item \textbf{Scenario 3}: Cross-validation based - prevent overfitting on training set
+    \item For each scenario, write the modified algorithm and explain the trade-offs
+    \item Which stopping criterion would be most appropriate for the California Housing example?
+\end{enumerate}
+\end{tcolorbox}
+
+\stepcounter{exercise}
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=\textbf{Exercise \theexercise: Algorithm Implementation}]
+Implement the forward selection algorithm in pseudocode:
+
+\begin{enumerate}[label=(\alph*)]
+    \item Write detailed pseudocode including input parameters and return values
+    \item Add appropriate error checking and edge cases
+    \item Include provisions for different stopping criteria
+    \item Modify your algorithm to track and return the MSE at each iteration
+    \item How would you parallelize the feature evaluation step?
+\end{enumerate}
+\end{tcolorbox}
+
+\stepcounter{exercise}
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=\textbf{Exercise \theexercise: Computational Scaling Analysis}]
+Analyze how forward selection scales with dataset size:
+
+Given:
+\begin{itemize}
+    \item Dataset with $n$ samples and $d$ features
+    \item Each model training takes $O(nd^2)$ time (assuming linear regression)
+    \item Forward selection evaluates $O(d^2)$ models total
+\end{itemize}
+
+\begin{enumerate}[label=(\alph*)]
+    \item What is the overall time complexity of forward selection?
+    \item How does this compare to training a single model with all features?
+    \item For $n = 10,000$ and $d = 50$, estimate the computational overhead
+    \item At what ratio of $n$ to $d$ does forward selection become impractical?
+\end{enumerate}
+\end{tcolorbox}
+
+\stepcounter{exercise}
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=\textbf{Exercise \theexercise: Real-World Application Design}]
+Design a feature selection strategy for a real-world housing price prediction problem:
+
+\textbf{Dataset}: 50,000 houses with features including:
+\begin{itemize}
+    \item 20 continuous features (area, age, rooms, etc.)
+    \item 15 categorical features (neighborhood, style, etc.) 
+    \item 10 derived features (price per sq ft, etc.)
+\end{itemize}
+
+\begin{enumerate}[label=(\alph*)]
+    \item Would you use forward or backward selection? Justify your choice
+    \item Design an appropriate baseline model for comparison
+    \item What stopping criteria would you implement?
+    \item How would you handle categorical features in your selection process?
+    \item Outline a validation strategy to ensure reliable feature selection
+\end{enumerate}
+\end{tcolorbox}
+
+\stepcounter{exercise}
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=\textbf{Exercise \theexercise: Advanced Complexity Analysis}]
+Compare the theoretical and practical complexity of different approaches:
+
+\begin{enumerate}[label=(\alph*)]
+    \item For $d = 25$ features, calculate the exact number of model evaluations for:
+    \begin{itemize}
+        \item Exhaustive search
+        \item Forward selection  
+        \item Backward selection
+    \end{itemize}
+    \item If you can evaluate 1000 models per hour, how long would each method take?
+    \item At what value of $d$ does forward selection become faster than exhaustive search by a factor of 100?
+    \item Derive the "break-even" point where $2^d = \frac{d(d+1)}{2}$
+\end{enumerate}
+\end{tcolorbox}
+
+\stepcounter{exercise}
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=\textbf{Exercise \theexercise: Advanced Feature Selection Scenarios}]
+Analyze challenging scenarios for stepwise selection:
+
+\textbf{Scenario A}: Highly correlated features where $x_1$ and $x_2$ provide similar information
+\textbf{Scenario B}: Features that are only useful in combination (XOR-type relationships)  
+\textbf{Scenario C}: Noisy features that occasionally appear useful due to random correlations
+
+\begin{enumerate}[label=(\alph*)]
+    \item For each scenario, predict how forward selection would behave
+    \item Design synthetic datasets to test these scenarios
+    \item What modifications to the basic algorithm could help handle these cases?
+    \item How would cross-validation help identify and mitigate these issues?
+\end{enumerate}
+\end{tcolorbox}
+
+\end{document}

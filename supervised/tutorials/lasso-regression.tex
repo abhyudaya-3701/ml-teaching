@@ -1,0 +1,263 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{bm}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage[bookmarks=false]{hyperref}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{enumitem}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning, shapes.geometric}
+\usepackage[margin=1in]{geometry}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Tutorial: Lasso Regression}
+\lhead{ES335 - Machine Learning}
+\rfoot{Page \thepage}
+
+\titleformat{\section}{\Large\bfseries\color{blue!75!black}}{\thesection}{1em}{}
+\titleformat{\subsection}{\large\bfseries\color{blue!60!black}}{\thesubsection}{1em}{}
+
+\usepackage{../../shared/styles/conventions}
+
+\newcounter{exercise}
+\setcounter{exercise}{0}
+
+\title{\textbf{Tutorial: Lasso Regression} \\ \textit{Cheat Sheet and Practice Problems}}
+\author{ES335 - Machine Learning \\ IIT Gandhinagar}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Summary from Slides}
+
+\subsection{Introduction to Lasso}
+
+\textbf{What is Lasso?}
+\begin{itemize}
+    \item LASSO: \textbf{Least Absolute Shrinkage and Selection Operator}
+    \item Popular regularization technique for linear regression
+    \item Leads to sparse solutions (automatic feature selection)
+    \item Uses L1 regularization penalty
+\end{itemize}
+
+\subsection{Objective Function}
+
+\textbf{Constrained Form:}
+$$\vtheta_{\text{opt}} = \argmin_{\vtheta} (\vy - \mX\vtheta)^T(\vy - \mX\vtheta) \text{ subject to } ||\vtheta||_1 < s$$
+
+\textbf{Unconstrained Form (using KKT conditions):}
+$$\vtheta_{\text{opt}} = \argmin_{\vtheta} \{(\vy - \mX\vtheta)^T(\vy - \mX\vtheta) + \delta^2||\vtheta||_1\}$$
+
+where $\delta^2$ is the regularization parameter and $||\vtheta||_1 = \sum_{j=0}^d |\theta_j|$
+
+\subsection{Key Properties}
+
+\textbf{Sparsity:} Lasso sets coefficients of less important features to exactly zero
+
+\textbf{Feature Selection:} Automatically performs variable selection
+
+\textbf{Convex but Non-differentiable:} The L1 penalty is not differentiable at zero
+
+\subsection{Solving Lasso: Coordinate Descent}
+
+Since the L1 penalty is not differentiable everywhere, we cannot use standard gradient descent. Instead, we use \textbf{coordinate descent}:
+
+\textbf{Key Idea:}
+\begin{itemize}
+    \item Optimize one parameter at a time while keeping others fixed
+    \item Turns multi-dimensional problem into series of one-dimensional problems
+    \item No step-size selection needed
+    \item Converges for Lasso objective
+\end{itemize}
+
+\subsection{Coordinate Descent Algorithm}
+
+For each parameter $\theta_j$:
+
+\textbf{Step 1:} Compute $\rho_j$ and $z_j$:
+$$\rho_j = \sum_{i=1}^n x_i^j(y_i - \hat{y}_i^{(-j)})$$
+$$z_j = \sum_{i=1}^n (x_i^j)^2$$
+
+where $\hat{y}_i^{(-j)}$ is the prediction without the $j$-th parameter.
+
+\textbf{Step 2:} Apply soft-thresholding:
+$$\theta_j = \begin{cases}
+\frac{\rho_j + \frac{\delta^2}{2}}{z_j} & \text{if } \rho_j < -\frac{\delta^2}{2} \\
+0 & \text{if } -\frac{\delta^2}{2} \leq \rho_j \leq \frac{\delta^2}{2} \\
+\frac{\rho_j - \frac{\delta^2}{2}}{z_j} & \text{if } \rho_j > \frac{\delta^2}{2}
+\end{cases}$$
+
+\subsection{Subgradients}
+
+For non-differentiable functions, we use \textbf{subgradients}:
+
+For $f(x) = |x|$:
+$$\frac{\partial |x|}{\partial x} = \begin{cases}
+1 & \text{if } x > 0 \\
+[-1, 1] & \text{if } x = 0 \\
+-1 & \text{if } x < 0
+\end{cases}$$
+
+\subsection{Lasso vs Ridge Comparison}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|c|c|}
+\hline
+\textbf{Property} & \textbf{Ridge (L2)} & \textbf{Lasso (L1)} \\
+\hline
+Penalty & $\sum_{j} \theta_j^2$ & $\sum_{j} |\theta_j|$ \\
+Sparsity & No & Yes \\
+Feature Selection & No & Yes \\
+Differentiable & Yes & No \\
+Solution Method & Closed form & Coordinate descent \\
+\hline
+\end{tabular}
+\end{table}
+
+\section{Practice Problems}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Basic Understanding]
+
+Explain the difference between Ridge and Lasso regression in terms of:
+a) The penalty term used
+b) The effect on parameter values
+c) Feature selection capability
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Objective Function]
+
+Write the complete Lasso objective function for a dataset with $n$ samples and $d$ features. Define all terms clearly.
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: L1 Norm Calculation]
+
+Given $\vtheta = [2, -3, 0, 1.5, -0.5]$, calculate:
+a) The L1 norm $||\vtheta||_1$
+b) The L2 norm $||\vtheta||_2$
+c) How many non-zero parameters are there?
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Subgradient Calculation]
+
+For the function $f(x) = |x|$, find the subgradient at:
+a) $x = 3$
+b) $x = -2$ 
+c) $x = 0$
+
+Explain why the subgradient at $x = 0$ is an interval rather than a single value.
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Coordinate Descent Setup]
+
+For a simple dataset with one feature:
+$$X = \begin{bmatrix} 1 & 2 \\ 1 & 3 \\ 1 & 1 \end{bmatrix}, \quad Y = \begin{bmatrix} 4 \\ 5 \\ 3 \end{bmatrix}$$
+
+Set up the coordinate descent algorithm. Calculate $\rho_0$, $\rho_1$, $z_0$, and $z_1$ for the initial iteration with $\theta_0 = 0$, $\theta_1 = 0$.
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Soft Thresholding]
+
+Apply the soft-thresholding operator with $\delta^2 = 2$ to the following $\rho$ values:
+a) $\rho = 3$ with $z = 4$
+b) $\rho = -0.5$ with $z = 2$  
+c) $\rho = 1.5$ with $z = 3$
+
+Calculate the resulting $\theta$ values using the Lasso coordinate descent update rule.
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Sparsity Analysis]
+
+Explain why Lasso regression produces sparse solutions while Ridge regression does not. Use the geometric interpretation involving the constraint regions.
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Regularization Parameter Selection]
+
+You have a Lasso model with varying regularization parameter $\delta^2$:
+- $\delta^2 = 0$: All features retained, MSE = 0.1
+- $\delta^2 = 1$: 8/10 features retained, MSE = 0.15  
+- $\delta^2 = 5$: 3/10 features retained, MSE = 0.25
+- $\delta^2 = 10$: 1/10 features retained, MSE = 0.45
+
+Which value would you choose and why? Consider the bias-variance tradeoff.
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Manual Coordinate Descent]
+
+Perform one complete iteration of coordinate descent for the Lasso problem:
+
+Dataset: $(x_1, y_1) = (1, 2)$, $(x_2, y_2) = (2, 3)$
+
+Model: $y = \theta_1 x$ (no intercept)
+
+Initial: $\theta_1 = 1$, $\delta^2 = 0.5$
+
+Calculate the updated $\theta_1$ value.
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Feature Selection Scenario]
+
+You have a dataset with 1000 features but only 100 samples. Explain:
+a) Why this is challenging for ordinary least squares
+b) How Lasso regression can help
+c) What you expect to happen to the parameter estimates
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Convergence Analysis]
+
+In coordinate descent for Lasso:
+a) Why don't we need to choose a step size?
+b) What determines the order of coordinate updates?
+c) How do we know when the algorithm has converged?
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Regularization Path]
+
+Describe what happens to the Lasso solution as $\delta^2$ increases from 0 to infinity:
+a) At $\delta^2 = 0$
+b) For small positive $\delta^2$ 
+c) For large $\delta^2$
+d) At $\delta^2 \to \infty$
+
+Sketch the regularization path showing how parameters change.
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Computational Comparison]
+
+Compare the computational complexity of solving:
+a) Ordinary least squares: $(X^T X)^{-1} X^T Y$
+b) Ridge regression: $(X^T X + \delta^2 I)^{-1} X^T Y$  
+c) Lasso regression using coordinate descent
+
+When is each method preferred?
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Multi-dimensional Soft Thresholding]
+
+For a 3-feature problem with current values:
+$$\rho = [2.5, -0.8, 1.2], \quad z = [4, 2, 3], \quad \delta^2 = 1.5$$
+
+Apply coordinate descent to update all three parameters $\theta_0$, $\theta_1$, $\theta_2$.
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Real-world Application]
+
+You're building a model to predict house prices with 50 potential features (size, location, age, etc.). Some features may be irrelevant or redundant. 
+
+a) Explain why Lasso might be preferred over ordinary least squares
+b) How would you choose the regularization parameter?
+c) How would you interpret the final model with only 8 non-zero coefficients?
+\end{tcolorbox}
+
+\end{document}
