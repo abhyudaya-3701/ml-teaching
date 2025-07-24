@@ -64,13 +64,13 @@ These are template repositories used for GitHub Classroom:
 
 ---
 
-## ES654 - Machine Learning for IoT
+## ES654 - Machine Learning
 
-Historical assignments focusing on machine learning applications in IoT and sensor data:
+Historical assignments focusing on machine learning concepts and applications:
 
 ::: {.topic-card}
 <div class="topic-title">ES654 2023 Template</div>
-<div class="topic-description">Latest template for machine learning applications in IoT systems.</div>
+<div class="topic-description">Latest template for machine learning concepts and algorithms.</div>
 
 <div class="topic-links">
 [View Template](https://github.com/nipunbatra/ES654-2023-template){.topic-link}
@@ -80,7 +80,7 @@ Historical assignments focusing on machine learning applications in IoT and sens
 
 ::: {.topic-card}
 <div class="topic-title">ES654 2022 Code</div>
-<div class="topic-description">Machine learning implementations for IoT and sensor data analysis (2022).</div>
+<div class="topic-description">Machine learning implementations and algorithmic approaches (2022).</div>
 
 <div class="topic-links">
 [View Template](https://github.com/nipunbatra/ES654-2022-code){.topic-link}
@@ -90,7 +90,7 @@ Historical assignments focusing on machine learning applications in IoT and sens
 
 ::: {.topic-card}
 <div class="topic-title">ES654 2021 Code</div>
-<div class="topic-description">Machine learning techniques for IoT applications and embedded systems (2021).</div>
+<div class="topic-description">Machine learning techniques and practical implementations (2021).</div>
 
 <div class="topic-links">
 [View Template](https://github.com/nipunbatra/ES654-2021-code){.topic-link}
@@ -100,7 +100,7 @@ Historical assignments focusing on machine learning applications in IoT and sens
 
 ::: {.topic-card}
 <div class="topic-title">ES654 2020 Code</div>
-<div class="topic-description">Foundational machine learning concepts applied to IoT and sensor networks (2020).</div>
+<div class="topic-description">Foundational machine learning concepts and algorithmic implementations (2020).</div>
 
 <div class="topic-links">
 [View Template](https://github.com/nipunbatra/ES654-2020-code){.topic-link}
