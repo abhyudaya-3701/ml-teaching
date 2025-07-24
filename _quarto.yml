@@ -31,6 +31,8 @@ website:
         text: Tutorials
       - href: notebooks.qmd
         text: Notebooks
+      - href: assignments.qmd
+        text: Assignments
     right:
       - href: https://github.com/nipunbatra/ml-teaching
         text: GitHub
