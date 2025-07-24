@@ -192,7 +192,16 @@ J(\theta) = \sum (y_{i} - \hat{y}_{i})^{2}
 \begin{equation*}
 \hat{y}_{i} = \sigma(\mX\vtheta)
 \end{equation*}
-Answer: No (Non-Convex) \\ \hspace{1.2cm} (See Jupyter Notebook)
+Answer: \textbf{No (Non-Convex)}
+
+\pause
+\textbf{Why?} Squared loss + sigmoid creates non-convex surface:
+\begin{itemize}[<+->]
+\item Sigmoid $\sigma(z) = \frac{1}{1+e^{-z}}$ is non-linear
+\item Composition $(\sigma(\mX\vtheta) - y)^2$ has multiple local minima
+\item No guarantee gradient descent finds global optimum
+\item \textcolor{red}{This is why we need cross-entropy loss instead!}
+\end{itemize}
 \end{frame}
 
 
@@ -252,7 +261,7 @@ P(y | X, \theta) = \prod_{i=1}^{n} P(y_{i} | x_{i}, \theta) = \prod_{i=1}^{n} \B
 \item $P(D_1 = x|\theta) = \theta^x(1-\theta)^{(1-x)}$
 \item Verify the above: if x = 0 (Tails), $P(D_1 = x|\theta) = 1 - \theta$ and if x = 1 (Heads), $P(D_1 = x|\theta)  = \theta$
 \item What is $P(D_1, D_2, ..., D_n|\theta)$?
-\item $P(D_1, D_2, ..., D_n|\theta) = P(D_1\theta)P(D_2|\theta)...P(D_n|\theta)$
+\item $P(D_1, D_2, ..., D_n|\theta) = P(D_1|\theta)P(D_2|\theta)...P(D_n|\theta)$
 \item $P(D_1, D_2, ..., D_n|\theta) =\theta^{n_h}(1-\theta)^{n_t}$
 \item Log-likelihood = $\mathcal{LL}(\theta) = n_h\log(\theta) + n_t\log(1-\theta)$
 \item $\frac{\partial \mathcal{LL}(\theta)}{\partial \theta} = 0 \implies \frac{n_h}{\theta} + \frac{n_t}{1-\theta} = 0 \implies \theta_{MLE} = \frac{n_h}{n_h + n_t}$
@@ -610,7 +619,7 @@ differentiating and equating to zero to solve for $\theta_{k+1}$.
 \end{frame}
 \begin{frame}{Learning Parameters}
 Now assume:
-$$g(\theta) = \sum_{i=1}^{N}\bigg[\sigma_{\theta}(x_{i}) - y_{i}\bigg]x_{i}^{j} = \mX\tp(\sigma_{\theta}(X) - y)}$$
+$$g(\theta) = \sum_{i=1}^{N}\bigg[\sigma_{\theta}(x_{i}) - y_{i}\bigg]x_{i}^{j} = \mX\tp(\sigma_{\theta}(X) - y)$$
 $$\pi_{i} = \sigma_{\theta}(x_{i})$$
 Let $\mathbb{H}$ represent the Hessian of $J(\theta)$
 \[
@@ -626,7 +635,7 @@ Let $\mathbb{H}$ represent the Hessian of $J(\theta)$
 \begin{frame}{Iteratively reweighted least squares (IRLS)}
 For binary logistic regression, recall that the gradient and Hessian of the negative log-likelihood are given by:
 \[
-g(\theta)_{k} = \mX\tp(\pi_{k} - y)}
+g(\theta)_{k} = \mX\tp(\pi_{k} - y)
 \]
 \[
 \mH_k = \mX\tp S_k \mX
@@ -658,6 +667,95 @@ L1 Regularization:
 \begin{equation*}
 J(\theta) = J_{1}(\theta) + \lambda|\theta|
 \end{equation*}
+\end{frame}
+
+\section{Class Imbalance Handling}
+
+\begin{frame}{The Problem: Imbalanced Data}
+\begin{itemize}[<+->]
+\item \textbf{Class Imbalance}: When one class has significantly more samples than others
+\item \textbf{Examples}:
+    \begin{itemize}
+    \item Medical diagnosis: 99\% healthy, 1\% disease
+    \item Fraud detection: 99.9\% legitimate, 0.1\% fraud
+    \item Email spam: 90\% legitimate, 10\% spam
+    \end{itemize}
+\item \textbf{Problem}: Standard logistic regression biased toward majority class
+\item \textbf{Naive approach fails}: Predicting all samples as majority class
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Impact on Model Performance}
+\textbf{With 99\% class 0, 1\% class 1}:
+\begin{itemize}[<+->]
+\item \textbf{Naive classifier}: Always predict class 0 → 99\% accuracy!
+\item \textbf{But}: 0\% recall for class 1 (complete failure)
+\item \textbf{Standard metrics misleading}:
+    \begin{itemize}
+    \item Accuracy = 99\% (looks great, but useless)
+    \item Precision for class 1 = undefined (no predictions)
+    \item Recall for class 1 = 0\% (misses all positive cases)
+    \end{itemize}
+\item \textbf{Need}: Better evaluation metrics and techniques
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Solution 1: Weighted Loss Function}
+\textbf{Modify the cost function to penalize minority class errors more}:
+$$J(\vtheta) = -\sum_{i=1}^{N} w_i \left[y_i \log(\sigma(\vtheta\tp\vx_i)) + (1-y_i)\log(1-\sigma(\vtheta\tp\vx_i))\right]$$
+
+\begin{itemize}[<+->]
+\item \textbf{Class weights}: $w_i = w_0$ if $y_i = 0$, $w_i = w_1$ if $y_i = 1$
+\item \textbf{Common choice}: $w_1 = \frac{N_0}{N_1}$ (inverse frequency)
+\item \textbf{Effect}: Forces model to pay attention to minority class
+\item \textbf{Implementation}: Available in most ML libraries (sklearn: \texttt{class\_weight='balanced'})
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Solution 2: Threshold Adjustment}
+\begin{itemize}[<+->]
+\item \textbf{Standard}: Predict class 1 if $P(y=1|\vx) > 0.5$
+\item \textbf{Imbalanced}: Predict class 1 if $P(y=1|\vx) > \tau$ where $\tau < 0.5$
+\item \textbf{Threshold selection}:
+    \begin{itemize}
+    \item Plot precision-recall curve or ROC curve
+    \item Choose $\tau$ that optimizes F1-score or business metric
+    \item Cross-validation to avoid overfitting
+    \end{itemize}
+\item \textbf{Trade-off}: Lower threshold → higher recall, lower precision
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Solution 3: Resampling Techniques}
+\textbf{Modify the training data distribution}:
+\begin{itemize}[<+->]
+\item \textbf{Undersampling}: Remove samples from majority class
+    \begin{itemize}
+    \item Pro: Faster training, balanced classes
+    \item Con: Loss of information, smaller dataset
+    \end{itemize}
+\item \textbf{Oversampling}: Duplicate samples from minority class
+    \begin{itemize}
+    \item Pro: No information loss
+    \item Con: Risk of overfitting, larger dataset
+    \end{itemize}
+\item \textbf{SMOTE}: Generate synthetic minority examples
+    \begin{itemize}
+    \item Creates new samples between existing minority samples
+    \item More sophisticated than simple duplication
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Evaluation Metrics for Imbalanced Data}
+\begin{itemize}[<+->]
+\item \textbf{Don't use accuracy alone!}
+\item \textbf{Precision}: $\frac{TP}{TP + FP}$ (of predicted positives, how many correct?)
+\item \textbf{Recall/Sensitivity}: $\frac{TP}{TP + FN}$ (of actual positives, how many found?)
+\item \textbf{F1-Score}: $\frac{2 \times \text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}}$ (harmonic mean)
+\item \textbf{ROC-AUC}: Area under ROC curve (threshold-independent)
+\item \textbf{PR-AUC}: Area under precision-recall curve (better for imbalanced data)
+\end{itemize}
 \end{frame}
 
 \section{Practice and Review}

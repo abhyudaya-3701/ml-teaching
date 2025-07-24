@@ -1178,6 +1178,107 @@ What is the prediction function for a regression tree leaf node?
 \end{tcolorbox}
 \end{frame}
 
+\section{Pruning and Overfitting}
+
+\begin{frame}{The Problem: Overfitting in Decision Trees}
+\begin{itemize}[<+->]
+\item \textbf{Unpruned trees}: Can grow very deep and complex
+\item \textbf{Perfect training accuracy}: Each leaf contains single training example
+\item \textbf{But}: Poor generalization to new data
+\item \textbf{Symptoms}:
+    \begin{itemize}
+    \item High training accuracy, low test accuracy
+    \item Very deep trees with many leaves
+    \item Rules that are too specific to training data
+    \end{itemize}
+\item \textbf{Solution}: Pruning to control model complexity
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Pre-pruning (Early Stopping)}
+\textbf{Stop growing tree before it becomes too complex}:
+\begin{itemize}[<+->]
+\item \textbf{Maximum depth}: Limit tree depth (e.g., max\_depth = 5)
+\item \textbf{Minimum samples per split}: Don't split if node has < N samples
+\item \textbf{Minimum samples per leaf}: Ensure each leaf has $\geq$ M samples
+\item \textbf{Maximum features}: Consider only subset of features at each split
+\item \textbf{Minimum impurity decrease}: Only split if improvement > threshold
+\end{itemize}
+
+\textbf{Advantages}: Simple, computationally efficient \\
+\textbf{Disadvantages}: May stop too early, miss good splits later
+\end{frame}
+
+\begin{frame}{Post-pruning (Tree Simplification)}
+\textbf{Grow full tree, then remove unnecessary branches}:
+\begin{itemize}[<+->]
+\item \textbf{Algorithm}:
+    \begin{enumerate}
+    \item Grow complete tree on training data
+    \item Use validation set to evaluate subtree performance
+    \item Remove branches that don't improve validation accuracy
+    \item Repeat until no beneficial removals remain
+    \end{enumerate}
+\item \textbf{Cost Complexity Pruning}: Minimize $\text{Error} + \alpha \times \text{Tree Size}$
+\item \textbf{Advantages}: More thorough, can recover from early stopping mistakes
+\item \textbf{Disadvantages}: More computationally expensive
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Cost Complexity Pruning Algorithm}
+\textbf{Systematic approach to find optimal tree size}:
+\begin{itemize}[<+->]
+\item \textbf{Cost function}: $R_\alpha(T) = R(T) + \alpha |T|$
+    \begin{itemize}
+    \item $R(T)$: Misclassification error on validation set
+    \item $|T|$: Number of terminal nodes (tree size)
+    \item $\alpha$: Complexity parameter (penalty for larger trees)
+    \end{itemize}
+\item \textbf{Process}:
+    \begin{enumerate}
+    \item Start with full tree ($\alpha = 0$)
+    \item Gradually increase $\alpha$
+    \item At each $\alpha$, prune branches that increase cost
+    \item Select $\alpha$ with best cross-validation performance
+    \end{enumerate}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Bias-Variance Trade-off in Trees}
+\begin{itemize}[<+->]
+\item \textbf{Unpruned trees}:
+    \begin{itemize}
+    \item Low bias (can fit complex patterns)
+    \item High variance (sensitive to training data changes)
+    \item Prone to overfitting
+    \end{itemize}
+\item \textbf{Heavily pruned trees}:
+    \begin{itemize}
+    \item High bias (may miss important patterns)
+    \item Low variance (more stable predictions)
+    \item Risk of underfitting
+    \end{itemize}
+\item \textbf{Optimal pruning}: Balances bias and variance
+\item \textbf{Cross-validation}: Essential for finding this balance
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Practical Pruning Guidelines}
+\begin{itemize}[<+->]
+\item \textbf{Start simple}: Begin with restrictive pre-pruning parameters
+\item \textbf{Cross-validation}: Always use CV to select pruning parameters
+\item \textbf{Validation curves}: Plot training/validation error vs. tree complexity
+\item \textbf{Common parameters} (sklearn):
+    \begin{itemize}
+    \item \texttt{max\_depth}: Start with 3-10
+    \item \texttt{min\_samples\_split}: Try 10-100
+    \item \texttt{min\_samples\_leaf}: Try 5-50
+    \item \texttt{ccp\_alpha}: Use for cost complexity pruning
+    \end{itemize}
+\item \textbf{Domain knowledge}: Consider interpretability requirements
+\end{itemize}
+\end{frame}
+
 \section{Summary and Key Takeaways}
 
 \begin{frame}{Summary}
