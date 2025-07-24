@@ -39,6 +39,12 @@ cd supervised && make
 quarto preview
 ```
 
+## Contributing
+
+Found an issue or have suggestions for improvement? 
+
+**Report Issues**: [Create a GitHub issue](https://github.com/nipunbatra/ml-teaching/issues/new/choose) to report bugs, suggest content improvements, or request new features.
+
 ## License
 
 Educational materials developed for academic use at IIT Gandhinagar.

@@ -116,7 +116,7 @@ The collection includes over 100 interactive Jupyter notebooks, comprehensive le
 
 Found an issue or have a suggestion? We welcome contributions from the community!
 
-- **Report Issues**: [Create a GitHub issue](https://github.com/nipunbatra/ml-teaching/issues/new/choose) using our issue templates
+- **Report Issues**: Use our issue templates at [github.com/nipunbatra/ml-teaching/issues/new/choose](https://github.com/nipunbatra/ml-teaching/issues/new/choose) to report bugs, suggest content improvements, or request new features
 - **View Source**: [Browse the repository](https://github.com/nipunbatra/ml-teaching) to explore all materials
 - **Contribute**: Submit pull requests with improvements or corrections
 
