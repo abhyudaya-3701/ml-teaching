@@ -7,6 +7,15 @@ title-block-banner: true
 
 ::: {.feature-grid}
 ::: {.feature-card}
+<div class="feature-icon">🎓</div>
+
+### Course Offerings
+Complete ML courses from IIT Gandhinagar with video lectures, assignments, and proven pedagogical approaches.
+
+[Explore Courses](courses.qmd){.btn .btn-primary}
+:::
+
+::: {.feature-card}
 <div class="feature-icon">📊</div>
 
 ### Interactive Slides

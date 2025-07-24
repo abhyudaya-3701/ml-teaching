@@ -1,0 +1,213 @@
+---
+title: "Courses Using These Materials"
+subtitle: "Machine learning courses at IIT Gandhinagar and beyond"
+page-layout: full
+---
+
+## Overview
+
+These comprehensive machine learning materials have been developed and refined through multiple course offerings at IIT Gandhinagar and are used by instructors worldwide. Below are the primary courses that utilize and contribute to this resource collection.
+
+---
+
+## IIT Gandhinagar Courses
+
+### Current & Recent Offerings
+
+::: {.topic-card}
+<div class="topic-title">🎯 Fall 2025 - Machine Learning</div>
+<div class="topic-description">Latest iteration of the comprehensive ML course with cutting-edge content and methodologies.</div>
+
+<div class="topic-links">
+[Course Website](https://nipunbatra.github.io/ml2025/){.topic-link}
+[GitHub Repository](https://github.com/nipunbatra/ml2025){.topic-link}
+</div>
+:::
+
+::: {.topic-card}
+<div class="topic-title">📺 Spring 2024 - Machine Learning (ES335)</div>
+<div class="topic-description">Comprehensive ML course with YouTube video lectures covering all major topics from basics to advanced techniques.</div>
+
+<div class="topic-links">
+[Course Website](https://nipunbatra.github.io/ml2024/){.topic-link}
+[🎥 YouTube Lectures](https://nipunbatra.github.io/ml2024/){.topic-link}
+[Assignments](assignments.qmd){.topic-link}
+</div>
+:::
+
+::: {.topic-card}
+<div class="topic-title">🎲 Fall 2023 - Probabilistic Machine Learning</div>
+<div class="topic-description">Advanced course focusing on probabilistic approaches to machine learning with video lectures.</div>
+
+<div class="topic-links">
+[Course Website](https://nipunbatra.github.io/pml2023/){.topic-link}
+[🎥 YouTube Lectures](https://nipunbatra.github.io/pml2023/){.topic-link}
+</div>
+:::
+
+### Historical Course Offerings
+
+::: {.topic-card}
+<div class="topic-title">📊 Spring 2023 - Machine Learning</div>
+<div class="topic-description">Machine learning fundamentals with practical implementations and real-world applications.</div>
+
+<div class="topic-links">
+[Course Website](https://nipunbatra.github.io/ml2023/){.topic-link}
+</div>
+:::
+
+::: {.topic-card}
+<div class="topic-title">🤖 Spring 2022 - Machine Learning</div>
+<div class="topic-description">Comprehensive coverage of supervised and unsupervised learning techniques.</div>
+
+<div class="topic-links">
+[Course Website](https://nipunbatra.github.io/ml2022/){.topic-link}
+</div>
+:::
+
+::: {.topic-card}
+<div class="topic-title">🔍 Spring 2021 - Machine Learning</div>
+<div class="topic-description">ML course adapted for online learning during the pandemic with enhanced digital resources.</div>
+
+<div class="topic-links">
+[Course Website](https://nipunbatra.github.io/ml2021/){.topic-link}
+</div>
+:::
+
+::: {.topic-card}
+<div class="topic-title">📺 Spring 2020 - Machine Learning</div>
+<div class="topic-description">Foundation course with comprehensive video lectures covering core ML concepts and algorithms.</div>
+
+<div class="topic-links">
+[Course Website](https://nipunbatra.github.io/ml2020/){.topic-link}
+[🎥 YouTube Lectures](https://nipunbatra.github.io/ml2020/){.topic-link}
+</div>
+:::
+
+::: {.topic-card}
+<div class="topic-title">🚀 Spring 2019 - Machine Learning</div>
+<div class="topic-description">Early iteration of the course that established many of the pedagogical approaches used today.</div>
+
+<div class="topic-links">
+[Course Website](https://nipunbatra.github.io/ml2019/){.topic-link}
+</div>
+:::
+
+---
+
+## Course Evolution & Features
+
+### 🎥 Video Resources
+
+Several course iterations include comprehensive YouTube video lectures:
+
+- **Spring 2024**: Complete lecture series with assignments and interactive content
+- **Fall 2023**: Probabilistic ML focus with advanced mathematical treatments  
+- **Spring 2020**: Foundational lectures that established the video-based learning approach
+
+::: {.callout-note}
+## Accessing Video Content
+Video lectures are integrated into the respective course websites. Visit the course links above and look for video icons or lecture sections to access the YouTube playlists.
+:::
+
+### 📚 Course Structure Evolution
+
+Each course iteration has contributed to the materials in this repository:
+
+- **Slides**: LaTeX-based presentations refined across multiple offerings
+- **Notebooks**: Interactive Jupyter notebooks with hands-on examples
+- **Assignments**: Progressive problem sets using GitHub Classroom
+- **Tutorials**: Step-by-step guides for complex topics
+
+### 🌍 Global Usage
+
+These materials are designed for:
+
+- **University Courses**: Adoptable by instructors worldwide
+- **Self-Study**: Complete learning path for independent learners  
+- **Corporate Training**: Professional development programs
+- **Research Groups**: Foundation for ML research education
+
+---
+
+## For Instructors
+
+### Using These Materials
+
+::: {.feature-grid}
+::: {.feature-card}
+<div class="feature-icon">📖</div>
+
+### Course Templates
+Complete semester-long courses with syllabi, schedules, and assessment strategies.
+
+[Browse Courses](https://nipunbatra.github.io/teaching.html){.btn .btn-outline-primary}
+:::
+
+::: {.feature-card}
+<div class="feature-icon">🎬</div>
+
+### Video Integration
+Learn how to incorporate video lectures and online components into your ML course.
+
+[Video Resources](courses.qmd){.btn .btn-outline-primary}
+:::
+
+::: {.feature-card}
+<div class="feature-icon">📝</div>
+
+### Assessment Tools
+Assignments, projects, and evaluation rubrics tested across multiple course offerings.
+
+[View Assignments](assignments.qmd){.btn .btn-outline-primary}
+:::
+:::
+
+### Customization Guidelines
+
+- **Modular Design**: Pick and choose topics based on your course duration
+- **Difficulty Scaling**: Materials range from introductory to advanced graduate level
+- **Platform Agnostic**: Works with any LMS or course website platform
+- **Regular Updates**: Materials continuously improved based on student feedback
+
+::: {.callout-tip}
+## Instructor Support
+If you're using these materials in your course, we'd love to hear about it! Share your experience and join our community of ML educators.
+:::
+
+---
+
+## Student Testimonials
+
+> *"The combination of theoretical slides, hands-on notebooks, and video lectures made complex ML concepts accessible and engaging."* - Spring 2024 Student
+
+> *"The progression from basic concepts to advanced topics was perfectly paced. The assignments really helped solidify the learning."* - Fall 2023 Student
+
+> *"Having access to multiple years of materials allowed me to find different explanations for challenging topics."* - Self-study Learner
+
+---
+
+## About the Instructor
+
+**Prof. Nipun Batra** is an Associate Professor in Computer Science at IIT Gandhinagar. His research group works on machine learning/AI/sensors/IoT for computational sustainability problems.
+
+- [Faculty Profile](https://iitgn.ac.in/faculty/cse/nipun)
+- [Research Group](https://nipunbatra.github.io)
+- [All Courses](https://nipunbatra.github.io/teaching.html)
+
+---
+
+## Contributing to Course Development
+
+Found ways to improve the course materials? We welcome contributions from the global ML education community:
+
+- **Course Feedback**: Share experiences using these materials in your courses
+- **Content Improvements**: Suggest updates or additional topics
+- **New Formats**: Help adapt materials for different learning contexts
+- **Translation**: Assist with creating materials in other languages
+
+[Create an Issue](https://github.com/nipunbatra/ml-teaching/issues/new/choose){.btn .btn-primary} [View Repository](https://github.com/nipunbatra/ml-teaching){.btn .btn-outline-primary}
+
+---
+
+*These courses represent years of pedagogical refinement and are continuously updated to reflect best practices in machine learning education.*

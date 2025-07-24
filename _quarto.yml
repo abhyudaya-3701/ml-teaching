@@ -25,6 +25,8 @@ website:
     left:
       - href: index.qmd
         text: Home
+      - href: courses.qmd
+        text: Courses
       - href: slides.qmd
         text: Slides
       - href: tutorials.qmd
