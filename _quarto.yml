@@ -16,7 +16,7 @@ project:
     - "!update_tex_files.sh"
 
 website:
-  title: "ML Resources"
+  title: ""
   description: "Comprehensive machine learning materials with interactive notebooks and lecture slides for students and instructors"
   favicon: images/logo.svg
   navbar:
