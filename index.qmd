@@ -1,47 +1,131 @@
 ---
-title: "Machine Learning Course"
+title: "ES335: Machine Learning"
+subtitle: "IIT Gandhinagar • 2025"
 page-layout: full
 title-block-banner: true
 ---
 
-# Comprehensive Machine Learning Resources
+::: {.feature-grid}
+::: {.feature-card}
+::: {.feature-icon}
+📊
+:::
 
-Welcome to a complete collection of machine learning course materials developed at IIT Gandhinagar. This resource combines theoretical foundations with practical implementations, designed for both students and instructors.
+### Interactive Slides
+Professional LaTeX-based lecture slides with mathematical rigor and clear explanations of ML concepts.
 
-## What You'll Find Here
+[View Slides](slides.qmd){.btn .btn-primary}
+:::
 
-### [Interactive Notebooks](notebooks.qmd)
-Over 100 Jupyter notebooks with hands-on coding examples, from basics to advanced topics. All notebooks are runnable in Google Colab.
+::: {.feature-card}
+::: {.feature-icon}
+📚
+:::
 
-### [Lecture Slides](slides.qmd)
-Comprehensive slide decks covering all major machine learning topics, organized by category for easy navigation.
+### Comprehensive Tutorials
+Step-by-step practice problems with detailed solutions to reinforce learning and build practical skills.
 
-### Practical Applications
-Real-world examples using datasets like MNIST, Iris, and custom problems across computer vision, NLP, and more.
+[Browse Tutorials](tutorials.qmd){.btn .btn-primary}
+:::
 
-## Course Structure
+::: {.feature-card}
+::: {.feature-icon}
+💻
+:::
 
-The materials are organized into six main categories:
+### Jupyter Notebooks
+Interactive coding exercises and demonstrations with real datasets and implementations.
 
-- **Basics & Foundations** - Getting started with ML concepts
-- **Mathematical Foundations** - Linear algebra, optimization, probability
-- **Supervised Learning** - Regression, classification, model evaluation
-- **Neural Networks** - Deep learning fundamentals and architectures
-- **Advanced Topics** - Time series, reinforcement learning, modern techniques
-- **Unsupervised Learning** - Clustering, dimensionality reduction
+[Explore Notebooks](notebooks.qmd){.btn .btn-primary}
+:::
+:::
+
+## Course Overview
+
+This comprehensive machine learning course provides a solid foundation in both theoretical concepts and practical applications. Students will learn to implement algorithms from scratch and apply state-of-the-art techniques to real-world problems.
+
+### What You'll Learn
+
+- **Supervised Learning**: Linear/logistic regression, decision trees, SVMs, neural networks
+- **Unsupervised Learning**: Clustering, dimensionality reduction, anomaly detection  
+- **Model Evaluation**: Cross-validation, bias-variance tradeoff, performance metrics
+- **Advanced Topics**: Ensemble methods, regularization, feature engineering
+- **Practical Skills**: Python implementation, data preprocessing, model deployment
+
+### Course Structure
+
+::: {.topic-card}
+**Foundations**{.topic-title}
+
+Mathematical prerequisites, data preprocessing, and basic ML concepts.
+{.topic-description}
+
+::: {.topic-links}
+[Math Review](tutorials.qmd){.topic-link}
+[Python Basics](notebooks.qmd){.topic-link}
+:::
+:::
+
+::: {.topic-card}
+**Supervised Learning**{.topic-title}
+
+Regression and classification algorithms with hands-on implementation.
+{.topic-description}
+
+::: {.topic-links}
+[Linear Regression](slides.qmd){.topic-link}
+[Logistic Regression](slides.qmd){.topic-link}
+[Decision Trees](slides.qmd){.topic-link}
+[SVMs](slides.qmd){.topic-link}
+:::
+:::
+
+::: {.topic-card}
+**Advanced Methods**{.topic-title}
+
+Ensemble methods, neural networks, and modern ML techniques.
+{.topic-description}
+
+::: {.topic-links}
+[Random Forest](slides.qmd){.topic-link}
+[Neural Networks](slides.qmd){.topic-link}
+[Deep Learning](notebooks.qmd){.topic-link}
+:::
+:::
+
+::: {.topic-card}
+**Model Evaluation**{.topic-title}
+
+Cross-validation, performance metrics, and model selection strategies.
+{.topic-description}
+
+::: {.topic-links}
+[Cross-Validation](tutorials.qmd){.topic-link}
+[Bias-Variance](slides.qmd){.topic-link}
+[Metrics](notebooks.qmd){.topic-link}
+:::
+:::
+
+---
 
 ## Getting Started
 
-1. **New to ML?** Start with [Basics & Foundations](basics/slides/1-introduction-ml.pdf)
-2. **Hands-on Learning** Browse the [interactive notebooks](notebooks.qmd)
-3. **Theory First?** Explore the [lecture slides](slides.qmd)
-4. **Quick Practice** Try the [Anscombe's Quartet notebook](notebooks/anscombe.ipynb)
+1. **Prerequisites**: Basic linear algebra, calculus, probability, and Python programming
+2. **Setup**: Install Python 3.8+, Jupyter, NumPy, pandas, scikit-learn, matplotlib
+3. **Materials**: All slides, tutorials, and notebooks are available on this website
+4. **Practice**: Work through tutorials and implement algorithms in the provided notebooks
+
+::: {.callout-tip}
+## Pro Tip
+Start with the mathematical foundations in our tutorials, then work through the interactive notebooks to see concepts in action!
+:::
 
 ## About the Course
 
 These materials represent several years of machine learning education at IIT Gandhinagar, developed by Prof. Nipun Batra and dedicated teaching assistants. The content emphasizes both theoretical understanding and practical implementation skills.
 
+The course covers over 100 interactive Jupyter notebooks, comprehensive lecture slides, and hands-on tutorials designed for both students and instructors. All materials are continuously updated to reflect current best practices in machine learning education.
+
 ---
 
-*For questions or feedback, visit [Prof. Nipun Batra's homepage](https://nipunbatra.github.io)* 
-
+*For questions or feedback, visit [Prof. Nipun Batra's homepage](https://nipunbatra.github.io)*

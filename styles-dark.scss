@@ -1,0 +1,611 @@
+/*-- scss:defaults --*/
+
+// Import Inter and JetBrains Mono fonts (ML2025 inspired)
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&display=swap');
+
+// ML2025-inspired dark theme color palette
+$primary: #60a5fa;           // Light blue for dark theme
+$secondary: #94a3b8;         // Light slate gray
+$success: #34d399;           // Light emerald
+$info: #22d3ee;              // Light cyan
+$warning: #fbbf24;           // Light amber
+$danger: #f87171;            // Light red
+$light: #f1f5f9;             // Very light slate
+$dark: #0f172a;              // Very dark slate
+
+// Dark theme color palette
+$slate-50: #f8fafc;
+$slate-100: #f1f5f9;
+$slate-200: #e2e8f0;
+$slate-300: #cbd5e1;
+$slate-400: #94a3b8;
+$slate-500: #64748b;
+$slate-600: #475569;
+$slate-700: #334155;
+$slate-800: #1e293b;
+$slate-900: #0f172a;
+
+$blue-400: #60a5fa;
+$blue-500: #3b82f6;
+$blue-600: #2563eb;
+
+// Background colors for dark theme
+$body-bg: $slate-900;
+$body-color: $slate-200;
+$navbar-bg: $slate-800;
+$footer-bg: $slate-800;
+$code-bg: $slate-800;
+$card-bg: $slate-800;
+
+// Typography (same as light theme)
+$font-family-sans-serif: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+$font-family-monospace: 'JetBrains Mono', 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+$font-size-base: 1rem;
+$line-height-base: 1.65;
+$headings-font-weight: 600;
+
+// Spacing (same as light theme)
+$container-max-width: 1200px;
+$navbar-padding-y: 1rem;
+$section-padding: 3rem;
+
+/*-- scss:rules --*/
+
+// Smooth scrolling
+html {
+  scroll-behavior: smooth;
+}
+
+// Dark theme body
+body {
+  font-family: $font-family-sans-serif;
+  font-size: $font-size-base;
+  line-height: $line-height-base;
+  color: $body-color;
+  background-color: $body-bg;
+  font-weight: 400;
+}
+
+// Dark theme typography
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-family-sans-serif;
+  font-weight: $headings-font-weight;
+  line-height: 1.3;
+  margin-bottom: 1rem;
+  letter-spacing: -0.025em;
+  color: $slate-100;
+}
+
+h1 {
+  font-size: 2.25rem;
+  color: $slate-50;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  
+  .subtitle {
+    display: block;
+    font-size: 1.125rem;
+    font-weight: 400;
+    color: $slate-400;
+    margin-top: 0.5rem;
+  }
+}
+
+h2 {
+  font-size: 1.875rem;
+  color: $slate-100;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid $slate-700;
+}
+
+h3 {
+  font-size: 1.5rem;
+  color: $slate-200;
+  margin-top: 1.5rem;
+}
+
+h4 {
+  font-size: 1.25rem;
+  color: $slate-300;
+}
+
+// Dark theme links
+a {
+  color: $primary;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    color: $blue-400;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+  }
+}
+
+// Dark theme navbar
+.navbar {
+  background: $navbar-bg;
+  border-bottom: 1px solid $slate-700;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+  padding: $navbar-padding-y 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  backdrop-filter: blur(8px);
+
+  .navbar-brand {
+    font-weight: 700;
+    color: $primary;
+    font-size: 1.5rem;
+    letter-spacing: -0.025em;
+    
+    &:hover {
+      color: $blue-400;
+      text-decoration: none;
+    }
+  }
+
+  .navbar-nav {
+    .nav-link {
+      color: $slate-300;
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      margin: 0 0.25rem;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+      
+      &:hover {
+        color: $primary;
+        background-color: $slate-700;
+      }
+
+      &.active {
+        color: $primary;
+        background-color: $slate-700;
+        font-weight: 600;
+      }
+    }
+  }
+}
+
+// Container styling
+.container, .container-fluid {
+  max-width: $container-max-width;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+// Main content area
+main {
+  padding: $section-padding 0;
+  min-height: calc(100vh - 300px);
+}
+
+// Dark theme cards
+.card {
+  background: $card-bg;
+  border: 1px solid $slate-700;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+  margin-bottom: 2rem;
+  transition: all 0.3s ease;
+  overflow: hidden;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px 0 rgba(0, 0, 0, 0.4), 0 4px 6px 0 rgba(0, 0, 0, 0.2);
+    border-color: $slate-600;
+  }
+
+  .card-header {
+    background: linear-gradient(135deg, $slate-700 0%, $slate-600 100%);
+    border-bottom: 1px solid $slate-600;
+    padding: 1.5rem;
+    
+    h3, h4, h5 {
+      margin: 0;
+      color: $slate-100;
+      font-weight: 600;
+    }
+  }
+
+  .card-body {
+    padding: 1.5rem;
+    
+    .card-title {
+      color: $slate-100;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+    
+    .card-text {
+      color: $slate-300;
+      line-height: 1.6;
+    }
+  }
+}
+
+// Dark theme buttons
+.btn {
+  border-radius: 8px;
+  font-weight: 500;
+  padding: 0.75rem 1.5rem;
+  border: 1px solid transparent;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+  letter-spacing: 0.025em;
+
+  &.btn-primary {
+    background: linear-gradient(135deg, $primary 0%, $blue-600 100%);
+    border-color: $primary;
+    color: $slate-900;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+
+    &:hover {
+      background: linear-gradient(135deg, $blue-400 0%, $primary 100%);
+      border-color: $blue-400;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px 0 rgba(96, 165, 250, 0.4);
+    }
+  }
+
+  &.btn-outline-primary {
+    color: $primary;
+    border-color: $primary;
+    background: transparent;
+
+    &:hover {
+      background: $primary;
+      color: $slate-900;
+      transform: translateY(-1px);
+    }
+  }
+  
+  &.btn-secondary {
+    background-color: $slate-700;
+    border-color: $slate-600;
+    color: $slate-200;
+    
+    &:hover {
+      background-color: $slate-600;
+      border-color: $slate-500;
+    }
+  }
+}
+
+// Dark theme tables
+.table {
+  background: $card-bg;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid $slate-700;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+  
+  th {
+    background: linear-gradient(135deg, $slate-700 0%, $slate-600 100%);
+    color: $slate-100;
+    font-weight: 600;
+    border-bottom: 2px solid $slate-600;
+    padding: 1rem;
+    font-size: 0.875rem;
+    letter-spacing: 0.025em;
+    text-transform: uppercase;
+  }
+
+  td {
+    border-color: $slate-700;
+    color: $slate-300;
+    padding: 1rem;
+    vertical-align: middle;
+  }
+
+  tbody tr {
+    transition: background-color 0.2s ease;
+    
+    &:hover {
+      background: $slate-700;
+    }
+  }
+}
+
+// Dark theme code styling
+pre {
+  background: $code-bg;
+  border: 1px solid $slate-700;
+  border-radius: 8px;
+  padding: 1.5rem;
+  color: $slate-200;
+  font-size: 0.875rem;
+  font-family: $font-family-monospace;
+  overflow-x: auto;
+  line-height: 1.6;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+}
+
+code {
+  background: $slate-700;
+  color: $slate-200;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.875em;
+  font-family: $font-family-monospace;
+  font-weight: 500;
+}
+
+// Dark theme blockquotes
+blockquote {
+  border-left: 4px solid $primary;
+  background: $slate-800;
+  padding: 1rem 1.5rem;
+  margin: 1.5rem 0;
+  border-radius: 0 8px 8px 0;
+  
+  p {
+    margin: 0;
+    color: $slate-300;
+    font-style: italic;
+  }
+}
+
+// Dark theme callouts
+.callout {
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  border-left: 4px solid;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+
+  &.callout-note {
+    background: $slate-800;
+    border-color: $primary;
+    color: $slate-200;
+    
+    .callout-title {
+      color: $primary;
+      font-weight: 600;
+    }
+  }
+
+  &.callout-tip {
+    background: rgba(52, 211, 153, 0.1);
+    border-color: $success;
+    color: $slate-200;
+    
+    .callout-title {
+      color: $success;
+      font-weight: 600;
+    }
+  }
+
+  &.callout-warning {
+    background: rgba(251, 191, 36, 0.1);
+    border-color: $warning;
+    color: $slate-200;
+    
+    .callout-title {
+      color: $warning;
+      font-weight: 600;
+    }
+  }
+  
+  &.callout-important {
+    background: rgba(248, 113, 113, 0.1);
+    border-color: $danger;
+    color: $slate-200;
+    
+    .callout-title {
+      color: $danger;
+      font-weight: 600;
+    }
+  }
+}
+
+// Dark theme footer
+.page-footer {
+  background: linear-gradient(135deg, $footer-bg 0%, $slate-700 100%);
+  border-top: 1px solid $slate-700;
+  color: $slate-400;
+  padding: 3rem 0 2rem;
+  margin-top: 4rem;
+  font-size: 0.875rem;
+
+  a {
+    color: $slate-400;
+    font-weight: 500;
+    
+    &:hover {
+      color: $primary;
+    }
+  }
+  
+  .footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+}
+
+// Dark theme feature grid
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  margin: 3rem 0;
+}
+
+.feature-card {
+  background: $card-bg;
+  border: 1px solid $slate-700;
+  border-radius: 12px;
+  padding: 2rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px 0 rgba(0, 0, 0, 0.4), 0 4px 6px 0 rgba(0, 0, 0, 0.2);
+    border-color: $primary;
+  }
+
+  .feature-icon {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    color: $primary;
+  }
+
+  h3 {
+    color: $slate-100;
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+
+  p {
+    color: $slate-400;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+  }
+}
+
+// Dark theme topic cards
+.topic-card {
+  background: $card-bg;
+  border: 1px solid $slate-700;
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.4);
+    border-color: $primary;
+  }
+  
+  .topic-title {
+    color: $slate-100;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  
+  .topic-description {
+    color: $slate-400;
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+  }
+  
+  .topic-links {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  
+  .topic-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.25rem 0.75rem;
+    background: $slate-700;
+    color: $primary;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    
+    &:hover {
+      background: $slate-600;
+      text-decoration: none;
+    }
+  }
+}
+
+// Dark theme table of contents
+.toc {
+  background: $slate-800;
+  border: 1px solid $slate-700;
+  border-radius: 8px;
+  padding: 1rem;
+  
+  .toc-title {
+    font-weight: 600;
+    color: $slate-100;
+    margin-bottom: 0.5rem;
+  }
+  
+  ul {
+    list-style: none;
+    padding-left: 0;
+    
+    li {
+      margin-bottom: 0.25rem;
+      
+      a {
+        color: $slate-400;
+        font-size: 0.875rem;
+        
+        &:hover {
+          color: $primary;
+        }
+      }
+    }
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+  
+  h3 {
+    font-size: 1.25rem;
+  }
+
+  .navbar-nav .nav-link {
+    padding: 0.5rem;
+    margin: 0.125rem 0;
+  }
+
+  .container, .container-fluid {
+    padding: 0 1rem;
+  }
+
+  main {
+    padding: 2rem 0;
+  }
+  
+  .feature-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .feature-card {
+    padding: 1.5rem;
+  }
+  
+  .page-footer .footer-content {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+// Remove default Quarto elements we're replacing
+.code-tools {
+  display: none !important;
+}
+
+.code-fold {
+  display: none !important;
+}

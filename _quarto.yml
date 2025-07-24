@@ -16,9 +16,12 @@ project:
     - "!update_tex_files.sh"
 
 website:
-  title: "Machine Learning Course"
-  description: "Comprehensive machine learning course materials with interactive notebooks and lecture slides"
+  title: "ES335: Machine Learning"
+  description: "Machine Learning course at IIT Gandhinagar - comprehensive materials with interactive notebooks and lecture slides"
+  favicon: images/logo.jpeg
   navbar:
+    background: white
+    logo: images/logo.jpeg
     left:
       - href: index.qmd
         text: Home
@@ -31,18 +34,26 @@ website:
     right:
       - href: https://nipunbatra.github.io
         text: Instructor
+        target: _blank
   sidebar: false
   page-footer:
-    left: "Built with [Quarto](https://quarto.org/)"
-    right: "Course by [Nipun Batra](https://nipunbatra.github.io)"
+    left: |
+      ES335: Machine Learning  
+      IIT Gandhinagar
+    center: |
+      Copyright 2025
+    right: |
+      [Quarto](https://quarto.org/) | [Instructor](https://nipunbatra.github.io)
+    background: light
 
 format:
   html:
     theme:
-      light: [cosmo, custom.scss]
-      dark: [darkly, custom-dark.scss]
+      light: [cosmo, styles.scss]
+      dark: [darkly, styles-dark.scss]
     highlight-style: github
-    mainfont: "Inter"
+    mainfont: "Inter, system-ui, sans-serif"
+    monofont: "JetBrains Mono, SF Mono, Monaco, monospace"
     code-copy: true
     code-overflow: wrap
     code-fold: false
@@ -50,14 +61,18 @@ format:
     toc: true
     toc-location: right
     toc-depth: 3
+    smooth-scroll: true
+    link-external-newwindow: true
+    fig-responsive: true
     
   # Notebook-specific formatting
   ipynb:
     theme:
-      light: [cosmo, custom.scss]
-      dark: [darkly, custom-dark.scss]
+      light: [cosmo, styles.scss]
+      dark: [darkly, styles-dark.scss]
     highlight-style: github
-    mainfont: "Inter"
+    mainfont: "Inter, system-ui, sans-serif"
+    monofont: "JetBrains Mono, SF Mono, Monaco, monospace"
     code-copy: true
     code-overflow: wrap
     code-fold: false
@@ -69,6 +84,9 @@ format:
     fig-width: 8
     fig-height: 6
     fig-dpi: 300
+    smooth-scroll: true
+    link-external-newwindow: true
+    fig-responsive: true
 
 execute:
   freeze: true
