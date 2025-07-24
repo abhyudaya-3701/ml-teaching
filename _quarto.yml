@@ -16,8 +16,8 @@ project:
     - "!update_tex_files.sh"
 
 website:
-  title: "ES335: Machine Learning"
-  description: "Machine Learning course at IIT Gandhinagar - comprehensive materials with interactive notebooks and lecture slides"
+  title: "Machine Learning Course Resources"
+  description: "Comprehensive machine learning materials with interactive notebooks and lecture slides for students and instructors"
   favicon: images/logo.jpeg
   navbar:
     background: white
@@ -32,18 +32,21 @@ website:
       - href: notebooks.qmd
         text: Notebooks
     right:
+      - href: https://github.com/nipunbatra/ml-teaching
+        text: GitHub
+        target: _blank
       - href: https://nipunbatra.github.io
         text: Instructor
         target: _blank
   sidebar: false
   page-footer:
     left: |
-      ES335: Machine Learning  
-      IIT Gandhinagar
+      Machine Learning Course Resources  
+      Open Educational Materials
     center: |
       Copyright 2025
     right: |
-      [Quarto](https://quarto.org/) | [Instructor](https://nipunbatra.github.io)
+      [GitHub Issues](https://github.com/nipunbatra/ml-teaching/issues) | [Quarto](https://quarto.org/)
     background: light
 
 format:

@@ -1,7 +1,7 @@
-# TA Bug Report Guide - ML Course Materials Review
+# Issue Template - ML Course Materials Feedback
 
 ## Overview
-We are conducting a comprehensive review of all ML course materials to ensure high quality and consistency. This document outlines the types of issues to look for and how to report them effectively.
+This document provides a framework for reporting issues, bugs, and suggestions for improving the ML course materials. Whether you're a student, instructor, or contributor, your feedback helps improve the quality and consistency of these educational resources.
 
 ## 🎯 What We're Looking For
 
