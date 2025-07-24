@@ -66,37 +66,37 @@ $$\sigma(z) = \frac{1}{1 + e^{-z}}$$
 \end{itemize}
 
 \textbf{Logistic Regression Model}:
-$$P(y=1|x) = \sigma(\theta^T x) = \frac{1}{1 + e^{-\theta^T x}}$$
+$$P(y=1|x) = \sigma(\vtheta\tp x) = \frac{1}{1 + e^{-\vtheta\tp x}}$$
 
-where $\theta^T x = \theta_0 + \theta_1 x_1 + \theta_2 x_2 + ... + \theta_n x_n$
+where $\vtheta\tp x = \theta_0 + \theta_1 x_1 + \theta_2 x_2 + \ldots + \theta_n x_n$
 
 \subsection{Maximum Likelihood Estimation}
 
 \textbf{Likelihood Function}:
-$$L(\theta) = \prod_{i=1}^m P(y^{(i)}|x^{(i)};\theta)$$
+$$L(\vtheta) = \prod_{i=1}^m P(y^{(i)}|x^{(i)};\vtheta)$$
 
 \textbf{For Binary Classification}:
-$$P(y|x;\theta) = h_\theta(x)^y (1-h_\theta(x))^{1-y}$$
+$$P(y|x;\vtheta) = h_\vtheta(x)^y (1-h_\vtheta(x))^{1-y}$$
 
-where $h_\theta(x) = \sigma(\theta^T x)$
+where $h_\vtheta(x) = \sigma(\vtheta\tp x)$
 
 \textbf{Log-Likelihood}:
-$$\ell(\theta) = \sum_{i=1}^m [y^{(i)} \log h_\theta(x^{(i)}) + (1-y^{(i)}) \log(1-h_\theta(x^{(i)}))]$$
+$$\ell(\vtheta) = \sum_{i=1}^m [y^{(i)} \log h_\vtheta(x^{(i)}) + (1-y^{(i)}) \log(1-h_\vtheta(x^{(i)}))]$$
 
 \subsection{Cross-Entropy Cost Function}
 
 \textbf{Cost Function} (negative log-likelihood):
-$$J(\theta) = -\frac{1}{m} \sum_{i=1}^m [y^{(i)} \log h_\theta(x^{(i)}) + (1-y^{(i)}) \log(1-h_\theta(x^{(i)}))]$$
+$$J(\vtheta) = -\frac{1}{m} \sum_{i=1}^m [y^{(i)} \log h_\vtheta(x^{(i)}) + (1-y^{(i)}) \log(1-h_\vtheta(x^{(i)}))]$$
 
 \textbf{Intuition}:
 \begin{itemize}
-    \item When $y=1$: Cost = $-\log(h_\theta(x))$ (penalizes low probability predictions)
-    \item When $y=0$: Cost = $-\log(1-h_\theta(x))$ (penalizes high probability predictions)
+    \item When $y=1$: Cost = $-\log(h_\vtheta(x))$ (penalizes low probability predictions)
+    \item When $y=0$: Cost = $-\log(1-h_\vtheta(x))$ (penalizes high probability predictions)
     \item Convex function - single global minimum
 \end{itemize}
 
 \textbf{Gradient}:
-$$\frac{\partial J}{\partial \theta_j} = \frac{1}{m} \sum_{i=1}^m (h_\theta(x^{(i)}) - y^{(i)}) x_j^{(i)}$$
+$$\frac{\partial J}{\partial \theta_j} = \frac{1}{m} \sum_{i=1}^m (h_\vtheta(x^{(i)}) - y^{(i)}) x_j^{(i)}$$
 
 \section{Practice Problems}
 
@@ -120,7 +120,7 @@ c) At what value of $x$ is the probability exactly 0.8?
 
 Given one training example $(x=2, y=1)$ and model parameters $\theta_0 = 0.5, \theta_1 = -0.3$:
 
-a) Calculate the predicted probability $h_\theta(x)$
+a) Calculate the predicted probability $h_\vtheta(x)$
 b) Calculate the cost for this single example
 c) What would the cost be if $y=0$ instead?
 \end{tcolorbox}
@@ -153,7 +153,7 @@ c) In which direction should parameters move to reduce cost?
 For 2D logistic regression $P(y=1|x_1,x_2) = \sigma(\theta_0 + \theta_1 x_1 + \theta_2 x_2)$:
 
 a) Derive the equation of the decision boundary
-b) If $\theta = [-1, 2, 3]^T$, what is the decision boundary equation?
+b) If $\vtheta = [-1, 2, 3]\tp$, what is the decision boundary equation?
 c) Classify the points $(1,1)$, $(0,1)$, and $(2,0)$
 \end{tcolorbox}
 
@@ -161,7 +161,7 @@ c) Classify the points $(1,1)$, $(0,1)$, and $(2,0)$
 
 For a single training example $(x,y)$:
 
-a) Write the likelihood $P(y|x;\theta)$ for logistic regression
+a) Write the likelihood $P(y|x;\vtheta)$ for logistic regression
 b) Take the log and derive the log-likelihood
 c) Show how maximizing log-likelihood leads to minimizing cross-entropy loss
 \end{tcolorbox}
@@ -189,7 +189,7 @@ d) What happens when $\lambda \to \infty$?
 \begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Newton's Method]
 
 For logistic regression, Newton's method update is:
-$$\theta := \theta - H^{-1} \nabla J(\theta)$$
+$$\vtheta := \vtheta - H^{-1} \nabla J(\vtheta)$$
 
 a) What is the Hessian matrix $H$ for logistic regression?
 b) Why is Newton's method faster than gradient descent for logistic regression?

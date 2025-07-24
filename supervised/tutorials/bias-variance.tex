@@ -50,16 +50,16 @@ Any prediction made by a machine learning model is affected by three sources of 
     \item \textbf{Variance}: Error due to sensitivity to small changes in training data
 \end{itemize}
 
-\textbf{Mathematical Formulation}: For a true function $f_{\theta_{\text{true}}}(x)$ with noise $\epsilon \sim \mathcal{N}(0, \sigma^2)$, the observed data follows:
-$$y_t = f_{\theta_{\text{true}}}(x_t) + \epsilon_t$$
+\textbf{Mathematical Formulation}: For a true function $f_{\vtheta_{\text{true}}}(x)$ with noise $\epsilon \sim \mathcal{N}(0, \sigma^2)$, the observed data follows:
+$$y_t = f_{\vtheta_{\text{true}}}(x_t) + \epsilon_t$$
 
 \subsection{Bias}
 
 \textbf{Definition}: Bias measures how well a model can capture the true underlying relationship. It represents the error introduced by approximating a complex real-world problem with a simplified model.
 
 \textbf{Mathematical Definition}:
-$$\text{Bias}(x_t) = f_{\theta_{\text{true}}}(x_t) - f_{\bar{\theta}}(x_t)$$
-where $f_{\bar{\theta}}(x_t) = E_{\text{train}}[f_{\hat{\theta}}(x_t)]$ is the average fit over all possible training sets.
+$$\text{Bias}(x_t) = f_{\vtheta_{\text{true}}}(x_t) - f_{\bar{\vtheta}}(x_t)$$
+where $f_{\bar{\vtheta}}(x_t) = E_{\text{train}}[f_{\hat{\vtheta}}(x_t)]$ is the average fit over all possible training sets.
 
 \textbf{Key Property}: As model complexity increases, bias decreases because the model becomes more flexible and can better approximate the true function.
 
@@ -68,7 +68,7 @@ where $f_{\bar{\theta}}(x_t) = E_{\text{train}}[f_{\hat{\theta}}(x_t)]$ is the a
 \textbf{Definition}: Variance measures how much the predictions change when trained on different training sets. High variance indicates that small changes in training data lead to very different models.
 
 \textbf{Mathematical Definition}:
-$$\text{Variance}(f_{\hat{\theta}}(x_t)) = E_{\text{train}}[(f_{\hat{\theta}}(x_t) - f_{\bar{\theta}}(x_t))^2]$$
+$$\text{Variance}(f_{\hat{\vtheta}}(x_t)) = E_{\text{train}}[(f_{\hat{\vtheta}}(x_t) - f_{\bar{\vtheta}}(x_t))^2]$$
 
 \textbf{Key Property}: As model complexity increases, variance increases because complex models are more sensitive to small changes in training data.
 
@@ -82,7 +82,7 @@ $$\text{Variance}(f_{\hat{\theta}}(x_t)) = E_{\text{train}}[(f_{\hat{\theta}}(x_
 \end{itemize}
 
 \textbf{Expected Prediction Error Decomposition}:
-$$E_{\text{train},y_t}[(y_t - f_{\hat{\theta}}(x_t))^2] = \sigma^2 + [\text{Bias}(f_{\hat{\theta}}(x_t))]^2 + \text{Variance}(f_{\hat{\theta}}(x_t))$$
+$$E_{\text{train},y_t}[(y_t - f_{\hat{\vtheta}}(x_t))^2] = \sigma^2 + [\text{Bias}(f_{\hat{\vtheta}}(x_t))]^2 + \text{Variance}(f_{\hat{\vtheta}}(x_t))$$
 
 \subsection{Underfitting and Overfitting}
 
@@ -186,7 +186,7 @@ d) How does random feature selection in Random Forest affect bias and variance?
 You fit polynomial models of different degrees to a dataset:
 \begin{itemize}
     \item Degree 1: $\hat{y} = \theta_0 + \theta_1 x$
-    \item Degree 5: $\hat{y} = \theta_0 + \theta_1 x + \theta_2 x^2 + ... + \theta_5 x^5$
+    \item Degree 5: $\hat{y} = \theta_0 + \theta_1 x + \theta_2 x^2 + \ldots + \theta_5 x^5$
     \item Degree 15: High-degree polynomial
 \end{itemize}
 

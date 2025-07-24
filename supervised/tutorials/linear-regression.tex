@@ -52,24 +52,27 @@
 \end{itemize}
 
 \textbf{Mathematical Model}:
-For single feature: $y = \theta_0 + \theta_1 x$
-For multiple features: $y = \theta_0 + \theta_1 x_1 + \theta_2 x_2 + ... + \theta_M x_M$
+For single feature: 
+$$y = \theta_0 + \theta_1 x$$
+
+For multiple features: 
+$$y = \theta_0 + \theta_1 x_1 + \theta_2 x_2 + \ldots + \theta_M x_M$$
 
 \subsection{Matrix Formulation}
 
 \textbf{Normal Equation Form}:
-$$\hat{Y} = X\theta$$
+$$\hat{\vy} = \mX\vtheta$$
 
 Where:
 \begin{itemize}
-    \item $\hat{Y}$: $N \times 1$ predicted output vector
-    \item $X$: $N \times (M+1)$ design matrix (includes bias column of 1s)
-    \item $\theta$: $(M+1) \times 1$ parameter vector
+    \item $\hat{\vy}$: $N \times 1$ predicted output vector
+    \item $\mX$: $N \times (M+1)$ design matrix (includes bias column of 1s)
+    \item $\vtheta$: $(M+1) \times 1$ parameter vector
     \item $N$: number of samples, $M$: number of features
 \end{itemize}
 
 \textbf{Design Matrix Structure}:
-$$X = \begin{bmatrix}
+$$\mX = \begin{bmatrix}
 1 & x_{1,1} & x_{1,2} & \dots & x_{1,M}\\
 1 & x_{2,1} & x_{2,2} & \dots & x_{2,M}\\
 \vdots & \vdots & \vdots & \dots & \vdots\\
@@ -82,17 +85,17 @@ $$X = \begin{bmatrix}
 $$\text{MSE} = \frac{1}{N} \sum_{i=1}^N (y_i - \hat{y}_i)^2$$
 
 \textbf{Closed-form Solution}:
-$$\theta = (X^T X)^{-1} X^T Y$$
+$$\vtheta = (\mX\tp\mX)^{-1} \mX\tp\vy$$
 
 \subsection{Basis Expansion}
 
-\textbf{Polynomial Features}: Transform $x$ to $[1, x, x^2, x^3, ...]$ to capture non-linear relationships
+\textbf{Polynomial Features}: Transform $x$ to $[1, x, x^2, x^3, \ldots]$ to capture non-linear relationships
 
-\textbf{Still Linear}: Model remains linear in parameters $\theta$
+\textbf{Still Linear}: Model remains linear in parameters $\vtheta$
 
 \subsection{Geometric Interpretation}
 
-\textbf{Projection}: Linear regression projects target vector $Y$ onto column space of design matrix $X$
+\textbf{Projection}: Linear regression projects target vector $\vy$ onto column space of design matrix $\mX$
 
 \textbf{Residuals}: Difference between actual and predicted values, orthogonal to column space
 
@@ -102,7 +105,7 @@ $$\theta = (X^T X)^{-1} X^T Y$$
 
 \textbf{Multicollinearity}: When features are highly correlated
 \begin{itemize}
-    \item Problem: $X^T X$ becomes singular (non-invertible)
+    \item Problem: $\mX\tp \mX$ becomes singular (non-invertible)
     \item Solution: Remove redundant features or use regularization
 \end{itemize}
 
@@ -117,15 +120,15 @@ Find the linear regression line $y = \theta_0 + \theta_1 x$ using normal equatio
 
 \begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Matrix Setup]
 
-For a dataset with 5 samples and 2 features, write out the complete matrix equation $\hat{Y} = X\theta$ with proper dimensions.
+For a dataset with 5 samples and 2 features, write out the complete matrix equation $\hat{\vy} = \mX\vtheta$ with proper dimensions.
 \end{tcolorbox}
 
 \begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Normal Equation Calculation]
 
 Given design matrix:
-$$X = \begin{bmatrix} 1 & 2 \\ 1 & 3 \\ 1 & 4 \end{bmatrix}, \quad Y = \begin{bmatrix} 5 \\ 7 \\ 9 \end{bmatrix}$$
+$$\mX = \begin{bmatrix} 1 & 2 \\ 1 & 3 \\ 1 & 4 \end{bmatrix}, \quad \vy = \begin{bmatrix} 5 \\ 7 \\ 9 \end{bmatrix}$$
 
-Calculate $\theta = (X^T X)^{-1} X^T Y$ step by step.
+Calculate $\vtheta = (\mX\tp \mX)^{-1} \mX\tp \vy$ step by step.
 \end{tcolorbox}
 
 \begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: MSE Calculation]
@@ -162,12 +165,12 @@ Explain why the residual vector is orthogonal to the column space of the design 
 
 \begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Non-invertible Matrix]
 
-When does $(X^T X)$ become non-invertible? Give three specific scenarios and explain how to handle each case.
+When does $(\mX\tp \mX)$ become non-invertible? Give three specific scenarios and explain how to handle each case.
 \end{tcolorbox}
 
 \begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Feature Scaling]
 
-Dataset before scaling: $X = \begin{bmatrix} 1000 & 2 \\ 2000 & 4 \\ 3000 & 6 \end{bmatrix}$
+Dataset before scaling: $\mX = \begin{bmatrix} 1000 & 2 \\ 2000 & 4 \\ 3000 & 6 \end{bmatrix}$
 
 Apply standardization (z-score normalization) to both features. Explain why scaling might be important for linear regression.
 \end{tcolorbox}
@@ -190,7 +193,7 @@ After fitting a linear regression model, you observe that residuals show a curve
 \begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Computational Complexity]
 
 Compare the computational complexity of:
-a) Normal equation method: $(X^T X)^{-1} X^T Y$
+a) Normal equation method: $(\mX\tp \mX)^{-1} \mX\tp \vy$
 b) Gradient descent method
 
 When would you prefer each approach?
