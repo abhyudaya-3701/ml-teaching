@@ -148,6 +148,12 @@ a {
       color: $blue-700;
       text-decoration: none;
     }
+    
+    img {
+      height: 40px;
+      width: auto;
+      max-width: 200px;
+    }
   }
 
   .navbar-nav {

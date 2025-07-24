@@ -1,6 +1,6 @@
 ---
-title: "Machine Learning Course Resources"
-subtitle: "Comprehensive ML materials for students and instructors"
+title: "ML Resources"
+subtitle: "From Code to Model - Comprehensive ML materials for students and instructors"
 page-layout: full
 title-block-banner: true
 ---

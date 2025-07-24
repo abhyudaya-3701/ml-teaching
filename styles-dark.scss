@@ -147,6 +147,12 @@ a {
       color: $blue-400;
       text-decoration: none;
     }
+    
+    img {
+      height: 40px;
+      width: auto;
+      max-width: 200px;
+    }
   }
 
   .navbar-nav {

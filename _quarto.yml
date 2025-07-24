@@ -16,12 +16,12 @@ project:
     - "!update_tex_files.sh"
 
 website:
-  title: "Machine Learning Course Resources"
+  title: "ML Resources"
   description: "Comprehensive machine learning materials with interactive notebooks and lecture slides for students and instructors"
-  favicon: images/logo.jpeg
+  favicon: images/logo.svg
   navbar:
     background: white
-    logo: images/logo.jpeg
+    logo: images/logo.svg
     left:
       - href: index.qmd
         text: Home
@@ -41,7 +41,7 @@ website:
   sidebar: false
   page-footer:
     left: |
-      Machine Learning Course Resources  
+      ML Resources: From Code to Model  
       Open Educational Materials
     center: |
       Copyright 2025
