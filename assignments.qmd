@@ -9,7 +9,7 @@ page-layout: full
 ### Recent Assignments (Fall 2024)
 
 ::: {.topic-card}
-<div class="topic-title">📊 Assignment 1 - Fall 2024</div>
+<div class="topic-title">Assignment 1 - Fall 2024</div>
 <div class="topic-description">Latest machine learning assignment covering fundamental concepts and implementations.</div>
 
 <div class="topic-links">
@@ -19,7 +19,7 @@ page-layout: full
 :::
 
 ::: {.topic-card}
-<div class="topic-title">📈 Assignment 2 - Fall 2024</div>
+<div class="topic-title">Assignment 2 - Fall 2024</div>
 <div class="topic-description">Advanced machine learning concepts with practical implementation challenges.</div>
 
 <div class="topic-links">
@@ -33,7 +33,7 @@ page-layout: full
 These are template repositories used for GitHub Classroom:
 
 ::: {.topic-card}
-<div class="topic-title">🎯 Assignment 1 Template</div>
+<div class="topic-title">Assignment 1 Template</div>
 <div class="topic-description">Foundational machine learning concepts and basic algorithm implementations.</div>
 
 <div class="topic-links">
@@ -43,7 +43,7 @@ These are template repositories used for GitHub Classroom:
 :::
 
 ::: {.topic-card}
-<div class="topic-title">🔍 Assignment 2 Template</div>
+<div class="topic-title">Assignment 2 Template</div>
 <div class="topic-description">Intermediate machine learning techniques and model evaluation methods.</div>
 
 <div class="topic-links">
@@ -53,7 +53,7 @@ These are template repositories used for GitHub Classroom:
 :::
 
 ::: {.topic-card}
-<div class="topic-title">🚀 Assignment 3</div>
+<div class="topic-title">Assignment 3</div>
 <div class="topic-description">Advanced machine learning applications and real-world problem solving.</div>
 
 <div class="topic-links">
@@ -69,7 +69,7 @@ These are template repositories used for GitHub Classroom:
 Historical assignments focusing on machine learning applications in IoT and sensor data:
 
 ::: {.topic-card}
-<div class="topic-title">💻 ES654 2023 Template</div>
+<div class="topic-title">ES654 2023 Template</div>
 <div class="topic-description">Latest template for machine learning applications in IoT systems.</div>
 
 <div class="topic-links">
@@ -79,7 +79,7 @@ Historical assignments focusing on machine learning applications in IoT and sens
 :::
 
 ::: {.topic-card}
-<div class="topic-title">📱 ES654 2022 Code</div>
+<div class="topic-title">ES654 2022 Code</div>
 <div class="topic-description">Machine learning implementations for IoT and sensor data analysis (2022).</div>
 
 <div class="topic-links">
@@ -89,7 +89,7 @@ Historical assignments focusing on machine learning applications in IoT and sens
 :::
 
 ::: {.topic-card}
-<div class="topic-title">🔧 ES654 2021 Code</div>
+<div class="topic-title">ES654 2021 Code</div>
 <div class="topic-description">Machine learning techniques for IoT applications and embedded systems (2021).</div>
 
 <div class="topic-links">
@@ -99,7 +99,7 @@ Historical assignments focusing on machine learning applications in IoT and sens
 :::
 
 ::: {.topic-card}
-<div class="topic-title">📊 ES654 2020 Code</div>
+<div class="topic-title">ES654 2020 Code</div>
 <div class="topic-description">Foundational machine learning concepts applied to IoT and sensor networks (2020).</div>
 
 <div class="topic-links">

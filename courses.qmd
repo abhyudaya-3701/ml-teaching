@@ -15,7 +15,7 @@ These comprehensive machine learning materials have been developed and refined t
 ### Current & Recent Offerings
 
 ::: {.topic-card}
-<div class="topic-title">🎯 Fall 2025 - Machine Learning</div>
+<div class="topic-title">Fall 2025 - Machine Learning</div>
 <div class="topic-description">Latest iteration of the comprehensive ML course with cutting-edge content and methodologies.</div>
 
 <div class="topic-links">
@@ -25,30 +25,30 @@ These comprehensive machine learning materials have been developed and refined t
 :::
 
 ::: {.topic-card}
-<div class="topic-title">📺 Spring 2024 - Machine Learning (ES335)</div>
+<div class="topic-title">Spring 2024 - Machine Learning (ES335)</div>
 <div class="topic-description">Comprehensive ML course with YouTube video lectures covering all major topics from basics to advanced techniques.</div>
 
 <div class="topic-links">
 [Course Website](https://nipunbatra.github.io/ml2024/){.topic-link}
-[🎥 YouTube Lectures](https://nipunbatra.github.io/ml2024/){.topic-link}
+[YouTube Lectures](https://nipunbatra.github.io/ml2024/){.topic-link}
 [Assignments](assignments.qmd){.topic-link}
 </div>
 :::
 
 ::: {.topic-card}
-<div class="topic-title">🎲 Fall 2023 - Probabilistic Machine Learning</div>
+<div class="topic-title">Fall 2023 - Probabilistic Machine Learning</div>
 <div class="topic-description">Advanced course focusing on probabilistic approaches to machine learning with video lectures.</div>
 
 <div class="topic-links">
 [Course Website](https://nipunbatra.github.io/pml2023/){.topic-link}
-[🎥 YouTube Lectures](https://nipunbatra.github.io/pml2023/){.topic-link}
+[YouTube Lectures](https://nipunbatra.github.io/pml2023/){.topic-link}
 </div>
 :::
 
 ### Historical Course Offerings
 
 ::: {.topic-card}
-<div class="topic-title">📊 Spring 2023 - Machine Learning</div>
+<div class="topic-title">Spring 2023 - Machine Learning</div>
 <div class="topic-description">Machine learning fundamentals with practical implementations and real-world applications.</div>
 
 <div class="topic-links">
@@ -57,7 +57,7 @@ These comprehensive machine learning materials have been developed and refined t
 :::
 
 ::: {.topic-card}
-<div class="topic-title">🤖 Spring 2022 - Machine Learning</div>
+<div class="topic-title">Spring 2022 - Machine Learning</div>
 <div class="topic-description">Comprehensive coverage of supervised and unsupervised learning techniques.</div>
 
 <div class="topic-links">
@@ -66,7 +66,7 @@ These comprehensive machine learning materials have been developed and refined t
 :::
 
 ::: {.topic-card}
-<div class="topic-title">🔍 Spring 2021 - Machine Learning</div>
+<div class="topic-title">Spring 2021 - Machine Learning</div>
 <div class="topic-description">ML course adapted for online learning during the pandemic with enhanced digital resources.</div>
 
 <div class="topic-links">
@@ -75,17 +75,17 @@ These comprehensive machine learning materials have been developed and refined t
 :::
 
 ::: {.topic-card}
-<div class="topic-title">📺 Spring 2020 - Machine Learning</div>
+<div class="topic-title">Spring 2020 - Machine Learning</div>
 <div class="topic-description">Foundation course with comprehensive video lectures covering core ML concepts and algorithms.</div>
 
 <div class="topic-links">
 [Course Website](https://nipunbatra.github.io/ml2020/){.topic-link}
-[🎥 YouTube Lectures](https://nipunbatra.github.io/ml2020/){.topic-link}
+[YouTube Lectures](https://nipunbatra.github.io/ml2020/){.topic-link}
 </div>
 :::
 
 ::: {.topic-card}
-<div class="topic-title">🚀 Spring 2019 - Machine Learning</div>
+<div class="topic-title">Spring 2019 - Machine Learning</div>
 <div class="topic-description">Early iteration of the course that established many of the pedagogical approaches used today.</div>
 
 <div class="topic-links">
@@ -97,7 +97,7 @@ These comprehensive machine learning materials have been developed and refined t
 
 ## Course Evolution & Features
 
-### 🎥 Video Resources
+### Video Resources
 
 Several course iterations include comprehensive YouTube video lectures:
 
@@ -110,7 +110,7 @@ Several course iterations include comprehensive YouTube video lectures:
 Video lectures are integrated into the respective course websites. Visit the course links above and look for video icons or lecture sections to access the YouTube playlists.
 :::
 
-### 📚 Course Structure Evolution
+### Course Structure Evolution
 
 Each course iteration has contributed to the materials in this repository:
 
@@ -119,7 +119,7 @@ Each course iteration has contributed to the materials in this repository:
 - **Assignments**: Progressive problem sets using GitHub Classroom
 - **Tutorials**: Step-by-step guides for complex topics
 
-### 🌍 Global Usage
+### Global Usage
 
 These materials are designed for:
 
@@ -136,7 +136,7 @@ These materials are designed for:
 
 ::: {.feature-grid}
 ::: {.feature-card}
-<div class="feature-icon">📖</div>
+<div class="feature-icon"></div>
 
 ### Course Templates
 Complete semester-long courses with syllabi, schedules, and assessment strategies.
@@ -145,7 +145,7 @@ Complete semester-long courses with syllabi, schedules, and assessment strategie
 :::
 
 ::: {.feature-card}
-<div class="feature-icon">🎬</div>
+<div class="feature-icon"></div>
 
 ### Video Integration
 Learn how to incorporate video lectures and online components into your ML course.
@@ -154,7 +154,7 @@ Learn how to incorporate video lectures and online components into your ML cours
 :::
 
 ::: {.feature-card}
-<div class="feature-icon">📝</div>
+<div class="feature-icon"></div>
 
 ### Assessment Tools
 Assignments, projects, and evaluation rubrics tested across multiple course offerings.

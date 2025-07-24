@@ -7,7 +7,7 @@ title-block-banner: true
 
 ::: {.feature-grid}
 ::: {.feature-card}
-<div class="feature-icon">🎓</div>
+<div class="feature-icon"></div>
 
 ### Course Offerings
 Complete ML courses from IIT Gandhinagar with video lectures, assignments, and proven pedagogical approaches.
@@ -16,7 +16,7 @@ Complete ML courses from IIT Gandhinagar with video lectures, assignments, and p
 :::
 
 ::: {.feature-card}
-<div class="feature-icon">📊</div>
+<div class="feature-icon"></div>
 
 ### Interactive Slides
 Professional LaTeX-based lecture slides with mathematical rigor and clear explanations of ML concepts.
@@ -25,7 +25,7 @@ Professional LaTeX-based lecture slides with mathematical rigor and clear explan
 :::
 
 ::: {.feature-card}
-<div class="feature-icon">📚</div>
+<div class="feature-icon"></div>
 
 ### Comprehensive Tutorials
 Step-by-step practice problems with detailed solutions to reinforce learning and build practical skills.
@@ -34,7 +34,7 @@ Step-by-step practice problems with detailed solutions to reinforce learning and
 :::
 
 ::: {.feature-card}
-<div class="feature-icon">💻</div>
+<div class="feature-icon"></div>
 
 ### Jupyter Notebooks
 Interactive coding exercises and demonstrations with real datasets and implementations.
@@ -43,7 +43,7 @@ Interactive coding exercises and demonstrations with real datasets and implement
 :::
 
 ::: {.feature-card}
-<div class="feature-icon">📝</div>
+<div class="feature-icon"></div>
 
 ### Course Assignments
 Real-world machine learning assignments from ES335 and ES654 courses with GitHub Classroom integration.
@@ -67,7 +67,7 @@ This comprehensive machine learning course provides a solid foundation in both t
 ### Course Structure
 
 ::: {.topic-card}
-<div class="topic-title">📐 Foundations</div>
+<div class="topic-title">Foundations</div>
 <div class="topic-description">Mathematical prerequisites, data preprocessing, and basic ML concepts.</div>
 
 <div class="topic-links">
@@ -77,7 +77,7 @@ This comprehensive machine learning course provides a solid foundation in both t
 :::
 
 ::: {.topic-card}
-<div class="topic-title">🎯 Supervised Learning</div>
+<div class="topic-title">Supervised Learning</div>
 <div class="topic-description">Regression and classification algorithms with hands-on implementation.</div>
 
 <div class="topic-links">
@@ -89,7 +89,7 @@ This comprehensive machine learning course provides a solid foundation in both t
 :::
 
 ::: {.topic-card}
-<div class="topic-title">🚀 Advanced Methods</div>
+<div class="topic-title">Advanced Methods</div>
 <div class="topic-description">Ensemble methods, neural networks, and modern ML techniques.</div>
 
 <div class="topic-links">
@@ -100,7 +100,7 @@ This comprehensive machine learning course provides a solid foundation in both t
 :::
 
 ::: {.topic-card}
-<div class="topic-title">📊 Model Evaluation</div>
+<div class="topic-title">Model Evaluation</div>
 <div class="topic-description">Cross-validation, performance metrics, and model selection strategies.</div>
 
 <div class="topic-links">
