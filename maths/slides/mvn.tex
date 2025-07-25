@@ -1,6 +1,6 @@
 \documentclass{beamer}
 \usepackage{../../shared/styles/custom}
-
+\usepackage{../../shared/styles/conventions}
 
 \mathtoolsset{showonlyrefs}  
 
@@ -224,7 +224,7 @@ $=\frac{1}{2\pi \times |\Sigma|^{\frac{1}{2}}}$
 	
 	And,
 	\begin{gather}
-		p(\mathbf{X} ; \mu, \Sigma)=\frac{1}{(2 \pi)^{\frac{n}{2}}|\Sigma|^{\frac{1}{2}}} \exp \left(-\frac{1}{2}(\mathbf{X}-\mu)^{T} \Sigma^{-1}(\mathbf{X}-\mu)\right)
+		p(\vx ; \mu, \Sigma)=\frac{1}{(2 \pi)^{\frac{n}{2}}|\Sigma|^{\frac{1}{2}}} \exp \left(-\frac{1}{2}(\vx-\mu)^{T} \Sigma^{-1}(\vx-\mu)\right)
 	\end{gather}
 	
 	As seen in the case for univariate Gaussians, we can write the following for the multivariate case,
@@ -252,12 +252,12 @@ $=\frac{1}{2\pi \times |\Sigma|^{\frac{1}{2}}}$
 	Rotate input space using rotation matrix $R$.
 	
 		\begin{gather}
-		p(\mathbf{X} ; \mu, \Sigma)=\frac{1}{(2 \pi)^{\frac{n}{2}}|\Sigma|^{\frac{1}{2}}} \exp \left(-\frac{1}{2}(\mathbf{R^TX}-R^T\mu)^{T} \Sigma^{-1}(\mathbf{R^TX}-R^T\mu)\right)
+		p(\vx ; \mu, \Sigma)=\frac{1}{(2 \pi)^{\frac{n}{2}}|\Sigma|^{\frac{1}{2}}} \exp \left(-\frac{1}{2}(\mR^T\vx-R^T\mu)^{T} \Sigma^{-1}(\mR^T\vx-R^T\mu)\right)
 	\end{gather}
 
 	
 \begin{gather}
-	p(\mathbf{X} ; \mu, \Sigma)=\frac{1}{(2 \pi)^{\frac{n}{2}}|\Sigma|^{\frac{1}{2}}} \exp \left(-\frac{1}{2}(\mathbf{X}-\mu)^{T} R\Sigma^{-1}R^T(\mathbf{X}-\mu)\right)
+	p(\vx ; \mu, \Sigma)=\frac{1}{(2 \pi)^{\frac{n}{2}}|\Sigma|^{\frac{1}{2}}} \exp \left(-\frac{1}{2}(\vx-\mu)^{T} R\Sigma^{-1}R^T(\vx-\mu)\right)
 \end{gather}
 	
 	
@@ -267,7 +267,7 @@ $=\frac{1}{2\pi \times |\Sigma|^{\frac{1}{2}}}$
 	
 	$C = R\Sigma^{-1}R^T$
 \begin{gather}
-	p(\mathbf{X} ; \mu, \Sigma)=\frac{1}{(2 \pi)^{\frac{n}{2}}|C|^{\frac{1}{2}}} \exp \left(-\frac{1}{2}(\mathbf{X}-\mu)^{T} C^{-1}(\mathbf{X}-\mu)\right)
+	p(\vx ; \mu, \Sigma)=\frac{1}{(2 \pi)^{\frac{n}{2}}|C|^{\frac{1}{2}}} \exp \left(-\frac{1}{2}(\vx-\mu)^{T} C^{-1}(\vx-\mu)\right)
 \end{gather}
 \end{frame}
 

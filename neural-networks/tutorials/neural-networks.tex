@@ -147,9 +147,9 @@ Relate this to how gradients flow through neural network layers.
 For a 2-layer network with MSE loss:
 $$\mathcal{L} = \frac{1}{2}(y - \hat{y})^2$$
 
-Where $\hat{y} = \sigma(\mathbf{w}_2^T \sigma(\mathbf{w}_1^T \mathbf{x} + b_1) + b_2)$
+Where $\hat{y} = \sigma(\vw_2^T \sigma(\vw_1^T \vx + b_1) + b_2)$
 
-Set up the backpropagation equations to compute $\frac{\partial \mathcal{L}}{\partial \mathbf{w}_1}$.
+Set up the backpropagation equations to compute $\frac{\partial \mathcal{L}}{\partial \vw_1}$.
 \end{problembox}
 
 \begin{problembox}[title= Gradient Descent Parameter Update]

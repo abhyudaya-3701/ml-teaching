@@ -1,0 +1,1691 @@
+🔍 Starting comprehensive content audit...
+
+Found 88 files to audit:
+  - LaTeX files: 71
+  - Markdown files: 17
+
+Auditing: BUILD_OPTIMIZATION.md
+Auditing: COMPILATION_ISSUES.md
+Auditing: CONTENT_AUDIT_SUMMARY.md
+Auditing: CONVENTIONS_LOG.md
+Auditing: DESIGN_UPGRADE.md
+Auditing: LATEX_PACKAGES.md
+Auditing: MIGRATION_LOG.md
+Auditing: MIGRATION_MAPPING.md
+Auditing: NOTEBOOK_FIXES.md
+Auditing: PROJECT_STRUCTURE.md
+Auditing: README.md
+Auditing: RESTRUCTURING_PLAN.md
+Auditing: TA_TOPIC_ASSIGNMENTS.md
+Auditing: advanced/slides/forecasting.tex
+Auditing: advanced/slides/rl.tex
+Auditing: basics/mwe.tex
+Auditing: basics/slides/accuracy-convention.tex
+Auditing: basics/slides/misc.tex
+Auditing: basics/slides/shuffling.tex
+Auditing: basics/tutorials/accuracy-convention.tex
+Auditing: basics/tutorials/cross-validation.tex
+Auditing: basics/tutorials/decision-trees.tex
+Auditing: basics/tutorials/mathematical-conventions.tex
+Auditing: basics/tutorials/mathematical-prerequisites.tex
+Auditing: conventions-sanitized.tex
+Auditing: conventions.tex
+Auditing: maths/slides/constrained-1.tex
+Auditing: maths/slides/constrained-2.tex
+Auditing: maths/slides/find-widths.tex
+Auditing: maths/slides/kkt-conditions.tex
+Auditing: maths/slides/mathematical-ml.tex
+Auditing: maths/slides/ml-maths-2-contour.tex
+Auditing: maths/slides/mvn.tex
+Auditing: maths/slides/mvn2.tex
+Auditing: neural-networks/slides/autograd.tex
+Auditing: neural-networks/slides/cnn-1d.tex
+Auditing: neural-networks/slides/cnn.tex
+Auditing: neural-networks/slides/mlp.tex
+Auditing: neural-networks/slides/next-token-prediction.tex
+Auditing: neural-networks/tutorials/neural-networks.tex
+Auditing: optimization/slides/convexity.tex
+Auditing: optimization/slides/coordinate-descent.tex
+Auditing: optimization/slides/gradient-descent.tex
+Auditing: optimization/slides/subgradient.tex
+Auditing: optimization/tutorials/optimization.tex
+Auditing: shared/styles/README.md
+Auditing: supervised/assets/ensemble/diagrams/feature-importance.tex
+Auditing: supervised/assets/ensemble/diagrams/test-0.3.tex
+Auditing: supervised/assets/ensemble/diagrams/test-0.6.tex
+Auditing: supervised/assets/ensemble/diagrams/test.tex
+Auditing: supervised/slides/bayesian-nets.tex
+Auditing: supervised/slides/bias-variance-2.tex
+Auditing: supervised/slides/bias-variance.tex
+Auditing: supervised/slides/cross-validation.tex
+Auditing: supervised/slides/decision-trees.tex
+Auditing: supervised/slides/ensemble.tex
+Auditing: supervised/slides/feature-selection.tex
+Auditing: supervised/slides/knn-approx.tex
+Auditing: supervised/slides/knn.tex
+Auditing: supervised/slides/lasso-regression.tex
+Auditing: supervised/slides/lasso-solution.tex
+Auditing: supervised/slides/linear-regression.tex
+Auditing: supervised/slides/logistic-regression.tex
+Auditing: supervised/slides/movie-recommendation.tex
+Auditing: supervised/slides/naive-bayes.tex
+Auditing: supervised/slides/ridge-regression.tex
+Auditing: supervised/slides/svm-2-2.tex
+Auditing: supervised/slides/svm-3.tex
+Auditing: supervised/slides/svm-4.tex
+Auditing: supervised/slides/svm-intro.tex
+Auditing: supervised/slides/svm-kernel.tex
+Auditing: supervised/slides/svm-soft-margin.tex
+Auditing: supervised/tutorials/bias-variance.tex
+Auditing: supervised/tutorials/cross-validation.tex
+Auditing: supervised/tutorials/ensemble-methods.tex
+Auditing: supervised/tutorials/feature-selection.tex
+Auditing: supervised/tutorials/knn.tex
+Auditing: supervised/tutorials/lasso-regression.tex
+Auditing: supervised/tutorials/linear-regression.tex
+Auditing: supervised/tutorials/logistic-regression.tex
+Auditing: supervised/tutorials/matrix-factorization.tex
+Auditing: supervised/tutorials/naive-bayes.tex
+Auditing: supervised/tutorials/svm.tex
+Auditing: unsupervised/slides/unsupervised.tex
+Auditing: unsupervised/tutorials/clustering.tex
+
+================================================================================
+📋 COMPREHENSIVE CONTENT AUDIT REPORT
+================================================================================
+
+📊 SUMMARY:
+  Files checked: 85
+  Issues found: 174
+  Warnings: 1116
+
+🚨 CRITICAL ISSUES (174):
+----------------------------------------
+
+📄 COMPILATION_ISSUES.md:
+  ❌ Spelling/terminology: 'gradient-descent' should be 'gradient descent' (4 instances)
+
+📄 CONTENT_AUDIT_SUMMARY.md:
+  ❌ Spelling/terminology: 'hyper-parameter' should be 'hyperparameter' (1 instances)
+  ❌ Spelling/terminology: 'crossvalidation' should be 'cross-validation' (1 instances)
+  ❌ Spelling/terminology: 'data set' should be 'dataset' (1 instances)
+  ❌ Spelling/terminology: 'gradient-descent' should be 'gradient descent' (1 instances)
+
+📄 CONVENTIONS_LOG.md:
+  ❌ Inconsistent notation (inconsistent_vectors): Found 11 instances of \\mathbf\{([^}]+)\}
+  ❌ Inconsistent notation (inconsistent_vectors): Found 3 instances of \\vec\{([^}]+)\}
+  ❌ Inconsistent notation (inconsistent_matrices): Found 9 instances of \\mathbf\{([A-Z][^}]*)\}
+  ❌ Inconsistent notation (inconsistent_sets): Found 3 instances of \\mathbb\{([^}]+)\}
+  ❌ Math formatting issue: Missing space after inline math
+  ❌ Math formatting issue: Missing space before inline math
+  ❌ Spelling/terminology: 'over-fitting' should be 'overfitting' (2 instances)
+  ❌ Spelling/terminology: 'over fitting' should be 'overfitting' (2 instances)
+  ❌ Spelling/terminology: 'gradient-descent' should be 'gradient descent' (7 instances)
+
+📄 MIGRATION_LOG.md:
+  ❌ Spelling/terminology: 'gradient-descent' should be 'gradient descent' (6 instances)
+
+📄 MIGRATION_MAPPING.md:
+  ❌ Spelling/terminology: 'gradient-descent' should be 'gradient descent' (2 instances)
+
+📄 PROJECT_STRUCTURE.md:
+  ❌ Spelling/terminology: 'gradient-descent' should be 'gradient descent' (3 instances)
+
+📄 RESTRUCTURING_PLAN.md:
+  ❌ Spelling/terminology: 'gradient-descent' should be 'gradient descent' (1 instances)
+
+📄 advanced/slides/forecasting.tex:
+  ❌ Math formatting issue: Missing space after inline math
+  ❌ Math formatting issue: Missing space before inline math
+  ❌ Unmatched braces: -1 difference
+
+📄 basics/mwe.tex:
+  ❌ Math formatting issue: Missing space after inline math
+  ❌ Math formatting issue: Missing space before inline math
+
+📄 basics/slides/accuracy-convention.tex:
+  ❌ Inconsistent notation (inconsistent_vectors): Found 2 instances of \\mathbf\{([^}]+)\}
+  ❌ Inconsistent notation (inconsistent_matrices): Found 13 instances of \\mathrm\{([A-Z][^}]*)\}
+  ❌ Math formatting issue: Missing space after inline math
+  ❌ Math formatting issue: Missing space before inline math
+  ❌ Spelling/terminology: 'data set' should be 'dataset' (1 instances)
+  ❌ Unmatched braces: 2 difference
+
+📄 basics/slides/misc.tex:
+  ❌ Math formatting issue: Missing space after inline math
+  ❌ Math formatting issue: Missing space before inline math
+
+📄 basics/tutorials/accuracy-convention.tex:
+  ❌ Math formatting issue: Missing space after inline math
+  ❌ Math formatting issue: Missing space before inline math
+
+📄 basics/tutorials/cross-validation.tex:
+  ❌ Math formatting issue: Missing space after inline math
+  ❌ Math formatting issue: Missing space before inline math
+
+📄 basics/tutorials/decision-trees.tex:
+  ❌ Math formatting issue: Missing space after inline math
+
+📄 basics/tutorials/mathematical-conventions.tex:
+  ❌ Inconsistent notation (inconsistent_vectors): Found 10 instances of \\mathbf\{([^}]+)\}
+  ❌ Inconsistent notation (inconsistent_matrices): Found 6 instances of \\mathbf\{([A-Z][^}]*)\}
+  ❌ Inconsistent notation (inconsistent_sets): Found 1 instances of \\mathbb\{([^}]+)\}
+  ❌ Math formatting issue: Missing space after inline math
+  ❌ Math formatting issue: Missing space before inline math
+
+📄 basics/tutorials/mathematical-prerequisites.tex:
+  ❌ Inconsistent notation (inconsistent_vectors): Found 2 instances of \\mathbf\{([^}]+)\}
+  ❌ Math formatting issue: Missing space after inline math
+  ❌ Math formatting issue: Missing space before inline math
+
+📄 conventions-sanitized.tex:
+  ❌ Inconsistent notation (inconsistent_vectors): Found 39 instances of \\mathbf\{([^}]+)\}
+  ❌ Inconsistent notation (inconsistent_matrices): Found 19 instances of \\mathbf\{([A-Z][^}]*)\}
+  ❌ Inconsistent notation (inconsistent_sets): Found 9 instances of \\mathbb\{([^}]+)\}
+
+📄 conventions.tex:
+  ❌ Inconsistent notation (inconsistent_vectors): Found 39 instances of \\mathbf\{([^}]+)\}
+  ❌ Inconsistent notation (inconsistent_matrices): Found 19 instances of \\mathbf\{([A-Z][^}]*)\}
+  ❌ Inconsistent notation (inconsistent_sets): Found 9 instances of \\mathbb\{([^}]+)\}
+
+📄 maths/slides/kkt-conditions.tex:
+  ❌ Inconsistent notation (inconsistent_sets): Found 1 instances of \\mathbb\{([^}]+)\}
+  ❌ Math formatting issue: Missing space after inline math
+  ❌ Math formatting issue: Missing space before inline math
+
+📄 maths/slides/mathematical-ml.tex:
+  ❌ Inconsistent notation (inconsistent_matrices): Found 8 instances of \\mathrm\{([A-Z][^}]*)\}
+  ❌ Math formatting issue: Missing space after inline math
+  ❌ Math formatting issue: Missing space before inline math
+  ❌ Unmatched braces: -1 difference
+
+📄 maths/slides/ml-maths-2-contour.tex:
+  ❌ Math formatting issue: Missing space after inline math
+  ❌ Math formatting issue: Missing space before inline math
+
+📄 maths/slides/mvn.tex:
+  ❌ Inconsistent notation (inconsistent_vectors): Found 12 instances of \\mathbf\{([^}]+)\}
+  ❌ Inconsistent notation (inconsistent_matrices): Found 12 instances of \\mathbf\{([A-Z][^}]*)\}
+  ❌ Math formatting issue: Missing space after inline math
+  ❌ Math formatting issue: Missing space before inline math
+  ❌ Unmatched braces: -1 difference
+
+📄 maths/slides/mvn2.tex:
+  ❌ Inconsistent notation (inconsistent_vectors): Found 34 instances of \\mathbf\{([^}]+)\}
+  ❌ Math formatting issue: Missing space after inline math
+  ❌ Math formatting issue: Missing space before inline math
+
+📄 neural-networks/tutorials/neural-networks.tex:
+  ❌ Inconsistent notation (inconsistent_vectors): Found 4 instances of \\mathbf\{([^}]+)\}
+  ❌ Math formatting issue: Missing space after inline math
+  ❌ Math formatting issue: Missing space before inline math
+
+📄 optimization/slides/convexity.tex:
+  ❌ Math formatting issue: Missing space after inline math
+  ❌ Math formatting issue: Missing space before inline math
+
+📄 optimization/slides/coordinate-descent.tex:
+  ❌ Inconsistent notation (inconsistent_matrices): Found 4 instances of \\mathrm\{([A-Z][^}]*)\}
+  ❌ Math formatting issue: Missing space after inline math
+  ❌ Math formatting issue: Missing space before inline math
+  ❌ Spelling/terminology: 'data set' should be 'dataset' (5 instances)
+
+📄 optimization/slides/gradient-descent.tex:
+  ❌ Inconsistent notation (inconsistent_sets): Found 2 instances of \\mathbb\{([^}]+)\}
+  ❌ Math formatting issue: Missing space after inline math
+  ❌ Math formatting issue: Missing space before inline math
+  ❌ Spelling/terminology: 'gradient-descent' should be 'gradient descent' (2 instances)
+
+📄 optimization/slides/subgradient.tex:
+  ❌ Math formatting issue: Missing space after inline math
+
+📄 optimization/tutorials/optimization.tex:
+  ❌ Math formatting issue: Missing space after inline math
+  ❌ Math formatting issue: Missing space before inline math
+
+📄 supervised/slides/bayesian-nets.tex:
+  ❌ Math formatting issue: Missing space after inline math
+  ❌ Math formatting issue: Missing space before inline math
+  ❌ Unmatched braces: -2 difference
+
+📄 supervised/slides/bias-variance-2.tex:
+  ❌ Math formatting issue: Missing space after inline math
+  ❌ Math formatting issue: Missing space before inline math
+
+📄 supervised/slides/bias-variance.tex:
+  ❌ Math formatting issue: Missing space after inline math
+  ❌ Math formatting issue: Missing space before inline math
+  ❌ Spelling/terminology: 'cross validation' should be 'cross-validation' (3 instances)
+
+📄 supervised/slides/cross-validation.tex:
+  ❌ Math formatting issue: Missing space after inline math
+  ❌ Math formatting issue: Missing space before inline math
+
+📄 supervised/slides/decision-trees.tex:
+  ❌ Inconsistent notation (inconsistent_vectors): Found 1 instances of \\mathbf\{([^}]+)\}
+  ❌ Math formatting issue: Missing space after inline math
+  ❌ Math formatting issue: Missing space before inline math
+
+📄 supervised/slides/ensemble.tex:
+  ❌ Math formatting issue: Missing space after inline math
+  ❌ Math formatting issue: Missing space before inline math
+  ❌ Mismatched \begin and \end environments
+
+📄 supervised/slides/feature-selection.tex:
+  ❌ Math formatting issue: Missing space after inline math
+  ❌ Math formatting issue: Missing space before inline math
+
+📄 supervised/slides/knn.tex:
+  ❌ Math formatting issue: Missing space after inline math
+  ❌ Math formatting issue: Missing space before inline math
+  ❌ Spelling/terminology: 'data set' should be 'dataset' (1 instances)
+  ❌ Spelling/terminology: 'machine-learning' should be 'machine learning' (1 instances)
+  ❌ Spelling/terminology: 'machinelearning' should be 'machine learning' (1 instances)
+
+📄 supervised/slides/lasso-regression.tex:
+  ❌ Math formatting issue: Missing space after inline math
+  ❌ Math formatting issue: Missing space before inline math
+  ❌ Spelling/terminology: 'gradient-descent' should be 'gradient descent' (4 instances)
+  ❌ Unmatched braces: 1 difference
+
+📄 supervised/slides/lasso-solution.tex:
+  ❌ Math formatting issue: Missing space after inline math
+
+📄 supervised/slides/linear-regression.tex:
+  ❌ Inconsistent notation (inconsistent_vectors): Found 1 instances of \\mathbf\{([^}]+)\}
+  ❌ Math formatting issue: Missing space after inline math
+  ❌ Math formatting issue: Missing space before inline math
+  ❌ Spelling/terminology: 'data set' should be 'dataset' (10 instances)
+  ❌ Unmatched braces: 2 difference
+
+📄 supervised/slides/logistic-regression.tex:
+  ❌ Inconsistent notation (inconsistent_vectors): Found 3 instances of \\mathbf\{([^}]+)\}
+  ❌ Inconsistent notation (inconsistent_matrices): Found 2 instances of \\mathbf\{([A-Z][^}]*)\}
+  ❌ Inconsistent notation (inconsistent_sets): Found 6 instances of \\mathbb\{([^}]+)\}
+  ❌ Math formatting issue: Missing space after inline math
+  ❌ Math formatting issue: Missing space before inline math
+
+📄 supervised/slides/movie-recommendation.tex:
+  ❌ Math formatting issue: Missing space after inline math
+  ❌ Math formatting issue: Missing space before inline math
+
+📄 supervised/slides/naive-bayes.tex:
+  ❌ Math formatting issue: Missing space after inline math
+  ❌ Math formatting issue: Missing space before inline math
+  ❌ Unmatched braces: 1 difference
+
+📄 supervised/slides/ridge-regression.tex:
+  ❌ Math formatting issue: Missing space before inline math
+  ❌ Spelling/terminology: 'data set' should be 'dataset' (3 instances)
+
+📄 supervised/slides/svm-2-2.tex:
+  ❌ Inconsistent notation (inconsistent_sets): Found 6 instances of \\mathbb\{([^}]+)\}
+  ❌ Math formatting issue: Missing space after inline math
+  ❌ Math formatting issue: Missing space before inline math
+
+📄 supervised/slides/svm-3.tex:
+  ❌ Inconsistent notation (inconsistent_sets): Found 6 instances of \\mathbb\{([^}]+)\}
+  ❌ Math formatting issue: Missing space after inline math
+  ❌ Math formatting issue: Missing space before inline math
+
+📄 supervised/slides/svm-4.tex:
+  ❌ Math formatting issue: Missing space before inline math
+
+📄 supervised/slides/svm-intro.tex:
+  ❌ Inconsistent notation (inconsistent_sets): Found 6 instances of \\mathbb\{([^}]+)\}
+  ❌ Math formatting issue: Missing space after inline math
+  ❌ Math formatting issue: Missing space before inline math
+
+📄 supervised/slides/svm-kernel.tex:
+  ❌ Inconsistent notation (inconsistent_sets): Found 8 instances of \\mathbb\{([^}]+)\}
+  ❌ Math formatting issue: Missing space after inline math
+  ❌ Math formatting issue: Missing space before inline math
+
+📄 supervised/slides/svm-soft-margin.tex:
+  ❌ Math formatting issue: Missing space after inline math
+  ❌ Math formatting issue: Missing space before inline math
+
+📄 supervised/tutorials/bias-variance.tex:
+  ❌ Math formatting issue: Missing space after inline math
+  ❌ Math formatting issue: Missing space before inline math
+
+📄 supervised/tutorials/cross-validation.tex:
+  ❌ Math formatting issue: Missing space after inline math
+  ❌ Math formatting issue: Missing space before inline math
+
+📄 supervised/tutorials/ensemble-methods.tex:
+  ❌ Math formatting issue: Missing space after inline math
+  ❌ Math formatting issue: Missing space before inline math
+
+📄 supervised/tutorials/feature-selection.tex:
+  ❌ Math formatting issue: Missing space after inline math
+  ❌ Math formatting issue: Missing space before inline math
+
+📄 supervised/tutorials/knn.tex:
+  ❌ Inconsistent notation (inconsistent_vectors): Found 6 instances of \\mathbf\{([^}]+)\}
+  ❌ Math formatting issue: Missing space after inline math
+  ❌ Math formatting issue: Missing space before inline math
+
+📄 supervised/tutorials/lasso-regression.tex:
+  ❌ Math formatting issue: Missing space after inline math
+  ❌ Math formatting issue: Missing space before inline math
+
+📄 supervised/tutorials/linear-regression.tex:
+  ❌ Math formatting issue: Missing space after inline math
+  ❌ Math formatting issue: Missing space before inline math
+
+📄 supervised/tutorials/logistic-regression.tex:
+  ❌ Math formatting issue: Missing space after inline math
+  ❌ Math formatting issue: Missing space before inline math
+
+📄 supervised/tutorials/matrix-factorization.tex:
+  ❌ Math formatting issue: Missing space after inline math
+  ❌ Math formatting issue: Missing space before inline math
+
+📄 supervised/tutorials/naive-bayes.tex:
+  ❌ Math formatting issue: Missing space after inline math
+  ❌ Math formatting issue: Missing space before inline math
+
+📄 supervised/tutorials/svm.tex:
+  ❌ Inconsistent notation (inconsistent_sets): Found 3 instances of \\mathbb\{([^}]+)\}
+  ❌ Math formatting issue: Missing space after inline math
+  ❌ Math formatting issue: Missing space before inline math
+
+📄 unsupervised/slides/unsupervised.tex:
+  ❌ Math formatting issue: Missing space after inline math
+  ❌ Math formatting issue: Missing space before inline math
+  ❌ Spelling/terminology: 'data set' should be 'dataset' (3 instances)
+  ❌ Unmatched braces: -1 difference
+
+📄 unsupervised/tutorials/clustering.tex:
+  ❌ Inconsistent notation (inconsistent_sets): Found 1 instances of \\mathbb\{([^}]+)\}
+  ❌ Math formatting issue: Missing space after inline math
+  ❌ Math formatting issue: Missing space before inline math
+
+⚠️  WARNINGS (1116):
+----------------------------------------
+
+📄 BUILD_OPTIMIZATION.md:
+  ⚠️  Line 3: Very long line (124 chars)
+
+📄 CONTENT_AUDIT_SUMMARY.md:
+  ⚠️  Line 5: Very long line (236 chars)
+  ⚠️  Line 134: Very long line (126 chars)
+
+📄 CONVENTIONS_LOG.md:
+  ⚠️  Line 3: Very long line (122 chars)
+  ⚠️  Line 29: Very long line (135 chars)
+  ⚠️  Line 37: Very long line (123 chars)
+  ⚠️  Line 46: Very long line (135 chars)
+  ⚠️  Line 54: Very long line (125 chars)
+  ⚠️  Line 119: Very long line (123 chars)
+  ⚠️  Line 218: Very long line (156 chars)
+  ⚠️  Line 219: Very long line (185 chars)
+  ⚠️  Line 256: Very long line (332 chars)
+  ⚠️  Line 315: Very long line (133 chars)
+  ⚠️  Line 394: Very long line (144 chars)
+  ⚠️  Line 395: Very long line (165 chars)
+  ⚠️  Line 398: Very long line (155 chars)
+  ⚠️  Line 399: Very long line (132 chars)
+  ⚠️  Line 467: Very long line (126 chars)
+  ⚠️  Line 538: Very long line (126 chars)
+  ⚠️  Line 580: Very long line (121 chars)
+  ⚠️  Line 655: Very long line (172 chars)
+  ⚠️  Line 701: Very long line (126 chars)
+  ⚠️  Line 780: Very long line (134 chars)
+  ⚠️  Line 814: Very long line (172 chars)
+
+📄 DESIGN_UPGRADE.md:
+  ⚠️  Line 4: Very long line (206 chars)
+  ⚠️  Line 207: Very long line (176 chars)
+
+📄 LATEX_PACKAGES.md:
+  ⚠️  Line 3: Very long line (122 chars)
+
+📄 NOTEBOOK_FIXES.md:
+  ⚠️  Line 8: Very long line (124 chars)
+  ⚠️  Line 10: Very long line (157 chars)
+
+📄 README.md:
+  ⚠️  Line 3: Very long line (236 chars)
+  ⚠️  Line 8: Very long line (124 chars)
+  ⚠️  Line 27: Very long line (152 chars)
+  ⚠️  Line 46: Very long line (174 chars)
+
+📄 RESTRUCTURING_PLAN.md:
+  ⚠️  Line 182: Very long line (141 chars)
+
+📄 TA_TOPIC_ASSIGNMENTS.md:
+  ⚠️  Line 4: Very long line (176 chars)
+  ⚠️  Line 232: Very long line (126 chars)
+
+📄 advanced/slides/forecasting.tex:
+  ⚠️  May need \usepackage{graphicx} for \\includegraphics
+  ⚠️  Line 34: Very long line (279 chars)
+  ⚠️  Line 107: Very long line (147 chars)
+  ⚠️  Line 169: Very long line (137 chars)
+  ⚠️  Line 172: Very long line (311 chars)
+  ⚠️  Line 219: Very long line (132 chars)
+  ⚠️  Line 15: Too many consecutive blank lines
+  ⚠️  No sections found in document
+
+📄 advanced/slides/rl.tex:
+  ⚠️  No sections found in document
+
+📄 basics/mwe.tex:
+  ⚠️  Line 10: Very long line (134 chars)
+  ⚠️  No sections found in document
+
+📄 basics/slides/accuracy-convention.tex:
+  ⚠️  Display math followed immediately by text (missing newline)
+  ⚠️  May need \usepackage{graphicx} for \\includegraphics
+  ⚠️  May need \usepackage{hyperref} for \\href
+  ⚠️  May need \usepackage{tikz} for \\begin\{tikzpicture\}
+  ⚠️  Line 64: Very long line (132 chars)
+  ⚠️  Line 174: Very long line (124 chars)
+  ⚠️  Line 239: Very long line (129 chars)
+  ⚠️  Line 270: Very long line (134 chars)
+  ⚠️  Line 340: Very long line (132 chars)
+  ⚠️  Line 633: Very long line (133 chars)
+  ⚠️  Line 689: Very long line (128 chars)
+  ⚠️  Line 692: Very long line (182 chars)
+  ⚠️  Line 723: Very long line (131 chars)
+  ⚠️  Line 927: Very long line (125 chars)
+  ⚠️  Line 952: Very long line (181 chars)
+  ⚠️  Line 1033: Very long line (204 chars)
+  ⚠️  Line 1057: Very long line (218 chars)
+  ⚠️  Line 6: Too many consecutive blank lines
+  ⚠️  Line 7: Too many consecutive blank lines
+  ⚠️  Line 8: Too many consecutive blank lines
+  ⚠️  Line 38: Too many consecutive blank lines
+  ⚠️  Line 54: Too many consecutive blank lines
+  ⚠️  Line 58: Too many consecutive blank lines
+  ⚠️  Line 293: Too many consecutive blank lines
+  ⚠️  Line 327: Too many consecutive blank lines
+  ⚠️  Line 328: Too many consecutive blank lines
+  ⚠️  Line 329: Too many consecutive blank lines
+  ⚠️  Line 371: Too many consecutive blank lines
+  ⚠️  Line 372: Too many consecutive blank lines
+  ⚠️  Line 373: Too many consecutive blank lines
+  ⚠️  Line 417: Too many consecutive blank lines
+  ⚠️  Line 572: Too many consecutive blank lines
+  ⚠️  Line 957: Too many consecutive blank lines
+  ⚠️  Line 998: Too many consecutive blank lines
+
+📄 basics/slides/misc.tex:
+  ⚠️  Line 10: Very long line (160 chars)
+  ⚠️  Line 11: Very long line (131 chars)
+  ⚠️  Line 13: Very long line (148 chars)
+  ⚠️  Line 15: Very long line (189 chars)
+  ⚠️  Line 16: Very long line (187 chars)
+  ⚠️  Line 17: Very long line (136 chars)
+  ⚠️  Line 24: Too many consecutive blank lines
+  ⚠️  No sections found in document
+
+📄 basics/slides/shuffling.tex:
+  ⚠️  May need \usepackage{graphicx} for \\includegraphics
+  ⚠️  Line 15: Too many consecutive blank lines
+  ⚠️  No sections found in document
+
+📄 basics/tutorials/accuracy-convention.tex:
+  ⚠️  Display math followed immediately by text (missing newline)
+  ⚠️  Line 44: Very long line (145 chars)
+  ⚠️  Line 53: Very long line (388 chars)
+  ⚠️  Line 61: Very long line (125 chars)
+  ⚠️  Line 70: Very long line (131 chars)
+  ⚠️  Line 129: Very long line (132 chars)
+  ⚠️  Line 153: Very long line (141 chars)
+  ⚠️  Line 223: Very long line (137 chars)
+  ⚠️  Line 259: Very long line (141 chars)
+  ⚠️  Line 285: Very long line (153 chars)
+  ⚠️  Line 294: Very long line (126 chars)
+  ⚠️  Line 302: Very long line (150 chars)
+  ⚠️  Line 407: Very long line (145 chars)
+  ⚠️  Line 415: Very long line (150 chars)
+  ⚠️  Line 472: Very long line (124 chars)
+  ⚠️  Line 479: Very long line (145 chars)
+  ⚠️  Line 580: Very long line (137 chars)
+  ⚠️  Line 629: Very long line (144 chars)
+  ⚠️  Line 655: Very long line (133 chars)
+  ⚠️  Line 672: Very long line (133 chars)
+  ⚠️  Line 701: Very long line (140 chars)
+  ⚠️  Line 716: Very long line (133 chars)
+  ⚠️  Line 730: Very long line (199 chars)
+  ⚠️  Line 733: Very long line (128 chars)
+  ⚠️  Line 734: Very long line (154 chars)
+  ⚠️  Line 742: Very long line (132 chars)
+  ⚠️  Line 747: Very long line (137 chars)
+  ⚠️  Line 748: Very long line (136 chars)
+  ⚠️  Line 762: Very long line (141 chars)
+
+📄 basics/tutorials/cross-validation.tex:
+  ⚠️  Display math followed immediately by text (missing newline)
+  ⚠️  Display math preceded immediately by text (missing newline)
+  ⚠️  Line 53: Very long line (395 chars)
+  ⚠️  Line 61: Very long line (229 chars)
+  ⚠️  Line 104: Very long line (140 chars)
+  ⚠️  Line 180: Very long line (134 chars)
+  ⚠️  Line 220: Very long line (131 chars)
+  ⚠️  Line 222: Very long line (141 chars)
+  ⚠️  Line 319: Very long line (129 chars)
+  ⚠️  Line 394: Very long line (130 chars)
+  ⚠️  Line 400: Very long line (127 chars)
+  ⚠️  Line 500: Very long line (135 chars)
+  ⚠️  Line 518: Very long line (136 chars)
+  ⚠️  Line 536: Very long line (133 chars)
+  ⚠️  Line 558: Very long line (189 chars)
+  ⚠️  Line 609: Very long line (126 chars)
+  ⚠️  Line 611: Very long line (150 chars)
+
+📄 basics/tutorials/decision-trees.tex:
+  ⚠️  Display math followed immediately by text (missing newline)
+  ⚠️  Line 108: Very long line (129 chars)
+  ⚠️  Line 185: Very long line (121 chars)
+  ⚠️  Line 209: Very long line (123 chars)
+  ⚠️  Line 219: Very long line (126 chars)
+  ⚠️  Line 246: Very long line (125 chars)
+  ⚠️  Line 279: Very long line (123 chars)
+
+📄 basics/tutorials/mathematical-conventions.tex:
+  ⚠️  May need \usepackage{amssymb} for \\mathbb
+  ⚠️  Line 60: Very long line (123 chars)
+  ⚠️  Line 69: Very long line (448 chars)
+  ⚠️  Line 206: Very long line (133 chars)
+  ⚠️  Line 222: Very long line (133 chars)
+  ⚠️  Line 238: Very long line (127 chars)
+  ⚠️  Line 256: Very long line (145 chars)
+  ⚠️  Line 299: Very long line (134 chars)
+  ⚠️  Line 336: Very long line (145 chars)
+  ⚠️  Line 375: Very long line (130 chars)
+  ⚠️  Line 376: Very long line (143 chars)
+  ⚠️  Line 377: Very long line (133 chars)
+  ⚠️  Line 449: Very long line (198 chars)
+  ⚠️  Line 454: Very long line (123 chars)
+  ⚠️  Line 505: Very long line (134 chars)
+  ⚠️  Line 516: Very long line (155 chars)
+  ⚠️  Line 521: Very long line (133 chars)
+  ⚠️  Line 539: Very long line (138 chars)
+
+📄 basics/tutorials/mathematical-prerequisites.tex:
+  ⚠️  Display math followed immediately by text (missing newline)
+  ⚠️  Display math preceded immediately by text (missing newline)
+  ⚠️  Line 44: Very long line (144 chars)
+  ⚠️  Line 53: Very long line (416 chars)
+  ⚠️  Line 85: Very long line (137 chars)
+  ⚠️  Line 125: Very long line (139 chars)
+  ⚠️  Line 127: Very long line (200 chars)
+  ⚠️  Line 157: Very long line (130 chars)
+  ⚠️  Line 165: Very long line (149 chars)
+  ⚠️  Line 209: Very long line (138 chars)
+  ⚠️  Line 302: Very long line (131 chars)
+  ⚠️  Line 325: Very long line (138 chars)
+  ⚠️  Line 370: Very long line (131 chars)
+  ⚠️  Line 427: Very long line (139 chars)
+  ⚠️  Line 473: Very long line (148 chars)
+  ⚠️  Line 484: Very long line (131 chars)
+  ⚠️  Line 499: Very long line (138 chars)
+  ⚠️  Line 505: Very long line (128 chars)
+  ⚠️  Line 514: Very long line (147 chars)
+  ⚠️  Line 520: Very long line (136 chars)
+  ⚠️  Line 531: Very long line (143 chars)
+  ⚠️  Line 551: Very long line (136 chars)
+  ⚠️  Line 564: Very long line (136 chars)
+  ⚠️  Line 571: Very long line (133 chars)
+  ⚠️  Line 580: Very long line (128 chars)
+  ⚠️  Line 587: Very long line (141 chars)
+  ⚠️  Line 606: Very long line (142 chars)
+  ⚠️  Line 623: Very long line (138 chars)
+  ⚠️  Line 638: Very long line (223 chars)
+  ⚠️  Line 661: Very long line (137 chars)
+
+📄 conventions-sanitized.tex:
+  ⚠️  May need \usepackage{amssymb} for \\mathbb
+
+📄 conventions.tex:
+  ⚠️  May need \usepackage{amssymb} for \\mathbb
+
+📄 maths/slides/constrained-1.tex:
+  ⚠️  No sections found in document
+
+📄 maths/slides/constrained-2.tex:
+  ⚠️  No sections found in document
+
+📄 maths/slides/find-widths.tex:
+  ⚠️  No sections found in document
+
+📄 maths/slides/kkt-conditions.tex:
+  ⚠️  May need \usepackage{amssymb} for \\mathbb
+  ⚠️  May need \usepackage{graphicx} for \\includegraphics
+  ⚠️  Line 39: Very long line (141 chars)
+  ⚠️  Line 96: Very long line (128 chars)
+  ⚠️  Line 133: Very long line (122 chars)
+  ⚠️  Line 15: Too many consecutive blank lines
+  ⚠️  No sections found in document
+
+📄 maths/slides/mathematical-ml.tex:
+  ⚠️  May need \usepackage{hyperref} for \\url
+  ⚠️  Line 163: Very long line (121 chars)
+  ⚠️  Line 253: Very long line (165 chars)
+  ⚠️  Line 254: Very long line (129 chars)
+  ⚠️  Line 267: Very long line (160 chars)
+  ⚠️  Line 268: Very long line (227 chars)
+  ⚠️  Line 287: Very long line (127 chars)
+  ⚠️  Line 300: Very long line (249 chars)
+  ⚠️  Line 304: Very long line (175 chars)
+  ⚠️  Line 348: Very long line (156 chars)
+  ⚠️  Line 18: Too many consecutive blank lines
+  ⚠️  Line 27: Too many consecutive blank lines
+  ⚠️  Line 58: Too many consecutive blank lines
+  ⚠️  Line 97: Too many consecutive blank lines
+  ⚠️  Line 98: Too many consecutive blank lines
+  ⚠️  Line 99: Too many consecutive blank lines
+  ⚠️  Line 110: Too many consecutive blank lines
+  ⚠️  Line 111: Too many consecutive blank lines
+
+📄 maths/slides/ml-maths-2-contour.tex:
+  ⚠️  May need \usepackage{graphicx} for \\includegraphics
+  ⚠️  Line 112: Very long line (123 chars)
+  ⚠️  Line 5: Too many consecutive blank lines
+  ⚠️  Line 6: Too many consecutive blank lines
+  ⚠️  Line 7: Too many consecutive blank lines
+  ⚠️  Line 8: Too many consecutive blank lines
+  ⚠️  Line 17: Too many consecutive blank lines
+  ⚠️  Line 89: Too many consecutive blank lines
+  ⚠️  Line 90: Too many consecutive blank lines
+  ⚠️  Line 91: Too many consecutive blank lines
+  ⚠️  Line 92: Too many consecutive blank lines
+  ⚠️  Line 93: Too many consecutive blank lines
+  ⚠️  Line 94: Too many consecutive blank lines
+  ⚠️  Line 95: Too many consecutive blank lines
+  ⚠️  Line 120: Too many consecutive blank lines
+  ⚠️  Line 121: Too many consecutive blank lines
+  ⚠️  Line 122: Too many consecutive blank lines
+  ⚠️  Line 123: Too many consecutive blank lines
+  ⚠️  Line 124: Too many consecutive blank lines
+  ⚠️  Line 125: Too many consecutive blank lines
+  ⚠️  Line 133: Too many consecutive blank lines
+  ⚠️  Line 137: Too many consecutive blank lines
+  ⚠️  Line 138: Too many consecutive blank lines
+  ⚠️  Line 139: Too many consecutive blank lines
+  ⚠️  No sections found in document
+
+📄 maths/slides/mvn.tex:
+  ⚠️  Display math followed immediately by text (missing newline)
+  ⚠️  May need \usepackage{graphicx} for \\includegraphics
+  ⚠️  Line 27: Very long line (152 chars)
+  ⚠️  Line 37: Very long line (153 chars)
+  ⚠️  Line 52: Very long line (144 chars)
+  ⚠️  Line 125: Very long line (208 chars)
+  ⚠️  Line 159: Very long line (191 chars)
+  ⚠️  Line 161: Very long line (148 chars)
+  ⚠️  Line 182: Very long line (178 chars)
+  ⚠️  Line 227: Very long line (162 chars)
+  ⚠️  Line 237: Very long line (206 chars)
+  ⚠️  Line 239: Very long line (181 chars)
+  ⚠️  Line 243: Very long line (224 chars)
+  ⚠️  Line 255: Very long line (174 chars)
+  ⚠️  Line 260: Very long line (165 chars)
+  ⚠️  Line 270: Very long line (151 chars)
+  ⚠️  Line 14: Too many consecutive blank lines
+  ⚠️  Line 23: Too many consecutive blank lines
+  ⚠️  Line 24: Too many consecutive blank lines
+  ⚠️  Line 213: Too many consecutive blank lines
+  ⚠️  No sections found in document
+
+📄 maths/slides/mvn2.tex:
+  ⚠️  Display math followed immediately by text (missing newline)
+  ⚠️  May need \usepackage{hyperref} for \\url
+  ⚠️  Line 114: Very long line (147 chars)
+  ⚠️  Line 115: Very long line (147 chars)
+  ⚠️  Line 212: Very long line (166 chars)
+  ⚠️  Line 218: Very long line (177 chars)
+  ⚠️  Line 245: Very long line (132 chars)
+  ⚠️  Line 264: Very long line (236 chars)
+  ⚠️  Line 265: Very long line (242 chars)
+  ⚠️  Line 266: Very long line (145 chars)
+  ⚠️  Line 272: Very long line (146 chars)
+  ⚠️  Line 276: Very long line (284 chars)
+  ⚠️  Line 277: Very long line (196 chars)
+  ⚠️  Line 278: Very long line (166 chars)
+  ⚠️  Line 280: Very long line (224 chars)
+  ⚠️  Line 281: Very long line (196 chars)
+  ⚠️  Line 282: Very long line (164 chars)
+  ⚠️  Line 291: Very long line (313 chars)
+  ⚠️  Line 313: Very long line (638 chars)
+  ⚠️  Line 316: Very long line (131 chars)
+  ⚠️  Line 323: Very long line (850 chars)
+  ⚠️  Line 332: Very long line (284 chars)
+  ⚠️  Line 336: Very long line (277 chars)
+  ⚠️  Line 14: Too many consecutive blank lines
+  ⚠️  No sections found in document
+
+📄 neural-networks/slides/autograd.tex:
+  ⚠️  No sections found in document
+
+📄 neural-networks/slides/cnn-1d.tex:
+  ⚠️  No sections found in document
+
+📄 neural-networks/slides/cnn.tex:
+  ⚠️  No sections found in document
+
+📄 neural-networks/slides/mlp.tex:
+  ⚠️  No sections found in document
+
+📄 neural-networks/slides/next-token-prediction.tex:
+  ⚠️  No sections found in document
+
+📄 neural-networks/tutorials/neural-networks.tex:
+  ⚠️  Display math followed immediately by text (missing newline)
+  ⚠️  Line 157: Very long line (138 chars)
+  ⚠️  Line 241: Very long line (140 chars)
+
+📄 optimization/slides/convexity.tex:
+  ⚠️  May need \usepackage{graphicx} for \\includegraphics
+  ⚠️  Line 25: Very long line (151 chars)
+  ⚠️  Line 130: Very long line (159 chars)
+  ⚠️  Line 133: Very long line (171 chars)
+  ⚠️  Line 134: Very long line (171 chars)
+  ⚠️  Line 136: Very long line (168 chars)
+  ⚠️  Line 174: Very long line (129 chars)
+  ⚠️  Line 14: Too many consecutive blank lines
+  ⚠️  No sections found in document
+
+📄 optimization/slides/coordinate-descent.tex:
+  ⚠️  May need \usepackage{tikz} for \\begin\{tikzpicture\}
+  ⚠️  Line 47: Very long line (146 chars)
+  ⚠️  Line 72: Very long line (154 chars)
+  ⚠️  Line 8: Too many consecutive blank lines
+  ⚠️  Line 9: Too many consecutive blank lines
+  ⚠️  Line 44: Too many consecutive blank lines
+  ⚠️  Line 45: Too many consecutive blank lines
+  ⚠️  Line 62: Too many consecutive blank lines
+  ⚠️  Line 76: Too many consecutive blank lines
+  ⚠️  Line 77: Too many consecutive blank lines
+  ⚠️  Line 78: Too many consecutive blank lines
+  ⚠️  Line 134: Too many consecutive blank lines
+  ⚠️  Line 135: Too many consecutive blank lines
+  ⚠️  No sections found in document
+
+📄 optimization/slides/gradient-descent.tex:
+  ⚠️  Display math followed immediately by text (missing newline)
+  ⚠️  May need \usepackage{amssymb} for \\mathbb
+  ⚠️  May need \usepackage{graphicx} for \\includegraphics
+  ⚠️  Line 20: Very long line (130 chars)
+  ⚠️  Line 25: Very long line (123 chars)
+  ⚠️  Line 99: Very long line (124 chars)
+  ⚠️  Line 192: Very long line (132 chars)
+  ⚠️  Line 193: Very long line (160 chars)
+  ⚠️  Line 194: Very long line (186 chars)
+  ⚠️  Line 195: Very long line (129 chars)
+  ⚠️  Line 202: Very long line (183 chars)
+  ⚠️  Line 227: Very long line (162 chars)
+  ⚠️  Line 251: Very long line (191 chars)
+  ⚠️  Line 254: Very long line (194 chars)
+  ⚠️  Line 285: Very long line (158 chars)
+  ⚠️  Line 295: Very long line (158 chars)
+  ⚠️  Line 305: Very long line (127 chars)
+  ⚠️  Line 384: Very long line (131 chars)
+  ⚠️  Line 399: Very long line (197 chars)
+  ⚠️  Line 430: Very long line (136 chars)
+  ⚠️  Line 438: Very long line (157 chars)
+  ⚠️  Line 440: Very long line (159 chars)
+  ⚠️  Line 517: Very long line (139 chars)
+  ⚠️  Line 544: Very long line (176 chars)
+  ⚠️  Line 554: Very long line (153 chars)
+  ⚠️  Line 559: Very long line (133 chars)
+  ⚠️  Line 562: Very long line (137 chars)
+  ⚠️  Line 598: Very long line (130 chars)
+  ⚠️  Line 599: Very long line (159 chars)
+  ⚠️  Line 615: Very long line (137 chars)
+  ⚠️  Line 616: Very long line (132 chars)
+  ⚠️  Line 618: Very long line (134 chars)
+  ⚠️  Line 619: Very long line (131 chars)
+  ⚠️  Line 629: Very long line (159 chars)
+  ⚠️  Line 650: Very long line (140 chars)
+  ⚠️  Line 652: Very long line (126 chars)
+  ⚠️  Line 663: Very long line (212 chars)
+  ⚠️  Line 6: Too many consecutive blank lines
+  ⚠️  Line 7: Too many consecutive blank lines
+  ⚠️  Line 23: Too many consecutive blank lines
+  ⚠️  Line 24: Too many consecutive blank lines
+  ⚠️  Line 33: Too many consecutive blank lines
+  ⚠️  Line 74: Too many consecutive blank lines
+  ⚠️  Line 88: Too many consecutive blank lines
+  ⚠️  Line 130: Too many consecutive blank lines
+  ⚠️  Line 148: Too many consecutive blank lines
+  ⚠️  Line 149: Too many consecutive blank lines
+  ⚠️  Line 150: Too many consecutive blank lines
+  ⚠️  Line 217: Too many consecutive blank lines
+  ⚠️  Line 233: Too many consecutive blank lines
+  ⚠️  Line 247: Too many consecutive blank lines
+  ⚠️  Line 370: Too many consecutive blank lines
+  ⚠️  Line 371: Too many consecutive blank lines
+  ⚠️  Line 372: Too many consecutive blank lines
+  ⚠️  Line 373: Too many consecutive blank lines
+  ⚠️  Line 377: Too many consecutive blank lines
+  ⚠️  Line 378: Too many consecutive blank lines
+  ⚠️  Line 588: Too many consecutive blank lines
+  ⚠️  Line 604: Too many consecutive blank lines
+  ⚠️  Line 657: Too many consecutive blank lines
+  ⚠️  Line 661: Too many consecutive blank lines
+
+📄 optimization/slides/subgradient.tex:
+  ⚠️  May need \usepackage{graphicx} for \\includegraphics
+  ⚠️  Line 16: Too many consecutive blank lines
+  ⚠️  Line 89: Too many consecutive blank lines
+  ⚠️  Line 90: Too many consecutive blank lines
+
+📄 optimization/tutorials/optimization.tex:
+  ⚠️  Display math followed immediately by text (missing newline)
+  ⚠️  Display math preceded immediately by text (missing newline)
+  ⚠️  Line 156: Very long line (127 chars)
+  ⚠️  Line 165: Very long line (123 chars)
+  ⚠️  Line 167: Very long line (165 chars)
+  ⚠️  Line 174: Very long line (123 chars)
+  ⚠️  Line 184: Very long line (123 chars)
+  ⚠️  Line 196: Very long line (128 chars)
+  ⚠️  Line 206: Very long line (134 chars)
+  ⚠️  Line 208: Very long line (130 chars)
+  ⚠️  Line 216: Very long line (124 chars)
+  ⚠️  Line 226: Very long line (131 chars)
+  ⚠️  Line 236: Very long line (121 chars)
+  ⚠️  Line 250: Very long line (128 chars)
+  ⚠️  Line 261: Very long line (123 chars)
+  ⚠️  Line 294: Very long line (131 chars)
+  ⚠️  Line 307: Very long line (124 chars)
+  ⚠️  Line 320: Very long line (133 chars)
+
+📄 supervised/assets/ensemble/diagrams/feature-importance.tex:
+  ⚠️  May need \usepackage{tikz} for \\begin\{tikzpicture\}
+
+📄 supervised/assets/ensemble/diagrams/test-0.3.tex:
+  ⚠️  May need \usepackage{tikz} for \\begin\{tikzpicture\}
+  ⚠️  Line 23: Very long line (130 chars)
+  ⚠️  Line 24: Very long line (128 chars)
+  ⚠️  Line 25: Very long line (127 chars)
+  ⚠️  Line 26: Very long line (127 chars)
+  ⚠️  Line 27: Very long line (126 chars)
+  ⚠️  Line 28: Very long line (126 chars)
+  ⚠️  Line 29: Very long line (126 chars)
+  ⚠️  Line 30: Very long line (126 chars)
+  ⚠️  Line 31: Very long line (126 chars)
+  ⚠️  Line 32: Very long line (127 chars)
+  ⚠️  Line 33: Very long line (126 chars)
+  ⚠️  Line 34: Very long line (129 chars)
+  ⚠️  Line 35: Very long line (130 chars)
+  ⚠️  Line 36: Very long line (130 chars)
+  ⚠️  Line 37: Very long line (131 chars)
+  ⚠️  Line 38: Very long line (131 chars)
+  ⚠️  Line 39: Very long line (131 chars)
+  ⚠️  Line 40: Very long line (131 chars)
+  ⚠️  Line 41: Very long line (130 chars)
+  ⚠️  Line 42: Very long line (129 chars)
+  ⚠️  Line 43: Very long line (131 chars)
+  ⚠️  Line 44: Very long line (129 chars)
+  ⚠️  Line 45: Very long line (130 chars)
+  ⚠️  Line 46: Very long line (130 chars)
+  ⚠️  Line 47: Very long line (131 chars)
+  ⚠️  Line 48: Very long line (131 chars)
+  ⚠️  Line 49: Very long line (131 chars)
+  ⚠️  Line 50: Very long line (131 chars)
+  ⚠️  Line 51: Very long line (130 chars)
+  ⚠️  Line 52: Very long line (129 chars)
+  ⚠️  Line 53: Very long line (131 chars)
+
+📄 supervised/assets/ensemble/diagrams/test-0.6.tex:
+  ⚠️  May need \usepackage{tikz} for \\begin\{tikzpicture\}
+  ⚠️  Line 9: Very long line (122 chars)
+  ⚠️  Line 23: Very long line (130 chars)
+  ⚠️  Line 24: Very long line (129 chars)
+  ⚠️  Line 25: Very long line (129 chars)
+  ⚠️  Line 26: Very long line (129 chars)
+  ⚠️  Line 27: Very long line (129 chars)
+  ⚠️  Line 28: Very long line (129 chars)
+  ⚠️  Line 29: Very long line (128 chars)
+  ⚠️  Line 30: Very long line (128 chars)
+  ⚠️  Line 31: Very long line (127 chars)
+  ⚠️  Line 32: Very long line (127 chars)
+  ⚠️  Line 33: Very long line (128 chars)
+  ⚠️  Line 34: Very long line (128 chars)
+  ⚠️  Line 35: Very long line (128 chars)
+  ⚠️  Line 36: Very long line (128 chars)
+  ⚠️  Line 37: Very long line (128 chars)
+  ⚠️  Line 38: Very long line (128 chars)
+  ⚠️  Line 39: Very long line (129 chars)
+  ⚠️  Line 40: Very long line (129 chars)
+  ⚠️  Line 41: Very long line (130 chars)
+  ⚠️  Line 42: Very long line (130 chars)
+  ⚠️  Line 43: Very long line (130 chars)
+  ⚠️  Line 44: Very long line (128 chars)
+  ⚠️  Line 45: Very long line (128 chars)
+  ⚠️  Line 46: Very long line (128 chars)
+  ⚠️  Line 47: Very long line (128 chars)
+  ⚠️  Line 48: Very long line (128 chars)
+  ⚠️  Line 49: Very long line (129 chars)
+  ⚠️  Line 50: Very long line (129 chars)
+  ⚠️  Line 51: Very long line (130 chars)
+  ⚠️  Line 52: Very long line (130 chars)
+  ⚠️  Line 53: Very long line (130 chars)
+
+📄 supervised/assets/ensemble/diagrams/test.tex:
+  ⚠️  May need \usepackage{tikz} for \\begin\{tikzpicture\}
+  ⚠️  Line 22: Very long line (130 chars)
+  ⚠️  Line 23: Very long line (128 chars)
+  ⚠️  Line 24: Very long line (127 chars)
+  ⚠️  Line 25: Very long line (127 chars)
+  ⚠️  Line 26: Very long line (126 chars)
+  ⚠️  Line 27: Very long line (126 chars)
+  ⚠️  Line 28: Very long line (126 chars)
+  ⚠️  Line 29: Very long line (126 chars)
+  ⚠️  Line 30: Very long line (126 chars)
+  ⚠️  Line 31: Very long line (127 chars)
+  ⚠️  Line 32: Very long line (126 chars)
+  ⚠️  Line 33: Very long line (129 chars)
+  ⚠️  Line 34: Very long line (130 chars)
+  ⚠️  Line 35: Very long line (130 chars)
+  ⚠️  Line 36: Very long line (131 chars)
+  ⚠️  Line 37: Very long line (131 chars)
+  ⚠️  Line 38: Very long line (131 chars)
+  ⚠️  Line 39: Very long line (131 chars)
+  ⚠️  Line 40: Very long line (130 chars)
+  ⚠️  Line 41: Very long line (129 chars)
+  ⚠️  Line 42: Very long line (131 chars)
+  ⚠️  Line 43: Very long line (129 chars)
+  ⚠️  Line 44: Very long line (130 chars)
+  ⚠️  Line 45: Very long line (130 chars)
+  ⚠️  Line 46: Very long line (131 chars)
+  ⚠️  Line 47: Very long line (131 chars)
+  ⚠️  Line 48: Very long line (131 chars)
+  ⚠️  Line 49: Very long line (131 chars)
+  ⚠️  Line 50: Very long line (130 chars)
+  ⚠️  Line 51: Very long line (129 chars)
+  ⚠️  Line 52: Very long line (131 chars)
+
+📄 supervised/slides/bayesian-nets.tex:
+  ⚠️  May need \usepackage{graphicx} for \\includegraphics
+  ⚠️  May need \usepackage{tikz} for \\begin\{tikzpicture\}
+  ⚠️  Line 31: Very long line (274 chars)
+  ⚠️  Line 33: Very long line (256 chars)
+  ⚠️  Line 36: Very long line (243 chars)
+  ⚠️  Line 38: Very long line (274 chars)
+  ⚠️  Line 41: Very long line (241 chars)
+  ⚠️  Line 44: Very long line (240 chars)
+  ⚠️  Line 102: Very long line (153 chars)
+  ⚠️  Line 117: Very long line (135 chars)
+  ⚠️  Line 129: Very long line (274 chars)
+  ⚠️  Line 131: Very long line (264 chars)
+  ⚠️  Line 134: Very long line (240 chars)
+  ⚠️  Line 136: Very long line (274 chars)
+  ⚠️  Line 138: Very long line (274 chars)
+  ⚠️  Line 140: Very long line (274 chars)
+  ⚠️  Line 143: Very long line (242 chars)
+  ⚠️  Line 146: Very long line (242 chars)
+  ⚠️  Line 149: Very long line (241 chars)
+  ⚠️  Line 273: Very long line (159 chars)
+  ⚠️  Line 279: Very long line (139 chars)
+  ⚠️  Line 282: Very long line (128 chars)
+  ⚠️  Line 296: Very long line (130 chars)
+  ⚠️  Line 302: Very long line (130 chars)
+  ⚠️  Line 388: Very long line (126 chars)
+  ⚠️  Line 13: Too many consecutive blank lines
+  ⚠️  Line 14: Too many consecutive blank lines
+  ⚠️  Line 23: Too many consecutive blank lines
+  ⚠️  Line 78: Too many consecutive blank lines
+  ⚠️  Line 79: Too many consecutive blank lines
+  ⚠️  Line 80: Too many consecutive blank lines
+  ⚠️  Line 81: Too many consecutive blank lines
+  ⚠️  Line 121: Too many consecutive blank lines
+  ⚠️  Line 218: Too many consecutive blank lines
+
+📄 supervised/slides/bias-variance-2.tex:
+  ⚠️  Display math followed immediately by text (missing newline)
+  ⚠️  May need \usepackage{graphicx} for \\includegraphics
+  ⚠️  Line 24: Very long line (134 chars)
+  ⚠️  Line 47: Very long line (185 chars)
+  ⚠️  Line 57: Very long line (173 chars)
+  ⚠️  Line 82: Very long line (191 chars)
+  ⚠️  Line 109: Very long line (169 chars)
+  ⚠️  Line 134: Very long line (138 chars)
+  ⚠️  Line 179: Very long line (163 chars)
+  ⚠️  Line 225: Very long line (135 chars)
+  ⚠️  Line 280: Very long line (166 chars)
+  ⚠️  Line 301: Very long line (125 chars)
+  ⚠️  Line 315: Very long line (306 chars)
+  ⚠️  Line 324: Very long line (136 chars)
+  ⚠️  Line 327: Very long line (177 chars)
+  ⚠️  Line 378: Very long line (124 chars)
+  ⚠️  Line 382: Very long line (157 chars)
+  ⚠️  Line 392: Very long line (125 chars)
+  ⚠️  Line 398: Very long line (151 chars)
+  ⚠️  Line 440: Very long line (134 chars)
+  ⚠️  Line 443: Very long line (191 chars)
+  ⚠️  Line 14: Too many consecutive blank lines
+  ⚠️  Line 520: Too many consecutive blank lines
+  ⚠️  Line 545: Too many consecutive blank lines
+  ⚠️  Line 558: Too many consecutive blank lines
+  ⚠️  Line 559: Too many consecutive blank lines
+  ⚠️  Line 560: Too many consecutive blank lines
+
+📄 supervised/slides/bias-variance.tex:
+  ⚠️  May need \usepackage{graphicx} for \\includegraphics
+  ⚠️  Line 15: Too many consecutive blank lines
+
+📄 supervised/slides/cross-validation.tex:
+  ⚠️  May need \usepackage{graphicx} for \\includegraphics
+  ⚠️  Line 177: Very long line (138 chars)
+
+📄 supervised/slides/decision-trees.tex:
+  ⚠️  Display math followed immediately by text (missing newline)
+  ⚠️  May need \usepackage{graphicx} for \\includegraphics
+  ⚠️  May need \usepackage{tikz} for \\begin\{tikzpicture\}
+  ⚠️  May need \usepackage{booktabs} for \\toprule
+  ⚠️  May need \usepackage{booktabs} for \\midrule
+  ⚠️  May need \usepackage{booktabs} for \\bottomrule
+  ⚠️  Line 134: Very long line (140 chars)
+  ⚠️  Line 269: Very long line (122 chars)
+  ⚠️  Line 283: Very long line (153 chars)
+  ⚠️  Line 440: Very long line (147 chars)
+  ⚠️  Line 444: Very long line (166 chars)
+  ⚠️  Line 447: Very long line (123 chars)
+  ⚠️  Line 505: Very long line (162 chars)
+  ⚠️  Line 506: Very long line (185 chars)
+  ⚠️  Line 507: Very long line (134 chars)
+  ⚠️  Line 615: Very long line (136 chars)
+  ⚠️  Line 652: Very long line (143 chars)
+  ⚠️  Line 662: Very long line (123 chars)
+  ⚠️  Line 676: Very long line (126 chars)
+  ⚠️  Line 771: Very long line (139 chars)
+  ⚠️  Line 789: Very long line (128 chars)
+  ⚠️  Line 948: Very long line (121 chars)
+  ⚠️  Line 966: Very long line (122 chars)
+  ⚠️  Line 998: Very long line (157 chars)
+  ⚠️  Line 1177: Very long line (148 chars)
+  ⚠️  Line 6: Too many consecutive blank lines
+  ⚠️  Line 196: Too many consecutive blank lines
+  ⚠️  Line 197: Too many consecutive blank lines
+  ⚠️  Line 984: Too many consecutive blank lines
+  ⚠️  Line 985: Too many consecutive blank lines
+  ⚠️  Line 986: Too many consecutive blank lines
+  ⚠️  Line 987: Too many consecutive blank lines
+  ⚠️  Line 1342: Too many consecutive blank lines
+  ⚠️  Line 1388: Too many consecutive blank lines
+
+📄 supervised/slides/ensemble.tex:
+  ⚠️  May need \usepackage{graphicx} for \\includegraphics
+  ⚠️  Line 58: Very long line (136 chars)
+  ⚠️  Line 62: Very long line (151 chars)
+  ⚠️  Line 72: Very long line (218 chars)
+  ⚠️  Line 144: Very long line (137 chars)
+  ⚠️  Line 604: Very long line (211 chars)
+  ⚠️  Line 766: Very long line (123 chars)
+  ⚠️  Line 778: Very long line (141 chars)
+  ⚠️  Line 786: Very long line (136 chars)
+  ⚠️  Line 818: Very long line (122 chars)
+  ⚠️  Line 17: Too many consecutive blank lines
+  ⚠️  Line 18: Too many consecutive blank lines
+  ⚠️  Line 114: Too many consecutive blank lines
+  ⚠️  Line 115: Too many consecutive blank lines
+  ⚠️  Line 794: Too many consecutive blank lines
+
+📄 supervised/slides/feature-selection.tex:
+  ⚠️  Line 56: Very long line (184 chars)
+  ⚠️  Line 77: Very long line (170 chars)
+  ⚠️  Line 16: Too many consecutive blank lines
+  ⚠️  Line 25: Too many consecutive blank lines
+  ⚠️  Line 74: Too many consecutive blank lines
+
+📄 supervised/slides/knn-approx.tex:
+  ⚠️  No sections found in document
+
+📄 supervised/slides/knn.tex:
+  ⚠️  May need \usepackage{graphicx} for \\includegraphics
+  ⚠️  May need \usepackage{hyperref} for \\href
+  ⚠️  Line 55: Very long line (147 chars)
+  ⚠️  Line 56: Very long line (147 chars)
+  ⚠️  Line 57: Very long line (147 chars)
+  ⚠️  Line 58: Very long line (147 chars)
+  ⚠️  Line 59: Very long line (146 chars)
+  ⚠️  Line 109: Very long line (255 chars)
+  ⚠️  Line 168: Very long line (142 chars)
+  ⚠️  Line 176: Very long line (149 chars)
+  ⚠️  Line 177: Very long line (171 chars)
+  ⚠️  Line 179: Very long line (143 chars)
+  ⚠️  Line 180: Very long line (167 chars)
+  ⚠️  Line 186: Very long line (146 chars)
+  ⚠️  Line 187: Very long line (159 chars)
+  ⚠️  Line 189: Very long line (145 chars)
+  ⚠️  Line 190: Very long line (159 chars)
+  ⚠️  Line 192: Very long line (149 chars)
+  ⚠️  Line 193: Very long line (163 chars)
+  ⚠️  Line 201: Very long line (130 chars)
+  ⚠️  Line 209: Very long line (156 chars)
+  ⚠️  Line 210: Very long line (323 chars)
+  ⚠️  Line 213: Very long line (156 chars)
+  ⚠️  Line 214: Very long line (324 chars)
+  ⚠️  Line 294: Very long line (126 chars)
+  ⚠️  Line 311: Very long line (130 chars)
+  ⚠️  Line 313: Very long line (152 chars)
+  ⚠️  Line 9: Too many consecutive blank lines
+  ⚠️  Line 10: Too many consecutive blank lines
+  ⚠️  Line 11: Too many consecutive blank lines
+  ⚠️  Line 12: Too many consecutive blank lines
+  ⚠️  Line 13: Too many consecutive blank lines
+  ⚠️  Line 14: Too many consecutive blank lines
+  ⚠️  Line 15: Too many consecutive blank lines
+  ⚠️  Line 16: Too many consecutive blank lines
+  ⚠️  Line 17: Too many consecutive blank lines
+  ⚠️  Line 18: Too many consecutive blank lines
+  ⚠️  Line 22: Too many consecutive blank lines
+  ⚠️  Line 23: Too many consecutive blank lines
+  ⚠️  Line 24: Too many consecutive blank lines
+  ⚠️  Line 25: Too many consecutive blank lines
+  ⚠️  Line 26: Too many consecutive blank lines
+
+📄 supervised/slides/lasso-regression.tex:
+  ⚠️  May need \usepackage{graphicx} for \\includegraphics
+  ⚠️  Line 33: Very long line (180 chars)
+  ⚠️  Line 36: Very long line (140 chars)
+  ⚠️  Line 47: Very long line (202 chars)
+  ⚠️  Line 87: Very long line (156 chars)
+  ⚠️  Line 93: Very long line (154 chars)
+  ⚠️  Line 99: Very long line (156 chars)
+  ⚠️  Line 106: Very long line (154 chars)
+  ⚠️  Line 272: Very long line (147 chars)
+  ⚠️  Line 297: Very long line (153 chars)
+  ⚠️  Line 458: Very long line (143 chars)
+  ⚠️  Line 461: Very long line (163 chars)
+  ⚠️  Line 476: Very long line (155 chars)
+  ⚠️  Line 483: Very long line (155 chars)
+  ⚠️  Line 486: Very long line (194 chars)
+  ⚠️  Line 493: Very long line (155 chars)
+  ⚠️  Line 496: Very long line (194 chars)
+  ⚠️  Line 499: Very long line (160 chars)
+  ⚠️  Line 501: Very long line (127 chars)
+  ⚠️  Line 510: Very long line (189 chars)
+  ⚠️  Line 513: Very long line (143 chars)
+  ⚠️  Line 528: Very long line (206 chars)
+  ⚠️  Line 531: Very long line (164 chars)
+  ⚠️  Line 567: Very long line (193 chars)
+  ⚠️  Line 16: Too many consecutive blank lines
+  ⚠️  Line 17: Too many consecutive blank lines
+  ⚠️  Line 269: Too many consecutive blank lines
+  ⚠️  Line 270: Too many consecutive blank lines
+  ⚠️  Line 287: Too many consecutive blank lines
+  ⚠️  Line 301: Too many consecutive blank lines
+  ⚠️  Line 302: Too many consecutive blank lines
+  ⚠️  Line 303: Too many consecutive blank lines
+  ⚠️  Line 323: Too many consecutive blank lines
+  ⚠️  Line 324: Too many consecutive blank lines
+  ⚠️  Line 453: Too many consecutive blank lines
+  ⚠️  Line 454: Too many consecutive blank lines
+  ⚠️  Line 455: Too many consecutive blank lines
+  ⚠️  Line 465: Too many consecutive blank lines
+  ⚠️  Line 472: Too many consecutive blank lines
+  ⚠️  Line 524: Too many consecutive blank lines
+  ⚠️  Line 525: Too many consecutive blank lines
+
+📄 supervised/slides/lasso-solution.tex:
+  ⚠️  Line 39: Very long line (149 chars)
+  ⚠️  Line 57: Very long line (165 chars)
+  ⚠️  Line 64: Very long line (161 chars)
+  ⚠️  Line 65: Very long line (215 chars)
+  ⚠️  Line 72: Very long line (161 chars)
+  ⚠️  Line 73: Very long line (215 chars)
+  ⚠️  Line 74: Very long line (163 chars)
+  ⚠️  Line 76: Very long line (127 chars)
+  ⚠️  Line 101: Very long line (204 chars)
+  ⚠️  Line 104: Very long line (174 chars)
+  ⚠️  Line 134: Very long line (200 chars)
+  ⚠️  Line 12: Too many consecutive blank lines
+  ⚠️  Line 13: Too many consecutive blank lines
+  ⚠️  Line 22: Too many consecutive blank lines
+  ⚠️  Line 26: Too many consecutive blank lines
+  ⚠️  Line 27: Too many consecutive blank lines
+  ⚠️  Line 28: Too many consecutive blank lines
+  ⚠️  Line 34: Too many consecutive blank lines
+  ⚠️  Line 35: Too many consecutive blank lines
+  ⚠️  Line 36: Too many consecutive blank lines
+  ⚠️  Line 46: Too many consecutive blank lines
+  ⚠️  Line 53: Too many consecutive blank lines
+  ⚠️  Line 97: Too many consecutive blank lines
+  ⚠️  Line 98: Too many consecutive blank lines
+
+📄 supervised/slides/linear-regression.tex:
+  ⚠️  Display math followed immediately by text (missing newline)
+  ⚠️  Display math preceded immediately by text (missing newline)
+  ⚠️  May need \usepackage{graphicx} for \\includegraphics
+  ⚠️  May need \usepackage{hyperref} for \\url
+  ⚠️  May need \usepackage{tikz} for \\begin\{tikzpicture\}
+  ⚠️  Line 230: Very long line (138 chars)
+  ⚠️  Line 254: Very long line (143 chars)
+  ⚠️  Line 310: Very long line (123 chars)
+  ⚠️  Line 467: Very long line (122 chars)
+  ⚠️  Line 925: Very long line (159 chars)
+  ⚠️  Line 936: Very long line (130 chars)
+  ⚠️  Line 937: Very long line (126 chars)
+  ⚠️  Line 945: Very long line (207 chars)
+  ⚠️  Line 967: Very long line (187 chars)
+  ⚠️  Line 1046: Very long line (126 chars)
+  ⚠️  Line 1354: Very long line (170 chars)
+  ⚠️  Line 1356: Very long line (277 chars)
+  ⚠️  Line 1359: Very long line (170 chars)
+  ⚠️  Line 6: Too many consecutive blank lines
+  ⚠️  Line 21: Too many consecutive blank lines
+  ⚠️  Line 22: Too many consecutive blank lines
+  ⚠️  Line 23: Too many consecutive blank lines
+  ⚠️  Line 24: Too many consecutive blank lines
+  ⚠️  Line 156: Too many consecutive blank lines
+  ⚠️  Line 160: Too many consecutive blank lines
+  ⚠️  Line 191: Too many consecutive blank lines
+  ⚠️  Line 245: Too many consecutive blank lines
+  ⚠️  Line 246: Too many consecutive blank lines
+  ⚠️  Line 247: Too many consecutive blank lines
+  ⚠️  Line 299: Too many consecutive blank lines
+  ⚠️  Line 316: Too many consecutive blank lines
+  ⚠️  Line 317: Too many consecutive blank lines
+  ⚠️  Line 478: Too many consecutive blank lines
+  ⚠️  Line 479: Too many consecutive blank lines
+  ⚠️  Line 480: Too many consecutive blank lines
+  ⚠️  Line 484: Too many consecutive blank lines
+  ⚠️  Line 497: Too many consecutive blank lines
+  ⚠️  Line 498: Too many consecutive blank lines
+  ⚠️  Line 499: Too many consecutive blank lines
+  ⚠️  Line 544: Too many consecutive blank lines
+  ⚠️  Line 721: Too many consecutive blank lines
+  ⚠️  Line 860: Too many consecutive blank lines
+  ⚠️  Line 980: Too many consecutive blank lines
+  ⚠️  Line 1079: Too many consecutive blank lines
+  ⚠️  Line 1080: Too many consecutive blank lines
+  ⚠️  Line 1093: Too many consecutive blank lines
+  ⚠️  Line 1094: Too many consecutive blank lines
+  ⚠️  Line 1193: Too many consecutive blank lines
+  ⚠️  Line 1194: Too many consecutive blank lines
+  ⚠️  Line 1195: Too many consecutive blank lines
+  ⚠️  Line 1202: Too many consecutive blank lines
+  ⚠️  Line 1266: Too many consecutive blank lines
+
+📄 supervised/slides/logistic-regression.tex:
+  ⚠️  Display math followed immediately by text (missing newline)
+  ⚠️  May need \usepackage{amssymb} for \\mathbb
+  ⚠️  May need \usepackage{graphicx} for \\includegraphics
+  ⚠️  Line 230: Very long line (194 chars)
+  ⚠️  Line 262: Very long line (126 chars)
+  ⚠️  Line 267: Very long line (166 chars)
+  ⚠️  Line 276: Very long line (160 chars)
+  ⚠️  Line 279: Very long line (122 chars)
+  ⚠️  Line 292: Very long line (132 chars)
+  ⚠️  Line 329: Very long line (195 chars)
+  ⚠️  Line 332: Very long line (179 chars)
+  ⚠️  Line 337: Very long line (226 chars)
+  ⚠️  Line 340: Very long line (237 chars)
+  ⚠️  Line 344: Very long line (146 chars)
+  ⚠️  Line 347: Very long line (183 chars)
+  ⚠️  Line 356: Very long line (284 chars)
+  ⚠️  Line 359: Very long line (320 chars)
+  ⚠️  Line 365: Very long line (130 chars)
+  ⚠️  Line 504: Very long line (173 chars)
+  ⚠️  Line 595: Very long line (137 chars)
+  ⚠️  Line 601: Very long line (170 chars)
+  ⚠️  Line 604: Very long line (201 chars)
+  ⚠️  Line 605: Very long line (201 chars)
+  ⚠️  Line 607: Very long line (199 chars)
+  ⚠️  Line 616: Very long line (157 chars)
+  ⚠️  Line 617: Very long line (143 chars)
+  ⚠️  Line 626: Very long line (157 chars)
+  ⚠️  Line 629: Very long line (225 chars)
+  ⚠️  Line 654: Very long line (127 chars)
+  ⚠️  Line 660: Very long line (124 chars)
+  ⚠️  Line 705: Very long line (124 chars)
+  ⚠️  Line 755: Very long line (130 chars)
+  ⚠️  Line 13: Too many consecutive blank lines
+  ⚠️  Line 14: Too many consecutive blank lines
+  ⚠️  Line 306: Too many consecutive blank lines
+
+📄 supervised/slides/movie-recommendation.tex:
+  ⚠️  Display math preceded immediately by text (missing newline)
+  ⚠️  May need \usepackage{booktabs} for \\toprule
+  ⚠️  May need \usepackage{booktabs} for \\midrule
+  ⚠️  May need \usepackage{booktabs} for \\bottomrule
+  ⚠️  Line 183: Very long line (126 chars)
+  ⚠️  Line 245: Very long line (125 chars)
+  ⚠️  Line 247: Very long line (132 chars)
+  ⚠️  Line 800: Very long line (126 chars)
+
+📄 supervised/slides/naive-bayes.tex:
+  ⚠️  Display math followed immediately by text (missing newline)
+  ⚠️  Display math preceded immediately by text (missing newline)
+  ⚠️  May need \usepackage{amssymb} for \\mathbb
+  ⚠️  Line 119: Very long line (123 chars)
+  ⚠️  Line 163: Very long line (121 chars)
+  ⚠️  Line 865: Very long line (137 chars)
+  ⚠️  Line 895: Very long line (126 chars)
+  ⚠️  Line 959: Very long line (121 chars)
+  ⚠️  Line 1043: Very long line (142 chars)
+  ⚠️  Line 1052: Very long line (130 chars)
+  ⚠️  Line 44: Too many consecutive blank lines
+  ⚠️  Line 45: Too many consecutive blank lines
+  ⚠️  Line 46: Too many consecutive blank lines
+  ⚠️  Line 47: Too many consecutive blank lines
+  ⚠️  Line 140: Too many consecutive blank lines
+  ⚠️  Line 141: Too many consecutive blank lines
+  ⚠️  Line 157: Too many consecutive blank lines
+  ⚠️  Line 222: Too many consecutive blank lines
+  ⚠️  Line 381: Too many consecutive blank lines
+  ⚠️  Line 472: Too many consecutive blank lines
+  ⚠️  Line 473: Too many consecutive blank lines
+  ⚠️  Line 509: Too many consecutive blank lines
+  ⚠️  Line 522: Too many consecutive blank lines
+  ⚠️  Line 574: Too many consecutive blank lines
+  ⚠️  Line 627: Too many consecutive blank lines
+  ⚠️  Line 721: Too many consecutive blank lines
+  ⚠️  Line 741: Too many consecutive blank lines
+  ⚠️  Line 753: Too many consecutive blank lines
+  ⚠️  Line 837: Too many consecutive blank lines
+  ⚠️  Line 838: Too many consecutive blank lines
+  ⚠️  Line 839: Too many consecutive blank lines
+  ⚠️  Line 840: Too many consecutive blank lines
+  ⚠️  Line 847: Too many consecutive blank lines
+  ⚠️  Line 909: Too many consecutive blank lines
+  ⚠️  Line 985: Too many consecutive blank lines
+  ⚠️  Line 986: Too many consecutive blank lines
+  ⚠️  Line 987: Too many consecutive blank lines
+  ⚠️  Line 988: Too many consecutive blank lines
+  ⚠️  Line 1002: Too many consecutive blank lines
+  ⚠️  Line 1003: Too many consecutive blank lines
+  ⚠️  Line 1004: Too many consecutive blank lines
+
+📄 supervised/slides/ridge-regression.tex:
+  ⚠️  Display math followed immediately by text (missing newline)
+  ⚠️  May need \usepackage{graphicx} for \\includegraphics
+  ⚠️  Line 27: Very long line (129 chars)
+  ⚠️  Line 29: Very long line (138 chars)
+  ⚠️  Line 31: Very long line (138 chars)
+  ⚠️  Line 33: Very long line (138 chars)
+  ⚠️  Line 35: Very long line (140 chars)
+  ⚠️  Line 41: Very long line (147 chars)
+  ⚠️  Line 43: Very long line (152 chars)
+  ⚠️  Line 86: Very long line (126 chars)
+  ⚠️  Line 107: Very long line (127 chars)
+  ⚠️  Line 109: Very long line (129 chars)
+  ⚠️  Line 111: Very long line (133 chars)
+  ⚠️  Line 117: Very long line (121 chars)
+  ⚠️  Line 119: Very long line (126 chars)
+  ⚠️  Line 121: Very long line (132 chars)
+  ⚠️  Line 127: Very long line (222 chars)
+  ⚠️  Line 134: Very long line (219 chars)
+  ⚠️  Line 148: Very long line (179 chars)
+  ⚠️  Line 330: Very long line (158 chars)
+  ⚠️  Line 333: Very long line (137 chars)
+  ⚠️  Line 338: Very long line (122 chars)
+  ⚠️  Line 10: Too many consecutive blank lines
+  ⚠️  Line 11: Too many consecutive blank lines
+  ⚠️  No sections found in document
+
+📄 supervised/slides/svm-2-2.tex:
+  ⚠️  May need \usepackage{amssymb} for \\mathbb
+  ⚠️  Line 44: Very long line (150 chars)
+  ⚠️  Line 51: Very long line (161 chars)
+  ⚠️  Line 14: Too many consecutive blank lines
+  ⚠️  Line 15: Too many consecutive blank lines
+  ⚠️  No sections found in document
+
+📄 supervised/slides/svm-3.tex:
+  ⚠️  May need \usepackage{amssymb} for \\mathbb
+  ⚠️  Line 44: Very long line (150 chars)
+  ⚠️  Line 51: Very long line (161 chars)
+  ⚠️  Line 14: Too many consecutive blank lines
+  ⚠️  Line 15: Too many consecutive blank lines
+  ⚠️  No sections found in document
+
+📄 supervised/slides/svm-4.tex:
+  ⚠️  Line 13: Too many consecutive blank lines
+  ⚠️  Line 14: Too many consecutive blank lines
+  ⚠️  No sections found in document
+
+📄 supervised/slides/svm-intro.tex:
+  ⚠️  Display math preceded immediately by text (missing newline)
+  ⚠️  May need \usepackage{amssymb} for \\mathbb
+  ⚠️  Line 271: Very long line (141 chars)
+  ⚠️  Line 284: Very long line (137 chars)
+  ⚠️  Line 285: Very long line (224 chars)
+  ⚠️  Line 291: Very long line (137 chars)
+  ⚠️  Line 298: Very long line (141 chars)
+  ⚠️  Line 358: Very long line (151 chars)
+  ⚠️  Line 533: Very long line (138 chars)
+  ⚠️  Line 540: Very long line (149 chars)
+  ⚠️  Line 616: Very long line (151 chars)
+  ⚠️  Line 627: Very long line (166 chars)
+  ⚠️  Line 641: Very long line (130 chars)
+  ⚠️  Line 29: Too many consecutive blank lines
+  ⚠️  Line 254: Too many consecutive blank lines
+  ⚠️  Line 261: Too many consecutive blank lines
+
+📄 supervised/slides/svm-kernel.tex:
+  ⚠️  May need \usepackage{amssymb} for \\mathbb
+  ⚠️  May need \usepackage{graphicx} for \\includegraphics
+  ⚠️  Line 72: Very long line (150 chars)
+  ⚠️  Line 79: Very long line (161 chars)
+  ⚠️  Line 182: Very long line (173 chars)
+  ⚠️  Line 185: Very long line (172 chars)
+  ⚠️  Line 198: Very long line (202 chars)
+  ⚠️  Line 202: Very long line (155 chars)
+  ⚠️  Line 14: Too many consecutive blank lines
+  ⚠️  No sections found in document
+
+📄 supervised/slides/svm-soft-margin.tex:
+  ⚠️  Display math followed immediately by text (missing newline)
+  ⚠️  Line 61: Very long line (122 chars)
+  ⚠️  Line 65: Very long line (125 chars)
+  ⚠️  Line 171: Very long line (177 chars)
+  ⚠️  Line 50: Too many consecutive blank lines
+  ⚠️  Line 198: Too many consecutive blank lines
+  ⚠️  No sections found in document
+
+📄 supervised/tutorials/bias-variance.tex:
+  ⚠️  Display math followed immediately by text (missing newline)
+  ⚠️  Display math preceded immediately by text (missing newline)
+  ⚠️  Line 53: Very long line (165 chars)
+  ⚠️  Line 58: Very long line (203 chars)
+  ⚠️  Line 62: Very long line (125 chars)
+  ⚠️  Line 64: Very long line (154 chars)
+  ⚠️  Line 68: Very long line (202 chars)
+  ⚠️  Line 73: Very long line (149 chars)
+  ⚠️  Line 85: Very long line (153 chars)
+  ⚠️  Line 112: Very long line (129 chars)
+  ⚠️  Line 127: Very long line (127 chars)
+  ⚠️  Line 145: Very long line (129 chars)
+  ⚠️  Line 169: Very long line (135 chars)
+  ⚠️  Line 184: Very long line (131 chars)
+  ⚠️  Line 201: Very long line (123 chars)
+  ⚠️  Line 216: Very long line (137 chars)
+  ⚠️  Line 238: Very long line (125 chars)
+  ⚠️  Line 262: Very long line (129 chars)
+  ⚠️  Line 277: Very long line (122 chars)
+  ⚠️  Line 293: Very long line (125 chars)
+  ⚠️  Line 324: Very long line (121 chars)
+  ⚠️  Line 342: Very long line (121 chars)
+
+📄 supervised/tutorials/cross-validation.tex:
+  ⚠️  Line 146: Very long line (125 chars)
+  ⚠️  Line 164: Very long line (121 chars)
+  ⚠️  Line 166: Very long line (139 chars)
+  ⚠️  Line 173: Very long line (128 chars)
+  ⚠️  Line 175: Very long line (134 chars)
+  ⚠️  Line 191: Very long line (122 chars)
+  ⚠️  Line 200: Very long line (128 chars)
+  ⚠️  Line 210: Very long line (121 chars)
+  ⚠️  Line 220: Very long line (125 chars)
+  ⚠️  Line 232: Very long line (126 chars)
+  ⚠️  Line 267: Very long line (122 chars)
+  ⚠️  Line 277: Very long line (125 chars)
+
+📄 supervised/tutorials/ensemble-methods.tex:
+  ⚠️  Display math followed immediately by text (missing newline)
+  ⚠️  Line 104: Very long line (171 chars)
+  ⚠️  Line 115: Very long line (122 chars)
+  ⚠️  Line 179: Very long line (127 chars)
+  ⚠️  Line 192: Very long line (124 chars)
+  ⚠️  Line 202: Very long line (137 chars)
+  ⚠️  Line 218: Very long line (127 chars)
+  ⚠️  Line 231: Very long line (129 chars)
+  ⚠️  Line 244: Very long line (128 chars)
+  ⚠️  Line 254: Very long line (128 chars)
+  ⚠️  Line 292: Very long line (125 chars)
+  ⚠️  Line 305: Very long line (127 chars)
+  ⚠️  Line 321: Very long line (170 chars)
+
+📄 supervised/tutorials/feature-selection.tex:
+  ⚠️  Line 48: Very long line (130 chars)
+  ⚠️  Line 61: Very long line (222 chars)
+  ⚠️  Line 75: Very long line (125 chars)
+  ⚠️  Line 109: Very long line (137 chars)
+  ⚠️  Line 132: Very long line (133 chars)
+  ⚠️  Line 137: Very long line (125 chars)
+  ⚠️  Line 149: Very long line (129 chars)
+  ⚠️  Line 150: Very long line (135 chars)
+  ⚠️  Line 162: Very long line (134 chars)
+  ⚠️  Line 182: Very long line (127 chars)
+  ⚠️  Line 195: Very long line (128 chars)
+  ⚠️  Line 220: Very long line (141 chars)
+  ⚠️  Line 221: Very long line (184 chars)
+  ⚠️  Line 232: Very long line (129 chars)
+  ⚠️  Line 244: Very long line (128 chars)
+  ⚠️  Line 261: Very long line (125 chars)
+  ⚠️  Line 274: Very long line (125 chars)
+  ⚠️  Line 287: Very long line (131 chars)
+  ⚠️  Line 306: Very long line (130 chars)
+  ⚠️  Line 326: Very long line (129 chars)
+  ⚠️  Line 343: Very long line (137 chars)
+
+📄 supervised/tutorials/knn.tex:
+  ⚠️  Display math followed immediately by text (missing newline)
+  ⚠️  Line 121: Very long line (125 chars)
+  ⚠️  Line 145: Very long line (128 chars)
+  ⚠️  Line 194: Very long line (123 chars)
+  ⚠️  Line 222: Very long line (133 chars)
+  ⚠️  Line 232: Very long line (124 chars)
+  ⚠️  Line 244: Very long line (125 chars)
+  ⚠️  Line 257: Very long line (131 chars)
+  ⚠️  Line 306: Very long line (124 chars)
+  ⚠️  Line 326: Very long line (123 chars)
+
+📄 supervised/tutorials/lasso-regression.tex:
+  ⚠️  Display math followed immediately by text (missing newline)
+  ⚠️  Display math preceded immediately by text (missing newline)
+  ⚠️  Line 57: Very long line (121 chars)
+  ⚠️  Line 74: Very long line (140 chars)
+  ⚠️  Line 152: Very long line (124 chars)
+  ⚠️  Line 162: Very long line (125 chars)
+  ⚠️  Line 167: Very long line (150 chars)
+  ⚠️  Line 182: Very long line (154 chars)
+  ⚠️  Line 185: Very long line (135 chars)
+  ⚠️  Line 196: Very long line (126 chars)
+  ⚠️  Line 209: Very long line (127 chars)
+  ⚠️  Line 217: Very long line (121 chars)
+  ⚠️  Line 236: Very long line (125 chars)
+  ⚠️  Line 246: Very long line (136 chars)
+  ⚠️  Line 254: Very long line (123 chars)
+  ⚠️  Line 256: Very long line (150 chars)
+
+📄 supervised/tutorials/linear-regression.tex:
+  ⚠️  Display math followed immediately by text (missing newline)
+  ⚠️  Display math preceded immediately by text (missing newline)
+  ⚠️  Line 114: Very long line (124 chars)
+  ⚠️  Line 123: Very long line (132 chars)
+  ⚠️  Line 126: Very long line (128 chars)
+  ⚠️  Line 143: Very long line (122 chars)
+  ⚠️  Line 148: Very long line (128 chars)
+  ⚠️  Line 158: Very long line (138 chars)
+  ⚠️  Line 161: Very long line (125 chars)
+  ⚠️  Line 163: Very long line (122 chars)
+  ⚠️  Line 166: Very long line (122 chars)
+  ⚠️  Line 175: Very long line (125 chars)
+  ⚠️  Line 190: Very long line (179 chars)
+  ⚠️  Line 193: Very long line (125 chars)
+  ⚠️  Line 202: Very long line (123 chars)
+
+📄 supervised/tutorials/logistic-regression.tex:
+  ⚠️  Display math followed immediately by text (missing newline)
+  ⚠️  Line 103: Very long line (128 chars)
+  ⚠️  Line 110: Very long line (128 chars)
+  ⚠️  Line 112: Very long line (125 chars)
+  ⚠️  Line 119: Very long line (126 chars)
+  ⚠️  Line 128: Very long line (121 chars)
+  ⚠️  Line 160: Very long line (130 chars)
+  ⚠️  Line 169: Very long line (121 chars)
+  ⚠️  Line 220: Very long line (121 chars)
+  ⚠️  Line 234: Very long line (134 chars)
+  ⚠️  Line 244: Very long line (123 chars)
+
+📄 supervised/tutorials/matrix-factorization.tex:
+  ⚠️  Display math followed immediately by text (missing newline)
+  ⚠️  Display math preceded immediately by text (missing newline)
+
+📄 supervised/tutorials/naive-bayes.tex:
+  ⚠️  Display math followed immediately by text (missing newline)
+  ⚠️  Line 100: Very long line (123 chars)
+  ⚠️  Line 104: Very long line (121 chars)
+  ⚠️  Line 116: Very long line (134 chars)
+  ⚠️  Line 138: Very long line (123 chars)
+  ⚠️  Line 149: Very long line (124 chars)
+  ⚠️  Line 151: Very long line (153 chars)
+  ⚠️  Line 154: Very long line (127 chars)
+  ⚠️  Line 178: Very long line (133 chars)
+  ⚠️  Line 180: Very long line (141 chars)
+  ⚠️  Line 183: Very long line (133 chars)
+  ⚠️  Line 185: Very long line (164 chars)
+  ⚠️  Line 201: Very long line (133 chars)
+  ⚠️  Line 215: Very long line (124 chars)
+  ⚠️  Line 225: Very long line (122 chars)
+  ⚠️  Line 230: Very long line (134 chars)
+  ⚠️  Line 235: Very long line (126 chars)
+  ⚠️  Line 267: Very long line (125 chars)
+  ⚠️  Line 276: Very long line (124 chars)
+  ⚠️  Line 279: Very long line (130 chars)
+
+📄 supervised/tutorials/svm.tex:
+  ⚠️  May need \usepackage{amssymb} for \\mathbb
+  ⚠️  Line 58: Very long line (130 chars)
+  ⚠️  Line 72: Very long line (143 chars)
+  ⚠️  Line 118: Very long line (130 chars)
+  ⚠️  Line 158: Very long line (129 chars)
+  ⚠️  Line 298: Very long line (123 chars)
+  ⚠️  Line 340: Very long line (129 chars)
+  ⚠️  Line 342: Very long line (133 chars)
+  ⚠️  Line 363: Very long line (131 chars)
+  ⚠️  Line 365: Very long line (134 chars)
+
+📄 unsupervised/slides/unsupervised.tex:
+  ⚠️  May need \usepackage{graphicx} for \\includegraphics
+  ⚠️  May need \usepackage{hyperref} for \\href
+  ⚠️  Line 36: Very long line (121 chars)
+  ⚠️  Line 136: Very long line (134 chars)
+  ⚠️  Line 5: Too many consecutive blank lines
+  ⚠️  Line 16: Too many consecutive blank lines
+  ⚠️  Line 17: Too many consecutive blank lines
+  ⚠️  Line 18: Too many consecutive blank lines
+
+📄 unsupervised/tutorials/clustering.tex:
+  ⚠️  Display math followed immediately by text (missing newline)
+  ⚠️  May need \usepackage{amssymb} for \\mathbb
+  ⚠️  Line 130: Very long line (126 chars)
+  ⚠️  Line 141: Very long line (125 chars)
+  ⚠️  Line 173: Very long line (130 chars)
+  ⚠️  Line 183: Very long line (128 chars)
+  ⚠️  Line 203: Very long line (123 chars)
+  ⚠️  Line 215: Very long line (128 chars)
+  ⚠️  Line 222: Very long line (127 chars)
+  ⚠️  Line 240: Very long line (125 chars)
+  ⚠️  Line 250: Very long line (124 chars)
+  ⚠️  Line 262: Very long line (132 chars)
+  ⚠️  Line 273: Very long line (130 chars)
+  ⚠️  Line 287: Very long line (130 chars)
+
+💡 RECOMMENDATIONS:
+----------------------------------------
+1. Address critical issues first - these may prevent compilation or cause confusion
+2. Review warnings to improve consistency and readability
+3. Run this audit regularly to maintain content quality
+4. Consider adding automated checks to your build process
+
+💾 Detailed report saved to: content_audit_report.json
