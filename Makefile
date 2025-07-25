@@ -1,5 +1,5 @@
 # Master Makefile for ML Teaching Repository
-TOPICS = basics maths supervised unsupervised neural-networks advanced
+TOPICS = basics maths supervised unsupervised neural-networks advanced optimization
 
 # Default target - build all topics
 all:

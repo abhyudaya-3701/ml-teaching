@@ -12,14 +12,14 @@ PDF_FILES := $(TEX_FILES:.tex=.pdf)
 all: $(PDF_FILES)
 
 # Rule to compile LaTeX to PDF
-$(SLIDES_DIR)/%.pdf: $(SLIDES_DIR)/%.tex
+$(SLIDES_DIR)/%.pdf: $(SLIDES_DIR)/%.tex $(SHARED_DIR)/styles/*.sty $(SHARED_DIR)/notation/*.sty
 	@echo "Compiling $< to $@"
 	cd $(SLIDES_DIR) && pdflatex -interaction=nonstopmode $(notdir $<)
 	cd $(SLIDES_DIR) && pdflatex -interaction=nonstopmode $(notdir $<)
 
 # Clean auxiliary files
 clean:
-	cd $(SLIDES_DIR) && rm -f *.aux *.log *.nav *.out *.snm *.toc *.vrb *.fls *.fdb_latexmk *.synctex.gz
+	cd $(SLIDES_DIR) && rm -f *.aux *.log *.nav *.out *.snm *.toc *.vrb *.fls *.fdb_latexmk *.synctex.gz *.dat *.script *.dat *.script
 
 # Clean all generated files
 distclean: clean

@@ -13,6 +13,8 @@ secrets.json
 *.cb
 *.cb2
 .*.lb
+*.dat
+*.script
 
 ## Intermediate documents:
 *.dvi
