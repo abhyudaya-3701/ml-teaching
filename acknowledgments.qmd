@@ -1,0 +1,140 @@
+---
+title: "Acknowledgments"
+---
+
+# Teaching Assistants Acknowledgments
+
+We extend our heartfelt gratitude to all the Teaching Assistants who have contributed to the success of Machine Learning courses at IIT Gandhinagar over the years. Their dedication, expertise, and support have been invaluable in creating and maintaining high-quality educational materials.
+
+## Teaching Assistants by Year
+
+### ES 335: Machine Learning - Fall 2025
+1. **Palak Gupta**
+2. **Abhyudaya Nair** 
+3. **Dekka Muni Kumar**
+4. **Diya Ashvinsinh Thakor**
+5. **Vinayak Rana**
+6. **Rishabh Mondal**
+7. **Ayush Shrivastava**
+8. **Chetana Dubey**
+9. **Kaloori Shiva Prasad**
+10. **Mallika Chouhan**
+11. **Suruchi Hardaha**
+
+### ES 335: Machine Learning - Spring 2024
+1. **Rishiraj Adhikary**
+2. **Inderjeet Bhullar**
+3. **Rahul Chembakasseril**
+4. **R Yeeshu Dhurandhar**
+5. **Suraj Jaiswal**
+6. **Kalash Kankaria**
+7. **Sukruta Midigeshi**
+8. **Chirag Sarda**
+9. **Ayush Shrivastava**
+10. **Sai Krishna**
+
+### ES 654: Machine Learning - Spring 2023
+1. **Zeel Patel**
+2. **Shriraj Sawant**
+3. **Shrutimoy**
+4. **Sarth Dubey**
+5. **Hitarth Gandhi**
+6. **Saagar Parikh**
+7. **Eshan Gujarathi**
+8. **Gautam Vashishta**
+9. **Aadesh Desai**
+
+### ES 654: Machine Learning - Spring 2022
+1. **Zeel Patel**
+2. **Rishiraj Adhikary**
+3. **Shriraj Sawant**
+4. **Hetvi Shastri**
+
+### ES 335: Machine Learning - Spring 2021
+1. **Pankaj Pandey** (pankaj.p@iitgn.ac.in)
+2. **Jaideep Bankoti** (bankoti_jaideep@iitgn.ac.in)
+3. **Rishiraj Adhikary** (rishiraj.a@iitgn.ac.in)
+
+### ES 335: Machine Learning - Spring 2020
+1. **Indradeep** (indra.mastan@iitgn.ac.in)
+2. **Sudhakar** (sudhakar.kumawat@iitgn.ac.in)
+3. **Supratim** (supratim.shit@iitgn.ac.in)
+4. **Shubham** (shubham.singh@iitgn.ac.in)
+
+### ES 335: Machine Learning - Spring 2019
+1. **Indradeep** (indra.mastan@iitgn.ac.in)
+2. **Sudhakar** (sudhakar.kumawat@iitgn.ac.in)
+3. **Supratim** (supratim.shit@iitgn.ac.in)
+4. **Shubham** (shubham.singh@iitgn.ac.in)
+
+## Complete Alphabetical List
+
+Here are all the unique Teaching Assistants who have contributed to Machine Learning courses:
+
+1. **Aadesh Desai** *(2023)*
+2. **Abhyudaya Nair** *(2025)*
+3. **Ayush Shrivastava** *(2024, 2025)*
+4. **Chetana Dubey** *(2025)*
+5. **Chirag Sarda** *(2024)*
+6. **Dekka Muni Kumar** *(2025)*
+7. **Diya Ashvinsinh Thakor** *(2025)*
+8. **Eshan Gujarathi** *(2023)*
+9. **Gautam Vashishta** *(2023)*
+10. **Hetvi Shastri** *(2022)*
+11. **Hitarth Gandhi** *(2023)*
+12. **Inderjeet Bhullar** *(2024)*
+13. **Indradeep** *(2019, 2020)*
+14. **Jaideep Bankoti** *(2021)*
+15. **Kalash Kankaria** *(2024)*
+16. **Kaloori Shiva Prasad** *(2025)*
+17. **Mallika Chouhan** *(2025)*
+18. **Palak Gupta** *(2025)*
+19. **Pankaj Pandey** *(2021)*
+20. **R Yeeshu Dhurandhar** *(2024)*
+21. **Rahul Chembakasseril** *(2024)*
+22. **Rishiraj Adhikary** *(2021, 2022, 2024)*
+23. **Rishabh Mondal** *(2025)*
+24. **Saagar Parikh** *(2023)*
+25. **Sai Krishna** *(2024)*
+26. **Sarth Dubey** *(2023)*
+27. **Shriraj Sawant** *(2022, 2023)*
+28. **Shrutimoy** *(2023)*
+29. **Shubham** *(2019, 2020)*
+30. **Sudhakar** *(2019, 2020)*
+31. **Sukruta Midigeshi** *(2024)*
+32. **Supratim** *(2019, 2020)*
+33. **Suraj Jaiswal** *(2024)*
+34. **Suruchi Hardaha** *(2025)*
+35. **Vinayak Rana** *(2025)*
+36. **Zeel Patel** *(2022, 2023)*
+
+---
+
+## Contributions
+
+These Teaching Assistants have contributed in various ways:
+
+- **Content Development**: Created and refined lecture materials, tutorials, and problem sets
+- **Technical Support**: Assisted students with programming assignments and technical difficulties  
+- **Quality Assurance**: Reviewed materials for accuracy and clarity
+- **Student Mentoring**: Provided guidance and support to students throughout their learning journey
+- **Administrative Support**: Helped with course logistics, grading, and feedback collection
+
+## Special Recognition
+
+We particularly acknowledge:
+
+- **Long-term Contributors**: TAs who served across multiple years and iterations
+- **Content Creators**: TAs who developed significant portions of the course materials
+- **Innovation Leaders**: TAs who introduced new teaching methods and technologies
+- **Quality Champions**: TAs who ensured high standards of educational content
+
+---
+
+*The success of these Machine Learning courses is a testament to the collaborative effort of all faculty, Teaching Assistants, and students. We are grateful for everyone's contributions to advancing machine learning education at IIT Gandhinagar.*
+
+**Total Unique TAs**: 36 individuals across 7 years (2019-2025)
+
+---
+
+*Last updated: January 2025*
