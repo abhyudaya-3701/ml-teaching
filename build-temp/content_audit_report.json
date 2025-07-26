@@ -1,56 +1,11 @@
 {
   "summary": {
-    "files_checked": 85,
-    "total_issues": 277,
-    "total_warnings": 1124
+    "files_checked": 86,
+    "total_issues": 271,
+    "total_warnings": 1121
   },
   "issues": {
-    "COMPILATION_ISSUES.md": [
-      "Spelling/terminology: 'gradient-descent' should be 'gradient descent' (4 instances)",
-      "Missing figure file: filename.pdf"
-    ],
-    "CONTENT_AUDIT_SUMMARY.md": [
-      "Spelling/terminology: 'hyper-parameter' should be 'hyperparameter' (1 instances)",
-      "Spelling/terminology: 'crossvalidation' should be 'cross-validation' (1 instances)",
-      "Spelling/terminology: 'data set' should be 'dataset' (1 instances)",
-      "Spelling/terminology: 'gradient-descent' should be 'gradient descent' (1 instances)"
-    ],
-    "CONVENTIONS_LOG.md": [
-      "Inconsistent notation (inconsistent_vectors): Found 11 instances of \\\\mathbf\\{([^}]+)\\}",
-      "Inconsistent notation (inconsistent_vectors): Found 3 instances of \\\\vec\\{([^}]+)\\}",
-      "Inconsistent notation (inconsistent_matrices): Found 9 instances of \\\\mathbf\\{([A-Z][^}]*)\\}",
-      "Inconsistent notation (inconsistent_sets): Found 3 instances of \\\\mathbb\\{([^}]+)\\}",
-      "Math formatting issue: Missing space after inline math",
-      "Math formatting issue: Missing space before inline math",
-      "Spelling/terminology: 'over-fitting' should be 'overfitting' (2 instances)",
-      "Spelling/terminology: 'over fitting' should be 'overfitting' (2 instances)",
-      "Spelling/terminology: 'gradient-descent' should be 'gradient descent' (7 instances)",
-      "Missing input file: ../../conventions",
-      "Missing input file: ../../conventions",
-      "Missing input file: ../../conventions",
-      "Missing input file: ../../conventions",
-      "Missing input file: ../../conventions",
-      "Missing input file: ../../conventions",
-      "Missing input file: ../../conventions",
-      "Missing input file: ../assets/ensemble/diagrams/test-0.3.tex",
-      "Missing input file: ../assets/ensemble/diagrams/test-0.6.tex",
-      "Missing input file: ../../conventions",
-      "Missing input file: ../../conventions",
-      "Missing input file: ../../conventions",
-      "Missing input file: ../../conventions",
-      "Missing input file: ../../conventions",
-      "Missing input file: ../../conventions"
-    ],
-    "MIGRATION_LOG.md": [
-      "Spelling/terminology: 'gradient-descent' should be 'gradient descent' (6 instances)"
-    ],
-    "MIGRATION_MAPPING.md": [
-      "Spelling/terminology: 'gradient-descent' should be 'gradient descent' (2 instances)"
-    ],
-    "PROJECT_STRUCTURE.md": [
-      "Spelling/terminology: 'gradient-descent' should be 'gradient descent' (3 instances)"
-    ],
-    "RESTRUCTURING_PLAN.md": [
+    "README.md": [
       "Spelling/terminology: 'gradient-descent' should be 'gradient descent' (1 instances)"
     ],
     "advanced/slides/forecasting.tex": [
@@ -79,7 +34,8 @@
       "Math formatting issue: Missing space after inline math",
       "Math formatting issue: Missing space before inline math",
       "Spelling/terminology: 'data set' should be 'dataset' (1 instances)",
-      "Unmatched braces: 2 difference"
+      "Unmatched braces: 2 difference",
+      "Missing input file: ../../conventions-sanitized.tex"
     ],
     "basics/slides/misc.tex": [
       "Math formatting issue: Missing space after inline math",
@@ -111,15 +67,63 @@
       "Math formatting issue: Missing space after inline math",
       "Math formatting issue: Missing space before inline math"
     ],
-    "conventions-sanitized.tex": [
+    "build-temp/conventions-sanitized.tex": [
       "Inconsistent notation (inconsistent_vectors): Found 39 instances of \\\\mathbf\\{([^}]+)\\}",
       "Inconsistent notation (inconsistent_matrices): Found 19 instances of \\\\mathbf\\{([A-Z][^}]*)\\}",
       "Inconsistent notation (inconsistent_sets): Found 9 instances of \\\\mathbb\\{([^}]+)\\}"
     ],
-    "conventions.tex": [
+    "build-temp/conventions.tex": [
       "Inconsistent notation (inconsistent_vectors): Found 39 instances of \\\\mathbf\\{([^}]+)\\}",
       "Inconsistent notation (inconsistent_matrices): Found 19 instances of \\\\mathbf\\{([A-Z][^}]*)\\}",
       "Inconsistent notation (inconsistent_sets): Found 9 instances of \\\\mathbb\\{([^}]+)\\}"
+    ],
+    "docs/COMPILATION_ISSUES.md": [
+      "Spelling/terminology: 'gradient-descent' should be 'gradient descent' (4 instances)",
+      "Missing figure file: filename.pdf"
+    ],
+    "docs/CONTENT_AUDIT_SUMMARY.md": [
+      "Spelling/terminology: 'hyper-parameter' should be 'hyperparameter' (1 instances)",
+      "Spelling/terminology: 'crossvalidation' should be 'cross-validation' (1 instances)",
+      "Spelling/terminology: 'data set' should be 'dataset' (1 instances)",
+      "Spelling/terminology: 'gradient-descent' should be 'gradient descent' (1 instances)"
+    ],
+    "docs/CONVENTIONS_LOG.md": [
+      "Inconsistent notation (inconsistent_vectors): Found 11 instances of \\\\mathbf\\{([^}]+)\\}",
+      "Inconsistent notation (inconsistent_vectors): Found 3 instances of \\\\vec\\{([^}]+)\\}",
+      "Inconsistent notation (inconsistent_matrices): Found 9 instances of \\\\mathbf\\{([A-Z][^}]*)\\}",
+      "Inconsistent notation (inconsistent_sets): Found 3 instances of \\\\mathbb\\{([^}]+)\\}",
+      "Math formatting issue: Missing space after inline math",
+      "Math formatting issue: Missing space before inline math",
+      "Spelling/terminology: 'over-fitting' should be 'overfitting' (2 instances)",
+      "Spelling/terminology: 'over fitting' should be 'overfitting' (2 instances)",
+      "Spelling/terminology: 'gradient-descent' should be 'gradient descent' (7 instances)",
+      "Missing input file: ../../conventions",
+      "Missing input file: ../../conventions",
+      "Missing input file: ../../conventions",
+      "Missing input file: ../../conventions",
+      "Missing input file: ../../conventions",
+      "Missing input file: ../../conventions",
+      "Missing input file: ../../conventions",
+      "Missing input file: ../assets/ensemble/diagrams/test-0.3.tex",
+      "Missing input file: ../assets/ensemble/diagrams/test-0.6.tex",
+      "Missing input file: ../../conventions",
+      "Missing input file: ../../conventions",
+      "Missing input file: ../../conventions",
+      "Missing input file: ../../conventions",
+      "Missing input file: ../../conventions",
+      "Missing input file: ../../conventions"
+    ],
+    "docs/MIGRATION_LOG.md": [
+      "Spelling/terminology: 'gradient-descent' should be 'gradient descent' (6 instances)"
+    ],
+    "docs/MIGRATION_MAPPING.md": [
+      "Spelling/terminology: 'gradient-descent' should be 'gradient descent' (2 instances)"
+    ],
+    "docs/PROJECT_STRUCTURE.md": [
+      "Spelling/terminology: 'gradient-descent' should be 'gradient descent' (3 instances)"
+    ],
+    "docs/RESTRUCTURING_PLAN.md": [
+      "Spelling/terminology: 'gradient-descent' should be 'gradient descent' (1 instances)"
     ],
     "maths/slides/kkt-conditions.tex": [
       "Inconsistent notation (inconsistent_sets): Found 1 instances of \\\\mathbb\\{([^}]+)\\}",
@@ -140,8 +144,6 @@
       "Math formatting issue: Missing space before inline math"
     ],
     "maths/slides/mvn.tex": [
-      "Inconsistent notation (inconsistent_vectors): Found 12 instances of \\\\mathbf\\{([^}]+)\\}",
-      "Inconsistent notation (inconsistent_matrices): Found 12 instances of \\\\mathbf\\{([A-Z][^}]*)\\}",
       "Math formatting issue: Missing space after inline math",
       "Math formatting issue: Missing space before inline math",
       "Unmatched braces: -1 difference",
@@ -152,12 +154,10 @@
       "Missing figure file: cross-0"
     ],
     "maths/slides/mvn2.tex": [
-      "Inconsistent notation (inconsistent_vectors): Found 34 instances of \\\\mathbf\\{([^}]+)\\}",
       "Math formatting issue: Missing space after inline math",
       "Math formatting issue: Missing space before inline math"
     ],
     "neural-networks/tutorials/neural-networks.tex": [
-      "Inconsistent notation (inconsistent_vectors): Found 4 instances of \\\\mathbf\\{([^}]+)\\}",
       "Math formatting issue: Missing space after inline math",
       "Math formatting issue: Missing space before inline math"
     ],
@@ -177,8 +177,7 @@
     "optimization/slides/coordinate-descent.tex": [
       "Inconsistent notation (inconsistent_matrices): Found 4 instances of \\\\mathrm\\{([A-Z][^}]*)\\}",
       "Math formatting issue: Missing space after inline math",
-      "Math formatting issue: Missing space before inline math",
-      "Spelling/terminology: 'data set' should be 'dataset' (5 instances)"
+      "Math formatting issue: Missing space before inline math"
     ],
     "optimization/slides/gradient-descent.tex": [
       "Inconsistent notation (inconsistent_sets): Found 2 instances of \\\\mathbb\\{([^}]+)\\}",
@@ -258,7 +257,6 @@
     "supervised/slides/knn.tex": [
       "Math formatting issue: Missing space after inline math",
       "Math formatting issue: Missing space before inline math",
-      "Spelling/terminology: 'data set' should be 'dataset' (1 instances)",
       "Spelling/terminology: 'machine-learning' should be 'machine learning' (1 instances)",
       "Spelling/terminology: 'machinelearning' should be 'machine learning' (1 instances)"
     ],
@@ -277,7 +275,6 @@
       "Inconsistent notation (inconsistent_vectors): Found 1 instances of \\\\mathbf\\{([^}]+)\\}",
       "Math formatting issue: Missing space after inline math",
       "Math formatting issue: Missing space before inline math",
-      "Spelling/terminology: 'data set' should be 'dataset' (10 instances)",
       "Unmatched braces: 2 difference"
     ],
     "supervised/slides/logistic-regression.tex": [
@@ -360,7 +357,6 @@
       "Math formatting issue: Missing space before inline math"
     ],
     "supervised/tutorials/knn.tex": [
-      "Inconsistent notation (inconsistent_vectors): Found 6 instances of \\\\mathbf\\{([^}]+)\\}",
       "Math formatting issue: Missing space after inline math",
       "Math formatting issue: Missing space before inline math"
     ],
@@ -392,7 +388,7 @@
     "unsupervised/slides/unsupervised.tex": [
       "Math formatting issue: Missing space after inline math",
       "Math formatting issue: Missing space before inline math",
-      "Spelling/terminology: 'data set' should be 'dataset' (3 instances)",
+      "Spelling/terminology: 'data set' should be 'dataset' (1 instances)",
       "Unmatched braces: -1 difference",
       "Missing figure file: gt_iris.png",
       "Missing figure file: k_1.png",
@@ -412,62 +408,11 @@
     ]
   },
   "warnings": {
-    "BUILD_OPTIMIZATION.md": [
-      "Line 3: Very long line (124 chars)"
-    ],
-    "CONTENT_AUDIT_SUMMARY.md": [
-      "Line 5: Very long line (236 chars)",
-      "Line 134: Very long line (126 chars)"
-    ],
-    "CONVENTIONS_LOG.md": [
-      "Line 3: Very long line (122 chars)",
-      "Line 29: Very long line (135 chars)",
-      "Line 37: Very long line (123 chars)",
-      "Line 46: Very long line (135 chars)",
-      "Line 54: Very long line (125 chars)",
-      "Line 119: Very long line (123 chars)",
-      "Line 218: Very long line (156 chars)",
-      "Line 219: Very long line (185 chars)",
-      "Line 256: Very long line (332 chars)",
-      "Line 315: Very long line (133 chars)",
-      "Line 394: Very long line (144 chars)",
-      "Line 395: Very long line (165 chars)",
-      "Line 398: Very long line (155 chars)",
-      "Line 399: Very long line (132 chars)",
-      "Line 467: Very long line (126 chars)",
-      "Line 538: Very long line (126 chars)",
-      "Line 580: Very long line (121 chars)",
-      "Line 655: Very long line (172 chars)",
-      "Line 701: Very long line (126 chars)",
-      "Line 780: Very long line (134 chars)",
-      "Line 814: Very long line (172 chars)",
-      "Local package file not found: ../notation"
-    ],
-    "DESIGN_UPGRADE.md": [
-      "Line 4: Very long line (206 chars)",
-      "Line 207: Very long line (176 chars)"
-    ],
-    "LATEX_PACKAGES.md": [
-      "Line 3: Very long line (122 chars)"
-    ],
-    "NOTEBOOK_FIXES.md": [
-      "Line 8: Very long line (124 chars)",
-      "Line 10: Very long line (157 chars)"
-    ],
     "README.md": [
       "Line 3: Very long line (236 chars)",
       "Line 8: Very long line (124 chars)",
       "Line 27: Very long line (152 chars)",
-      "Line 46: Very long line (174 chars)"
-    ],
-    "RESTRUCTURING_PLAN.md": [
-      "Line 182: Very long line (141 chars)",
-      "Graphics path does not exist: ../shared/figures/ensemble/",
-      "Graphics path does not exist: ../assets/ensemble/figures/"
-    ],
-    "TA_TOPIC_ASSIGNMENTS.md": [
-      "Line 4: Very long line (176 chars)",
-      "Line 232: Very long line (126 chars)"
+      "Line 159: Very long line (174 chars)"
     ],
     "advanced/slides/forecasting.tex": [
       "May need \\usepackage{graphicx} for \\\\includegraphics",
@@ -648,11 +593,62 @@
       "Line 638: Very long line (223 chars)",
       "Line 661: Very long line (137 chars)"
     ],
-    "conventions-sanitized.tex": [
+    "build-temp/conventions-sanitized.tex": [
       "May need \\usepackage{amssymb} for \\\\mathbb"
     ],
-    "conventions.tex": [
+    "build-temp/conventions.tex": [
       "May need \\usepackage{amssymb} for \\\\mathbb"
+    ],
+    "docs/BUILD_OPTIMIZATION.md": [
+      "Line 3: Very long line (124 chars)"
+    ],
+    "docs/CONTENT_AUDIT_SUMMARY.md": [
+      "Line 5: Very long line (236 chars)",
+      "Line 134: Very long line (126 chars)"
+    ],
+    "docs/CONVENTIONS_LOG.md": [
+      "Line 3: Very long line (122 chars)",
+      "Line 29: Very long line (135 chars)",
+      "Line 37: Very long line (123 chars)",
+      "Line 46: Very long line (135 chars)",
+      "Line 54: Very long line (125 chars)",
+      "Line 119: Very long line (123 chars)",
+      "Line 218: Very long line (156 chars)",
+      "Line 219: Very long line (185 chars)",
+      "Line 256: Very long line (332 chars)",
+      "Line 315: Very long line (133 chars)",
+      "Line 394: Very long line (144 chars)",
+      "Line 395: Very long line (165 chars)",
+      "Line 398: Very long line (155 chars)",
+      "Line 399: Very long line (132 chars)",
+      "Line 467: Very long line (126 chars)",
+      "Line 538: Very long line (126 chars)",
+      "Line 580: Very long line (121 chars)",
+      "Line 655: Very long line (172 chars)",
+      "Line 701: Very long line (126 chars)",
+      "Line 780: Very long line (134 chars)",
+      "Line 814: Very long line (172 chars)",
+      "Local package file not found: ../notation"
+    ],
+    "docs/DESIGN_UPGRADE.md": [
+      "Line 4: Very long line (206 chars)",
+      "Line 207: Very long line (176 chars)"
+    ],
+    "docs/LATEX_PACKAGES.md": [
+      "Line 3: Very long line (122 chars)"
+    ],
+    "docs/NOTEBOOK_FIXES.md": [
+      "Line 8: Very long line (124 chars)",
+      "Line 10: Very long line (157 chars)"
+    ],
+    "docs/RESTRUCTURING_PLAN.md": [
+      "Line 182: Very long line (141 chars)",
+      "Graphics path does not exist: ../shared/figures/ensemble/",
+      "Graphics path does not exist: ../assets/ensemble/figures/"
+    ],
+    "docs/TA_TOPIC_ASSIGNMENTS.md": [
+      "Line 4: Very long line (176 chars)",
+      "Line 232: Very long line (126 chars)"
     ],
     "maths/slides/constrained-1.tex": [
       "No sections found in document"
@@ -730,13 +726,13 @@
       "Line 159: Very long line (191 chars)",
       "Line 161: Very long line (148 chars)",
       "Line 182: Very long line (178 chars)",
-      "Line 227: Very long line (162 chars)",
+      "Line 227: Very long line (141 chars)",
       "Line 237: Very long line (206 chars)",
       "Line 239: Very long line (181 chars)",
       "Line 243: Very long line (224 chars)",
-      "Line 255: Very long line (174 chars)",
-      "Line 260: Very long line (165 chars)",
-      "Line 270: Very long line (151 chars)",
+      "Line 255: Very long line (157 chars)",
+      "Line 260: Very long line (144 chars)",
+      "Line 270: Very long line (130 chars)",
       "Line 14: Too many consecutive blank lines",
       "Line 23: Too many consecutive blank lines",
       "Line 24: Too many consecutive blank lines",
@@ -748,24 +744,22 @@
       "May need \\usepackage{hyperref} for \\\\url",
       "Line 114: Very long line (147 chars)",
       "Line 115: Very long line (147 chars)",
-      "Line 212: Very long line (166 chars)",
-      "Line 218: Very long line (177 chars)",
-      "Line 245: Very long line (132 chars)",
+      "Line 212: Very long line (158 chars)",
+      "Line 218: Very long line (169 chars)",
       "Line 264: Very long line (236 chars)",
       "Line 265: Very long line (242 chars)",
       "Line 266: Very long line (145 chars)",
-      "Line 272: Very long line (146 chars)",
-      "Line 276: Very long line (284 chars)",
-      "Line 277: Very long line (196 chars)",
-      "Line 278: Very long line (166 chars)",
-      "Line 280: Very long line (224 chars)",
-      "Line 281: Very long line (196 chars)",
-      "Line 282: Very long line (164 chars)",
-      "Line 291: Very long line (313 chars)",
+      "Line 272: Very long line (138 chars)",
+      "Line 276: Very long line (256 chars)",
+      "Line 277: Very long line (182 chars)",
+      "Line 278: Very long line (152 chars)",
+      "Line 280: Very long line (210 chars)",
+      "Line 281: Very long line (182 chars)",
+      "Line 282: Very long line (150 chars)",
+      "Line 291: Very long line (285 chars)",
       "Line 313: Very long line (638 chars)",
-      "Line 316: Very long line (131 chars)",
       "Line 323: Very long line (850 chars)",
-      "Line 332: Very long line (284 chars)",
+      "Line 332: Very long line (242 chars)",
       "Line 336: Very long line (277 chars)",
       "Line 14: Too many consecutive blank lines",
       "No sections found in document"
@@ -1673,7 +1667,6 @@
     "unsupervised/slides/unsupervised.tex": [
       "May need \\usepackage{graphicx} for \\\\includegraphics",
       "May need \\usepackage{hyperref} for \\\\href",
-      "Line 36: Very long line (121 chars)",
       "Line 136: Very long line (134 chars)",
       "Line 5: Too many consecutive blank lines",
       "Line 16: Too many consecutive blank lines",
