@@ -63,7 +63,7 @@ Imagine you're developing a recommendation system for Netflix. You have:
     \item \textbf{Scalars}: A single user's rating (4.2 stars) for a movie
     \item \textbf{Vectors}: All ratings by one user [4.2, 3.1, 5.0, 2.8, ...]
     \item \textbf{Matrices}: Ratings by all users for all movies (millions × millions grid)
-    \item \textbf{Norms}: How "similar" are two users' preferences?
+    \item \textbf{Norms}: How ``similar'' are two users' preferences?
     \item \textbf{Probability}: What's the chance this user will like a sci-fi movie?
     \item \textbf{Statistics}: What's the average rating for action movies?
 \end{itemize}
@@ -252,11 +252,11 @@ $$\mA \mB = \mC \text{ where } c_{ij} = \sum_{k=1}^p a_{ik} b_{kj}$$
 
 \subsection{What Are Norms?}
 
-A \textbf{norm} measures the "size" or "length" of a vector/matrix. Think of it as:
+A \textbf{norm} measures the ``size'' or ``length'' of a vector/matrix. Think of it as:
 \begin{itemize}
     \item Distance from origin to a point
     \item Magnitude of a force vector
-    \item "How big" is this mathematical object?
+    \item ``How big'' is this mathematical object?
 \end{itemize}
 
 \subsection{Common Vector Norms}
@@ -269,7 +269,7 @@ Like walking in Manhattan - you can only go up/down, left/right.
 \textbf{2. L2 Norm (Euclidean Distance)}
 $$\normtwo{\vx} = \sqrt{\sum_{i=1}^n x_i^2}$$
 
-Straight-line distance "as the crow flies."
+Straight-line distance ``as the crow flies.''
 
 \textbf{3. L$\infty$ Norm (Maximum Norm)}
 $$\norminf{\vx} = \max_i |x_i|$$
@@ -317,7 +317,7 @@ Different norms emphasize different aspects of your model's performance!
 
 The \textbf{rank} of a matrix tells you:
 \begin{itemize}
-    \item How many "truly different" rows/columns it has
+    \item How many ``truly different'' rows/columns it has
     \item The dimension of the space it spans
     \item Whether the matrix is invertible
 \end{itemize}
@@ -372,8 +372,8 @@ Your spam filter processes 1000 emails:
 \begin{itemize}
     \item 200 are spam
     \item 800 are not spam
-    \item Of spam emails, 180 contain word "free"
-    \item Of non-spam emails, 50 contain word "free"
+    \item Of spam emails, 180 contain word ``free''
+    \item Of non-spam emails, 50 contain word ``free''
 \end{itemize}
 
 Probabilities:
@@ -607,7 +607,7 @@ d) Use SVD to find principal components; keep top-k components based on explaine
 Consider points uniformly distributed in a unit hypercube in $d$ dimensions.
 
 \textbf{a)} What fraction of the volume is within distance 0.1 from the boundary?\\
-\textbf{b)} As $d$ increases, what happens to the "typical" distance between random points?\\
+\textbf{b)} As $d$ increases, what happens to the ``typical'' distance between random points?\\
 \textbf{c)} How does this affect the effectiveness of nearest neighbor methods?\\
 \textbf{d)} What does this suggest about the L2 vs L1 norm in high dimensions?
 
@@ -663,11 +663,11 @@ These concepts appear everywhere in machine learning:
 \section{Further Reading}
 
 \begin{itemize}
-    \item \textbf{Linear Algebra}: Gilbert Strang's "Introduction to Linear Algebra"
-    \item \textbf{Probability}: Sheldon Ross's "A First Course in Probability"
-    \item \textbf{Statistics}: Larry Wasserman's "All of Statistics"
-    \item \textbf{ML Math}: Deisenroth, Faisal, Ong's "Mathematics for Machine Learning"
-    \item \textbf{Online}: Khan Academy, 3Blue1Brown's "Essence of Linear Algebra"
+    \item \textbf{Linear Algebra}: Gilbert Strang's ``Introduction to Linear Algebra''
+    \item \textbf{Probability}: Sheldon Ross's ``A First Course in Probability''
+    \item \textbf{Statistics}: Larry Wasserman's ``All of Statistics''
+    \item \textbf{ML Math}: Deisenroth, Faisal, Ong's ``Mathematics for Machine Learning''
+    \item \textbf{Online}: Khan Academy, 3Blue1Brown's ``Essence of Linear Algebra''
 \end{itemize}
 
 \end{document}

@@ -59,7 +59,7 @@ Where:
 
 \subsection{The Naive Assumption}
 
-\textbf{Why "Naive"?} Assumes features are conditionally independent given the class:
+\textbf{Why ``Naive''?} Assumes features are conditionally independent given the class:
 $$P(x_1, x_2, \ldots, x_n|y) = P(x_1|y) \cdot P(x_2|y) \cdots P(x_n|y) = \prod_{i=1}^{n} P(x_i|y)$$
 
 This simplifies the model dramatically but is often violated in practice.
@@ -120,7 +120,7 @@ Given the following email dataset with binary features (word present = 1, absent
 \begin{center}
 \begin{tabular}{|c|c|c|c|}
 \hline
-Email & "free" & "money" & Class \\
+Email & ``free'' & ``money'' & Class \\
 \hline
 1 & 1 & 0 & Spam \\
 2 & 1 & 1 & Spam \\
@@ -148,7 +148,7 @@ Using the spam email dataset from Problem 2, calculate:
 
 \begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Classification Decision]
 
-Using the spam email dataset, classify a new email with features ["free" = 1, "money" = 0]. Show all calculations and determine whether it's Spam or Ham.
+Using the spam email dataset, classify a new email with features [``free'' = 1, ``money'' = 0]. Show all calculations and determine whether it's Spam or Ham.
 \end{tcolorbox}
 
 \begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Gaussian Naive Bayes Setup]
@@ -187,12 +187,12 @@ Classify a person with Height = 6.0, Weight = 130, Foot Size = 8 using Gaussian 
 
 \begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Laplace Smoothing]
 
-Consider a text classification problem with vocabulary = ["good", "bad", "movie"]:
+Consider a text classification problem with vocabulary = [``good'', ``bad'', ``movie'']:
 
 Training data:
 \begin{itemize}
-    \item Positive: ["good movie"], ["good"]
-    \item Negative: ["bad movie"], ["bad"]
+    \item Positive: [``good movie''], [``good'']
+    \item Negative: [``bad movie''], [``bad'']
 \end{itemize}
 
 Calculate $P(\text{"excellent"}|\text{Positive})$ with and without Laplace smoothing ($\alpha = 1$).
@@ -200,7 +200,7 @@ Calculate $P(\text{"excellent"}|\text{Positive})$ with and without Laplace smoot
 
 \begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Independence Assumption Analysis]
 
-Consider features: "Age" and "Income" for credit approval.
+Consider features: ``Age'' and ``Income'' for credit approval.
 \begin{itemize}
     \item Real correlation between Age and Income: 0.7
     \item Naive Bayes assumes: correlation = 0
@@ -216,10 +216,10 @@ c) When the model might still work well despite violated assumptions
 
 For document classification, you have word counts:
 
-Document 1 (Sports): "game": 3, "team": 2, "player": 1
-Document 2 (Politics): "government": 2, "policy": 3, "vote": 1
+Document 1 (Sports): ``game'': 3, ``team'': 2, ``player'': 1
+Document 2 (Politics): ``government'': 2, ``policy'': 3, ``vote'': 1
 
-Calculate the probability of the word "team" given the Sports class using multinomial distribution parameters.
+Calculate the probability of the word ``team'' given the Sports class using multinomial distribution parameters.
 \end{tcolorbox}
 
 \begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Problem \stepcounter{exercise}: Log-Space Computation]
@@ -236,9 +236,9 @@ Given: $P(\text{Class}) = 0.3$, $P(f_1|\text{Class}) = 0.1$, $P(f_2|\text{Class}
 
 In the spam classification dataset, suppose a new email has:
 \begin{itemize}
-    \item "free": present
-    \item "money": missing (unknown)
-    \item "urgent": not in original vocabulary
+    \item ``free'': present
+    \item ``money'': missing (unknown)
+    \item ``urgent'': not in original vocabulary
 \end{itemize}
 
 Describe three strategies for handling missing and unknown features in Naive Bayes classification.

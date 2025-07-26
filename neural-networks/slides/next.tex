@@ -32,7 +32,7 @@
 \begin{frame}{Acknowledgment and Inspiration}
 \begin{itemize}[<+->]
 \item This lecture is inspired by the excellent work of \textbf{Andrej Karpathy}
-\item Search for \textit{"Neural Networks: Zero to Hero"} to find his comprehensive tutorial series
+\item Search for \textit{``Neural Networks: Zero to Hero''} to find his comprehensive tutorial series
 \item These concepts are fundamental to understanding modern language models
 \item Direct relevance to \textbf{ChatGPT} and other large language models:
 \begin{itemize}
@@ -44,23 +44,24 @@
 \end{frame}
 
 \begin{frame}{The Fundamental Question}
+\vspace{0.5cm}
 \begin{center}
-\begin{tikzpicture}[scale=2]
-% Draw the letters
-\node[draw, rectangle, thick, minimum width=0.8cm, minimum height=0.8cm] at (0,0) {\Large \textbf{a}};
-\node[draw, rectangle, thick, minimum width=0.8cm, minimum height=0.8cm] at (1,0) {\Large \textbf{p}};
-\node[draw, rectangle, thick, minimum width=0.8cm, minimum height=0.8cm] at (2,0) {\Large \textbf{p}};
-\node[draw, rectangle, thick, minimum width=0.8cm, minimum height=0.8cm, dashed, color=red] at (3,0) {\Large \textbf{?}};
+\begin{tikzpicture}[scale=1.5]
+% Draw the letters with better spacing
+\node[draw, rectangle, thick, minimum width=1cm, minimum height=1cm, fill=lightblue!20] at (0,0) {\Large \textbf{a}};
+\node[draw, rectangle, thick, minimum width=1cm, minimum height=1cm, fill=lightblue!20] at (1.5,0) {\Large \textbf{p}};
+\node[draw, rectangle, thick, minimum width=1cm, minimum height=1cm, fill=lightblue!20] at (3,0) {\Large \textbf{p}};
+\node[draw, rectangle, thick, minimum width=1cm, minimum height=1cm, dashed, color=red, fill=red!10] at (4.8,0) {\Large \textbf{?}};
 
-% Add arrow
-\draw[->, thick, red] (3.5, 0.5) -- (3.5, -0.5);
-\node[color=red] at (3.5, -1) {\Large What comes next?};
+% Add arrow with better positioning
+\draw[->, thick, red] (4.8, -0.8) -- (4.8, -1.5);
+\node[color=red, align=center] at (4.8, -2) {\textbf{What comes\\next?}};
 \end{tikzpicture}
 \end{center}
 
-\vspace{1cm}
+\vspace{0.8cm}
 \begin{center}
-{\Large Given the sequence "app", what is the next character?}
+{\Large Given the sequence ``app'', what is the next character?}
 \end{center}
 \end{frame}
 
@@ -77,7 +78,7 @@
 \end{tikzpicture}
 
 \vspace{0.5cm}
-\textbf{Input: "app"}
+\textbf{Input: ``app''}
 \end{center}
 \end{column}
 
@@ -120,41 +121,30 @@ z & 0.01 \\
 \vspace{0.5cm}
 
 \begin{columns}
-\begin{column}{0.3\textwidth}
+\begin{column}{0.45\textwidth}
+\textbf{Sample Names:}
 \begin{itemize}
-\item Abid
-\item Abhidha  
-\item Adesh
-\item Aditya
-\item Arjun
-\item $\vdots$
+\item Abid, Abhidha, Adesh
+\item Aditya, Arjun, Kiran
+\item Krishna, Lakshmi, Meera
+\item Nisha, Priya, Rajesh
+\item Sunita, Vikash, Zara
 \end{itemize}
 \end{column}
 
-\begin{column}{0.3\textwidth}
+\begin{column}{0.45\textwidth}
+\textbf{Dataset Properties:}
 \begin{itemize}
-\item Kiran
-\item Krishna
-\item Lakshmi
-\item Meera
-\item Nisha
-\item $\vdots$
-\end{itemize}
-\end{column}
-
-\begin{column}{0.3\textwidth}
-\begin{itemize}
-\item Priya
-\item Rajesh
-\item Sunita
-\item Vikash
-\item Zara
-\item $\vdots$
+\item 1000+ unique names
+\item Diverse regional origins
+\item Various lengths (4-10 chars)
+\item Both male \& female names
+\item Rich phonetic patterns
 \end{itemize}
 \end{column}
 \end{columns}
 
-\vspace{1cm}
+\vspace{0.7cm}
 \textbf{Goal:} Learn to generate new, realistic Indian names
 \end{center}
 \end{frame}
@@ -184,7 +174,7 @@ z & 0.01 \\
 \section{Training Data Generation}
 
 \begin{frame}{Generate Training Dataset}
-\textbf{Example: "abid" $\rightarrow$ Training Examples}
+\textbf{Example: ``abid'' $\rightarrow$ Training Examples}
 
 \vspace{0.5cm}
 \textbf{Context Length:} 3 characters
@@ -197,18 +187,18 @@ z & 0.01 \\
 \hline
 \textbf{Char 1} & \textbf{Char 2} & \textbf{Char 3} & \textbf{Context} & \textbf{Next Char} \\
 \hline
-- & - & - & "---" & a \\
-- & - & a & "--a" & b \\
-- & a & b & "-ab" & i \\
-a & b & i & "abi" & d \\
-b & i & d & "bid" & - \\
+- & - & - & ``---'' & a \\
+- & - & a & ``--a'' & b \\
+- & a & b & ``-ab'' & i \\
+a & b & i & ``abi'' & d \\
+b & i & d & ``bid'' & - \\
 \hline
 \end{tabular}
 \end{center}
 
 \vspace{0.5cm}
 \begin{alertblock}{Training Examples}
-From one name "abid", we create \textbf{5 training examples} using a sliding window approach.
+From one name ``abid'', we create \textbf{5 training examples} using a sliding window approach.
 \end{alertblock}
 \end{frame}
 
@@ -222,33 +212,33 @@ From one name "abid", we create \textbf{5 training examples} using a sliding win
 \end{itemize}
 
 \pause
-\vspace{0.5cm}
+\vspace{0.3cm}
 \begin{center}
-\begin{tikzpicture}[scale=1.2]
-% Axes
-\draw[->] (-3,0) -- (3,0) node[right] {Dimension 1};
-\draw[->] (0,-2) -- (0,2) node[above] {Dimension 2};
+\begin{tikzpicture}[scale=1.1]
+% Axes with better spacing
+\draw[->] (-3.5,0) -- (3.5,0) node[right] {Dimension 1};
+\draw[->] (0,-2.5) -- (0,2.5) node[above] {Dimension 2};
 
-% Vowels cluster
-\node[circle, fill=red!30, inner sep=2pt] at (-1.5, 1) {a};
-\node[circle, fill=red!30, inner sep=2pt] at (-1.2, 0.8) {e};
-\node[circle, fill=red!30, inner sep=2pt] at (-1.8, 1.2) {i};
-\node[circle, fill=red!30, inner sep=2pt] at (-1.4, 1.4) {o};
-\node[circle, fill=red!30, inner sep=2pt] at (-1.1, 1.1) {u};
+% Vowels cluster - better spaced
+\node[circle, fill=red!30, inner sep=3pt] at (-1.8, 1.2) {\small a};
+\node[circle, fill=red!30, inner sep=3pt] at (-1.3, 1.0) {\small e};
+\node[circle, fill=red!30, inner sep=3pt] at (-2.0, 1.6) {\small i};
+\node[circle, fill=red!30, inner sep=3pt] at (-1.1, 1.5) {\small o};
+\node[circle, fill=red!30, inner sep=3pt] at (-1.6, 1.7) {\small u};
 
-% Consonants cluster
-\node[circle, fill=blue!30, inner sep=2pt] at (1.2, -0.8) {b};
-\node[circle, fill=blue!30, inner sep=2pt] at (1.5, -1.2) {c};
-\node[circle, fill=blue!30, inner sep=2pt] at (1.8, -0.9) {d};
-\node[circle, fill=blue!30, inner sep=2pt] at (1.1, -1.1) {f};
+% Consonants cluster - better spaced
+\node[circle, fill=blue!30, inner sep=3pt] at (1.3, -1.0) {\small b};
+\node[circle, fill=blue!30, inner sep=3pt] at (1.8, -1.4) {\small c};
+\node[circle, fill=blue!30, inner sep=3pt] at (2.2, -0.8) {\small d};
+\node[circle, fill=blue!30, inner sep=3pt] at (1.0, -1.4) {\small f};
 
 % Special character
-\node[circle, fill=green!50, inner sep=2pt] at (0, -1.8) {-};
+\node[circle, fill=green!50, inner sep=4pt] at (0.2, -2.1) {\small -};
 
-% Labels
-\node[color=red] at (-2.2, 1.8) {\small Vowels};
-\node[color=blue] at (2.2, -1.5) {\small Consonants};
-\node[color=green!70!black] at (0.5, -1.8) {\small End};
+% Labels with better positioning
+\node[color=red, font=\small\bfseries] at (-2.8, 2.2) {Vowels};
+\node[color=blue, font=\small\bfseries] at (2.8, -1.8) {Consonants};
+\node[color=green!70!black, font=\small\bfseries] at (0.8, -2.1) {End};
 \end{tikzpicture}
 \end{center}
 \end{frame}
@@ -359,11 +349,11 @@ From one name "abid", we create \textbf{5 training examples} using a sliding win
 \begin{frame}{Embedding Table Structure}
 \begin{center}
 \textbf{27 × K Embedding Matrix}
-\vspace{0.5cm}
+\vspace{0.3cm}
 
 \begin{tabular}{|c|c|c|c|c|}
 \hline
-\textbf{Character} & \textbf{Dim 1} & \textbf{Dim 2} & \textbf{...} & \textbf{Dim K} \\
+\textbf{Char} & \textbf{D1} & \textbf{D2} & \textbf{...} & \textbf{DK} \\
 \hline
 a & 0.2 & -0.1 & ... & 0.8 \\
 b & -0.3 & 0.5 & ... & -0.2 \\
@@ -375,9 +365,9 @@ z & 0.7 & -0.4 & ... & 0.1 \\
 \end{tabular}
 \end{center}
 
-\vspace{0.5cm}
+\vspace{0.3cm}
 \begin{alertblock}{Key Point}
-Each character maps to a K-dimensional dense vector representation.
+Each character maps to a K-dimensional vector.
 \end{alertblock}
 \end{frame}
 
@@ -406,11 +396,11 @@ Each character maps to a K-dimensional dense vector representation.
 
 \section{Neural Network Architecture}
 
-\begin{frame}{Example: 2D Embeddings for "abi"}
+\begin{frame}{Example: 2D Embeddings for ``abi''}
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
 % Input vector
-\node at (-4, 3) {\textbf{Input: X = ["a", "b", "i"]}};
+\node at (-4, 3) {\textbf{Input: X = [``a'', ``b'', ``i'']}};
 
 % Embedding matrix
 \node at (0, 3.5) {\textbf{Embedding Matrix (27 × 2)}};
@@ -469,35 +459,35 @@ Each character maps to a K-dimensional dense vector representation.
 \begin{frame}{Concatenate the Embeddings}
 \begin{center}
 \textbf{Feature Vector Construction}
-\vspace{0.5cm}
+\vspace{0.3cm}
 
-\begin{tikzpicture}[scale=1.2]
-% Input embeddings
-\node[fill=yellow!30, minimum width=1.5cm, minimum height=0.6cm] at (-2, 1) {[0.2, -0.1]};
-\node at (-3.2, 1) {\small a:};
+\begin{tikzpicture}[scale=1.0]
+% Input embeddings with better spacing
+\node[fill=yellow!30, minimum width=1.3cm, minimum height=0.5cm] at (-2.2, 0.8) {[0.2, -0.1]};
+\node at (-3.2, 0.8) {\small a:};
 
-\node[fill=green!30, minimum width=1.5cm, minimum height=0.6cm] at (-2, 0) {[-0.3, 0.5]};
+\node[fill=green!30, minimum width=1.3cm, minimum height=0.5cm] at (-2.2, 0) {[-0.3, 0.5]};
 \node at (-3.2, 0) {\small b:};
 
-\node[fill=blue!30, minimum width=1.5cm, minimum height=0.6cm] at (-2, -1) {[0.1, 0.3]};
-\node at (-3.2, -1) {\small i:};
+\node[fill=blue!30, minimum width=1.3cm, minimum height=0.5cm] at (-2.2, -0.8) {[0.1, 0.3]};
+\node at (-3.2, -0.8) {\small i:};
 
-% Arrow
-\draw[->, thick] (-0.8, 0) -- (0.5, 0);
-\node at (0, 0.5) {\small concatenate};
+% Arrow with better positioning
+\draw[->, thick] (-1.2, 0) -- (0.2, 0);
+\node at (-0.5, 0.4) {\small concat};
 
-% Result
-\node[draw, rectangle, thick, minimum width=4cm, minimum height=0.8cm] at (3, 0) {
+% Result with adjusted width
+\node[draw, rectangle, thick, minimum width=3.5cm, minimum height=0.6cm] at (2.5, 0) {
 [0.2, -0.1, -0.3, 0.5, 0.1, 0.3]
 };
 
-\node at (3, -1) {\textbf{6-dimensional feature vector}};
+\node at (2.5, -1.2) {\textbf{6D feature vector}};
 \end{tikzpicture}
 \end{center}
 
-\vspace{0.5cm}
+\vspace{0.3cm}
 \begin{alertblock}{Result}
-Context of 3 characters × 2D embeddings = 6-dimensional input to neural network
+3 chars × 2D embeddings = 6D input to neural network
 \end{alertblock}
 \end{frame}
 
@@ -589,7 +579,7 @@ Context of 3 characters × 2D embeddings = 6-dimensional input to neural network
 \section{Text Generation}
 
 \begin{frame}{Sampling from the Learned Model}
-\textbf{Test Input:} "abi"
+\textbf{Test Input:} ``abi''
 
 \vspace{0.5cm}
 \begin{center}
@@ -614,7 +604,7 @@ f & 0.01 & s & 0.08 \\
 
 \vspace{0.5cm}
 \begin{alertblock}{Most Likely Continuation}
-"abi" → "abid" (60% probability)
+``abi'' → ``abid'' (60% probability)
 \end{alertblock}
 \end{frame}
 
@@ -646,7 +636,7 @@ f & 0.01 & s & 0.08 \\
 \node at (0, -1) {\small 60\%};
 \node at (3, -1) {\small 8\%};
 
-\node at (0, -3.5) {\small Complete name: "abid"};
+\node at (0, -3.5) {\small Complete name: ``abid''};
 \end{tikzpicture}
 \end{center}
 
@@ -679,13 +669,13 @@ P(y_i) = \frac{e^{z_i/T}}{\sum_{j=1}^{27} e^{z_j/T}}
 \end{frame}
 
 \begin{frame}{Temperature Variations}
-\textbf{Context:} "abi" → Next character probabilities
+\textbf{Context:} ``abi'' → Next character probabilities
 
-\vspace{0.5cm}
+\vspace{0.3cm}
 \begin{center}
 \begin{tabular}{|c|c|c|c|}
 \hline
-\textbf{Character} & \textbf{T = 0.5} & \textbf{T = 1.0} & \textbf{T = 2.0} \\
+\textbf{Char} & \textbf{T=0.5} & \textbf{T=1.0} & \textbf{T=2.0} \\
  & \textbf{(Low)} & \textbf{(Default)} & \textbf{(High)} \\
 \hline
 a & 0.001 & 0.01 & 0.08 \\
@@ -698,10 +688,10 @@ others & 0.015 & 0.23 & 0.35 \\
 \end{tabular}
 \end{center}
 
-\vspace{0.5cm}
+\vspace{0.3cm}
 \begin{itemize}
-\item \textbf{Low T:} More conservative, predictable names
-\item \textbf{High T:} More creative, diverse names
+\item \textbf{Low T:} Conservative, predictable
+\item \textbf{High T:} Creative, diverse
 \end{itemize}
 \end{frame}
 
