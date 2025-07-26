@@ -58,8 +58,8 @@ website:
 format:
   html:
     theme:
-      light: [cosmo, styles.scss]
-      dark: [darkly, styles-dark.scss]
+      light: [cosmo, styles/styles.scss]
+      dark: [darkly, styles/styles-dark.scss]
     highlight-style: github
     mainfont: "Inter, system-ui, sans-serif"
     monofont: "JetBrains Mono, SF Mono, Monaco, monospace"
@@ -77,8 +77,8 @@ format:
   # Notebook-specific formatting
   ipynb:
     theme:
-      light: [cosmo, styles.scss]
-      dark: [darkly, styles-dark.scss]
+      light: [cosmo, styles/styles.scss]
+      dark: [darkly, styles/styles-dark.scss]
     highlight-style: github
     mainfont: "Inter, system-ui, sans-serif"
     monofont: "JetBrains Mono, SF Mono, Monaco, monospace"
