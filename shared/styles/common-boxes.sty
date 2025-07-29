@@ -36,107 +36,107 @@
 \@ifundefined{notebookbox}{%
 \newtcolorbox{notebookbox}[1]{
   width=\textwidth-2mm,
-  left=1mm,
-  right=1mm,
-  colback=white,
-  colframe=blue!60!black,
-  arc=0mm,
-  boxrule=1pt,
-  title={\href{#1}{\textcolor{white}{\small\textbf{Notebook:} \lastpartofurl{#1}}}},
-  fonttitle=\bfseries,
+  left=3mm,
+  right=3mm,
+  colback=gray!3,
+  colframe=gray!40,
+  arc=1pt,
+  boxrule=0.5pt,
+  title={\href{#1}{\textcolor{black!70}{\small\textbf{Notebook:} \lastpartofurl{#1}}}},
+  fonttitle=\small,
 }
 }{}
 
 % Definition box (only if not already defined)
 \@ifundefined{definitionbox}{%
 \newtcolorbox{definitionbox}[1]{
-  colback=blue!5!white,
-  colframe=blue!75!black,
-  boxrule=1.2pt,
-  arc=3pt,
-  left=8pt,
-  right=8pt,
-  top=8pt,
-  bottom=8pt,
+  colback=white,
+  colframe=gray!50,
+  boxrule=0.5pt,
+  arc=1pt,
+  left=6pt,
+  right=6pt,
+  top=6pt,
+  bottom=6pt,
   title={\textbf{Definition: #1}},
-  fonttitle=\bfseries,
+  fonttitle=\small\bfseries,
   enhanced,
-  borderline west={3pt}{0pt}{blue!40}
+  borderline west={2pt}{0pt}{gray!60}
 }
 }{}
 
 % Example box (only if not already defined)
 \@ifundefined{examplebox}{%
 \newtcolorbox{examplebox}[1]{
-  colback=orange!5!white,
-  colframe=orange!75!black,
-  boxrule=1.2pt,
-  arc=3pt,
-  left=8pt,
-  right=8pt,
-  top=8pt,  
-  bottom=8pt,
+  colback=white,
+  colframe=gray!50,
+  boxrule=0.5pt,
+  arc=1pt,
+  left=6pt,
+  right=6pt,
+  top=6pt,  
+  bottom=6pt,
   title={\textbf{Example: #1}},
-  fonttitle=\bfseries,
+  fonttitle=\small\bfseries,
   enhanced,
-  borderline west={3pt}{0pt}{orange!40}
+  borderline west={2pt}{0pt}{gray!60}
 }
 }{}
 
 % Key points box (only if not already defined)
 \@ifundefined{keypointsbox}{%
 \newtcolorbox{keypointsbox}{
-  colback=purple!5!white,
-  colframe=purple!75!black,
-  boxrule=1.2pt,
-  arc=3pt,
-  left=8pt,
-  right=8pt,
-  top=8pt,
-  bottom=8pt,
+  colback=white,
+  colframe=gray!50,
+  boxrule=0.5pt,
+  arc=1pt,
+  left=6pt,
+  right=6pt,
+  top=6pt,
+  bottom=6pt,
   title={\textbf{Key Points}},
-  fonttitle=\bfseries,
+  fonttitle=\small\bfseries,
   enhanced,
-  borderline west={3pt}{0pt}{purple!40}
+  borderline west={2pt}{0pt}{gray!60}
 }
 }{}
 
 % Pop quiz box (only if not already defined)
 \@ifundefined{popquizbox}{%
 \newtcolorbox{popquizbox}[1]{
-  colback=blue!8,
-  colframe=blue,
-  boxrule=1.5pt,
-  arc=4pt,
-  left=10pt,
-  right=10pt,
-  top=10pt,
-  bottom=10pt,
+  colback=gray!5,
+  colframe=gray!60,
+  boxrule=0.5pt,
+  arc=1pt,
+  left=8pt,
+  right=8pt,
+  top=8pt,
+  bottom=8pt,
   title={\textbf{Quick Quiz #1}},
-  fonttitle=\large\bfseries,
-  coltitle=white,
-  colbacktitle=blue,
+  fonttitle=\small\bfseries,
+  coltitle=black,
+  colbacktitle=gray!20,
   enhanced,
-  attach boxed title to top left={xshift=5pt, yshift=-3pt},
-  boxed title style={arc=4pt, boxrule=0pt},
+  attach boxed title to top left={xshift=3pt, yshift=-2pt},
+  boxed title style={arc=1pt, boxrule=0pt},
 }
 }{}
 
 % Alert/Warning box (only if not already defined)  
 \@ifundefined{alertbox}{%
 \newtcolorbox{alertbox}[1]{
-  colback=red!5!white,
-  colframe=red!75!black,
-  boxrule=1.2pt,
-  arc=3pt,
-  left=8pt,
-  right=8pt,
-  top=8pt,
-  bottom=8pt,
+  colback=white,
+  colframe=gray!50,
+  boxrule=0.5pt,
+  arc=1pt,
+  left=6pt,
+  right=6pt,
+  top=6pt,
+  bottom=6pt,
   title={\textbf{Important: #1}},
-  fonttitle=\bfseries,
+  fonttitle=\small\bfseries,
   enhanced,
-  borderline west={3pt}{0pt}{red!40}
+  borderline west={2pt}{0pt}{gray!70}
 }
 }{}
 

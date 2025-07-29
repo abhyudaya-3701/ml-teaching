@@ -240,42 +240,98 @@ Cases for this:
 \end{frame}
 
 \begin{frame}{Confusion Matrix}
-\vspace{60pt}
+\vspace{40pt}
 \begin{center}
 \begin{tabular}{@{}cc cc@{}}
 	\multicolumn{1}{c}{} &\multicolumn{1}{c}{} &\multicolumn{2}{c}{Ground Truth} \\ 
 	\cmidrule(lr){3-4}
 	\multicolumn{1}{c}{} & 
 	\multicolumn{1}{c}{} & 
-	\multicolumn{1}{c}{Yes} & 
-	\multicolumn{1}{c}{No} \\ 
+	\multicolumn{1}{c}{Positive} & 
+	\multicolumn{1}{c}{Negative} \\ 
 	\cline{2-4}
 	\multirow[c]{2}{*}{\rotatebox[origin=tr]{90}{Predicted}}
-	& Yes  & True Positive & False Positive   \\[1.5ex]
-	& No  & False Negative   & True Negative \\ 
+	& Positive  & \cellcolor{blue!20}True Positive (TP) & \cellcolor{red!20}False Positive (FP)   \\[1.5ex]
+	& Negative  & \cellcolor{red!20}False Negative (FN)   & \cellcolor{green!20}True Negative (TN) \\ 
 	\cline{2-4}
 \end{tabular}
 \end{center}
+\vspace{20pt}
+\pause
+\textbf{Key Insight:} Each cell represents a different type of prediction outcome
 \end{frame}
 
-\begin{frame}{Example Metrics}
-\[
-\bordermatrix{&\text{G.T. Positive}&\text{G.T. Negative}\cr
-               \text{Pred Positive}&0&1\cr
-               \text{Pred Negative}&1&98}
-\]
-
+\begin{frame}{Precision: "How accurate are my positive predictions?"}
+\vspace{20pt}
+\begin{center}
+\begin{tabular}{@{}cc cc@{}}
+	\multicolumn{1}{c}{} &\multicolumn{1}{c}{} &\multicolumn{2}{c}{Ground Truth} \\ 
+	\cmidrule(lr){3-4}
+	\multicolumn{1}{c}{} & 
+	\multicolumn{1}{c}{} & 
+	\multicolumn{1}{c}{Positive} & 
+	\multicolumn{1}{c}{Negative} \\ 
+	\cline{2-4}
+	\multirow[c]{2}{*}{\rotatebox[origin=tr]{90}{Predicted}}
+	& Positive  & \cellcolor{blue!40}\textbf{TP} & \cellcolor{blue!40}\textbf{FP}   \\[1.5ex]
+	& Negative  & \cellcolor{gray!10}FN   & \cellcolor{gray!10}TN \\ 
+	\cline{2-4}
+\end{tabular}
+\end{center}
+\vspace{20pt}
+$$\text{Precision} = \frac{\text{TP}}{\text{TP + FP}} = \frac{\text{Correct Positives}}{\text{All Predicted Positives}}$$
 \pause
-\[
-\bordermatrix{&\text{G.T. Positive}&\text{G.T. Negative}\cr
-               \text{Pred Positive}&\text{True Positive}&\text{False Positive}\cr
-               \text{Pred Negative}&\text{True Negative}&\text{False Negative}}
-\]
+\textbf{Focus:} Of all items I predicted as positive, how many were actually positive?
+\end{frame}
+
+\begin{frame}{Recall: "How many actual positives did I find?"}
+\vspace{20pt}
+\begin{center}
+\begin{tabular}{@{}cc cc@{}}
+	\multicolumn{1}{c}{} &\multicolumn{1}{c}{} &\multicolumn{2}{c}{Ground Truth} \\ 
+	\cmidrule(lr){3-4}
+	\multicolumn{1}{c}{} & 
+	\multicolumn{1}{c}{} & 
+	\multicolumn{1}{c}{Positive} & 
+	\multicolumn{1}{c}{Negative} \\ 
+	\cline{2-4}
+	\multirow[c]{2}{*}{\rotatebox[origin=tr]{90}{Predicted}}
+	& Positive  & \cellcolor{green!40}\textbf{TP} & \cellcolor{gray!10}FP   \\[1.5ex]
+	& Negative  & \cellcolor{green!40}\textbf{FN}   & \cellcolor{gray!10}TN \\ 
+	\cline{2-4}
+\end{tabular}
+\end{center}
+\vspace{20pt}
+$$\text{Recall} = \frac{\text{TP}}{\text{TP + FN}} = \frac{\text{Correct Positives}}{\text{All Actual Positives}}$$
+\pause
+\textbf{Focus:} Of all items that are actually positive, how many did I correctly identify?
+\end{frame}
+
+\begin{frame}{Example: Medical Diagnosis}
+Let's say we're testing for a disease:
+\begin{center}
+\begin{tabular}{@{}cc cc@{}}
+	\multicolumn{1}{c}{} &\multicolumn{1}{c}{} &\multicolumn{2}{c}{Actually Has Disease} \\ 
+	\cmidrule(lr){3-4}
+	\multicolumn{1}{c}{} & 
+	\multicolumn{1}{c}{} & 
+	\multicolumn{1}{c}{Yes} & 
+	\multicolumn{1}{c}{No} \\ 
+	\cline{2-4}
+	\multirow[c]{2}{*}{\rotatebox[origin=tr]{90}{Test Says}}
+	& Positive  & \cellcolor{blue!20}90 & \cellcolor{red!20}10   \\[1.5ex]
+	& Negative  & \cellcolor{red!20}5   & \cellcolor{green!20}895 \\ 
+	\cline{2-4}
+\end{tabular}
+\end{center}
 
 \pause
 \begin{align*}
-\text{Recall} &= \frac{\text{T.P}}{\text{T.P + F.P}} \\
-\text{Precision} &= \frac{\text{T.P}}{\text{T.P + F.N}}
+\text{Precision} &= \frac{90}{90 + 10} = \frac{90}{100} = 0.90 \text{ (90\%)} \\
+\pause
+\text{Recall} &= \frac{90}{90 + 5} = \frac{90}{95} = 0.95 \text{ (95\%)} \\
+\pause
+\text{Accuracy} &= \frac{90 + 895}{1000} = 0.985 \text{ (98.5\%)}
 \end{align*}
 \end{frame}
 
