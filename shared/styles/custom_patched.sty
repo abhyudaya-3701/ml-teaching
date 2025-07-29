@@ -1,0 +1,258 @@
+% Automatically added to avoid tcolorbox option clash
+\PassOptionsToPackage{most}{tcolorbox}
+% custom.sty - Unified LaTeX package for ML Course Materials
+% Consolidates all common packages, commands, and styling
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{custom}[2024/01/01 Unified ML Course Style Package]
+
+% Add current directory to package search path for theme files
+\makeatletter
+\def\input@path{{./}{../../shared/styles/}{../shared/styles/}{shared/styles/}}
+\makeatother
+
+% ==============================================================================
+% CORE THEME AND LAYOUT
+% ==============================================================================
+
+% ==============================================================================
+% THEME SELECTION - Choose ONE by uncommenting the line
+% ==============================================================================
+
+% Nipun's Custom Theme (active) - Clean, modern, academic
+\RequirePackage{theme-nipun}
+
+% Alternative themes (comment/uncomment as needed):
+% \RequirePackage{theme-sky}        % Beautiful Sky theme - Light blue elegance
+% \RequirePackage{theme-modern}     % Clean modern whites and grays (Bodh-inspired)
+% \RequirePackage{theme-elegant}    % Sophisticated navy/gold palette
+% \RequirePackage{theme-print}      % Print-friendly black & white
+% \RequirePackage{theme-default}    % Standard metropolis
+% \RequirePackage{theme-minimal}    % Ultra minimal design
+% \RequirePackage{theme-academic}   % Traditional academic look
+% \RequirePackage{theme-darkmode}   % Dark mode theme
+
+% Basic spacing control
+\setlength{\abovedisplayskip}{1pt}
+\setlength{\belowdisplayskip}{1pt}
+
+% ==============================================================================
+% ESSENTIAL PACKAGES
+% ==============================================================================
+
+% Core LaTeX packages
+\RequirePackage{graphicx}
+% Fix xkeyval conflict between graphicx and pdfpages
+\RequirePackage{xkeyval}
+\makeatletter
+\define@key{Gin}{pages}{}  % Define dummy pages key for Gin family
+\makeatother
+\RequirePackage{pdfpages}
+\RequirePackage{amsmath}
+\RequirePackage{amssymb}
+\RequirePackage{amsfonts}
+\RequirePackage{amsthm}
+
+% Color and styling
+\RequirePackage{xcolor}
+\RequirePackage[most]{tcolorbox}
+\RequirePackage{color, colortbl}
+
+% Typography and formatting
+\RequirePackage{bm}
+\RequirePackage{mathtools}
+\RequirePackage{siunitx}
+
+% Tables and layout
+\RequirePackage{booktabs}
+\RequirePackage{multirow}
+\RequirePackage{makecell}
+\RequirePackage{adjustbox}
+\RequirePackage{array}
+
+% Figures and captions
+\RequirePackage{subcaption}
+\RequirePackage[labelformat=empty]{caption}
+
+% Links and references
+\RequirePackage{hyperref}
+\RequirePackage{url}
+
+% Specialized packages
+\RequirePackage{forloop}
+\RequirePackage{calc}
+\RequirePackage{forest}
+\RequirePackage{calculator}
+\RequirePackage{xspace}
+
+% TikZ and graphics
+\RequirePackage{tikz}
+\RequirePackage{pgfplots}
+
+% ==============================================================================
+% HYPERLINK CONFIGURATION
+% ==============================================================================
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=cyan,
+    pdftitle={ML Course Materials},
+    pdfauthor={Nipun Batra},
+    pdfsubject={Machine Learning},
+    pdfkeywords={Machine Learning, Data Science, AI}
+}
+
+% ==============================================================================
+% COLOR DEFINITIONS
+% ==============================================================================
+
+\definecolor{myblue}{RGB}{60,130,200}
+\definecolor{mygreen}{RGB}{34,139,34}
+\definecolor{myred}{RGB}{220,20,60}
+\definecolor{mypurple}{RGB}{128,0,128}
+\definecolor{myorange}{RGB}{255,140,0}
+\definecolor{mygray}{RGB}{128,128,128}
+
+% Column types with colors
+\newcolumntype{g}{>{\columncolor{Lavender}}c}
+\newcolumntype{t}{>{\columncolor{Tan}}c}
+
+% ==============================================================================
+% TIKZ CONFIGURATION
+% ==============================================================================
+
+% TikZ libraries
+\usetikzlibrary{shapes.geometric, arrows}
+\usetikzlibrary{positioning}
+\usetikzlibrary{calc}
+\usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary{decorations.pathmorphing}
+
+% TikZ styles
+\tikzstyle{startstop} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=brown!30]
+\tikzstyle{io} = [trapezium, trapezium left angle=70, trapezium right angle=110, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=blue!30]
+\tikzstyle{process} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=orange!30]
+\tikzstyle{decision} = [diamond, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=green!30]
+\tikzstyle{arrow} = [thick,->,>=stealth]
+
+% TikZ utility commands
+\newcommand{\DoTikzmark}[1]{%
+    \tikz[remember picture] \coordinate[shift={(0,.7ex)}](#1);%
+}
+
+\newcommand{\colrow}[3][]{%
+    \tikz[overlay,remember picture, line width=10pt]
+    \draw[shorten >=-.1em, shorten <=-.1em, #1] (#2)--(#3);
+}
+
+% PGF Plots configuration
+\pgfplotsset{width=6cm,compat=1.9}
+
+% Node distance for trees
+\newdimen\nodeDist
+\nodeDist=33mm
+
+% ==============================================================================
+% MATHEMATICAL NOTATION REMOVED
+% ==============================================================================
+% All mathematical notation has been moved to conventions.tex for consistency
+% This package now contains only styling and non-mathematical commands
+
+% ==============================================================================
+% FORMATTING COMMANDS
+% ==============================================================================
+
+% Custom item formatting with spacing control
+\newcommand\Item[1][]{%
+    \ifx\relax#1\relax  \item \else \item[#1] \fi
+    \abovedisplayskip=0pt\abovedisplayshortskip=0pt~\vspace*{-\baselineskip}}
+
+% Math color command (use providecommand to avoid conflicts)
+\providecommand{\mathcolor}[2]{\textcolor{#1}{#2}}
+
+% Checkmark symbol
+\def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;}
+
+% Cross mark symbol
+\def\crossmark{\tikz[scale=0.4]{\draw[thick] (0,0) -- (1,1);\draw[thick] (0,1) -- (1,0);}}
+
+% ==============================================================================
+% URL PROCESSING
+% ==============================================================================
+
+\providecommand{\lastpartofurl}[1]{%
+  \edef\temp{\expandafter\lastpartofurlA#1/\relax}%
+  \expandafter\lastpartofurlB\temp\relax%
+}
+\def\lastpartofurlA#1/#2\relax{#2}
+\def\lastpartofurlB#1/#2\relax{%
+  \if\relax#2\relax
+    #1%
+  \else
+    \lastpartofurlB#2\relax%
+  \fi
+}
+
+% ==============================================================================
+% CUSTOM BOXES AND ENVIRONMENTS
+% ==============================================================================
+
+% Notebook box definition moved to common-boxes.sty
+
+% Load common tcolorbox definitions (centralized to avoid duplication)
+\RequirePackage{common-boxes}
+
+% ==============================================================================
+% ALGORITHM ENVIRONMENTS
+% ==============================================================================
+
+% Simple algorithm environment
+\newcounter{algocounter}
+\newenvironment{algorithm}[1]{
+  \stepcounter{algocounter}
+  \begin{tcolorbox}[colback=gray!5!white, colframe=gray!75!black, title={\textbf{Algorithm \thealgocounter: #1}}]
+}{
+  \end{tcolorbox}
+}
+
+% ==============================================================================
+% COMMON SLIDE ELEMENTS
+% ==============================================================================
+
+% Frame title with subtitle
+\newcommand{\frametitlesubtitle}[2]{
+  \frametitle{#1}
+  \framesubtitle{#2}
+}
+
+% Section slide
+\newcommand{\sectionslide}[1]{
+  \begin{frame}
+    \centering
+    \Large \textbf{#1}
+  \end{frame}
+}
+
+% ==============================================================================
+% COMMON ABBREVIATIONS
+% ==============================================================================
+
+\newcommand{\eg}{e.g.,\xspace}
+\newcommand{\ie}{i.e.,\xspace}
+\newcommand{\etc}{etc.\xspace}
+\newcommand{\vs}{vs.\xspace}
+\newcommand{\wrt}{w.r.t.\xspace}
+\newcommand{\st}{s.t.\xspace}
+\newcommand{\iid}{i.i.d.\xspace}
+
+% ==============================================================================
+% FINAL SETUP
+% ==============================================================================
+
+% Ensure proper spacing in beamer
+\beamerdefaultoverlayspecification{<+->}
+
+% End of package
+\endinput

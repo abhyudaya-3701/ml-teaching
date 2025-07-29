@@ -1,5 +1,5 @@
 \documentclass[usenames,dvipsnames]{beamer}
-\usepackage{../../shared/styles/custom}
+\usepackage{../../shared/styles/custom_patched}
 \usepackage{../../shared/styles/conventions}
 
 	\title{Conventions, Accuracy Metrics, Classification, Regression}
@@ -14,7 +14,8 @@
   \maketitle
   
   % Table of Contents
-  \begin{frame}Let us work on the digit recognition problem.
+  \begin{frame}{Digit Recognition Problem}
+  Let us work on the digit recognition problem.
 
 		\begin{figure}[htp]
 			\centering
@@ -25,8 +26,10 @@
 
 	\end{frame}
 
-\begin{frame}Maybe 4 can be thought of as: $\bm{|}$ + $\bm{\rule[0.5ex]{1em}{.95pt}}$ + $\bm{|}$ + another vertically down $\bm{|}$
-	
+\begin{frame}{Rule-based Approach for Digit Recognition}
+Maybe 4 can be thought of as: $\bm{|}$ + $\bm{\rule[0.5ex]{1em}{.95pt}}$ + $\bm{|}$ + another vertically down $\bm{|}$
+
+\begin{itemize}
 	\item \pause The heights of each of the $\bm{|}$ need to be similar within tolerance
 	
 	\item \pause Each of the $\bm{|}$ can be slightly slanted. Similarly the horizontal line can be slanted.
@@ -39,13 +42,16 @@
 
 \section{Machine Learning Fundamentals}
 
-\begin{frame}Size
+\begin{frame}{Apple Quality Features}
+\begin{itemize}
+	\item Size
 	\item \pause Colour
 	\item \pause Texture
 \end{itemize}
 \end{frame}
   
-\begin{frame}Answer: Usually no! Sample numbers are typically arbitrary identifiers and not meaningful features. Let us remove it.
+\begin{frame}{Should We Include Sample Numbers?}
+Answer: Usually no! Sample numbers are typically arbitrary identifiers and not meaningful features. Let us remove it.
 
 \pause Let us modify our data table for now.
 
@@ -62,14 +68,16 @@
 \end{table}
 \end{frame}
 
-\begin{frame}The training set consists of two parts:
+\begin{frame}{Training Set Components}
+The training set consists of two parts:
 \begin{enumerate}
 	\item \pause \color{Lavender}{Features (Input Variables)}
 	\item \pause \color{Tan}{Output or Response Variable}
 \end{enumerate}
 \end{frame}
 
-\begin{frame}We call this matrix as $\cD$, containing:
+\begin{frame}{Dataset Notation}
+We call this matrix as $\cD$, containing:
 \begin{enumerate}
 	\item Feature matrix ($\mX \in \Real^{n \times d}$) containing data of $n$ samples each of which is $d$ dimensional.
 	\item Output vector ($\vy \in \Real^n$) containing output variable for $n$ samples.
@@ -77,17 +85,23 @@
 
 \end{frame}
 
-\begin{frame}Example (after encoding): $\vx_1 = \begin{bmatrix}
+\begin{frame}{Dataset Example}
+Example (after encoding): $\vx_1 = \begin{bmatrix}
 	1 \\ 
 	0 \\
 	1 \\
 	\end{bmatrix}$ (Orange=1, Small=0, Smooth=1)
+
+\begin{itemize}
 	\item \pause Complete dataset: $\cD = \{(\vx_i\tp, y_i)\}_{i=1}^n$
 \end{itemize}
 
 \end{frame}
 
-\begin{frame}Learn $f$: 		$\text{Condition} = f(\text{colour, size, texture})$
+\begin{frame}{Machine Learning Goal}
+Learn $f$: 		$\text{Condition} = f(\text{colour, size, texture})$
+
+\begin{enumerate}
 	\item \pause From Training Dataset
 	\item \pause To Predict the condition for the Testing set
 \end{enumerate}
@@ -107,20 +121,27 @@
 \end{table}
 \end{frame}
 
-\begin{frame}A: Ideally, no!
+\begin{frame}{Can We Judge Performance Only on Test Set?}
+A: Ideally, no!
+
+\begin{itemize}
 	\item \pause Ideally - we want to predict ``well'' on all possible inputs. But, can we test that?
 	\item \pause No! Since, the test set is only a sample from all possible inputs.
 \end{itemize}
 
 \end{frame}
 
-\begin{frame}Both the training set and the test set are samples drawn from the hidden true distribution (also sometimes called population)
+\begin{frame}{Training vs Test Sets}
+Both the training set and the test set are samples drawn from the hidden true distribution (also sometimes called population)
 
 \pause More discussion later once we study bias and variance
 \end{frame}
 
-\begin{frame}\# People (More people $\implies$ More Energy)
+\begin{frame}{Energy Consumption Example}
+\begin{itemize}
+	\item \# People (More people $\implies$ More Energy)
 	\item \pause Temperature (Higher Temp. $\implies$ Higher Energy)
+\end{itemize}
 
 \pause \begin{table}[]
 	\begin{tabular}{|l|l||l|}
@@ -134,27 +155,28 @@
 		3000 & 20& ? \\
 		1000 & 45 & ? \\ \hline          
 	\end{tabular}
-\end{table}	
-\end{itemize}
-
+\end{table}
 \end{frame}
 
 \section{Classification vs Regression}
 
-\begin{frame}Output variable is discrete
+\begin{frame}{Classification vs Regression}
+\begin{itemize}
+	\item Classification
+	\begin{itemize}
+		\item \pause Output variable is discrete
 		\item \pause i.e.  $y_i \in \{1, 2, \ldots, k\}$ where $k$ is number of classes 
 		\item \pause Examples - Predicting: 
 		\begin{itemize}
-\item \pause Will I get a loan? (Yes, No)
+			\item \pause Will I get a loan? (Yes, No)
 			\item \pause What is the quality of fruit? (Good, Bad)
 		\end{itemize}
 	\end{itemize}
 	\item \pause Regression
 	\begin{itemize}
-\item \pause Output variable is continuous
+		\item \pause Output variable is continuous
 		\item \pause i.e.  $y_i \in \Real$ 
-		\pause
-\item \pause Examples - Predicting: 
+		\item \pause Examples - Predicting: 
 		\begin{itemize}
 			\item \pause How much energy will campus consume? 
 			\item \pause How much rainfall will fall?
@@ -166,16 +188,17 @@
 
 %\captionsetup[subtable]{labelformat=empty}
 %
-%\begin{frame}\begin{align*}
-\text{Accuracy} &= \frac{|\{i : y_i = \hat{y}_i\}|}{n} \\ 
-&= \frac{3}{5} = 0.6
-\end{align*}
-
+\begin{frame}{Accuracy Calculation}
+\[
+\text{Accuracy} = \frac{|\{i : y_i = \hat{y}_i\}|}{n} = \frac{3}{5} = 0.6
+\]
 \end{frame}
 
-\begin{frame}\textbf{Set cardinality notation:} $|\{i : y_i = \hat{y}_i\}|$ 
+\begin{frame}{Accuracy Notation}
+\begin{itemize}
+	\item \textbf{Set cardinality notation:} $|\{i : y_i = \hat{y}_i\}|$ 
 	\begin{itemize}
-\item Reads as: ``Number of indices $i$ such that $y_i = \hat{y}_i$''
+		\item Reads as: ``Number of indices $i$ such that $y_i = \hat{y}_i$''
 		\item Counts how many samples satisfy the condition
 	\end{itemize}
 	
@@ -189,7 +212,8 @@
 \end{itemize}
 \end{frame}
 
-\begin{frame}Cases for this:
+\begin{frame}{When Precision/Recall Matter}
+Cases for this:
 \begin{itemize}
 \item Cancer Screening
 \item Planet Detection
@@ -197,22 +221,27 @@
 
 \end{frame}
 
-\begin{frame}\text{Precision} &= \frac{|\{i : y_i = \hat{y}_i = \text{Good}\}|}{|\{i : \hat{y}_i = \text{Good}\}|} = \frac{2}{4} = 0.5
+\begin{frame}{Precision Metric}
+\begin{align*}
+\text{Precision} &= \frac{|\{i : y_i = \hat{y}_i = \text{Good}\}|}{|\{i : \hat{y}_i = \text{Good}\}|} = \frac{2}{4} = 0.5
 \end{align*}
 
 ``the fraction of relevant instances among the retrieved instances'', i.e. ``out of the number of times we predict \text{Good}, how many times is the condition actually \text{Good}''
 
 \end{frame}
 
-\begin{frame}\begin{align*}
-\text{Accuracy} = \frac{98}{100} = 0.98 \qquad \qquad \qquad
+\begin{frame}{Accuracy vs Precision/Recall}
+\begin{align*}
+\text{Accuracy} &= \frac{98}{100} = 0.98 \\
 \text{Recall} &= \frac{0}{1} = 0 \\
 \text{Precision} &= \frac{0}{1} = 0
 \end{align*}
 
 \end{frame}
 
-\begin{frame}\vspace{60pt}
+\begin{frame}{Confusion Matrix}
+\vspace{60pt}
+\begin{center}
 \begin{tabular}{@{}cc cc@{}}
 	\multicolumn{1}{c}{} &\multicolumn{1}{c}{} &\multicolumn{2}{c}{Ground Truth} \\ 
 	\cmidrule(lr){3-4}
@@ -229,33 +258,48 @@
 \end{center}
 \end{frame}
 
-\begin{frame}$$
-%\bordermatrix{&\text{G.T. Positive}&\text{G.T. Negative}\cr
-%               \text{Pred Positive}&0&1\cr
-%               \text{Pred Negative}&1&98}
-%$$
-%\pause $$
-%\bordermatrix{&\text{G.T. Positive}&\text{G.T. Negative}\cr
-%               \text{Pred Positive}&\text{True Positive}&\text{False Positive}\cr
-%               \text{Pred Negative}&\text{True Negative}&\text{False Negative}}
-%$$
-%
-%
-%\pause \begin{align*}
-%\text{Recall} = \frac{\text{T.P}}{\text{T.P + F.P}} \qquad \qquad 
-%\text{Precision} = \frac{\text{T.P}}{\text{T.P + F.N}}
-%\end{align*}
-%\end{frame}
+\begin{frame}{Example Metrics}
+\[
+\bordermatrix{&\text{G.T. Positive}&\text{G.T. Negative}\cr
+               \text{Pred Positive}&0&1\cr
+               \text{Pred Negative}&1&98}
+\]
 
-\begin{frame}Is there any downside with using mean error?\\
+\pause
+\[
+\bordermatrix{&\text{G.T. Positive}&\text{G.T. Negative}\cr
+               \text{Pred Positive}&\text{True Positive}&\text{False Positive}\cr
+               \text{Pred Negative}&\text{True Negative}&\text{False Negative}}
+\]
+
+\pause
+\begin{align*}
+\text{Recall} &= \frac{\text{T.P}}{\text{T.P + F.P}} \\
+\text{Precision} &= \frac{\text{T.P}}{\text{T.P + F.N}}
+\end{align*}
+\end{frame}
+
+
+\begin{frame}{Mean Error Issues}
+Is there any downside with using mean error?
 \pause Errors can get cancelled out
 
 \end{frame}
 
 \section{Data Visualization and Baselines}
 
-\begin{frame}\textbf{Answer:} c) Precision, recall, and F1-score give a more complete picture!
-\end{tcolorbox}
+\begin{frame}{Pop Quiz}
+\begin{popquizbox}{1}
+Which metrics should you use for imbalanced datasets?
+\begin{enumerate}
+\item Accuracy only  
+\item Mean squared error
+\item Precision, recall, and F1-score
+\end{enumerate}
+
+\vspace{0.5em}
+\textbf{Answer:} c) Precision, recall, and F1-score give a more complete picture!
+\end{popquizbox}
 \end{frame}
 
 \begin{frame}{Key Takeaways}
