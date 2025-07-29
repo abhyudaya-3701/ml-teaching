@@ -1,5 +1,5 @@
 \documentclass{beamer}
-\usepackage{../../../shared/styles/custom}
+\usepackage{../../shared/styles/custom}
 
 %\beamerdefaultoverlayspecification{<+->}
 
@@ -20,52 +20,66 @@
 
 % \section{Linear Regression}
 
-\begin{frame}$$
+\begin{frame}{Error Vector}
+\begin{enumerate}
+\item 
+$$
 	\epsilon = \begin{bmatrix}
 	\epsilon_{1}   \\
 	\epsilon_{2}   \\
 	\dots \\
 	\epsilon_{N}
 	\end{bmatrix}_{N \times 1}   
-	$$
+$$
 	
-	\pause $$
+\pause 
+\item 
+$$
 	\epsilon^T = \begin{bmatrix}
 	\epsilon_{1}, 
 	\epsilon_{2},  
 	\dots, 
 	\epsilon_{N}
 	\end{bmatrix}_{1 \times N}   
-	$$
+$$
 	
-	\pause $$\epsilon^T\epsilon = \sum \epsilon_{i}^{2}$$
-	    \seti
-	
+\pause 
+\item 
+$$\epsilon^T\epsilon = \sum \epsilon_{i}^{2}$$
+\seti
 \end{enumerate}
-
 \end{frame}
 
-\begin{frame}\item 
+\begin{frame}{Scalar Property}
+\begin{enumerate}
+\conti
+\item 
 	For a scalar s
 	$$
 	s = s^{T}    
 	$$
-	\seti
+\seti
 \end{enumerate}
-
 \end{frame}
 
-\begin{frame}\begin{bmatrix}
+\begin{frame}{Gradient Vector}
+\begin{enumerate}
+\conti
+\item 
+$$
+\nabla_\theta s = \begin{bmatrix}
   \frac{\partial s}{\partial \theta_{1}}\\
   \frac{\partial s}{\partial \theta_{2}}\\
     \vdots\\
   \frac{\partial s}{\partial \theta_{N}}\\
     \end{bmatrix}
- $$
-
+$$
+\seti
+\end{enumerate}
 \end{frame}
 
-\begin{frame}\begin{equation*}
+\begin{frame}{Matrix Transpose and Multiplication}
+\begin{equation*}
     X = \begin{bmatrix}
     a&b\\
     c&d
@@ -90,10 +104,10 @@
 
 \pause
 $Z$ has a property $Z_{ij}=Z_{ji} \implies Z^{T}=Z$
-
 \end{frame}
 
-\begin{frame}\begin{equation*}
+\begin{frame}{Quadratic Form}
+\begin{equation*}
         \theta = \begin{bmatrix}
         \theta_{1}\\
         \theta_{2}
@@ -103,8 +117,7 @@ $Z$ has a property $Z_{ij}=Z_{ji} \implies Z^{T}=Z$
     \pause
     \begin{equation*}
     \theta^{T}Z\theta=  \begin{bmatrix}
-    \theta_1&\theta_2\\
-
+    \theta_1&\theta_2
     \end{bmatrix}_{1\times 2} \begin{bmatrix}
     e&f\\
     f&g
@@ -115,28 +128,29 @@ $Z$ has a property $Z_{ij}=Z_{ji} \implies Z^{T}=Z$
     \end{equation*}
     
     \pause
-       \begin{equation*}
+    \begin{equation*}
     \theta^{T}Z\theta=  \begin{bmatrix}
-    \theta_1&\theta_2\\
-    
+    \theta_1&\theta_2
     \end{bmatrix}_{1\times 2} \begin{bmatrix}
     e\theta_1+f\theta_2\\
     f\theta_1+g\theta_2
     \end{bmatrix}_{2\times 1}
     \end{equation*}
 
+    \pause
     \begin{equation*}
         \theta^{T}Z\theta = e\theta_{1}^{2} + 2f\theta_{1}\theta_{2}+g\theta_{2}^{2} 
     \end{equation*}
 
 The term $\theta^{T}Z\theta$ is a scalar.
-
 \end{frame}
 
-\begin{frame}Since $X$ has fewer rows than columns, its maximum rank is equal to the maximum number of linearly independent rows. And because neither row is linearly dependent on the other row, the matrix has 2 linearly independent rows; so its rank is 2.
+\begin{frame}{Matrix Rank}
+Since $X$ has fewer rows than columns, its maximum rank is equal to the maximum number of linearly independent rows. And because neither row is linearly dependent on the other row, the matrix has 2 linearly independent rows; so its rank is 2.
 \end{frame}
 
-\begin{frame}where $\mathrm{I}_{\mathrm{n}}$ is the identity matrix.
+\begin{frame}{Matrix Inverse}
+For a matrix $A$, its inverse $A^{-1}$ satisfies $AA^{-1} = A^{-1}A = I_n$ where $\mathrm{I}_{\mathrm{n}}$ is the identity matrix.
 
 \pause  Below, with an example, we illustrate the relationship between a matrix and its inverse.
 
@@ -154,7 +168,7 @@ The term $\theta^{T}Z\theta$ is a scalar.
 	\end{array}\right]} \\ \\
 {\left[\begin{array}{cc}
 	{0.8} & {-0.2} \\
-	{-0.6} & {0.2}
+	{-0.6} & {0.4}
 	\end{array}\right]\left[\begin{array}{ll}
 	{2} & {1} \\
 	{3} & {4}

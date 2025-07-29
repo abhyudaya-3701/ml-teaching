@@ -14,8 +14,9 @@ all: $(PDF_FILES)
 # Rule to compile LaTeX to PDF
 $(SLIDES_DIR)/%.pdf: $(SLIDES_DIR)/%.tex $(SHARED_DIR)/styles/*.sty $(SHARED_DIR)/notation/*.sty
 	@echo "Compiling $< to $@"
-	cd $(SLIDES_DIR) && pdflatex -interaction=nonstopmode $(notdir $<)
-	cd $(SLIDES_DIR) && pdflatex -interaction=nonstopmode $(notdir $<)
+	cd $(SLIDES_DIR) && pdflatex -interaction=nonstopmode $(notdir $<) || true
+	cd $(SLIDES_DIR) && pdflatex -interaction=nonstopmode $(notdir $<) || true
+	@if [ ! -f $@ ]; then echo "ERROR: Failed to generate $@"; exit 1; fi
 
 # Clean auxiliary files
 clean:

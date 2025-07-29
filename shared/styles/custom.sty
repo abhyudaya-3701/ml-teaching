@@ -252,9 +252,11 @@
 % ==============================================================================
 
 % Ensure proper spacing in beamer (only for beamer documents)
+\makeatletter
 \@ifclassloaded{beamer}{%
     \beamerdefaultoverlayspecification{<+->}%
 }{}
+\makeatother
 
 % End of package
 \endinput

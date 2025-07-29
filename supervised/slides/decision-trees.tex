@@ -13,26 +13,23 @@
 	\maketitle
 	
 	% Table of Contents
-	\begin{frame}\textbf{Answer: D) All of the above} - The search space is exponentially large, making brute force optimization computationally intractable.
+	\begin{frame}
+	\frametitle{Table of Contents}
+	\tableofcontents
+	\end{frame}
 
-\end{popquizbox}
-\end{frame}
-
-\begin{frame}\item For examples, we have 9 Yes, 5 No
+\begin{frame}{Information Gain Intuition}
+\begin{itemize}
+\item For examples, we have 9 Yes, 5 No
 	\pause \item Would it be trivial if we had 14 Yes or 14 No?
 	\pause \item Yes!
 	\pause \item Key insight: Problem is ``easier'' when there is less disagreement
 	\pause 	\item Need some statistical measure of ``disagreement'' 
-	\end{itemize}
-
-\end{scriptsize}
-\end{column}
-
-\end{columns}
-
+\end{itemize}
 \end{frame}
 
-%\begin{frame}$H(X) = -\sum_{i=1}^k p(x_i) \log_2 p(x_i)$
+\begin{frame}{Entropy Formula}
+$$H(X) = -\sum_{i=1}^k p(x_i) \log_2 p(x_i)$$
 
 \begin{figure}[htp]
     \centering
@@ -43,23 +40,20 @@
 
 \end{frame}
 	
-\begin{frame}\item Can we use Outlook as the root node?
+\begin{frame}{Root Node Selection}
+\begin{itemize}
+\item Can we use Outlook as the root node?
 				\pause 	\item When Outlook is overcast, we always Play and thus no ``disagreement'' 
-			\end{itemize}
-			
-		\end{scriptsize}
-	\end{column}
-	
-\end{columns}
-
+\end{itemize}
 \end{frame}
 	
-\begin{frame}\textbf{Answer: B) The impurity or ``disagreement'' in a set of examples} - Higher entropy means more mixed classes, lower entropy means more pure subsets.
-
-\end{popquizbox}
+\begin{frame}{What Does Entropy Measure?}
+\textbf{Answer: B) The impurity or ``disagreement'' in a set of examples} - Higher entropy means more mixed classes, lower entropy means more pure subsets.
 \end{frame}
 
-\begin{frame}\begin{column}{.32\textwidth}
+\begin{frame}{Entropy Calculation Examples}
+\begin{columns}
+\begin{column}{.32\textwidth}
 	\begin{table}
 
 \begin{tabular}{l|l} \toprule
@@ -95,17 +89,21 @@ $\Entropy = -\frac{3}{5} \log_2\left(\frac{3}{5}\right) - \frac{2}{5} \log_2\lef
 \end{columns}
 \end{frame}
 
-\begin{frame}\item Gain($S_{\text{Outlook=Sunny}}$, Temp) = Entropy(2 Yes, 3 No) - (2/5)*Entropy(0 Yes, 2 No) -(2/5)*Entropy(1 Yes, 1 No) - (1/5)*Entropy(1 Yes, 0 No) 
+\begin{frame}{Information Gain Calculations}
+\begin{itemize}
+\item Gain($S_{\text{Outlook=Sunny}}$, Temp) = Entropy(2 Yes, 3 No) - (2/5)*Entropy(0 Yes, 2 No) -(2/5)*Entropy(1 Yes, 1 No) - (1/5)*Entropy(1 Yes, 0 No) 
 	\pause \item Gain($S_{\text{Outlook=Sunny}}$, Humidity) = Entropy(2 Yes, 3 No) - (2/5)*Entropy(2 Yes, 0 No) -(3/5)*Entropy(0 Yes, 3 No) $\implies$ \textbf{maximum possible for the set}
 	\pause \item Gain($S_{\text{Outlook=Sunny}}$, Windy) = Entropy(2 Yes, 3 No) - (3/5)*Entropy(1 Yes, 2 No) -(2/5)*Entropy(1 Yes, 1 No) 
 \end{itemize}
 \end{frame}
 
-\begin{frame}Prediction for $<$High Humidity, Strong Wind, Sunny Outlook, Hot Temp$>$ is ? \\
+\begin{frame}{Prediction Example}
+Prediction for $<$High Humidity, Strong Wind, Sunny Outlook, Hot Temp$>$ is ? \\
 \pause  No
 \end{frame}
 
-\begin{frame}Apply the same rules, except when depth limit is reached, the leaf node is assigned the most common occurring value in that path.
+\begin{frame}{Depth-Limited Trees}
+Apply the same rules, except when depth limit is reached, the leaf node is assigned the most common occurring value in that path.
 
 \pause What is depth-$0$ tree (no decision) for the examples? \\
 \pause Always predicting Yes
@@ -131,38 +129,35 @@ node/.style={%
 
 \end{frame}
 
-\begin{frame}\textbf{Answer: B) When Outlook=Overcast, all examples have Play=Yes} - This creates a pure subset with entropy=0, maximizing information gain.
-
-\end{popquizbox}
+\begin{frame}{Why Outlook is Good Root?}
+\textbf{Answer: B) When Outlook=Overcast, all examples have Play=Yes} - This creates a pure subset with entropy=0, maximizing information gain.
 \end{frame}
 
 \section{Discrete Input, Real Output}
 
-\begin{frame}Any guesses?
+\begin{frame}{Regression Trees}
+\begin{itemize}
+\item Any guesses?
 	\item \pause Mean Squared Error
 	\item \pause $\MSE(S) = 311.34$
 	\item \pause What about splitting criterion for regression?
 	\item \pause \textbf{MSE Reduction} (not Information Gain!)
 	\item \pause MSE Reduction = $\MSE(S) - \sum_{v} \frac{|S_v|}{|S|} \MSE(S_v)$
 \end{itemize}
-
 \end{frame}
 
-\begin{frame}\textbf{Answer: C) Mean Squared Error (MSE) Reduction} - For regression, we minimize MSE instead of maximizing information gain.
-
-\end{popquizbox}
+\begin{frame}{Regression Splitting Criterion}
+\textbf{Answer: C) Mean Squared Error (MSE) Reduction} - For regression, we minimize MSE instead of maximizing information gain.
 \end{frame}
 
-\begin{frame}\textbf{Answer: B) Use midpoints between consecutive sorted feature values} - This ensures we test all meaningful boundaries between different class regions.
-
-\end{popquizbox}
+\begin{frame}{Continuous Features}
+\textbf{Answer: B) Use midpoints between consecutive sorted feature values} - This ensures we test all meaningful boundaries between different class regions.
 \end{frame}
 
 \section{Real Input Real Output}
 
-\begin{frame}\textbf{Answer: C) The mean of target values in that region} - Each leaf predicts the average target value of training samples that reach that leaf.
-
-\end{popquizbox}
+\begin{frame}{Leaf Node Predictions}
+\textbf{Answer: C) The mean of target values in that region} - Each leaf predicts the average target value of training samples that reach that leaf.
 \end{frame}
 
 \section{Pruning and Overfitting}
@@ -338,7 +333,7 @@ node/.style={%
 	
 	\end{frame}
 
-	\begin{section}{Weighted Entropy}
+	\section{Weighted Entropy}
 
 	\begin{frame}
 	
