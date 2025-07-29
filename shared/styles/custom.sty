@@ -197,50 +197,10 @@
 % CUSTOM BOXES AND ENVIRONMENTS
 % ==============================================================================
 
-% Notebook box for highlighting code examples
-\newtcolorbox{notebookbox}[1]{
-  width=\textwidth-2mm,
-  left=1mm,
-  right=1mm,
-  colback=white,
-  colframe=myblue,
-  arc=0mm,
-  boxrule=1pt,
-  title={\href{#1}{\textcolor{white}{\small\textbf{Notebook:} \lastpartofurl{#1}}}},
-  fonttitle=\bfseries,
-}
+% Notebook box definition moved to common-boxes.sty
 
-% Definition box
-\newtcolorbox{definitionbox}[1]{
-  colback=blue!5!white,
-  colframe=blue!75!black,
-  title={\textbf{Definition: #1}},
-  fonttitle=\bfseries,
-}
-
-% Theorem box
-\newtcolorbox{theorembox}[1]{
-  colback=green!5!white,
-  colframe=green!75!black,
-  title={\textbf{Theorem: #1}},
-  fonttitle=\bfseries,
-}
-
-% Example box
-\newtcolorbox{examplebox}[1]{
-  colback=orange!5!white,
-  colframe=orange!75!black,
-  title={\textbf{Example: #1}},
-  fonttitle=\bfseries,
-}
-
-% Key points box
-\newtcolorbox{keypointsbox}{
-  colback=purple!5!white,
-  colframe=purple!75!black,
-  title={\textbf{Key Points}},
-  fonttitle=\bfseries,
-}
+% Load common tcolorbox definitions (centralized to avoid duplication)
+\RequirePackage{common-boxes}
 
 % ==============================================================================
 % ALGORITHM ENVIRONMENTS

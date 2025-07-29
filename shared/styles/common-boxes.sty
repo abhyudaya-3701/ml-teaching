@@ -1,0 +1,179 @@
+% common-boxes.sty - Centralized tcolorbox definitions for all themes
+% This file defines common box styles that work across all themes
+% Individual themes can override colors and styling as needed
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{common-boxes}[2025/01/29 Common tcolorbox definitions]
+
+% Required packages
+\RequirePackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+\RequirePackage{xcolor}
+
+% ==============================================================================
+% COMMON BOX DEFINITIONS - THEME AGNOSTIC
+% ==============================================================================
+
+% Only define boxes if they don't already exist (allows theme overrides)
+
+% Helper function for URL processing (define only if not already defined)
+\providecommand{\lastpartofurl}[1]{%
+  \edef\temp{\expandafter\lastpartofurlA#1/\relax}%
+  \expandafter\lastpartofurlB\temp\relax%
+}
+\providecommand{\lastpartofurlA}{}
+\def\lastpartofurlA#1/#2\relax{#2}
+\providecommand{\lastpartofurlB}{}
+\def\lastpartofurlB#1/#2\relax{%
+  \if\relax#2\relax
+    #1%
+  \else
+    \lastpartofurlB#2\relax%
+  \fi
+}
+
+% Notebook box for code examples (only if not already defined)
+\@ifundefined{notebookbox}{%
+\newtcolorbox{notebookbox}[1]{
+  width=\textwidth-2mm,
+  left=1mm,
+  right=1mm,
+  colback=white,
+  colframe=blue!60!black,
+  arc=0mm,
+  boxrule=1pt,
+  title={\href{#1}{\textcolor{white}{\small\textbf{Notebook:} \lastpartofurl{#1}}}},
+  fonttitle=\bfseries,
+}
+}{}
+
+% Definition box (only if not already defined)
+\@ifundefined{definitionbox}{%
+\newtcolorbox{definitionbox}[1]{
+  colback=blue!5!white,
+  colframe=blue!75!black,
+  boxrule=1.2pt,
+  arc=3pt,
+  left=8pt,
+  right=8pt,
+  top=8pt,
+  bottom=8pt,
+  title={\textbf{Definition: #1}},
+  fonttitle=\bfseries,
+  enhanced,
+  borderline west={3pt}{0pt}{blue!40}
+}
+}{}
+
+% Example box (only if not already defined)
+\@ifundefined{examplebox}{%
+\newtcolorbox{examplebox}[1]{
+  colback=orange!5!white,
+  colframe=orange!75!black,
+  boxrule=1.2pt,
+  arc=3pt,
+  left=8pt,
+  right=8pt,
+  top=8pt,  
+  bottom=8pt,
+  title={\textbf{Example: #1}},
+  fonttitle=\bfseries,
+  enhanced,
+  borderline west={3pt}{0pt}{orange!40}
+}
+}{}
+
+% Key points box (only if not already defined)
+\@ifundefined{keypointsbox}{%
+\newtcolorbox{keypointsbox}{
+  colback=purple!5!white,
+  colframe=purple!75!black,
+  boxrule=1.2pt,
+  arc=3pt,
+  left=8pt,
+  right=8pt,
+  top=8pt,
+  bottom=8pt,
+  title={\textbf{Key Points}},
+  fonttitle=\bfseries,
+  enhanced,
+  borderline west={3pt}{0pt}{purple!40}
+}
+}{}
+
+% Pop quiz box (only if not already defined)
+\@ifundefined{popquizbox}{%
+\newtcolorbox{popquizbox}[1]{
+  colback=blue!8,
+  colframe=blue,
+  boxrule=1.5pt,
+  arc=4pt,
+  left=10pt,
+  right=10pt,
+  top=10pt,
+  bottom=10pt,
+  title={\textbf{🤔 Quick Quiz #1}},
+  fonttitle=\large\bfseries,
+  coltitle=white,
+  colbacktitle=blue,
+  enhanced,
+  attach boxed title to top left={xshift=5pt, yshift=-3pt},
+  boxed title style={arc=4pt, boxrule=0pt},
+}
+}{}
+
+% Alert/Warning box (only if not already defined)  
+\@ifundefined{alertbox}{%
+\newtcolorbox{alertbox}[1]{
+  colback=red!5!white,
+  colframe=red!75!black,
+  boxrule=1.2pt,
+  arc=3pt,
+  left=8pt,
+  right=8pt,
+  top=8pt,
+  bottom=8pt,
+  title={\textbf{⚠️ Important: #1}},
+  fonttitle=\bfseries,
+  enhanced,
+  borderline west={3pt}{0pt}{red!40}
+}
+}{}
+
+% Theorem box (only if not already defined)
+\@ifundefined{theorembox}{%
+\newtcolorbox{theorembox}[1]{
+  colback=green!5!white,
+  colframe=green!75!black,
+  boxrule=1.2pt,
+  arc=3pt,
+  left=8pt,
+  right=8pt,
+  top=8pt,
+  bottom=8pt,
+  title={\textbf{Theorem: #1}},
+  fonttitle=\bfseries,
+  enhanced,
+  borderline west={3pt}{0pt}{green!40}
+}
+}{}
+
+% Code box (only if not already defined)
+\@ifundefined{codebox}{%
+\newtcolorbox{codebox}[1]{
+  colback=gray!8,
+  colframe=gray!60!black,
+  boxrule=1pt,
+  arc=2pt,
+  left=6pt,
+  right=6pt,
+  top=6pt,
+  bottom=6pt,
+  title={\textbf{💻 #1}},
+  fonttitle=\small\bfseries\ttfamily,
+  enhanced,
+  borderline west={2pt}{0pt}{gray!50}
+}
+}{}
+
+\endinput
