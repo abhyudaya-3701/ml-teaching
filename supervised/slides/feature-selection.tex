@@ -12,35 +12,16 @@
 \DeclareMathOperator{\argminH}{argmin}   % Jan Hlavacek
 \newcommand{\argminI}{\mathop{\mathrm{argmin}}\nolimits} % ASdeL
 
-
-
 \title{Some Practical Tips And Feature Selection}
 \date{\today}
 \author{Nipun Batra and teaching staff}
 \institute{IIT Gandhinagar}
 \begin{document}
   \maketitle
-  
-  
-  
+
 % \section{Linear Regression}
 
-
-\begin{frame}{Ideas for Baselines}
-    
-    
-    \begin{itemize}[<+->]
-        \item Mean Model: $\hat{y}$= Mean of the training set
-        \item Median or Mode of the training set
-        \item Random (Min(training set), Max(training set))
-    \end{itemize}
-\end{frame}
-
-
-\begin{frame}{Choosing Best features}
-    To find the best set of features, one can do exhaustive enumeration (brute force) of features.    
-    
-    \pause \begin{tabular}{c|c|c|c}
+\begin{frame}\begin{tabular}{c|c|c|c}
         $Feature_{1}$ & $Feature_{2}$ &\dots & $Feature_{d}$  \\
         \hline
       
@@ -56,7 +37,6 @@
     \pause The entries of the table denote if the feature is used for creating a model. In total we have $2^{d}$ models: training models using exhaustive enumeration is very expensive!
 \end{frame}
 
-
 \begin{frame}{Stepwise Forward Selection}
 
     $F$ = $\{\}$\\
@@ -69,8 +49,6 @@
 \vspace{2em}
 Loss($features$) denotes the loss incurred by the model trained with $features$.
 \end{frame}
-
-
 
 \begin{frame}{Stepwise Forward Selection for California Housing Data }
 
@@ -91,10 +69,8 @@ Loss($features$) denotes the loss incurred by the model trained with $features$.
 	3&Latitude&0.65\\
 	4&Longitude&0.66\\
 	\hline
-	
-	
-	\end{tabular}
 
+	\end{tabular}
 
 \end{center}
 

@@ -1,0 +1,379 @@
+% theme-nipun.sty - Clean, Modern Theme for Nipun's ML Teaching
+% Inspired by clean academic aesthetics with subtle colors and excellent readability
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{theme-nipun}[2025/01/29 Nipun's Custom Clean Theme]
+
+% Required packages
+\RequirePackage{xcolor}
+\RequirePackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+
+% ==============================================================================
+% BASE THEME SETUP
+% ==============================================================================
+
+% Check if we're using Beamer class
+\@ifclassloaded{beamer}{
+    % Use metropolis as base for modern typography (only with XeLaTeX/LuaLaTeX)
+    \RequirePackage{iftex}
+    \ifxetex
+        \usetheme[progressbar=foot, numbering=fraction, block=fill]{metropolis}
+        \RequirePackage{fontspec}
+        \setsansfont[BoldFont={Fira Sans SemiBold}]{Fira Sans Book}
+        \setmonofont{Fira Mono}
+    \else
+        \ifluatex
+            \usetheme[progressbar=foot, numbering=fraction, block=fill]{metropolis}
+            \RequirePackage{fontspec}
+            \setsansfont[BoldFont={Fira Sans SemiBold}]{Fira Sans Book}
+            \setmonofont{Fira Mono}
+        \else
+            % For pdfLaTeX, use a simpler approach
+            \usetheme{default}
+            \usecolortheme{beaver}
+        \fi
+    \fi
+    
+    \def\isbeamer{true}
+}{
+    % For non-beamer documents, just use basic setup
+    \def\isbeamer{false}
+}
+
+% ==============================================================================
+% COLOR PALETTE - Clean, Professional, Academic
+% ==============================================================================
+
+% Enhanced color palette - sophisticated and modern
+\definecolor{nipun-blue}{RGB}{42, 82, 130}        % Deep academic blue
+\definecolor{nipun-lightblue}{RGB}{98, 138, 175}  % Lighter blue for accents
+\definecolor{nipun-darkblue}{RGB}{28, 55, 85}     % Darker blue for emphasis
+\definecolor{nipun-gray}{RGB}{75, 75, 75}         % Refined charcoal gray
+\definecolor{nipun-lightgray}{RGB}{248, 248, 248} % Very light gray backgrounds
+\definecolor{nipun-mediumgray}{RGB}{150, 150, 150} % Medium gray for subtle elements
+\definecolor{nipun-green}{RGB}{65, 125, 65}       % Success/correct green
+\definecolor{nipun-orange}{RGB}{205, 105, 55}     % Warning/highlight orange
+\definecolor{nipun-red}{RGB}{185, 55, 55}         % Error/attention red
+\definecolor{nipun-white}{RGB}{255, 255, 255}     % Pure white
+\definecolor{nipun-offwhite}{RGB}{252, 252, 252}  % Slightly off-white for subtle contrast
+
+% Apply Beamer-specific settings only if using Beamer
+\ifx\isbeamer\undefined\else\if\isbeamer true
+    % Background and foreground
+    \setbeamercolor{background canvas}{bg=nipun-offwhite}
+    \setbeamercolor{normal text}{fg=nipun-gray}
+
+    % Title and headers with subtle enhancement
+    \setbeamercolor{title}{fg=nipun-darkblue}
+    \setbeamercolor{frametitle}{fg=nipun-darkblue, bg=nipun-lightgray}
+    \setbeamercolor{subtitle}{fg=nipun-blue}
+    \setbeamercolor{author}{fg=nipun-gray}
+    \setbeamercolor{date}{fg=nipun-mediumgray}
+    \setbeamercolor{institute}{fg=nipun-mediumgray}
+
+    % Structure colors
+    \setbeamercolor{structure}{fg=nipun-blue}
+    \setbeamercolor{section in toc}{fg=nipun-blue}
+    \setbeamercolor{subsection in toc}{fg=nipun-lightblue}
+
+    % Enhanced block colors with better contrast
+    \setbeamercolor{block title}{fg=nipun-white, bg=nipun-blue}
+    \setbeamercolor{block body}{fg=nipun-gray, bg=nipun-white}
+    \setbeamercolor{block title alerted}{fg=nipun-white, bg=nipun-red}
+    \setbeamercolor{block body alerted}{fg=nipun-gray, bg=nipun-white}
+    \setbeamercolor{block title example}{fg=nipun-white, bg=nipun-green}
+    \setbeamercolor{block body example}{fg=nipun-gray, bg=nipun-white}
+
+    % Progress bar
+    \setbeamercolor{progress bar}{fg=nipun-blue, bg=nipun-lightgray}
+    \setbeamercolor{progress bar in head/foot}{fg=nipun-blue, bg=nipun-lightgray}
+
+    % Enhanced itemize colors
+    \setbeamercolor{itemize item}{fg=nipun-blue}
+    \setbeamercolor{itemize subitem}{fg=nipun-lightblue}
+    \setbeamercolor{itemize subsubitem}{fg=nipun-mediumgray}
+    \setbeamercolor{enumerate item}{fg=nipun-blue}
+    \setbeamercolor{enumerate subitem}{fg=nipun-lightblue}
+\fi\fi
+
+% ==============================================================================
+% CUSTOM TCOLORBOX STYLES FOR COURSE CONTENT
+% ==============================================================================
+
+% Pop Quiz Box - elegant and eye-catching (only if not already defined)
+\ifdefined\popquizbox\else
+\newtcolorbox{popquizbox}[1]{
+    colback=nipun-lightblue!8,
+    colframe=nipun-blue,
+    boxrule=1.5pt,
+    arc=4pt,
+    left=10pt,
+    right=10pt,
+    top=10pt,
+    bottom=10pt,
+    title={\textbf{🤔 Quick Quiz #1}},
+    fonttitle=\large\bfseries,
+    coltitle=nipun-white,
+    colbacktitle=nipun-blue,
+    enhanced,
+    attach boxed title to top left={xshift=5pt, yshift=-3pt},
+    boxed title style={arc=4pt, boxrule=0pt},
+    drop shadow={nipun-lightblue!30}
+}
+\fi
+
+% Definition Box - clean and academic (only if not already defined)
+\ifdefined\definitionbox\else
+\newtcolorbox{definitionbox}[1]{
+    colback=nipun-green!6,
+    colframe=nipun-green,
+    boxrule=1.2pt,
+    arc=3pt,
+    left=8pt,
+    right=8pt,
+    top=8pt,
+    bottom=8pt,
+    title={\textbf{📋 Definition: #1}},
+    fonttitle=\bfseries,
+    coltitle=nipun-white,
+    colbacktitle=nipun-green,
+    enhanced,
+    borderline west={3pt}{0pt}{nipun-green!40}
+}
+\fi
+
+% Example Box - warm and inviting (only if not already defined)
+\ifdefined\examplebox\else
+\newtcolorbox{examplebox}[1]{
+    colback=nipun-orange!6,
+    colframe=nipun-orange,
+    boxrule=1.2pt,
+    arc=3pt,
+    left=8pt,
+    right=8pt,
+    top=8pt,
+    bottom=8pt,
+    title={\textbf{💡 Example: #1}},
+    fonttitle=\bfseries,
+    coltitle=nipun-white,
+    colbacktitle=nipun-orange,
+    enhanced,
+    borderline west={3pt}{0pt}{nipun-orange!40}
+}
+\fi
+
+% Key Points Box - important information (only if not already defined)
+\ifdefined\keypointsbox\else
+\newtcolorbox{keypointsbox}{
+    colback=nipun-darkblue!6,
+    colframe=nipun-darkblue,
+    boxrule=1.2pt,
+    arc=3pt,
+    left=8pt,
+    right=8pt,
+    top=8pt,
+    bottom=8pt,
+    title={\textbf{🎯 Key Points}},
+    fonttitle=\bfseries,
+    coltitle=nipun-white,
+    colbacktitle=nipun-darkblue,
+    enhanced,
+    borderline west={3pt}{0pt}{nipun-darkblue!40}
+}
+\fi
+
+% Warning/Alert Box (only if not already defined)
+\ifdefined\alertbox\else
+\newtcolorbox{alertbox}[1]{
+    colback=nipun-red!6,
+    colframe=nipun-red,
+    boxrule=1.2pt,
+    arc=3pt,
+    left=8pt,
+    right=8pt,
+    top=8pt,
+    bottom=8pt,
+    title={\textbf{⚠️ Important: #1}},
+    fonttitle=\bfseries,
+    coltitle=nipun-white,
+    colbacktitle=nipun-red,
+    enhanced,
+    borderline west={3pt}{0pt}{nipun-red!40}
+}
+\fi
+
+% Code/Notebook Box (only if not already defined)
+\ifdefined\codebox\else
+\newtcolorbox{codebox}[1]{
+    colback=nipun-mediumgray!8,
+    colframe=nipun-mediumgray,
+    boxrule=1pt,
+    arc=2pt,
+    left=6pt,
+    right=6pt,
+    top=6pt,
+    bottom=6pt,
+    title={\textbf{💻 #1}},
+    fonttitle=\small\bfseries\ttfamily,
+    coltitle=nipun-white,
+    colbacktitle=nipun-mediumgray,
+    enhanced,
+    borderline west={2pt}{0pt}{nipun-mediumgray!50}
+}
+\fi
+
+% ==============================================================================
+% TYPOGRAPHY AND SPACING
+% ==============================================================================
+
+% Better math spacing (applies to all document classes)
+\setlength{\abovedisplayskip}{0.8em}
+\setlength{\belowdisplayskip}{0.8em}
+\setlength{\abovedisplayshortskip}{0.4em}
+\setlength{\belowdisplayshortskip}{0.4em}
+
+% Beamer-specific spacing and styling
+\ifx\isbeamer\undefined\else\if\isbeamer true
+    % Better spacing for lists
+    \setbeamertemplate{itemize/enumerate body begin}{\vspace{0.5em}}
+    \setbeamertemplate{itemize/enumerate body end}{\vspace{0.5em}}
+
+    % Reduce space between items
+    \setlength{\itemsep}{0.4em}
+    \setlength{\parsep}{0.2em}
+    \setlength{\topsep}{0.3em}
+
+    % Frame title spacing
+    \setbeamertemplate{frametitle}[default][left,leftskip=0pt]
+    \addtobeamertemplate{frametitle}{\vspace{0.2em}}{\vspace{0.4em}}
+    
+    % Enhanced bullet points
+    \setbeamertemplate{itemize item}{\raisebox{0.12ex}{\scalebox{0.8}{$\blacktriangleright$}}}
+    \setbeamertemplate{itemize subitem}{\raisebox{0.1ex}{\scalebox{0.7}{$\bullet$}}}
+    \setbeamertemplate{itemize subsubitem}{\raisebox{0.1ex}{\scalebox{0.6}{$\circ$}}}
+    
+    % Enhanced enumeration
+    \setbeamertemplate{enumerate item}{\insertenumlabel.}
+    \setbeamertemplate{enumerate subitem}{\insertsubenumlabel)}
+    
+    % Better block spacing
+    \addtobeamertemplate{block begin}{\vspace{0.3em}}{}
+    \addtobeamertemplate{block end}{}{\vspace{0.3em}}
+\fi\fi
+
+% ==============================================================================
+% CUSTOM COMMANDS FOR CONSISTENT FORMATTING
+% ==============================================================================
+
+% Global pop quiz counter - consistent across all slides
+\newcounter{popquiz}
+\setcounter{popquiz}{0}
+
+% Beamer-specific commands
+\ifx\isbeamer\undefined\else\if\isbeamer true
+    % Pop quiz command with automatic numbering and consistent formatting
+    \newcommand{\popquiz}[2]{
+        \stepcounter{popquiz}
+        \begin{frame}{Quick Quiz \#\thepopquiz}
+            \begin{popquizbox}{\thepopquiz}
+                #1
+                
+                \vspace{0.5em}
+                \textbf{Answer:} #2
+            \end{popquizbox}
+        \end{frame}
+    }
+
+    % Section slide with consistent styling
+    \newcommand{\sectionframe}[1]{
+        \begin{frame}[plain,noframenumbering]
+            \centering
+            \vfill
+            {\Huge\textbf{\textcolor{nipun-blue}{#1}}}
+            \vfill
+        \end{frame}
+    }
+
+    % Clean bullet points without excessive animation
+    \newcommand{\cleanitem}{\item}
+    \newcommand{\cleanitemize}[1]{
+        \begin{itemize}[<+->]
+            #1
+        \end{itemize}
+    }
+\fi\fi
+
+% Alternative pop quiz for inline content (works in all document classes)
+\newcommand{\inlinequiz}[2]{
+    \stepcounter{popquiz}
+    \begin{popquizbox}{\thepopquiz}
+        #1
+        
+        \vspace{0.5em}
+        \textbf{Answer:} #2
+    \end{popquizbox}
+}
+
+% ==============================================================================
+% BEAMER-SPECIFIC STYLING
+% ==============================================================================
+
+\ifx\isbeamer\undefined\else\if\isbeamer true
+    % Custom footer with slide x/y format
+    \setbeamertemplate{footline}{
+        \hfill
+        \usebeamerfont{page number in head/foot}
+        \usebeamercolor[fg]{page number in head/foot}
+        \raisebox{1.5pt}{\insertframenumber\,/\,\inserttotalframenumber}
+        \hspace{0.5cm}
+        \vspace{0.3cm}
+    }
+    \setbeamercolor{page number in head/foot}{fg=nipun-gray}
+
+    % Remove navigation symbols
+    \setbeamertemplate{navigation symbols}{}
+
+    % Enhanced title page customization
+    \setbeamertemplate{title page}{
+        \vfill
+        \begin{center}
+            % Title with elegant styling
+            {\Huge \textbf{\textcolor{nipun-darkblue}{\inserttitle}}}
+            
+            \vspace{0.8em}
+            % Subtle decorative line
+            {\textcolor{nipun-lightblue}{\rule{0.6\textwidth}{0.5pt}}}
+            
+            \vspace{1em}
+            {\Large \textcolor{nipun-blue}{\insertsubtitle}}
+            
+            \vspace{2.5em}
+            {\large \textcolor{nipun-gray}{\insertauthor}}
+            
+            \vspace{0.8em}
+            {\textcolor{nipun-mediumgray}{\insertinstitute}}
+            
+            \vspace{1.2em}
+            {\small \textcolor{nipun-mediumgray}{\insertdate}}
+        \end{center}
+        \vfill
+    }
+
+    % Table of contents styling
+    \setbeamertemplate{section in toc}[ball unnumbered]
+    \setbeamertemplate{subsection in toc}[square]
+
+    % Better caption styling
+    \setbeamerfont{caption}{size=\small}
+    \setbeamercolor{caption name}{fg=nipun-gray}
+\fi\fi
+
+% ==============================================================================
+% FINAL TWEAKS
+% ==============================================================================
+
+% Ensure consistent fonts (applies to all document classes)
+\renewcommand{\familydefault}{\sfdefault}
+
+\endinput

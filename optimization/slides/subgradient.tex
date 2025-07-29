@@ -4,26 +4,22 @@
 
 \graphicspath{ {../assets/subgradient/figures/} }
 
-
 \title{Subgradient}
 \date{\today}
 \author{Nipun Batra}
 \institute{IIT Gandhinagar}
 \begin{document}
   \maketitle
-  
-  
-  
+
 % \section{Linear Regression}
 
 \begin{frame}{Subgradient }
 \begin{itemize}
-	
-	
-	\item Generalises gradient to convex but non-differentiable problems
+\item Generalises gradient to convex but non-differentiable problems
 	\item Examples:
 	\begin{itemize}
-		\item $f(x) = |x|$
+		\pause
+\item $f(x) = |x|$
 	\end{itemize}
 	
 \end{itemize}
@@ -31,7 +27,6 @@
 
 \begin{frame}{Task at hand}
 \begin{itemize}
-
 \item TASK: find derivative of $f(x)$ at $x = x_0$
 \end{itemize}
 \begin{figure}
@@ -40,7 +35,6 @@
     
     \label{fig:Non-differentiable function}
 \end{figure}
-	
 
 \end{frame}
 
@@ -50,7 +44,8 @@
 \item Construct a differentiable $g(x)$ 
 \begin{itemize}
     \item Intersecting $f(x)$ at $x = x_0$
-    \item Below or on $f(x)$ for all x
+    \pause
+\item Below or on $f(x)$ for all x
 \end{itemize}
 \end{itemize}
 \begin{figure}
@@ -84,8 +79,5 @@
     \label{fig:my_label}
 \end{figure}
 \end{frame}
-
-
-
 
 \end{document}

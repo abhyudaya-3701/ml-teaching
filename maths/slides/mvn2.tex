@@ -6,11 +6,8 @@
 
 %\beamerdefaultoverlayspecification{<+->}
 
-
 	\ifx\relax#1\relax  \item \else \item[#1] \fi
 	\abovedisplayskip=0pt\abovedisplayshortskip=0pt~\vspace*{-\baselineskip}}
-
-
 
 \title{Multivariate Normal Distribution II}
 \date{\today}
@@ -21,8 +18,7 @@
 	
 	\urldef\nodeSix\url{http://fourier.eng.hmc.edu/e161/lectures/gaussianprocess/node6.html}
 	\urldef\nodeSeven\url{http://fourier.eng.hmc.edu/e161/lectures/gaussianprocess/node7.html}
-	
-	
+
 	\begin{frame}{Detour: Inverse of partioned symmetric matrix \footnote{Courtesy: \nodeSix}}
 		
 		Consider an $n\times n$ symmetric matrix $A$ and divide it into four blocks
@@ -316,7 +312,6 @@
 	$$Q\left(\vx_{1}, \vx_{2}\right)=Q_{1}\left(\vx_{1}\right)+Q_{2}\left(\vx_{1}, \vx_{2}\right)$$
 \end{frame}
 
-
 \begin{frame}{Marginalisation and Conditional of multivariate normal}
 	Now the joint distribution can be written as: 
 	
@@ -344,7 +339,6 @@
 	A=\Sigma_{22}-\Sigma_{12}^{T} \Sigma_{11}^{-1} \Sigma_{12}
 	\]
 \end{frame}
-
 
 %\begin{frame}{Marginalisation of bivariate normal}
 %	Complete derivation from \textcolor{red}{Where?}

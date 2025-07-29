@@ -4,12 +4,8 @@
 
 %\beamerdefaultoverlayspecification{<+->}
 
-
 	\ifx\relax#1\relax  \item \else \item[#1] \fi
 	\abovedisplayskip=0pt\abovedisplayshortskip=0pt~\vspace*{-\baselineskip}}
-
-
-
 
 \title{Coordinate Descent}
 \date{\today}
@@ -17,63 +13,10 @@
 \institute{IIT Gandhinagar}
 \begin{document}
   \maketitle
-  
-  
-  
+
 % \section{Linear Regression}
 
-
-
-
-
-\begin{frame}{Coordinate Descent for Unregularized Regression}
-
-\begin{itemize}[<+->]
-    
-
-    
-    
-    
-    \item Express error as a difference of $y_{i}$ and $\hat{y_{i}}$
-    \begin{align}
-    \hat{y_i} &= \sum_{j=0}^{d} \theta_{j}x^{j}_{i} = \theta_{0}x_{i}^{0} + \theta_{1}x_{i}^{1} +\theta_{2}x_{i}^{2} ...... + \theta_{d}x_{i}^{d}  \\
-    \epsilon_{i} &= y_{i} - \hat{y_{i}}\\
-    &= y_{i} - \theta_{0}x_{i}^{0} + \theta_{1}x_{i}^{1} + ...... + \theta_{d}x_{i}^{d}\\
-    &= y_{i} - \sum_{j=0}^{d} \theta_{j}x_{i}^{j}
-    \end{align}
-   
-   
-    
-\end{itemize}
-    
-
-\end{frame}
-
-
-
-\begin{frame}{Coordinate Descent for Unregularized regression}
-
-\begin{align*}
-    \sum_{i=1}^{N}  \epsilon^{2}=RSS &=\sum_{i=1}^{N}\left(y_{i}-\left(\theta_{0}x_{i}^{0}+\ldots \quad \theta_{j} x_{i}^{j}+\theta_{d} x_{i}^{d}\right)\right)^{2}\\
-   \end{align*}
-\end{frame}
-
-\begin{frame}{Coordinate Descent for Unregularized regression}
-
-\begin{align*}
-\sum_{i=1}^{N}  \epsilon^{2}=RSS &=\sum_{i=1}^{N}\left(y_{i}-\left(\theta_{0}x_{i}^{0}+\ldots \quad \theta_{j} x_{i}^{j}+\theta_{d} x_{i}^{d}\right)\right)^{2}\\
-\frac{\partial \operatorname{RSS}\left(\theta_{j}\right)}{\partial \theta_{j}}&= 2 \sum_{i=1}^{N}\left(y_{i}-\left(\theta_{0}x_{i}^{0}+\ldots \quad \theta_{j} x_{i}^{j}+\ldots \right)\right)\left(-x_{i}^{j}\right)\\
-\end{align*}
-\end{frame}
-
-\begin{frame}{Coordinate Descent for Unregularized regression}
-
-\begin{align*}
-\sum_{i=1}^{N}  \epsilon^{2}=RSS &=\sum_{i=1}^{N}\left(y_{i}-\left(\theta_{0}x_{i}^{0}+\ldots \quad \theta_{j} x_{i}^{j}+\theta_{d} x_{i}^{d}\right)\right)^{2}\\
-\frac{\partial \operatorname{RSS}\left(\theta_{j}\right)}{\partial \theta_{j}}&= 2 \sum_{i=1}^{N}\left(y_{i}-\left(\theta_{0}x_{i}^{0}+\ldots \quad \theta_{j} x_{i}^{j}+\ldots \right)\right)\left(-x_{i}^{j}\right)\\
-&=2\sum_{i=1}^{N}\left(y_{i}-\left(\theta_{0} x_{i}^{0}+\ldots + \theta_{d} x_{i}^{d}\right)\right)\left(-x_{i}^{j}\right)+2 \sum_{i=1}^{N} \theta_{j}(x_{i}^j)^2\\
-\end{align*}
-\pause where: $$\hat{y_{i}}^{(-j)} = \theta_{0} x_{i}^{0}+\ldots + \theta_{d} x_{i}^{d}$$ is $\hat{y}_{i}$ without $\theta_{j}$
+\begin{frame}where: $$\hat{y_{i}}^{(-j)} = \theta_{0} x_{i}^{0}+\ldots + \theta_{d} x_{i}^{d}$$ is $\hat{y}_{i}$ without $\theta_{j}$
 \end{frame}
 
 \begin{frame}{Coordinate Descent for Unregularized regression}
@@ -93,9 +36,6 @@ $z_{j}$ is the squared of $\ell_2$ norm of the $j^{th}$ feature
 	\includepdf[page=-]{coordinate-rho.pdf}
 }
 
-
-
-
 \begin{frame}{Coordinate Descent for Lasso Regression}
 \[
   \text{Minimize} \underbrace{\sum_{i=1}^{N} \epsilon^{2} + \delta^{2}\left\{\left|\theta_{0}\right|+\left|\theta_{1}\right|+\ldots\left|\theta_{j}\right|+\ldots |\theta_{d}|\right\}}_{LASSO \: OBJECTIVE}
@@ -111,15 +51,16 @@ $z_{j}$ is the squared of $\ell_2$ norm of the $j^{th}$ feature
 \end{frame}
 
 \begin{frame}{Coordinate Descent for Lasso Regression}
-\begin{itemize}[<+->]
-    \item \textbf{Case 1: $\theta_{j}>0$}
+\begin{itemize}
+\item \textbf{Case 1: $\theta_{j}>0$}
     \begin{align*}
     \-2\rho_j+2\theta_j z_j+\delta^{2}  = 0\\
     \theta_j = \frac{\rho_j - \frac{\delta^{2}}{2}}{z_{j}}\\
     \rho_{j}>\frac{\delta^{2}}{2} \Rightarrow  \theta_{j} = \frac{\rho_j - \frac{\delta^{2}}{2}}{z_{j}}
     \end{align*}
     
-   \item \textbf{Case 2: $\theta_{j}<0$}
+   \pause
+\item \textbf{Case 2: $\theta_{j}<0$}
     \begin{equation}
         \rho_{j} < \frac{\delta^{2}}{2} \Rightarrow \theta_{j} = \frac{\rho_{j}+\delta^{2} / 2}{z_{j}}
     \end{equation}
@@ -129,7 +70,7 @@ $z_{j}$ is the squared of $\ell_2$ norm of the $j^{th}$ feature
 
 \begin{frame}{Coordinate Descent for Lasso Regression}
 \begin{itemize}
-    \item \textbf{Case 3: $\theta_{j} = 0$}
+\item \textbf{Case 3: $\theta_{j} = 0$}
     \begin{align*}
     \frac{\partial}{\partial \theta_{j}}(\text {LASSO OBJECTIVE})&=-2 \rho_{j}+2\theta_{j} z_{j}+ \delta^{2}\underbrace{{\frac{\partial}{\partial \theta_{j}}}\left|\theta_{j}\right|}_{\text{[-1,1]}}\\
     &\epsilon \underbrace{[-2\rho_{j} - \delta^{2}, -2\rho_{j} + \delta^{2}]}_{\text{$\{0\}$ lies in this range}}\\

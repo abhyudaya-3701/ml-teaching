@@ -2,7 +2,6 @@
 \usepackage{../../shared/styles/custom}
 \usepackage{../../shared/styles/conventions}
 
-
 %\beamerdefaultoverlayspecification{<+->}
 % \newcommand{\data}{\mathcal{D}}
 % \newcommand\Item[1][]{%
@@ -11,8 +10,6 @@
 
 \graphicspath{ {../assets/bias-variance/figures/} }
 
-
-
 \title{Bias-Variance and Cross Validation}
 \date{\today}
 \author{Nipun Batra and teaching staff}
@@ -20,239 +17,13 @@
 \begin{document}
 \maketitle
 
-\begin{frame}{Table of Contents}
-\tableofcontents
-\end{frame}
-
-\section{Introduction to Bias-Variance}
-
-\begin{frame}{A Question!}
-	What would be the decision boundary of a decision tree classifier? 
-		
-	\begin{figure}
-		\centering
-	\includegraphics[scale=0.55]{dataset-1}
-	\end{figure}
-
-
-	\end{frame}
-
-	\begin{frame}{Decision Boundary for a tree with depth 1}
-	\begin{figure}[h]
-	    \centering
-	    \begin{minipage}{0.45\textwidth}
-	        \centering
-	        \includegraphics[width=\textwidth]{example-1-depth-1-boundary}
-	        \caption{Decision Boundary}
-	    \end{minipage}
-	    \hfill
-	    \begin{minipage}{0.45\textwidth}
-	        \centering
-	        \includegraphics[width=\textwidth]{example-1-depth-1-decision-tree}
-	        \caption{Decision Tree}
-	    \end{minipage}
-	\end{figure}
-	\end{frame}
-	
-	\begin{frame}{Decision Boundary for a tree with no depth limit}
-	\begin{figure}[h]
-	    \centering
-	    \begin{minipage}{0.45\textwidth}
-	        \centering
-	        \includegraphics[width=\textwidth]{example-1-nolimit-boundary}
-	        \caption{Decision Boundary}
-	    \end{minipage}
-	    \hfill
-	    \begin{minipage}{0.45\textwidth}
-	        \centering
-	        \includegraphics[width=\textwidth]{example-1-nolimit-decision-tree}
-	        \caption{Decision Tree}
-	    \end{minipage}
-	\end{figure}
-	\end{frame}
-	
-
-	\begin{frame}{Are deeper trees always better?}
-	\only<1-2>{
-	As we saw, deeper trees learn more complex decision boundaries.
-	}
-	
-	\only<2>{
-	\vspace{1cm}
-	But, sometimes this can lead to poor generalization
-	}	
-	\end{frame}
-
-	\begin{frame}{An example}
-	Consider the dataset below
-	\begin{figure}[h]
-	    \centering
-	    \begin{minipage}{0.45\textwidth}
-	        \centering
-	        \includegraphics[width=\textwidth]{dataset-2-train}
-	        \caption{Train Set}
-	    \end{minipage}
-	    \hfill
-	    \begin{minipage}{0.45\textwidth}
-	        \centering
-	        \includegraphics[width=\textwidth]{dataset-2-test}
-	        \caption{Test Set}
-	    \end{minipage}
-	\end{figure}
-	\end{frame}
-
-	\begin{frame}{Underfitting}
-	Underfitting is also known as high bias, since it has a very biased incorrect assumption.
-	\begin{figure}[h]
-	    \centering
-	    \begin{minipage}{0.45\textwidth}
-	        \centering
-	        \includegraphics[width=\textwidth]{example-2-depth-1-boundary}
-	        \caption{Decision Boundary}
-	    \end{minipage}
-	    \hfill
-	    \begin{minipage}{0.45\textwidth}
-	        \centering
-	        \includegraphics[width=\textwidth]{example-2-depth-1-decision-tree}
-	        \caption{Decision Tree}
-	    \end{minipage}
-	\end{figure}
-	\end{frame}
-
-	\begin{frame}{Overfitting}
-	Overfitting is also known as high variance, since very small changes in data can lead to very different models.\\
-	Decision tree learned has depth of 10.
-	\begin{center}
-	\includegraphics[scale=0.5]{example-2-nolimit-boundary}
-	\end{center}
-	\end{frame}
-
-
-	\begin{frame}{Intuition for Variance}
-	A small change in data can lead to very different models.\\
-	\vspace{1cm}
-	\begin{columns}
-		\begin{column}{0.5\textwidth}{\hspace{1.75cm} Dataset 1}
-			\begin{center}
-			\includegraphics[width = \textwidth]{dataset-2-train}
-			\end{center}
-		\end{column}
-		\begin{column}{0.5\textwidth}{\hspace{1.75cm} Dataset 2}
-			\begin{center}
-			\includegraphics[width = \textwidth]{dataset-2-train-var}
-			\end{center}
-		\end{column}
-	\end{columns}
-	\end{frame}
-
-
-	\begin{frame}{Intuition for Variance}
-	\begin{columns}
-		\begin{column}{0.5\textwidth}
-			\begin{center}
-			\includegraphics[scale=0.2]{var_1}
-			\end{center}
-		\end{column}
-		\begin{column}{0.5\textwidth}
-			\begin{center}
-			\includegraphics[scale=0.2]{var_2}
-			\end{center}
-		\end{column}
-	\end{columns}
-	\end{frame}
-
-
-	\begin{frame}{A Good Fit}
-	\begin{columns}
-		\begin{column}{0.5\textwidth}
-			\includegraphics[width=\textwidth]{example-2-optimal-boundary}
-		\end{column}
-		\begin{column}{0.5\textwidth}
-			\includegraphics[width =\textwidth]{example-2-optimal-tree}
-		\end{column}
-	\end{columns}
-
-	\end{frame}
-
-	\begin{frame}{Accuracy vs Depth Curve}
-		\begin{center}
-		\includegraphics[scale=0.55]{acc-depth-plot}
-	\end{center}
-	\pause As depth increases, train accuracy improves\\
+\begin{frame}As depth increases, train accuracy improves\\
 	\pause As depth increases, test accuracy improves till a point\\
 	\pause At very high depths, test accuracy is not good (overfitting). 
 
 	\end{frame}
 
-	\begin{frame}{Accuracy vs Depth Curve : Underfitting}
-	The highlighted region is the underfitting region.\\
-	Model is too simple (less depth) to learn from the data. 
-	\begin{center}
-	\includegraphics[scale=0.55]{acc-depth-plot-underfit}
-	\end{center}
-	\end{frame}
-
-	\begin{frame}{Accuracy vs Depth Curve : Overfitting}
-	The highlighted region is the overfitting region.\\
-	Model is complex (high depth) and hence also learns the anomalies in data. 
-	\begin{center}
-	\includegraphics[scale=0.55]{acc-depth-plot-overfit}
-	\end{center}
-	\end{frame}
-
-	\begin{frame}{Accuracy vs Depth Curve }
-	The highlighted region is the good fit region.\\
-	We want to maximize test accuracy while being in this region.
-	\begin{center}
-	\includegraphics[scale=0.55]{acc-depth-plot-properfit}
-	\end{center}
-	\end{frame}
-
-	\begin{frame}{The big question!?}
-	\only<1-2>{
-	How to find the optimal depth for a decision tree?\\
-	}
-	\only<2>{
-	\vspace{1cm}
-	Use cross-validation!
-	}
-	\end{frame}
-
-
-	\begin{frame}{Our General Training Flow}
-	\includegraphics[width = \textwidth]{../assets/bias-variance/diagrams/general-workflow}
-	\end{frame}
-
-	\begin{frame}{K-Fold cross-validation: Utilise full dataset for testing}
-	\includegraphics[width = \textwidth]{../assets/bias-variance/diagrams/cross-validation-train-test.pdf}
-	\end{frame}
-
-	\begin{frame}{The Validation Set}
-	\includegraphics[width = \textwidth]{../assets/bias-variance/diagrams/validation-workflow}
-	\end{frame}
-
-	\begin{frame}{Nested Cross Validation}
-	Divide your training set into $k$ equal parts.\\
-	 Cyclically use 1 part as ``validation set'' and the rest for training.\\
-	Here $k = 4$
-	\begin{center}
-	\includegraphics[scale=0.7]{../assets/bias-variance/diagrams/cross-validation}
-	\end{center}
-	\end{frame}
-
-	\begin{frame}{Nested Cross Validation}
-	Average out the validation accuracy across all the folds\\
-	Use the model with highest validation accuracy\\
-	\includegraphics[width = \textwidth]{../assets/bias-variance/diagrams/cross-validation-avg}
-	\end{frame}
-
-\section{Practice and Review}
-
-\begin{frame}{Pop Quiz: Bias-Variance Concepts}
-\begin{enumerate}
-\item What causes high bias in a model? Give an example.
-\pause
-\item What causes high variance in a model? Give an example.
+	\begin{frame}\item What causes high variance in a model? Give an example.
 \pause
 \item How does cross-validation help in model selection?
 \pause
@@ -261,21 +32,27 @@
 \end{frame}
 
 \begin{frame}{Key Takeaways}
-\begin{itemize}[<+->]
+\begin{itemize}
 \item \textbf{Bias-Variance Decomposition}: Total error = Bias² + Variance + Noise
+\pause
 \item \textbf{High Bias}: Underfitting, model too simple
+\pause
 \item \textbf{High Variance}: Overfitting, model too complex
+\pause
 \item \textbf{Cross-Validation}: Essential for proper model evaluation
+\pause
 \item \textbf{Model Selection}: Choose complexity that balances bias and variance
+\pause
 \item \textbf{No Free Lunch}: Cannot reduce both bias and variance simultaneously
 \end{itemize}
 \end{frame}
 
 \begin{frame}{Next time: Ensemble Learning}
 \begin{itemize}
-	\item How to combine various models?
+\item How to combine various models?
 	\item Why to combine multiple models?
-	\item How can we reduce bias?
+	\pause
+\item How can we reduce bias?
 	\item How can we reduce variance?
 \end{itemize}
 \end{frame}

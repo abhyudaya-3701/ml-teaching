@@ -4,9 +4,6 @@
 
 %\beamerdefaultoverlayspecification{<+->}
 
-
-
-
 \title{Coordinate Descent}
 \date{\today}
 \author{Nipun Batra}
@@ -15,33 +12,11 @@
 \begin{document}
 \maketitle
 
-
-\begin{frame}{Coordinate Descent}
-\begin{itemize}[<+->]
-	\item Another optimisation method (akin to gradient descent)
-	\item Objective: $\min_{\vtheta} f(\vtheta)$
-	\item Key idea: Sometimes difficult to find minimum for all coordinates
-	\item ..., but, easy for each coordinate
-	\item turns into a one-dimensional optimisation problem
-\end{itemize}
-\end{frame}
-
-% {
-% 	\setbeamercolor{background canvas}{bg=}
-% 	\includepdf[page=-]{../assets/coordinate-vis.pdf}
-% }
-
-
-\begin{frame}{Coordinate Descent}
-\begin{itemize}[<+->]
-	\item Picking next coordinate: \pause random, round-robin
+\begin{frame}random, round-robin
 	\item No step-size to choose!
 	\item Converges for Lasso objective
 \end{itemize}
 \end{frame}
-
-
-
 
 	\begin{frame}{Coordinate Descent : Example}
 Learn $y = \theta_0 + \theta_1 x$ on following dataset, using coordinate descent where initially $(\theta_0, \theta_1) = (2,3)$ for 2 iterations. 
@@ -58,8 +33,6 @@ Learn $y = \theta_0 + \theta_1 x$ on following dataset, using coordinate descent
 \end{table}
 \end{frame}
 
-
-
 \begin{frame}{Coordinate Descent : Example}
 Our predictor, $\hat{y} = \theta_0 + \theta_1x$\\
 \vspace{1cm}
@@ -71,10 +44,6 @@ $\epsilon_3 = 3 - \theta_0 - 3\theta_1$ \\
 \vspace{1cm}
 MSE = $\frac{\epsilon_1^2 + \epsilon_2^2 + \epsilon_3^2}{3}$ = $\frac{14 + 3\theta_0^2 + 14\theta_1^2 -12\theta_0 - 28\theta_1 + 12\theta_0\theta_1}{3}$\\
 \end{frame}
-
-
-
-
 
 \begin{frame}{Iteration 0}
 
@@ -122,16 +91,12 @@ MSE = $\frac{1}{3}(14+3\theta_{0}^{2}+14\theta_{1}^{2}-12\theta_{0}-28\theta_{1}
 			coordinates{ % plot 1 dataset
 				( 2 , 3 )
 			};
-			
-			
+
 			\end{axis}
 			\end{tikzpicture}
 		\end{adjustbox}
 	\end{column}
 \end{columns}
-
-
-
 
 \end{frame}
 
@@ -148,12 +113,9 @@ $\theta_1 = 3$ optimize for $\theta_{0}$\\
  \vspace{0.5cm}
  $\theta_0 = -4$
 
-
 }
 
-
 \end{frame}
-
 
 \begin{frame}{Iteration 1}
 
@@ -205,7 +167,6 @@ MSE = $\frac{1}{3}(14+3\theta_{0}^{2}+14\theta_{1}^{2}-12\theta_{0}-28\theta_{1}
 	\end{column}
 \end{columns}
 
-
 \end{frame}
 
 \begin{frame}{Coordinate Descent : Example}
@@ -220,9 +181,7 @@ $\theta_0 = -4$ optimize for $\theta_{1}$\\
  $\theta_1 = 2.7$
 }
 
-
 \end{frame}
-
 
 \begin{frame}{Iteration 2}
 
@@ -275,7 +234,6 @@ MSE = $\frac{1}{3}(14+3\theta_{0}^{2}+14\theta_{1}^{2}-12\theta_{0}-28\theta_{1}
 	\end{column}
 \end{columns}
 
-
 \end{frame}
 
 \begin{frame}{Coordinate Descent : Example}
@@ -289,7 +247,6 @@ $\theta_1 = 2.7$ optimize for $\theta_{0}$\\
 \vspace{0.5cm}
  $\theta_0 = -3.4$
 }
-
 
 \end{frame}
 
@@ -344,9 +301,7 @@ MSE = $\frac{1}{3}(14+3\theta_{0}^{2}+14\theta_{1}^{2}-12\theta_{0}-28\theta_{1}
 	\end{column}
 \end{columns}
 
-
 \end{frame}
-
 
 % {
 % 	\setbeamercolor{background canvas}{bg=}

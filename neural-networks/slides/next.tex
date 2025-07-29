@@ -23,142 +23,7 @@
 \begin{document}
 \maketitle
 
-\begin{frame}{Table of Contents}
-\tableofcontents
-\end{frame}
-
-\section{Introduction and Motivation}
-
-\begin{frame}{Acknowledgment and Inspiration}
-\begin{itemize}[<+->]
-\item This lecture is inspired by the excellent work of \textbf{Andrej Karpathy}
-\item Search for \textit{``Neural Networks: Zero to Hero''} to find his comprehensive tutorial series
-\item These concepts are fundamental to understanding modern language models
-\item Direct relevance to \textbf{ChatGPT} and other large language models:
-\begin{itemize}
-\item ChatGPT generates text by predicting the next token
-\item Same underlying principle scaled to billions of parameters
-\item Understanding next token prediction is key to understanding LLMs
-\end{itemize}
-\end{itemize}
-\end{frame}
-
-\begin{frame}{The Fundamental Question}
-\vspace{0.5cm}
-\begin{center}
-\begin{tikzpicture}[scale=1.5]
-% Draw the letters with better spacing
-\node[draw, rectangle, thick, minimum width=1cm, minimum height=1cm, fill=lightblue!20] at (0,0) {\Large \textbf{a}};
-\node[draw, rectangle, thick, minimum width=1cm, minimum height=1cm, fill=lightblue!20] at (1.5,0) {\Large \textbf{p}};
-\node[draw, rectangle, thick, minimum width=1cm, minimum height=1cm, fill=lightblue!20] at (3,0) {\Large \textbf{p}};
-\node[draw, rectangle, thick, minimum width=1cm, minimum height=1cm, dashed, color=red, fill=red!10] at (4.8,0) {\Large \textbf{?}};
-
-% Add arrow with better positioning
-\draw[->, thick, red] (4.8, -0.8) -- (4.8, -1.5);
-\node[color=red, align=center] at (4.8, -2) {\textbf{What comes\\next?}};
-\end{tikzpicture}
-\end{center}
-
-\vspace{0.8cm}
-\begin{center}
-{\Large Given the sequence ``app'', what is the next character?}
-\end{center}
-\end{frame}
-
-\section{Problem Formulation}
-
-\begin{frame}{Next Character Prediction as Classification}
-\begin{columns}
-\begin{column}{0.3\textwidth}
-\begin{center}
-\begin{tikzpicture}[scale=1.5]
-\node[draw, rectangle, thick, minimum width=0.6cm, minimum height=0.6cm] at (0,2) {\textbf{a}};
-\node[draw, rectangle, thick, minimum width=0.6cm, minimum height=0.6cm] at (0,1) {\textbf{p}};
-\node[draw, rectangle, thick, minimum width=0.6cm, minimum height=0.6cm] at (0,0) {\textbf{p}};
-\end{tikzpicture}
-
-\vspace{0.5cm}
-\textbf{Input: ``app''}
-\end{center}
-\end{column}
-
-\begin{column}{0.7\textwidth}
-\begin{center}
-\textbf{Output: Character Probabilities}
-\vspace{0.3cm}
-
-\begin{tabular}{|c|c|}
-\hline
-\textbf{Character} & \textbf{Probability} \\
-\hline
-a & 0.05 \\
-b & 0.02 \\
-c & 0.03 \\
-... & ... \\
-l & 0.35 \\
-m & 0.01 \\
-... & ... \\
-y & 0.08 \\
-z & 0.01 \\
-- (end) & 0.15 \\
-\hline
-\end{tabular}
-\end{center}
-\end{column}
-\end{columns}
-
-\vspace{0.5cm}
-\begin{center}
-\textbf{Classification Task:} Predict probability distribution over all possible next characters
-\end{center}
-\end{frame}
-
-\section{Case Study: Indian Names Generation}
-
-\begin{frame}{Dataset: Indian Names}
-\begin{center}
-\textbf{Training Dataset}
-\vspace{0.5cm}
-
-\begin{columns}
-\begin{column}{0.45\textwidth}
-\textbf{Sample Names:}
-\begin{itemize}
-\item Abid, Abhidha, Adesh
-\item Aditya, Arjun, Kiran
-\item Krishna, Lakshmi, Meera
-\item Nisha, Priya, Rajesh
-\item Sunita, Vikash, Zara
-\end{itemize}
-\end{column}
-
-\begin{column}{0.45\textwidth}
-\textbf{Dataset Properties:}
-\begin{itemize}
-\item 1000+ unique names
-\item Diverse regional origins
-\item Various lengths (4-10 chars)
-\item Both male \& female names
-\item Rich phonetic patterns
-\end{itemize}
-\end{column}
-\end{columns}
-
-\vspace{0.7cm}
-\textbf{Goal:} Learn to generate new, realistic Indian names
-\end{center}
-\end{frame}
-
-\begin{frame}{Assumptions and Constraints}
-\begin{itemize}[<+->]
-\item \textbf{Character Set:} Only 26 lowercase letters (a-z)
-\item \textbf{End Marker:} Hyphen (-) indicates end of name
-\item \textbf{Length Constraint:} Names are between 4 and 10 characters
-\item \textbf{Simplification:} No spaces, special characters, or uppercase letters
-\end{itemize}
-
-\pause
-\vspace{0.5cm}
+\begin{frame}\vspace{0.5cm}
 \begin{center}
 \begin{tikzpicture}
 \node[draw, rectangle, thick, fill=lightblue!20] at (0,0) {
@@ -173,46 +38,7 @@ z & 0.01 \\
 
 \section{Training Data Generation}
 
-\begin{frame}{Generate Training Dataset}
-\textbf{Example: ``abid'' $\rightarrow$ Training Examples}
-
-\vspace{0.5cm}
-\textbf{Context Length:} 3 characters
-
-\vspace{0.5cm}
-\begin{center}
-\begin{tabular}{|c|c|c|c||c|}
-\hline
-\multicolumn{4}{|c|}{\textbf{Input (X)}} & \textbf{Target (Y)} \\
-\hline
-\textbf{Char 1} & \textbf{Char 2} & \textbf{Char 3} & \textbf{Context} & \textbf{Next Char} \\
-\hline
-- & - & - & ``---'' & a \\
-- & - & a & ``--a'' & b \\
-- & a & b & ``-ab'' & i \\
-a & b & i & ``abi'' & d \\
-b & i & d & ``bid'' & - \\
-\hline
-\end{tabular}
-\end{center}
-
-\vspace{0.5cm}
-\begin{alertblock}{Training Examples}
-From one name ``abid'', we create \textbf{5 training examples} using a sliding window approach.
-\end{alertblock}
-\end{frame}
-
-\section{Representation Learning}
-
-\begin{frame}{The Idea: Character Embeddings}
-\begin{itemize}[<+->]
-\item \textbf{Goal:} Learn vector representations for each character
-\item \textbf{Hypothesis:} Similar characters should have similar embeddings
-\item \textbf{Benefit:} Capture semantic relationships between characters
-\end{itemize}
-
-\pause
-\vspace{0.3cm}
+\begin{frame}\vspace{0.3cm}
 \begin{center}
 \begin{tikzpicture}[scale=1.1]
 % Axes with better spacing
@@ -372,10 +198,11 @@ Each character maps to a K-dimensional vector.
 \end{frame}
 
 \begin{frame}{Learnable Parameters}
-\begin{itemize}[<+->]
+\begin{itemize}
 \item \textbf{Embedding Matrix:} 27 × K parameters
 \begin{itemize}
 \item Initially random
+\pause
 \item Updated during training via backpropagation
 \item Learns meaningful character representations
 \end{itemize}
@@ -553,24 +380,30 @@ Each character maps to a K-dimensional vector.
 \section{Training and Loss Function}
 
 \begin{frame}{Training Objective}
-\begin{itemize}[<+->]
+\begin{itemize}
 \item \textbf{Loss Function:} Cross-entropy loss for multi-class classification
 
 \begin{equation}
 \mathcal{L} = -\sum_{i=1}^{N} \sum_{c=1}^{27} y_{i,c} \log(\hat{y}_{i,c})
 \end{equation}
 
+\pause
 \item \textbf{What we learn:}
 \begin{enumerate}
+\pause
 \item \textbf{Embedding Matrix:} Character representations (27 × K parameters)
+\pause
 \item \textbf{MLP Weights:} Neural network parameters for classification
 \end{enumerate}
 
+\pause
 \item \textbf{Training Process:}
 \begin{enumerate}
+\pause
 \item Forward pass: Input → Embeddings → Concatenate → MLP → Probabilities
 \item Compute cross-entropy loss
 \item Backward pass: Update both embeddings and MLP weights
+\pause
 \item Repeat for all training examples
 \end{enumerate}
 \end{itemize}
@@ -648,21 +481,24 @@ f & 0.01 & s & 0.08 \\
 \section{Temperature and Sampling Strategies}
 
 \begin{frame}{Temperature in Softmax}
-\begin{itemize}[<+->]
+\begin{itemize}
 \item \textbf{Standard Softmax:}
 \begin{equation}
 P(y_i) = \frac{e^{z_i}}{\sum_{j=1}^{27} e^{z_j}}
 \end{equation}
 
+\pause
 \item \textbf{Temperature-scaled Softmax:}
 \begin{equation}
 P(y_i) = \frac{e^{z_i/T}}{\sum_{j=1}^{27} e^{z_j/T}}
 \end{equation}
 
+\pause
 \item \textbf{Temperature Effects:}
 \begin{itemize}
 \item $T = 1$: Standard probabilities
 \item $T \to 0$: More peaked (deterministic)
+\pause
 \item $T \to \infty$: More uniform (random)
 \end{itemize}
 \end{itemize}
@@ -691,6 +527,7 @@ others & 0.015 & 0.23 & 0.35 \\
 \vspace{0.3cm}
 \begin{itemize}
 \item \textbf{Low T:} Conservative, predictable
+\pause
 \item \textbf{High T:} Creative, diverse
 \end{itemize}
 \end{frame}
@@ -698,16 +535,22 @@ others & 0.015 & 0.23 & 0.35 \\
 \section{Summary and Applications}
 
 \begin{frame}{Key Takeaways}
-\begin{itemize}[<+->]
+\begin{itemize}
 \item \textbf{Core Idea:} Next token prediction as classification
+\pause
 \item \textbf{Representation Learning:} Character embeddings capture similarity
+\pause
 \item \textbf{Architecture:} Embeddings + MLP for sequence modeling
+\pause
 \item \textbf{Training:} Joint learning of embeddings and classifier weights
+\pause
 \item \textbf{Generation:} Autoregressive sampling with temperature control
+\pause
 \item \textbf{Applications:} Foundation for modern language models
 \begin{itemize}
 \item GPT models use the same principle
 \item Scaled to words/subwords instead of characters
+\pause
 \item Transformer architecture instead of MLP
 \item Billions of parameters instead of thousands
 \end{itemize}
