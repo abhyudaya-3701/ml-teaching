@@ -10,7 +10,7 @@ title-block-banner: true
 Fundamental concepts and prerequisites for machine learning.
 
 - [Introduction and Logistics](basics/slides/1-introduction-ml.pdf)
-- [Convention, Metrics, Classification, Regression](basics/slides/accuracy_convention.pdf)
+- [Convention, Metrics, Classification, Regression](basics/slides/accuracy-convention.pdf)
 - [Data Shuffling](basics/slides/shuffling.pdf)
 - [Miscellaneous Topics](basics/slides/misc.pdf)
 
