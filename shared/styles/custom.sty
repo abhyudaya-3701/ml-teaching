@@ -1,3 +1,5 @@
+% Automatically added to avoid tcolorbox option clash
+\PassOptionsToPackage{most}{tcolorbox}
 % custom.sty - Unified LaTeX package for ML Course Materials
 % Consolidates all common packages, commands, and styling
 
@@ -180,7 +182,7 @@
 % URL PROCESSING
 % ==============================================================================
 
-\newcommand{\lastpartofurl}[1]{%
+\providecommand{\lastpartofurl}[1]{%
   \edef\temp{\expandafter\lastpartofurlA#1/\relax}%
   \expandafter\lastpartofurlB\temp\relax%
 }
@@ -249,8 +251,10 @@
 % FINAL SETUP
 % ==============================================================================
 
-% Ensure proper spacing in beamer
-\beamerdefaultoverlayspecification{<+->}
+% Ensure proper spacing in beamer (only for beamer documents)
+\@ifclassloaded{beamer}{%
+    \beamerdefaultoverlayspecification{<+->}%
+}{}
 
 % End of package
 \endinput
