@@ -18,13 +18,13 @@
     % Use metropolis as base for modern typography (only with XeLaTeX/LuaLaTeX)
     \RequirePackage{iftex}
     \ifxetex
-        \usetheme[progressbar=foot, numbering=fraction, block=fill]{metropolis}
+        \usetheme[progressbar=none, numbering=none, block=fill]{metropolis}
         \RequirePackage{fontspec}
         \setsansfont[BoldFont={Fira Sans SemiBold}]{Fira Sans Book}
         \setmonofont{Fira Mono}
     \else
         \ifluatex
-            \usetheme[progressbar=foot, numbering=fraction, block=fill]{metropolis}
+            \usetheme[progressbar=none, numbering=none, block=fill]{metropolis}
             \RequirePackage{fontspec}
             \setsansfont[BoldFont={Fira Sans SemiBold}]{Fira Sans Book}
             \setmonofont{Fira Mono}
@@ -46,17 +46,17 @@
 % ==============================================================================
 
 % Enhanced color palette - sophisticated and modern
-\definecolor{nipun-blue}{RGB}{42, 82, 130}        % Deep academic blue
-\definecolor{nipun-lightblue}{RGB}{98, 138, 175}  % Lighter blue for accents
-\definecolor{nipun-darkblue}{RGB}{28, 55, 85}     % Darker blue for emphasis
-\definecolor{nipun-gray}{RGB}{75, 75, 75}         % Refined charcoal gray
-\definecolor{nipun-lightgray}{RGB}{248, 248, 248} % Very light gray backgrounds
-\definecolor{nipun-mediumgray}{RGB}{150, 150, 150} % Medium gray for subtle elements
-\definecolor{nipun-green}{RGB}{65, 125, 65}       % Success/correct green
-\definecolor{nipun-orange}{RGB}{205, 105, 55}     % Warning/highlight orange
-\definecolor{nipun-red}{RGB}{185, 55, 55}         % Error/attention red
+\definecolor{nipun-blue}{RGB}{92, 138, 168}       % Focus theme inspired muted blue
+\definecolor{nipun-lightblue}{RGB}{174, 203, 225} % Very light blue for subtle accents
+\definecolor{nipun-darkblue}{RGB}{55, 88, 115}    % Darker blue for emphasis
+\definecolor{nipun-gray}{RGB}{70, 70, 70}         % Clean text gray (Keynote-like)
+\definecolor{nipun-lightgray}{RGB}{252, 252, 252} % Ultra light gray
+\definecolor{nipun-mediumgray}{RGB}{140, 140, 140} % Medium gray for subtle elements
+\definecolor{nipun-green}{RGB}{76, 175, 80}       % Clean green (Material-inspired)
+\definecolor{nipun-orange}{RGB}{255, 152, 0}      % Apple orange
+\definecolor{nipun-red}{RGB}{255, 59, 48}         % Apple red
 \definecolor{nipun-white}{RGB}{255, 255, 255}     % Pure white
-\definecolor{nipun-offwhite}{RGB}{252, 252, 252}  % Slightly off-white for subtle contrast
+\definecolor{nipun-offwhite}{RGB}{255, 255, 255}  % Pure white (Keynote style)
 
 % Apply Beamer-specific settings only if using Beamer
 \ifx\isbeamer\undefined\else\if\isbeamer true
@@ -126,14 +126,17 @@
     \setlength{\parsep}{0.2em}
     \setlength{\topsep}{0.3em}
 
-    % Frame title spacing
+    % Apple Keynote-inspired frame title spacing and styling
     \setbeamertemplate{frametitle}[default][left,leftskip=0pt]
-    \addtobeamertemplate{frametitle}{\vspace{0.2em}}{\vspace{0.4em}}
+    \addtobeamertemplate{frametitle}{\vspace{0.3em}}{\vspace{0.6em}}
     
-    % Enhanced bullet points
-    \setbeamertemplate{itemize item}{\raisebox{0.1ex}{\scalebox{0.7}{$\blacksquare$}}}
-    \setbeamertemplate{itemize subitem}{\raisebox{0.1ex}{\scalebox{0.6}{$\blacktriangleright$}}}
-    \setbeamertemplate{itemize subsubitem}{\raisebox{0.1ex}{\scalebox{0.5}{$\bullet$}}}
+    % More generous margins for cleaner look
+    \setbeamersize{text margin left=1.2cm, text margin right=1.2cm}
+    
+    % Apple Keynote-inspired bullet points - clean and minimal
+    \setbeamertemplate{itemize item}{\raisebox{0.2ex}{\scalebox{0.6}{$\bullet$}}}
+    \setbeamertemplate{itemize subitem}{\raisebox{0.15ex}{\scalebox{0.55}{$\circ$}}}
+    \setbeamertemplate{itemize subsubitem}{\raisebox{0.1ex}{\scalebox{0.5}{$-$}}}
     
     % Enhanced enumeration
     \setbeamertemplate{enumerate item}{\insertenumlabel.}
@@ -202,16 +205,16 @@
 % ==============================================================================
 
 \ifx\isbeamer\undefined\else\if\isbeamer true
-    % Custom footer with slide x/y format
+    % Apple Keynote-inspired minimal footer
     \setbeamertemplate{footline}{
         \hfill
         \usebeamerfont{page number in head/foot}
         \usebeamercolor[fg]{page number in head/foot}
-        \raisebox{1.5pt}{\insertframenumber\,/\,\inserttotalframenumber}
-        \hspace{0.5cm}
-        \vspace{0.3cm}
+        \raisebox{2pt}{\small\insertframenumber\,/\,\inserttotalframenumber}
+        \hspace{1cm}
+        \vspace{0.4cm}
     }
-    \setbeamercolor{page number in head/foot}{fg=nipun-gray}
+    \setbeamercolor{page number in head/foot}{fg=nipun-mediumgray}
 
     % Remove navigation symbols
     \setbeamertemplate{navigation symbols}{}
