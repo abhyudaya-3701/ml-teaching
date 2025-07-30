@@ -1,8 +1,8 @@
-% theme-nipun.sty - Clean, Modern Theme for Nipun's ML Teaching
-% Inspired by clean academic aesthetics with subtle colors and excellent readability
+% theme-nipun.sty - Clean, Simple Theme for Nipun's ML Teaching
+% Focus on clean white background with Inter font
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{theme-nipun}[2025/01/29 Nipun's Custom Clean Theme]
+\ProvidesPackage{theme-nipun}[2025/01/29 Nipun's Clean Simple Theme]
 
 % Required packages
 \RequirePackage{xcolor}
@@ -15,25 +15,67 @@
 
 % Check if we're using Beamer class
 \@ifclassloaded{beamer}{
-    % Use metropolis as base for modern typography (only with XeLaTeX/LuaLaTeX)
+    % Use clean simple theme
+    \usetheme{default}
+    \usecolortheme{default}
+    
+    % Set up Inter font with XeLaTeX/LuaLaTeX
     \RequirePackage{iftex}
     \ifxetex
-        \usetheme[progressbar=none, numbering=none, block=fill]{metropolis}
         \RequirePackage{fontspec}
-        \setsansfont[BoldFont={Fira Sans SemiBold}]{Fira Sans Book}
-        \setmonofont{Fira Mono}
+        \IfFontExistsTF{Inter}{
+            \setsansfont[BoldFont={Inter Bold}]{Inter}
+        }{
+            \IfFontExistsTF{Roboto}{
+                \setsansfont[BoldFont={Roboto Bold}]{Roboto}
+            }{
+                \IfFontExistsTF{Helvetica Neue}{
+                    \setsansfont{Helvetica Neue}
+                }{
+                    \setsansfont{Arial}
+                }
+            }
+        }
+        \IfFontExistsTF{Roboto Mono}{
+            \setmonofont{Roboto Mono}
+        }{
+            \IfFontExistsTF{Monaco}{
+                \setmonofont{Monaco}
+            }{
+                \setmonofont{Courier New}
+            }
+        }
     \else
         \ifluatex
-            \usetheme[progressbar=none, numbering=none, block=fill]{metropolis}
             \RequirePackage{fontspec}
-            \setsansfont[BoldFont={Fira Sans SemiBold}]{Fira Sans Book}
-            \setmonofont{Fira Mono}
-        \else
-            % For pdfLaTeX, use a simpler approach
-            \usetheme{default}
-            \usecolortheme{beaver}
+            \IfFontExistsTF{Inter}{
+                \setsansfont[BoldFont={Inter Bold}]{Inter}
+            }{
+                \IfFontExistsTF{Roboto}{
+                    \setsansfont[BoldFont={Roboto Bold}]{Roboto}
+                }{
+                    \IfFontExistsTF{Helvetica Neue}{
+                        \setsansfont{Helvetica Neue}
+                    }{
+                        \setsansfont{Arial}
+                    }
+                }
+            }
+            \IfFontExistsTF{Roboto Mono}{
+                \setmonofont{Roboto Mono}
+            }{
+                \IfFontExistsTF{Monaco}{
+                    \setmonofont{Monaco}
+                }{
+                    \setmonofont{Courier New}
+                }
+            }
         \fi
     \fi
+    
+    % Remove navigation symbols
+    \setbeamertemplate{navigation symbols}{}
+    \setbeamertemplate{frametitle}[default][left]
     
     \def\isbeamer{true}
 }{
@@ -42,31 +84,30 @@
 }
 
 % ==============================================================================
-% COLOR PALETTE - Clean, Professional, Academic
+% COLOR PALETTE - Clean and Simple
 % ==============================================================================
 
-% Enhanced color palette - sophisticated and modern
-\definecolor{nipun-blue}{RGB}{92, 138, 168}       % Focus theme inspired muted blue
-\definecolor{nipun-lightblue}{RGB}{174, 203, 225} % Very light blue for subtle accents
+% Simple, clean color palette
+\definecolor{nipun-blue}{RGB}{92, 138, 168}       % Muted blue for accents
+\definecolor{nipun-lightblue}{RGB}{174, 203, 225} % Light blue for subtle accents
 \definecolor{nipun-darkblue}{RGB}{55, 88, 115}    % Darker blue for emphasis
-\definecolor{nipun-gray}{RGB}{70, 70, 70}         % Clean text gray (Keynote-like)
-\definecolor{nipun-lightgray}{RGB}{252, 252, 252} % Ultra light gray
+\definecolor{nipun-gray}{RGB}{70, 70, 70}         % Clean text gray
+\definecolor{nipun-lightgray}{RGB}{248, 248, 248} % Very light gray
 \definecolor{nipun-mediumgray}{RGB}{140, 140, 140} % Medium gray for subtle elements
-\definecolor{nipun-green}{RGB}{76, 175, 80}       % Clean green (Material-inspired)
+\definecolor{nipun-green}{RGB}{76, 175, 80}       % Clean green
 \definecolor{nipun-orange}{RGB}{255, 152, 0}      % Apple orange
 \definecolor{nipun-red}{RGB}{255, 59, 48}         % Apple red
 \definecolor{nipun-white}{RGB}{255, 255, 255}     % Pure white
-\definecolor{nipun-offwhite}{RGB}{255, 255, 255}  % Pure white (Keynote style)
 
-% Apply Beamer-specific settings only if using Beamer
-\ifx\isbeamer\undefined\else\if\isbeamer true
-    % Background and foreground
-    \setbeamercolor{background canvas}{bg=nipun-offwhite}
+% Apply Beamer-specific settings
+\@ifclassloaded{beamer}{
+    % Clean white background
+    \setbeamercolor{background canvas}{bg=nipun-white}
     \setbeamercolor{normal text}{fg=nipun-gray}
 
-    % Title and headers with subtle enhancement
+    % Title and headers
     \setbeamercolor{title}{fg=nipun-darkblue}
-    \setbeamercolor{frametitle}{fg=nipun-darkblue, bg=nipun-lightgray}
+    \setbeamercolor{frametitle}{fg=nipun-darkblue, bg=}
     \setbeamercolor{subtitle}{fg=nipun-blue}
     \setbeamercolor{author}{fg=nipun-gray}
     \setbeamercolor{date}{fg=nipun-mediumgray}
@@ -74,90 +115,90 @@
 
     % Structure colors
     \setbeamercolor{structure}{fg=nipun-blue}
-    \setbeamercolor{section in toc}{fg=nipun-blue}
-    \setbeamercolor{subsection in toc}{fg=nipun-lightblue}
+    \setbeamercolor{section in toc}{fg=nipun-gray}
+    \setbeamercolor{subsection in toc}{fg=nipun-mediumgray}
 
-    % Enhanced block colors with better contrast
+    % Block colors
     \setbeamercolor{block title}{fg=nipun-white, bg=nipun-blue}
-    \setbeamercolor{block body}{fg=nipun-gray, bg=nipun-white}
+    \setbeamercolor{block body}{fg=nipun-gray, bg=nipun-lightgray}
     \setbeamercolor{block title alerted}{fg=nipun-white, bg=nipun-red}
-    \setbeamercolor{block body alerted}{fg=nipun-gray, bg=nipun-white}
+    \setbeamercolor{block body alerted}{fg=nipun-gray, bg=nipun-lightgray}
     \setbeamercolor{block title example}{fg=nipun-white, bg=nipun-green}
-    \setbeamercolor{block body example}{fg=nipun-gray, bg=nipun-white}
+    \setbeamercolor{block body example}{fg=nipun-gray, bg=nipun-lightgray}
 
-    % Progress bar
-    \setbeamercolor{progress bar}{fg=nipun-blue, bg=nipun-lightgray}
-    \setbeamercolor{progress bar in head/foot}{fg=nipun-blue, bg=nipun-lightgray}
-
-    % Enhanced itemize colors
+    % Itemize colors
     \setbeamercolor{itemize item}{fg=nipun-blue}
     \setbeamercolor{itemize subitem}{fg=nipun-lightblue}
     \setbeamercolor{itemize subsubitem}{fg=nipun-mediumgray}
     \setbeamercolor{enumerate item}{fg=nipun-blue}
     \setbeamercolor{enumerate subitem}{fg=nipun-lightblue}
-\fi\fi
+}{}
 
 % ==============================================================================
 % LOAD COMMON TCOLORBOX DEFINITIONS
 % ==============================================================================
 
 % Load the centralized common box definitions
-% These provide basic functionality that works across all themes
 \RequirePackage{common-boxes}
 
 % ==============================================================================
 % TYPOGRAPHY AND SPACING
 % ==============================================================================
 
-% Better math spacing (applies to all document classes)
+% Clean math spacing
 \setlength{\abovedisplayskip}{0.8em}
 \setlength{\belowdisplayskip}{0.8em}
 \setlength{\abovedisplayshortskip}{0.4em}
 \setlength{\belowdisplayshortskip}{0.4em}
 
 % Beamer-specific spacing and styling
-\ifx\isbeamer\undefined\else\if\isbeamer true
-    % Better spacing for lists
+\@ifclassloaded{beamer}{
+    % Clean list spacing
     \setbeamertemplate{itemize/enumerate body begin}{\vspace{0.5em}}
     \setbeamertemplate{itemize/enumerate body end}{\vspace{0.5em}}
 
-    % Reduce space between items
+    % Comfortable item spacing
     \setlength{\itemsep}{0.4em}
     \setlength{\parsep}{0.2em}
     \setlength{\topsep}{0.3em}
 
-    % Apple Keynote-inspired frame title spacing and styling
+    % Clean frame title
     \setbeamertemplate{frametitle}[default][left,leftskip=0pt]
     \addtobeamertemplate{frametitle}{\vspace{0.3em}}{\vspace{0.6em}}
     
-    % More generous margins for cleaner look
+    % Comfortable margins
     \setbeamersize{text margin left=1.2cm, text margin right=1.2cm}
     
-    % Apple Keynote-inspired bullet points - clean and minimal
+    % Simple bullet points with reduced indentation
     \setbeamertemplate{itemize item}{\raisebox{0.2ex}{\scalebox{0.6}{$\bullet$}}}
     \setbeamertemplate{itemize subitem}{\raisebox{0.15ex}{\scalebox{0.55}{$\circ$}}}
     \setbeamertemplate{itemize subsubitem}{\raisebox{0.1ex}{\scalebox{0.5}{$-$}}}
     
-    % Enhanced enumeration
+    % Reduce itemize indentation
+    \setlength{\leftmargini}{1.2em}
+    \setlength{\leftmarginii}{1.5em}
+    \setlength{\leftmarginiii}{1.8em}
+    
+    % Clean enumeration
     \setbeamertemplate{enumerate item}{\insertenumlabel.}
     \setbeamertemplate{enumerate subitem}{\insertsubenumlabel)}
     
-    % Better block spacing
+    % Block spacing
     \addtobeamertemplate{block begin}{\vspace{0.3em}}{}
     \addtobeamertemplate{block end}{}{\vspace{0.3em}}
-\fi\fi
+}{}
 
 % ==============================================================================
 % CUSTOM COMMANDS FOR CONSISTENT FORMATTING
 % ==============================================================================
 
-% Global pop quiz counter - consistent across all slides
+% Global pop quiz counter
 \newcounter{popquiz}
 \setcounter{popquiz}{0}
 
 % Beamer-specific commands
-\ifx\isbeamer\undefined\else\if\isbeamer true
-    % Pop quiz command with automatic numbering and consistent formatting
+\@ifclassloaded{beamer}{
+    % Pop quiz command
     \newcommand{\popquiz}[2]{
         \stepcounter{popquiz}
         \begin{frame}{Quick Quiz \#\thepopquiz}
@@ -170,7 +211,7 @@
         \end{frame}
     }
 
-    % Section slide with consistent styling
+    % Section slide
     \newcommand{\sectionframe}[1]{
         \begin{frame}[plain,noframenumbering]
             \centering
@@ -180,54 +221,42 @@
         \end{frame}
     }
 
-    % Clean bullet points without excessive animation
+    % Clean itemize
     \newcommand{\cleanitem}{\item}
     \newcommand{\cleanitemize}[1]{
         \begin{itemize}[<+->]
             #1
         \end{itemize}
     }
-\fi\fi
-
-% Alternative pop quiz for inline content (works in all document classes)
-\newcommand{\inlinequiz}[2]{
-    \stepcounter{popquiz}
-    \begin{popquizbox}{\thepopquiz}
-        #1
-        
-        \vspace{0.5em}
-        \textbf{Answer:} #2
-    \end{popquizbox}
-}
+}{}
 
 % ==============================================================================
-% BEAMER-SPECIFIC STYLING
+% BEAMER FOOTER AND OTHER STYLING
 % ==============================================================================
 
-\ifx\isbeamer\undefined\else\if\isbeamer true
-    % Apple Keynote-inspired minimal footer
+\@ifclassloaded{beamer}{
+    % Clean minimal footer with working slide numbers
     \setbeamertemplate{footline}{
-        \hfill
-        \usebeamerfont{page number in head/foot}
-        \usebeamercolor[fg]{page number in head/foot}
-        \raisebox{2pt}{\small\insertframenumber\,/\,\inserttotalframenumber}
-        \hspace{1cm}
-        \vspace{0.4cm}
+        \leavevmode%
+        \hbox{%
+            \begin{beamercolorbox}[wd=\paperwidth,ht=2.25ex,dp=1ex,right]{page number in head/foot}%
+                \usebeamerfont{page number in head/foot}\insertframenumber{}\,/\,\inserttotalframenumber\hspace*{0.8em}
+            \end{beamercolorbox}
+        }%
+        \vskip0pt%
     }
-    \setbeamercolor{page number in head/foot}{fg=nipun-mediumgray}
+    \setbeamercolor{page number in head/foot}{fg=nipun-mediumgray, bg=}
+    \setbeamerfont{page number in head/foot}{size=\tiny, series=\mdseries}
 
-    % Remove navigation symbols
-    \setbeamertemplate{navigation symbols}{}
-
-    % Enhanced title page customization
+    % Clean title page
     \setbeamertemplate{title page}{
         \vfill
         \begin{center}
-            % Title with elegant styling
+            % Title
             {\Huge \textbf{\textcolor{nipun-darkblue}{\inserttitle}}}
             
             \vspace{0.8em}
-            % Subtle decorative line
+            % Simple line
             {\textcolor{nipun-lightblue}{\rule{0.6\textwidth}{0.5pt}}}
             
             \vspace{1em}
@@ -245,20 +274,20 @@
         \vfill
     }
 
-    % Table of contents styling
-    \setbeamertemplate{section in toc}[ball unnumbered]
-    \setbeamertemplate{subsection in toc}[square]
+    % Clean table of contents - simple and elegant
+    \setbeamertemplate{section in toc}[sections numbered]
+    \setbeamertemplate{subsection in toc}[subsections numbered]
 
-    % Better caption styling
+    % Caption styling
     \setbeamerfont{caption}{size=\small}
     \setbeamercolor{caption name}{fg=nipun-gray}
-\fi\fi
+}{}
 
 % ==============================================================================
-% FINAL TWEAKS
+% FINAL SETUP
 % ==============================================================================
 
-% Ensure consistent fonts (applies to all document classes)
+% Ensure consistent fonts
 \renewcommand{\familydefault}{\sfdefault}
 
 \endinput

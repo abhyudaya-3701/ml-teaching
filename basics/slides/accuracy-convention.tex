@@ -1,4 +1,4 @@
-\documentclass[usenames,dvipsnames]{beamer}
+\documentclass[dvipsnames]{beamer}
 \usepackage{../../shared/styles/custom}
 \usepackage{../../shared/styles/conventions}
 
@@ -13,7 +13,12 @@
 
   \maketitle
   
-  % Table of Contents
+  \begin{frame}{Outline}
+    \tableofcontents
+  \end{frame}
+
+  \section{Introduction to Machine Learning}
+  
   \begin{frame}{Digit Recognition Problem}
   Let us work on the digit recognition problem.
 
@@ -27,7 +32,7 @@
 	\end{frame}
 
 \begin{frame}{Rule-based Approach for Digit Recognition}
-Maybe 4 can be thought of as: $\bm{|}$ + $\bm{\rule[0.5ex]{1em}{.95pt}}$ + $\bm{|}$ + another vertically down $\bm{|}$
+Maybe 4 can be thought of as: $\bm{|}$ + $\bm{\rule[0.5ex]{1em}{.95pt}}$ + $\bm{|}$ + another vertical $\bm{|}$
 
 \begin{itemize}
 	\item \pause The heights of each of the $\bm{|}$ need to be similar within tolerance
@@ -41,6 +46,20 @@ Maybe 4 can be thought of as: $\bm{|}$ + $\bm{\rule[0.5ex]{1em}{.95pt}}$ + $\bm{
 \end{frame}	
 
 \section{Machine Learning Fundamentals}
+
+\begin{frame}{Pop Quiz: Rule-Based vs ML}
+\begin{popquizbox}{1}
+Why is it difficult to write rules for digit recognition?
+\begin{enumerate}
+\item[a)] Digits are always the same
+\item[b)] Variations in handwriting, rotation, thickness make rules complex
+\item[c)] Rules are faster than ML
+\end{enumerate}
+
+\vspace{0.5em}
+\textbf{Answer:} b) Handwriting variations make rule-based approaches extremely complex!
+\end{popquizbox}
+\end{frame}
 
 \begin{frame}{Apple Quality Features}
 \begin{itemize}
@@ -158,6 +177,20 @@ Both the training set and the test set are samples drawn from the hidden true di
 \end{table}
 \end{frame}
 
+\begin{frame}{Pop Quiz: Training Data}
+\begin{popquizbox}{2}
+What makes a good feature for machine learning?
+\begin{enumerate}
+\item[a)] Sample ID numbers
+\item[b)] Meaningful characteristics that relate to the output
+\item[c)] Random numbers
+\end{enumerate}
+
+\vspace{0.5em}
+\textbf{Answer:} b) Features should be meaningful and related to what you're predicting!
+\end{popquizbox}
+\end{frame}
+
 \section{Classification vs Regression}
 
 \begin{frame}{Classification vs Regression}
@@ -186,8 +219,22 @@ Both the training set and the test set are samples drawn from the hidden true di
 
 \end{frame}
 
-%\captionsetup[subtable]{labelformat=empty}
-%
+\begin{frame}{Pop Quiz: Problem Types}
+\begin{popquizbox}{3}
+Predicting house prices is an example of:
+\begin{enumerate}
+\item[a)] Classification (discrete output)
+\item[b)] Regression (continuous output)
+\item[c)] Neither
+\end{enumerate}
+
+\vspace{0.5em}
+\textbf{Answer:} b) Regression - house prices are continuous values!
+\end{popquizbox}
+\end{frame}
+
+\section{Evaluation Metrics}
+
 \begin{frame}{Accuracy Calculation}
 \[
 \text{Accuracy} = \frac{|\{i : y_i = \hat{y}_i\}|}{n} = \frac{3}{5} = 0.6
@@ -226,7 +273,9 @@ Cases for this:
 \text{Precision} &= \frac{|\{i : y_i = \hat{y}_i = \text{Good}\}|}{|\{i : \hat{y}_i = \text{Good}\}|} = \frac{2}{4} = 0.5
 \end{align*}
 
-``the fraction of relevant instances among the retrieved instances'', i.e. ``out of the number of times we predict \text{Good}, how many times is the condition actually \text{Good}''
+\textbf{Definition:} ``The fraction of relevant instances among the retrieved instances''
+
+\textbf{In simple terms:} Out of all times we predict ``Good'', how many times is it actually ``Good''?
 
 \end{frame}
 
@@ -240,98 +289,116 @@ Cases for this:
 \end{frame}
 
 \begin{frame}{Confusion Matrix}
-\vspace{40pt}
+\vspace{5pt}
 \begin{center}
 \begin{tabular}{@{}cc cc@{}}
-	\multicolumn{1}{c}{} &\multicolumn{1}{c}{} &\multicolumn{2}{c}{Ground Truth} \\ 
+	\multicolumn{1}{c}{} &\multicolumn{1}{c}{} &\multicolumn{2}{c}{\textbf{Ground Truth}} \\ 
 	\cmidrule(lr){3-4}
 	\multicolumn{1}{c}{} & 
 	\multicolumn{1}{c}{} & 
 	\multicolumn{1}{c}{Positive} & 
 	\multicolumn{1}{c}{Negative} \\ 
 	\cline{2-4}
-	\multirow[c]{2}{*}{\rotatebox[origin=tr]{90}{Predicted}}
-	& Positive  & \cellcolor{blue!20}True Positive (TP) & \cellcolor{red!20}False Positive (FP)   \\[1.5ex]
-	& Negative  & \cellcolor{red!20}False Negative (FN)   & \cellcolor{green!20}True Negative (TN) \\ 
+	\multirow[c]{2}{*}{\rotatebox[origin=tr]{90}{\textbf{Predicted}}}
+	& Positive  & \cellcolor{blue!60}\textbf{True Positive (TP)} & \cellcolor{orange!70}\textbf{False Positive (FP)}   \\[1.2ex]
+	& Negative  & \cellcolor{red!70}\textbf{False Negative (FN)}   & \cellcolor{gray!30}\textbf{True Negative (TN)} \\ 
 	\cline{2-4}
 \end{tabular}
 \end{center}
-\vspace{20pt}
+\vspace{8pt}
 \pause
-\textbf{Key Insight:} Each cell represents a different type of prediction outcome
+\begin{alertblock}{Key Insight}
+Each cell represents a different type of prediction outcome:
+\vspace{-0.5em}
+\begin{itemize}
+\item \colorbox{blue!60}{TP}: Correctly predicted positive
+\item \colorbox{orange!70}{FP}: Incorrectly predicted positive  
+\item \colorbox{red!70}{FN}: Missed a positive (dangerous!)
+\item \colorbox{gray!30}{TN}: Correctly predicted negative
+\end{itemize}
+\end{alertblock}
 \end{frame}
 
 \begin{frame}{Precision: "How accurate are my positive predictions?"}
-\vspace{20pt}
+\vspace{2pt}
 \begin{center}
 \begin{tabular}{@{}cc cc@{}}
-	\multicolumn{1}{c}{} &\multicolumn{1}{c}{} &\multicolumn{2}{c}{Ground Truth} \\ 
+	\multicolumn{1}{c}{} &\multicolumn{1}{c}{} &\multicolumn{2}{c}{\textbf{Ground Truth}} \\ 
 	\cmidrule(lr){3-4}
 	\multicolumn{1}{c}{} & 
 	\multicolumn{1}{c}{} & 
 	\multicolumn{1}{c}{Positive} & 
 	\multicolumn{1}{c}{Negative} \\ 
 	\cline{2-4}
-	\multirow[c]{2}{*}{\rotatebox[origin=tr]{90}{Predicted}}
-	& Positive  & \cellcolor{blue!40}\textbf{TP} & \cellcolor{blue!40}\textbf{FP}   \\[1.5ex]
-	& Negative  & \cellcolor{gray!10}FN   & \cellcolor{gray!10}TN \\ 
+	\multirow[c]{2}{*}{\rotatebox[origin=tr]{90}{\textbf{Predicted}}}
+	& \colorbox{yellow!40}{Positive}  & \cellcolor{blue!60}\textbf{TP} & \cellcolor{orange!70}\textbf{FP}   \\[1.2ex]
+	& Negative  & \cellcolor{gray!30}FN   & \cellcolor{gray!30}TN \\ 
 	\cline{2-4}
 \end{tabular}
 \end{center}
-\vspace{20pt}
-$$\text{Precision} = \frac{\text{TP}}{\text{TP + FP}} = \frac{\text{Correct Positives}}{\text{All Predicted Positives}}$$
+\vspace{6pt}
+$$\text{Precision} = \frac{\colorbox{blue!60}{\text{TP}}}{\colorbox{yellow!40}{\colorbox{blue!60}{\text{TP}} + \colorbox{orange!70}{\text{FP}}}} = \frac{\text{Correct Positives}}{\text{All Predicted Positives}}$$
 \pause
-\textbf{Focus:} Of all items I predicted as positive, how many were actually positive?
+\vspace{-0.3em}
+\begin{alertblock}{Focus: Look at the PREDICTED POSITIVE ROW}
+\textbf{Question:} When I predict "positive", how often am I right?\\
+\textbf{Answer:} Out of all my positive predictions (TP + FP), TP are correct.
+\end{alertblock}
 \end{frame}
 
 \begin{frame}{Recall: "How many actual positives did I find?"}
-\vspace{20pt}
+\vspace{2pt}
 \begin{center}
 \begin{tabular}{@{}cc cc@{}}
-	\multicolumn{1}{c}{} &\multicolumn{1}{c}{} &\multicolumn{2}{c}{Ground Truth} \\ 
+	\multicolumn{1}{c}{} &\multicolumn{1}{c}{} &\multicolumn{2}{c}{\textbf{Ground Truth}} \\ 
 	\cmidrule(lr){3-4}
 	\multicolumn{1}{c}{} & 
 	\multicolumn{1}{c}{} & 
-	\multicolumn{1}{c}{Positive} & 
+	\multicolumn{1}{c}{\colorbox{yellow!40}{Positive}} & 
 	\multicolumn{1}{c}{Negative} \\ 
 	\cline{2-4}
-	\multirow[c]{2}{*}{\rotatebox[origin=tr]{90}{Predicted}}
-	& Positive  & \cellcolor{green!40}\textbf{TP} & \cellcolor{gray!10}FP   \\[1.5ex]
-	& Negative  & \cellcolor{green!40}\textbf{FN}   & \cellcolor{gray!10}TN \\ 
+	\multirow[c]{2}{*}{\rotatebox[origin=tr]{90}{\textbf{Predicted}}}
+	& Positive  & \cellcolor{blue!60}\textbf{TP} & \cellcolor{gray!30}FP   \\[1.2ex]
+	& Negative  & \cellcolor{red!70}\textbf{FN}   & \cellcolor{gray!30}TN \\ 
 	\cline{2-4}
 \end{tabular}
 \end{center}
-\vspace{20pt}
-$$\text{Recall} = \frac{\text{TP}}{\text{TP + FN}} = \frac{\text{Correct Positives}}{\text{All Actual Positives}}$$
+\vspace{6pt}
+$$\text{Recall} = \frac{\colorbox{blue!60}{\text{TP}}}{\colorbox{yellow!40}{\colorbox{blue!60}{\text{TP}} + \colorbox{red!70}{\text{FN}}}} = \frac{\text{Correct Positives}}{\text{All Actual Positives}}$$
 \pause
-\textbf{Focus:} Of all items that are actually positive, how many did I correctly identify?
+\vspace{-0.3em}
+\begin{alertblock}{Focus: Look at the ACTUAL POSITIVE COLUMN}
+\textbf{Question:} Of all things that ARE positive, how many did I catch?\\
+\textbf{Answer:} Out of all actual positives (TP + FN), I found TP of them.
+\end{alertblock}
 \end{frame}
 
 \begin{frame}{Example: Medical Diagnosis}
 Let's say we're testing for a disease:
+\vspace{5pt}
 \begin{center}
 \begin{tabular}{@{}cc cc@{}}
-	\multicolumn{1}{c}{} &\multicolumn{1}{c}{} &\multicolumn{2}{c}{Actually Has Disease} \\ 
+	\multicolumn{1}{c}{} &\multicolumn{1}{c}{} &\multicolumn{2}{c}{\textbf{Actually Has Disease}} \\ 
 	\cmidrule(lr){3-4}
 	\multicolumn{1}{c}{} & 
 	\multicolumn{1}{c}{} & 
 	\multicolumn{1}{c}{Yes} & 
 	\multicolumn{1}{c}{No} \\ 
 	\cline{2-4}
-	\multirow[c]{2}{*}{\rotatebox[origin=tr]{90}{Test Says}}
-	& Positive  & \cellcolor{blue!20}90 & \cellcolor{red!20}10   \\[1.5ex]
-	& Negative  & \cellcolor{red!20}5   & \cellcolor{green!20}895 \\ 
+	\multirow[c]{2}{*}{\rotatebox[origin=tr]{90}{\textbf{Test Says}}}
+	& Positive  & \cellcolor{blue!60}\textbf{90} & \cellcolor{orange!70}\textbf{10}   \\[1.2ex]
+	& Negative  & \cellcolor{red!70}\textbf{5}   & \cellcolor{gray!30}\textbf{895} \\ 
 	\cline{2-4}
 \end{tabular}
 \end{center}
-
+\vspace{5pt}
 \pause
 \begin{align*}
-\text{Precision} &= \frac{90}{90 + 10} = \frac{90}{100} = 0.90 \text{ (90\%)} \\
+\text{Precision} &= \frac{\colorbox{blue!60}{90}}{\colorbox{blue!60}{90} + \colorbox{orange!70}{10}} = \frac{90}{100} = 0.90 \text{ (90\%)} \\
 \pause
-\text{Recall} &= \frac{90}{90 + 5} = \frac{90}{95} = 0.95 \text{ (95\%)} \\
+\text{Recall} &= \frac{\colorbox{blue!60}{90}}{\colorbox{blue!60}{90} + \colorbox{red!70}{5}} = \frac{90}{95} = 0.95 \text{ (95\%)} \\
 \pause
-\text{Accuracy} &= \frac{90 + 895}{1000} = 0.985 \text{ (98.5\%)}
+\text{Accuracy} &= \frac{\colorbox{blue!60}{90} + \colorbox{gray!30}{895}}{1000} = 0.985 \text{ (98.5\%)}
 \end{align*}
 \end{frame}
 
@@ -342,7 +409,21 @@ Is there any downside with using mean error?
 
 \end{frame}
 
-\section{Data Visualization and Baselines}
+\begin{frame}{Pop Quiz: Metrics Choice}
+\begin{popquizbox}{4}
+For cancer detection (1 positive case in 1000), which metric is most important?
+\begin{enumerate}
+\item[a)] Accuracy only
+\item[b)] Recall (finding all cancer cases)
+\item[c)] Speed of prediction
+\end{enumerate}
+
+\vspace{0.5em}
+\textbf{Answer:} b) Recall - we cannot afford to miss cancer cases!
+\end{popquizbox}
+\end{frame}
+
+\section{Advanced Topics}
 
 \begin{frame}{Pop Quiz}
 \begin{popquizbox}{1}
@@ -360,22 +441,29 @@ Which metrics should you use for imbalanced datasets?
 
 \begin{frame}{Key Takeaways}
 \begin{itemize}
-\item \textbf{ML vs Traditional Programming:} ML learns rules from data, traditional programming uses predefined rules
+\item \textbf{ML vs Traditional Programming:} \\
+      ML learns rules from data, traditional programming uses predefined rules
 	\pause
-\item \textbf{Features matter:} Choose meaningful features, avoid arbitrary identifiers
+\item \textbf{Features matter:} \\
+      Choose meaningful features, avoid arbitrary identifiers
 	\pause
-\item \textbf{Classification vs Regression:} Discrete outputs vs continuous outputs
+\item \textbf{Classification vs Regression:} \\
+      Discrete outputs vs continuous outputs
 	\pause
-\item \textbf{Accuracy isn't everything:} For imbalanced data, use precision, recall, F1-score
+\item \textbf{Accuracy isn't everything:} \\
+      For imbalanced data, use precision, recall, F1-score
 	\pause
-\item \textbf{Visualization is crucial:} Always plot your data (Anscombe's Quartet lesson)
+\item \textbf{Visualization is crucial:} \\
+      Always plot your data first
 	\pause
-\item \textbf{Use baselines:} Simple baseline models help validate your approach
+\item \textbf{Use baselines:} \\
+      Simple baseline models help validate your approach
 \end{itemize}
 \end{frame}
 
 \begin{frame}{Summary: Evaluation Metrics}
 \begin{center}
+\resizebox{0.95\textwidth}{!}{%
 \begin{tabular}{|l|l|l|}
 \hline
 \textbf{Task} & \textbf{Common Metrics} & \textbf{When to Use} \\
@@ -387,10 +475,14 @@ Which metrics should you use for imbalanced datasets?
  & Mean Error & Check for bias \\
 \hline
 \end{tabular}
+}
 \end{center}
 
 \vspace{1cm}
-\textbf{Remember:} Choose metrics based on your problem's characteristics and business requirements!
+\vspace{0.5em}
+\begin{alertblock}{Remember}
+Choose metrics based on your problem's characteristics and business requirements!
+\end{alertblock}
 \end{frame}
 
 \end{document}

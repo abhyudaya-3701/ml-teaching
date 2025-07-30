@@ -9,19 +9,42 @@ echo ""
 echo "🧹 Cleaning all build artifacts..."
 make clean
 
-# Build all and capture results
-echo "🔨 Building all slides..."
-if make all > build_results.log 2>&1; then
-    echo "✅ All slides built successfully!"
-    BUILD_SUCCESS=true
+# Count total topics and tex files for progress tracking
+TOPICS=(basics maths supervised unsupervised neural-networks advanced optimization)
+TOTAL_TOPICS=${#TOPICS[@]}
+echo "📊 Building ${TOTAL_TOPICS} topics..."
+echo ""
+
+# Build all with progress reporting
+echo "🔨 Building all slides with progress..."
+BUILD_SUCCESS=true
+CURRENT_TOPIC=0
+
+for topic in "${TOPICS[@]}"; do
+    CURRENT_TOPIC=$((CURRENT_TOPIC + 1))
+    PROGRESS=$(( (CURRENT_TOPIC * 100) / TOTAL_TOPICS ))
+    
+    echo "[${CURRENT_TOPIC}/${TOTAL_TOPICS}] (${PROGRESS}%) Building ${topic}..."
+    
+    if make -C "$topic" all >> build_results.log 2>&1; then
+        echo "  ✅ ${topic} completed successfully"
+    else
+        echo "  ❌ ${topic} failed to build"
+        BUILD_SUCCESS=false
+    fi
+    echo ""
+done
+
+if [ "$BUILD_SUCCESS" = true ]; then
+    echo "🎉 All slides built successfully!"
 else
     echo "❌ Some slides failed to build"
-    BUILD_SUCCESS=false
 fi
 
 # Analyze results
 echo ""
 echo "=== BUILD SUMMARY ==="
+echo "Completed at $(date)"
 echo ""
 
 # Count successes

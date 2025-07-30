@@ -9,14 +9,20 @@ TEX_FILES := $(wildcard $(SLIDES_DIR)/*.tex)
 PDF_FILES := $(TEX_FILES:.tex=.pdf)
 
 # Default target
-all: $(PDF_FILES)
+all:
+	@echo "uD83DuDCCA Building $(words $(TEX_FILES)) slides in $(TOPIC)..."
+	@$(MAKE) $(PDF_FILES)
+	@echo "uD83DuDCCA u2705 Topic $(TOPIC) completed: $(words $(PDF_FILES)) PDFs generated"
 
 # Rule to compile LaTeX to PDF
+# Rule to compile LaTeX to PDF using XeLaTeX for Inter font support
 $(SLIDES_DIR)/%.pdf: $(SLIDES_DIR)/%.tex $(SHARED_DIR)/styles/*.sty $(SHARED_DIR)/notation/*.sty
-	@echo "Compiling $< to $@"
-	cd $(SLIDES_DIR) && pdflatex -interaction=nonstopmode $(notdir $<) || true
-	cd $(SLIDES_DIR) && pdflatex -interaction=nonstopmode $(notdir $<) || true
-	@if [ ! -f $@ ]; then echo "ERROR: Failed to generate $@"; exit 1; fi
+	@echo "  🔨 Compiling $(notdir $<)..."
+	@echo "    📄 Pass 1/2: Processing references and citations..."
+	@cd $(SLIDES_DIR) && xelatex -interaction=batchmode $(notdir $<) || true
+	@echo "    📄 Pass 2/2: Finalizing layout and cross-references..."
+	@cd $(SLIDES_DIR) && xelatex -interaction=batchmode $(notdir $<) || true
+	@if [ ! -f $@ ]; then echo "    ❌ ERROR: Failed to generate $@"; exit 1; else echo "    ✅ Generated $@"; fi
 
 # Clean auxiliary files
 clean:
