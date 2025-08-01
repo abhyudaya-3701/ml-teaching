@@ -2,6 +2,8 @@
 \usepackage{../../shared/styles/custom}
 \usepackage{../../shared/styles/conventions}
 
+
+
 \newcommand{\vecuvec}[2] %start point, end point (of vector)
 {   \VECTORSUB(#2)(#1)(\sola,\solb,\solc)
 	\UNITVECTOR(\sola, \solb, \solc)(\sola,\solb,\solc)
@@ -12,7 +14,13 @@
 	\temp
 }
 
+
 %\beamerdefaultoverlayspecification{<+->}
+
+
+
+
+
 
 \title{Linear Regression}
 \date{\today}
@@ -21,15 +29,157 @@
 \begin{document}
 \maketitle
 
-\begin{frame}\begin{tcolorbox}
+\begin{frame}{Table of Contents}
+\tableofcontents
+\end{frame}
+
+\section{Setup}
+  
+% \section{Linear Regression}
+
+\begin{frame}{Linear Regression}
+\begin{itemize}
+	
+	
+	\item<+-> Output is continuous in nature.
+	\item<+-> Examples of linear systems:
+	\begin{itemize}
+		\item<+-> $F=ma$
+		\item<+-> $v=u+at$
+	\end{itemize}
+	
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Task at hand}
+\begin{itemize}
+
+\item TASK: Predict Weight = f(height)
+\end{itemize}
+\begin{center}
+    
+
+\begin{tabular}{ |c|c|c|c| } 
+\hline
+ Height & Weight \\
+\hline
+3 & 29 \\ 
+4 & 35 \\ 
+5 & 39\\
+2 & 20\\
+6 & 41\\
+\hline
+\hline
+7 & ?\\
+8 & ?\\
+1 &? \\
+\hline
+\end{tabular}
+
+\end{center}
+The first part of the dataset is the training points. The latter ones are testing points.	
+
+\end{frame}
+
+
+\begin{frame}{Scatter Plot}
+\begin{tikzpicture}
+
+\pgfplotsset{
+	scale only axis,
+}
+
+\begin{axis}[
+xlabel=$height~(ft)$,
+ylabel=$weight~(kg)$,
+xmin=0,
+axis x line*=bottom,
+axis y line*=left,
+xtick align=outside,
+ytick align=outside
+]
+
+\addplot[only marks, mark=*]
+coordinates{ % plot 1 data set
+	(6, 80)
+	(5.5, 80)
+	(6, 70)
+	(5, 40)
+	(5, 60)
+	(4, 30)
+	(4, 45)
+	(4, 20)
+	(6, 120)
+	(2, 15)
+	(1, 5)
+	(0.5, 4)
+	(3, 20)
+	(6, 62)
+	(5, 57)
+	
+
+	% more points...
+}; 
+\node[label={180:{Outlier}},circle,fill,inner sep=2pt] at (axis cs:6,120) {};
+\node[label={-90:{Outlier}},circle,fill,inner sep=2pt] at (axis cs:4,20) {};
+
+% plot 1 legend entry
+
+
+\end{axis}
+
+\end{tikzpicture}
+
+
+\end{frame}
+
+
+\begin{frame}{Matrix representation of the expression}
+
+
+\begin{itemize}
+\item $weight_{1} \approx \theta_{0} + \theta_{1} \cdot height_{1}$
+
+\item $weight_{2} \approx \theta_{0} + \theta_{1} \cdot height_{2}$
+
+\item $weight_{N} \approx \theta_{0} + \theta_{1} \cdot height_{N}$
+
+\end{itemize}
+\begin{center}
+\pause	\begin{tcolorbox}
 		$weight_{i} \approx \theta_{0} + \theta_{1} \cdot height_{i}$
 	\end{tcolorbox}
 \end{center}
 \end{frame}
 
-\begin{frame}\[\yhat_{n \times 1} = \mX_{n \times d} \vtheta_{d \times 1} \]
+
+
+\begin{frame}{Matrix representation of the expression}
+
+
+
+\[\begin{bmatrix}
+    weight_{1}   \\
+    weight_{2}   \\
+    \dots \\
+    weight_{N}
+\end{bmatrix}
+= \begin{bmatrix}
+    1& height_{1}   \\
+    1& height_{2}   \\
+    \dots & \dots  \\
+    1& height_{N}   \\
+\end{bmatrix}
+\begin{bmatrix}
+    \theta_{0} \\
+    \theta_{1}
+\end{bmatrix}\] \\
+
+\pause \[\yhat_{n \times 1} = \mX_{n \times d} \vtheta_{d \times 1} \]
+
 
 %W(N \times 1); X(N\times 2); \theta(2 \times 1);
+
 
 \pause \begin{itemize}
     \item<+-> $\theta_{0}$ - Bias Term/Intercept Term
@@ -37,7 +187,12 @@
 \end{itemize}
 \end{frame}
 
-\begin{frame}Examples in multiple dimensions.\\
+
+
+\begin{frame}{Extension to multiple dimensions}
+
+In the previous example y = f(x), where x is one-dimensional.\\
+\pause Examples in multiple dimensions.\\
 \pause One example is to predict the water demand of the IITGN campus
 
 \small{
@@ -56,7 +211,61 @@
 
 \end{frame}
 
-\begin{frame}\[\begin{bmatrix}
+\begin{frame}{Intuition}
+    We hope to: 
+    \begin{itemize}
+        \item Learn $f$: $Demand$ = $f(\# occupants, Temperature)$
+        \item From training dataset
+        \item To predict the condition for the testing set
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Linear Relationship}
+    We have 
+    \begin{itemize}[<+->]
+    	\item $x_i = \begin{bmatrix}
+    	Temperature_i\\\#Occupants_i
+    	\end{bmatrix}$
+        \item Estimated demand for $i^{th}$ sample is  $\hat{demand_{i}} = \theta_{0} + \theta_{1} Temperature_i + \theta_{2} Occupants_i$
+        \item $\hat{demand_{i}} = x_{i}'^{T} \theta$
+        \item where $\theta = \begin{bmatrix}\theta_0\\\theta_1\\ \theta_2
+        \end{bmatrix}$
+        \item and $x_{i}' = \begin{bmatrix}
+        1\\Temperature_i\\\#Occupants_i
+        \end{bmatrix} = \begin{bmatrix}
+        1 \\ x_i
+        \end{bmatrix}$
+        \item Notice the transpose in the equation! This is because $x_{i}$ is a column vector
+    \end{itemize}
+
+\end{frame}
+
+
+
+
+
+\begin{frame}{We can expect the following}
+    \begin{itemize}
+        \item<+-> Demand increases, if \# occupants increases, then $\theta_{2}$ is likely to be positive
+        
+        \item<+-> Demand increases, if temperature increases, then $\theta_{1}$ is likely to be positive
+        
+        \item<+-> Base demand is independent of the temperature and the \# occupants, but, likely positive, thus $\theta_0$ is likely positive.
+        
+    \end{itemize}
+\end{frame}
+
+
+\section{Normal Equation}
+\begin{frame}{Generalized Linear Regression Format}
+\begin{itemize}[<+->]
+	\item Assuming $N$ samples for training
+	\item \# Features = $M$
+\end{itemize}
+
+
+   \pause \[\begin{bmatrix}
         \hat{y_{1}}\\
         \hat{y_{2}} \\
         \vdots \\
@@ -85,14 +294,212 @@
    
   \pause  \begin{tcolorbox}
    \begin{center}
+       
+   
 
    $ \hat{Y} = X\theta$
    \end{center}
    \end{tcolorbox}
 
+   
 \end{frame}
 
-\begin{frame}\begin{tcolorbox}
+
+\begin{frame}{Relationships between feature and target variables}
+    \begin{itemize}
+    	\item  There could be different $\theta_{0}, \theta_{1} \dots \theta_{M}$. Each of them can represents a relationship.
+    	\item  Given multiples values of $\theta_{0}, \theta_{1} \dots \theta_{M}$ how to choose which is the  best?
+    	\item Let us consider an example in 2d
+    \end{itemize}
+   
+    
+   
+    
+\end{frame}
+
+\begin{frame}{Relationships between feature and target variables}
+Out of the three fits, which one do we choose? \vspace{10pt}
+\begin{tikzpicture}
+
+\pgfplotsset{
+	scale only axis,
+}
+
+\begin{axis}[
+xlabel=$x$,
+ylabel=$y$,
+xmin=-1,
+axis x line*=bottom,
+axis y line*=left,
+xtick align=outside,
+ytick align=outside,
+legend pos=outer north east
+]
+
+\addplot[mark=none,blue] {x};\addlegendentry{$\hat{y}=0+1x$}
+\addplot[mark=none,yellow] {x+2};\addlegendentry{$\hat{y}=2+1x$}
+\addplot[mark=none,green] {2*x-2};\addlegendentry{$\hat{y}=-2+2x$}
+\addplot[only marks, mark=*]
+coordinates{ % plot 1 data set
+	(0,0)
+	(1,1)
+	(2,2)
+	(3,3)
+	% more points...
+}; \addlegendentry{Train data}
+
+
+% plot 1 legend entry
+
+
+\end{axis}
+
+\end{tikzpicture}
+
+\end{frame}
+
+
+\begin{frame}{Relationships between feature and target variables}
+We have $\hat{y}=2+1x$ as one relationship.\vspace{10pt}
+\begin{tikzpicture}
+
+\pgfplotsset{
+	scale only axis,
+}
+
+\begin{axis}[
+xlabel=$x$,
+ylabel=$y$,
+xmin=-1,
+axis x line*=bottom,
+axis y line*=left,
+xtick align=outside,
+ytick align=outside,
+legend pos=outer north east
+]
+
+
+\addplot[mark=none,yellow] {x+2};\addlegendentry{$\hat{y}=2+1x$}
+\addplot[only marks, mark=*]
+coordinates{ % plot 1 data set
+	(0,0)
+	(1,1)
+	(2,2)
+	(3,3)
+	% more points...
+}; 
+\addplot[only marks, mark=*, yellow]
+coordinates{ % plot 1 data set
+	(0,2)
+	(1,3)
+	(2,4)
+	(3,5)
+	% more points...
+}; ;\addlegendentry{Train Data}
+
+% plot 1 legend entry
+
+
+\end{axis}
+
+\end{tikzpicture}
+
+\end{frame}
+
+
+\begin{frame}{Relationships between feature and target variables}
+How far is our estimated $\hat{y}$ from ground truth $y$?\vspace{10pt}
+\begin{tikzpicture}
+
+\pgfplotsset{
+	scale only axis,
+}
+
+\begin{axis}[
+xlabel=$x$,
+ylabel=$y$,
+xmin=-1,
+axis x line*=bottom,
+axis y line*=left,
+xtick align=outside,
+ytick align=outside,
+legend pos=outer north east
+]
+
+
+\addplot[mark=none,yellow] {x+2};\addlegendentry{$\hat{y}=2+1x$}
+\addplot[only marks, mark=*]
+coordinates{ % plot 1 data set
+	(0,0)
+	(1,1)
+	(2,2)
+	(3,3)
+	% more points...
+}; 
+\addplot[only marks, mark=*, yellow]
+coordinates{ % plot 1 data set
+	(0,2)
+	(1,3)
+	(2,4)
+	(3,5)
+	% more points...
+}; 
+\draw (axis cs:0,0) -- node[left, ]{$\epsilon_{1}$}(axis cs:0,2);
+\draw (axis cs:1,1) -- node[left,]{$\epsilon_{2}$}(axis cs:1,3);
+\draw (axis cs:2,2) -- node[left,]{$\epsilon_{3}$}(axis cs:2,4);
+\draw (axis cs:3,3) -- node[left,]{$\epsilon_{4}$}(axis cs:3,5);
+
+% plot 1 legend entry
+
+
+\end{axis}
+
+\end{tikzpicture}
+
+\end{frame}
+
+
+\begin{frame}{Error terms}
+
+
+	\begin{itemize}[<+->]
+		\item $y_{i} = \hat{y}_{i} + \epsilon_{i}$ where $\epsilon_{i} \sim \mathcal{N}(0, \sigma^2)$
+		\item $y_{i}$ denotes the ground truth for $i^{th}$ sample
+		\item $\hat{y}_{i}$ denotes the prediction for $i^{th}$ sample, where $\hat{y}_{i} = \vx_{i}\tp \vtheta$
+		\item $\epsilon_{i}$ denotes the error/residual for $i^{th}$ sample
+		\item $\theta_{0}, \theta_{1}$: The parameters of the linear regression
+		\item   $  \epsilon_{i} = y_{i} - \hat{y}_{i}$
+		\item     $\epsilon_{i} = y_{i} - (\theta_{0} + x_{i} \cdot \theta_{1})$
+
+\end{itemize}
+
+
+
+
+
+\end{frame}
+
+
+
+\begin{frame}{Good fit}
+
+\begin{itemize}
+    \item<+-> $|\epsilon_{1}|$, $|\epsilon_{2}|$, $|\epsilon_{3}|$, ... should be small.
+    \item<+-> 
+${\text{minimize }} \epsilon_{1}^2 + \epsilon_{2}^2 + \dots + \epsilon_{N}^2$ - $L_{2}$ Norm
+    \item<+-> 
+${\text{minimize }} |\epsilon_{1}| + |\epsilon_{2}| + \dots + |\epsilon_{n}|$ - $L_{1}$ Norm
+\end{itemize}
+\end{frame}
+
+
+
+
+
+\begin{frame}{Normal Equation}
+    
+    
+   \pause  \begin{tcolorbox}
        $ Y = X\theta + \epsilon$
     \end{tcolorbox}
     
@@ -100,16 +507,441 @@
     \pause Objective: ${\text{minimize }} \epsilon_{1}^2 + \epsilon_{2}^2 + \dots + \epsilon_{N}^2$  
 \end{frame}
 
-\begin{frame}Objective:   Minimize $\epsilon^{T}\epsilon$    
+\begin{frame}{Normal Equation}
+    
+\begin{equation*}
+ \epsilon = 
+\begin{bmatrix}
+    \epsilon_{1} \\
+    \epsilon_{1} \\
+    \vdots \\
+    \epsilon_{N} \\
+\end{bmatrix}
+\end{equation*}
+\\
+\begin{center}
+ \pause Objective:   Minimize $\epsilon^{T}\epsilon$    
 \end{center}
 \end{frame}
 
-\begin{frame}The above table represents the data after transformation \\
+\begin{frame}{Derivation of Normal Equation}
+$$\vepsilon = \vy - \mX\vtheta$$
+
+$$\vepsilon\tp\vepsilon = (\vy - \mX\vtheta)\tp(\vy - \mX\vtheta)$$
+
+$$= \vy\tp\vy - 2\vy\tp\mX\vtheta + \vtheta\tp\mX\tp\mX\vtheta$$
+
+This is what we wish to minimize
+\end{frame}
+
+\begin{frame}{Minimizing the objective function}
+    
+    
+    $$\frac{\partial \vepsilon\tp \vepsilon}{\partial \vtheta} = 0$$
+    
+    
+    
+    \begin{itemize}
+        \item $\frac{\partial }{\partial \vtheta} \vy\tp\vy = 0$
+        \item $\frac{\partial }{\partial \vtheta}(-2\vy\tp\mX\vtheta ) = -2\mX\tp\vy$
+        \item $\frac{\partial}{\partial\vtheta} (\vtheta\tp\mX\tp\mX\vtheta) = 2\mX\tp\mX\vtheta$
+    \end{itemize}
+    
+    Substitute the values in the top equation
+    
+\end{frame}
+
+\begin{frame}{Normal Equation derivation}
+$$
+    0 = -2\mX\tp\vy + 2\mX\tp\mX\vtheta
+$$
+
+$$
+    \mX\tp\vy  = \mX\tp\mX\vtheta
+$$
+
+\begin{tcolorbox}
+\begin{center}
+        $\hat{\vtheta}_{OLS} = (\mX\tp\mX)\inv\mX\tp\vy$
+\end{center}
+\end{tcolorbox}
+
+\end{frame}
+
+\begin{frame}{Worked out example}
+    \begin{center}
+ \begin{tabular}{||c c||} 
+ \hline
+ x  & y \\ [0.5ex] 
+ \hline\hline
+ 0 & 0 \\
+ 1 & 1 \\
+ 2 & 2 \\
+ 3 & 3 \\
+ \hline
+\end{tabular}
+\end{center}
+
+Given the data above, find $\theta_{0}$ and $\theta_{1}$.
+
+\end{frame}
+
+
+\begin{frame}{Scatter Plot}
+\begin{tikzpicture}
+
+\pgfplotsset{
+	scale only axis,
+}
+
+\begin{axis}[
+	xlabel=$x$,
+	ylabel=$y$,
+	axis x line*=bottom,
+	axis y line*=left,
+	xtick align=outside,
+	ytick align=outside
+	]
+	\addplot[only marks, mark=*]
+	coordinates{ % plot 1 data set
+		(0,0)
+		(1,1)
+		(2,2)
+		(3,3)
+		% more points...
+	}; 
+	
+	% plot 1 legend entry
+	\addlegendimage{/pgfplots/refstyle=plot_one}
+
+\end{axis}
+\end{tikzpicture}
+    
+\end{frame}
+
+
+\begin{frame}{Worked out example}
+$$\mX = \begin{bmatrix}
+            1 & 0\\
+            1 & 1\\
+            1 & 2\\
+            1 & 3
+        \end{bmatrix}$$
+        
+$$\mX\tp = \begin{bmatrix}
+            1&1&1&1\\
+            0&1&2&3
+        \end{bmatrix}$$
+        
+$$\mX\tp\mX = \begin{bmatrix}
+            4 &6\\6&14
+        \end{bmatrix}$$
+
+Given the data above, find $\theta_{0}$ and $\theta_{1}$.
+\end{frame}
+
+
+\begin{frame}{Worked out example}
+    $$(\mX\tp\mX)\inv = \frac{1}{20} \begin{bmatrix}
+                14 & -6\\
+                -6& 4
+            \end{bmatrix}$$
+            
+    $$\mX\tp\vy = \begin{bmatrix}
+            1&1&1&1\\
+            0&1&2&3
+            \end{bmatrix}\begin{bmatrix}
+            0\\1\\2\\3
+            \end{bmatrix}=\begin{bmatrix}
+                6\\
+                14
+            \end{bmatrix}$$
+\end{frame}
+
+
+\begin{frame}{Worked out example}
+    $$\theta = (X^{T}X)^{-1}(X^{T}y)$$
+    
+    $$\begin{bmatrix}
+        \theta_{0}\\
+        \theta_{1}
+    \end{bmatrix} = \frac{1}{20} \begin{bmatrix}
+    14 & -6\\
+    -6& 4
+    \end{bmatrix}\begin{bmatrix}
+    6\\
+    14
+    \end{bmatrix} =
+    \begin{bmatrix}
+        0\\
+        1
+    \end{bmatrix}$$
+\end{frame}
+
+\begin{frame}{Scatter Plot}
+\begin{tikzpicture}
+
+\pgfplotsset{
+	scale only axis,
+}
+
+\begin{axis}[
+xlabel=$x$,
+ylabel=$y$,
+xmin=0,
+axis x line*=bottom,
+axis y line*=left,
+xtick align=outside,
+ytick align=outside,
+legend pos=outer north east
+]
+\addplot[mark=none, gray] {x};\addlegendentry{Fit ($\hat{y}=x)$}
+\addplot[only marks, mark=*]
+coordinates{ % plot 1 data set
+	(0,0)
+	(1,1)
+	(2,2)
+	(3,3)
+	% more points...
+}; 
+
+
+% plot 1 legend entry
+
+
+\end{axis}
+
+\end{tikzpicture}
+
+
+\end{frame}
+
+
+
+\begin{frame}{Effect of outlier}
+
+    \begin{center}
+ \begin{tabular}{||c c||} 
+ \hline
+ x  & y \\ [0.5ex] 
+ \hline\hline
+ 1 & 1 \\
+ 2 & 2 \\
+ 3 & 3 \\
+ 4 & 0 \\
+ \hline
+\end{tabular}
+\end{center}
+
+Compute the $\theta_{0}$ and $\theta_{1}$.
+\end{frame}
+
+\begin{frame}{Scatter Plot}
+\begin{tikzpicture}
+
+\pgfplotsset{
+	scale only axis,
+}
+
+\begin{axis}[
+xlabel=$x$,
+ylabel=$y$,
+axis x line*=bottom,
+axis y line*=left,
+xtick align=outside,
+ytick align=outside,
+legend pos=outer north east
+]
+\addplot[only marks, mark=*]
+coordinates{ % plot 1 data set
+	(1,1)
+	(2,2)
+	(3,3)
+	(4,0)
+	% more points...
+}; 
+\node[label={180:{Outlier}},circle,fill,inner sep=2pt] at (axis cs:4,0) {};
+
+% plot 1 legend entry
+\addlegendimage{/pgfplots/refstyle=plot_one}
+
+\end{axis}
+\end{tikzpicture}
+
+\end{frame}
+
+\begin{frame}{Worked out example}
+$$X = \begin{bmatrix}
+1 & 1\\
+1 & 2\\
+1 & 3 \\
+1 & 4
+\end{bmatrix}$$
+
+$$X^{T} = \begin{bmatrix}
+1&1&1&1\\
+1&2&3&4
+\end{bmatrix}$$
+
+$$X^{T}X = \begin{bmatrix}
+4 &10\\10&30
+\end{bmatrix}$$
+
+Given the data above, find $\theta_{0}$ and $\theta_{1}$.
+\end{frame}
+
+
+\begin{frame}{Worked out example}
+$$(\mX\tp\mX)\inv = \frac{1}{20} \begin{bmatrix}
+30 & -10\\
+-10& 4
+\end{bmatrix}$$
+
+$$\mX\tp\vy = \begin{bmatrix}
+6\\
+14
+\end{bmatrix}$$
+\end{frame}
+
+
+\begin{frame}{Worked out example}
+$$\vtheta = (\mX\tp\mX)\inv(\mX\tp\vy)$$
+
+$$\begin{bmatrix}
+\theta_{0}\\
+\theta_{1}
+\end{bmatrix} = 
+\begin{bmatrix}
+2\\
+(-1/5)
+\end{bmatrix}$$
+\end{frame}
+
+\begin{frame}{Scatter Plot}
+\begin{tikzpicture}
+
+\pgfplotsset{
+	scale only axis,
+}
+
+\begin{axis}[
+xlabel=$x$,
+ylabel=$y$,
+xmin=0.5,
+axis x line*=bottom,
+axis y line*=left,
+xtick align=outside,
+ytick align=outside,
+legend pos=outer north east
+]
+\addplot[mark=none, gray] {2-x/5};\addlegendentry{Fit ($\hat{y}=2-x/5$)}
+\addplot[only marks, mark=*]
+coordinates{ % plot 1 data set
+	(1,1)
+	(2,2)
+	(3,3)
+	(4,0)
+	% more points...
+}; 
+\node[label={180:{Outlier}},circle,fill,inner sep=2pt] at (axis cs:4,0) {};
+
+% plot 1 legend entry
+
+
+\end{axis}
+
+\end{tikzpicture}
+
+
+\end{frame}
+
+
+
+\section{Basis Expansion}
+
+\begin{frame}{Variable Transformation}
+    Transform the data, by including the higher power terms in the feature space. 
+    
+       
+    \begin{center}
+ \begin{tabular}{||c c||} 
+ \hline
+ t  & s \\ [0.5ex] 
+ \hline\hline
+ 0 & 0 \\
+ 1 & 6 \\
+ 3 & 24 \\
+ 4 & 36 \\
+ \hline
+\end{tabular}
+\end{center}
+
+The above table represents the data before transformation
+\end{frame}
+
+
+\begin{frame}{Variable Transformation}
+Add the higher degree features to the previous table
+    
+       
+    \begin{center}
+ \begin{tabular}{||c c c||} 
+ \hline
+ t  & $t^{2}$ & s \\ [0.5ex] 
+ \hline\hline
+ 0 & 0&0 \\
+ 1 & 1&6 \\
+ 3 & 9&24 \\
+ 4 & 16&36 \\
+ \hline
+\end{tabular}
+\end{center}
+
+\pause The above table represents the data after transformation \\
 \pause Now, we can write $\hat{s}=f(t, t^2)$ \\
 \pause Other transformations: $\log(x), x_1\times x_2$
 \end{frame}
 
-\begin{frame}\\A linear combination of $\vv_{1},\vv_{2},\vv_{3},\dots,\vv_{i}$ is of the following form
+\begin{frame}{A big caveat: Linear in what?!\footnotemark}
+\begin{enumerate}[<+->]
+	\item $\hat{s}=\theta_0 + \theta_1*t$
+	 is linear
+	 \item Is $\hat{s}=\theta_0 + \theta_1*t + \theta_2*t^2$
+	 linear?
+	 \item Is $\hat{s}=\theta_0 + \theta_1*t + \theta_2*t^2 + \theta_3*\cos(t^3)$
+	 linear?
+	\item Is $\hat{s}=\theta_0 + \theta_1*t + {\rm e}^{\theta_2}*t$
+	linear?
+	\item All except \#4 are linear models! 
+	\item Linear refers to the relationship between the parameters that you are estimating ($\theta$) and the outcome 
+\end{enumerate}
+\footnotetext[1]{\url{https://stats.stackexchange.com/questions/8689/what-does-linear-stand-for-in-linear-regression}}
+\end{frame}
+
+\begin{frame}{Basis Functions}
+    \begin{itemize}
+        \item Linear regression only refers to linear in the parameters
+        \item We can perform an arbitrary nonlinear transformation $\phi(x)$ of the inputs $x$ and then linearly combine the components of this transformation.
+        \item $\phi: \Real^D \rightarrow \Real^K$ is called the basis function
+    \end{itemize} 
+    
+\end{frame}
+
+\begin{frame}{Basis Functions}
+    Some examples of basis functions:
+    \begin{itemize}
+        \item Polynomial basis: $\phi(x) = \{1, x, x^2, x^3, \dots\}$
+        \item Fourier basis: $\phi(x) = \{1, \sin(x), \cos(x), \sin(2x), \cos(2x), \dots\}$
+        \item Gaussian basis: $\phi(x) = \{1, \exp(-\frac{(x-\mu_1)^2}{2\sigma^2}), \exp(-\frac{(x-\mu_2)^2}{2\sigma^2}), \dots\}$
+        \item Sigmoid basis: $\phi(x) = \{1, \sigma(x-\mu_1), \sigma(x-\mu_2), \dots\}$ where $\sigma(x) = \frac{1}{1+e^{-x}}$
+    \end{itemize}
+    
+    
+\end{frame}
+
+\section{Geometric Interpretation}
+\begin{frame}{Linear Combination of Vectors}
+    Let $\vv_{1},\vv_{2},\vv_{3},\dots,\vv_{i}$ be vectors in  $\Real^{D}$, where $D$ denotes the dimensions. \pause \\A linear combination of $\vv_{1},\vv_{2},\vv_{3},\dots,\vv_{i}$ is of the following form
     
     \pause \begin{equation*}
         \alpha_{1}\vv_{1}+			\alpha_{2}\vv_{2}+			\alpha_{3}\vv_{3}+
@@ -120,7 +952,9 @@
     
 \end{frame}
 
-\begin{frame}The span of  $v_{1},v_{2},\dots,v_{i}$ is denoted by SPAN\{$v_{1},v_{2},\dots,v_{i} $\}
+\begin{frame}{Span of vectors}
+    Let $v_{1},v_{2},\dots,v_{i}$ be vectors in  ${\rm I\!R}^{D}$, with $D$ dimensions. \\
+    \pause The span of  $v_{1},v_{2},\dots,v_{i}$ is denoted by SPAN\{$v_{1},v_{2},\dots,v_{i} $\}
     
     \pause \begin{equation*}
     \{	\alpha_{1}v_{1}+			\alpha_{2}v_{2}+
@@ -132,20 +966,143 @@
     \pause If we stack the vectors $v_{1},v_{2},\dots,v_{i}$ as columns of a matrix $V$, then the span of $v_{1},v_{2},\dots,v_{i}$ is given as $V\alpha$ where $\alpha \in {\rm I\!R}^{i}$
 \end{frame}
 
-\begin{frame}Can we obtain a point (x, y) s.t. x = 3y? \\
+\begin{frame}{Example}
+Find the span of ($\begin{bmatrix}
+1 \\3
+\end{bmatrix}, \begin{bmatrix}
+2 \\1
+\end{bmatrix}) $
+
+\includegraphics{../assets/linear-regression/figures/geoemetric-span-1.pdf}
+
+
+
+\end{frame}
+
+\begin{frame}{Example}
+
+    \includegraphics{../assets/linear-regression/figures/geoemetric-span-2.pdf}
+
+    We have $v_3 = v_1 + v_2$ \\
+    We have $v_4 = v_1 - v_2$ \\
+
+
+\end{frame}
+
+\begin{frame}{Example}
+    Simulating the above example in python using different values of $\alpha_1$ and $\alpha_2$
+
+
+    \includegraphics{../assets/linear-regression/figures/geoemetric-span-3.pdf}
+    
+    Span(($v_1, v_2$)) $\in \mathcal{R}^2$
+\end{frame}
+
+
+\begin{frame}{Example}
+Find the span of ($\begin{bmatrix}
+1 \\2
+\end{bmatrix}, \begin{bmatrix}
+2 \\4
+\end{bmatrix}) $
+
+\pause Can we obtain a point (x, y) s.t. x = 3y? \\
 \pause No \\ 
 \pause Span of the above set is along the line y = 2x
 
 \includegraphics[scale=0.6]{../assets/linear-regression/figures/geoemetric-span-4.pdf}
 
+
 \end{frame}
 
-\begin{frame}\includegraphics[width=0.6\textwidth]{../assets/linear-regression/figures/geometric-1.pdf}
+\begin{frame}{Example}
+Find the span of ($\begin{bmatrix}
+1 \\1\\1
+\end{bmatrix}, \begin{bmatrix}
+2 \\-2\\2
+\end{bmatrix}) $
+\pause 
+    \includegraphics[width=0.6\textwidth]{../assets/linear-regression/figures/geometric-1.pdf}
+
 
 \pause The span is the plane $z=x$ or $x_3=x_1$
 \end{frame}
 
-\begin{frame}This condition arises when the $|X^{T}X|$ = 0.
+\begin{frame}{Geometric Interpretation}
+Consider $\mX$ and $\vy$ as follows. 
+$$
+\mX=\left(\begin{array}{cc}
+{1} & {2} \\
+{1} & {-2} \\
+{1} & {2}
+\end{array}\right), \quad \vy=\left(\begin{array}{c}
+{8.8957} \\
+{0.6130} \\
+{1.7761}
+\end{array}\right)
+$$
+\begin{itemize}[<+->]
+\item We are trying to learn $\vtheta$ for $\yhat=\mX\vtheta$ such that $\vert \vert \vy - \yhat \vert \vert_{2}$ is minimised
+\item Consider the two columns of $\mX$. Can we write $\mX\vtheta$ as the span of ($\begin{bmatrix}
+1 \\1\\1
+\end{bmatrix}, \begin{bmatrix}
+2 \\-2\\2
+\end{bmatrix}$)?
+\item We wish to find $\yhat$ such that 
+$$
+\underset{\yhat \in SPAN\{\bar{x_{1}},\bar{x_{2}},\dots,\bar{x_{D}}\} } \argmin \vert \vert \vy - \yhat \vert \vert_{2}
+$$
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{Geometric Interpretation}
+Span of ($\begin{bmatrix}
+1 \\1\\1
+\end{bmatrix}, \begin{bmatrix}
+2 \\-2\\2
+\end{bmatrix}) $
+
+
+\includegraphics[width=0.6\textwidth]{../assets/linear-regression/figures/geometric-2.pdf}
+
+\end{frame}
+
+
+\begin{frame}{Geometric Interpretation}	
+
+    \includegraphics[width=0.6\textwidth]{../assets/linear-regression/figures/geometric-3.pdf}
+
+    
+
+
+\begin{itemize}[<+->]
+\item We seek a $\yhat$ in the span of the columns of $\mX$ such that it is closest to $\vy$
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{Geometric Interpretation}	
+
+    \includegraphics[width=0.6\textwidth]{../assets/linear-regression/figures/geometric-4.pdf}
+
+    
+
+
+\begin{itemize}[<+->]
+\item This happens when $\vy-\yhat\perp \vx_j \forall j$ or $\vx_j\tp(\vy-\yhat)=0$
+\item $\mX\tp(\vy-\mX\vtheta)=0$
+\item $\mX\tp\vy = \mX\tp\mX\vtheta$ or $\hat{\vtheta} =(\mX\tp\mX)\inv\mX\tp\vy$ 
+\end{itemize}
+
+\end{frame}
+
+\section{Dummy Variables and Multicollinearity}
+\begin{frame}{Multi-collinearity}
+    There can be situations where inverse of $X^{T}X$ is not computable. \\
+    \pause This condition arises when the $|X^{T}X|$ = 0.
     
     \begin{equation}
     X = \begin{bmatrix}
@@ -157,8 +1114,28 @@
     
     \pause The matrix X is not full rank. 
     \end{frame}
-
-    \begin{frame}\begin{center}
+    
+    
+    
+    
+    
+    \begin{frame}{Multi-collinearity}
+    
+    It arises when one or more predictor variables/features in X can be expressed as a linear combination of others\\
+    \vspace{5mm}
+    
+    
+    
+    How to tackle it?
+    \begin{itemize}
+        \item<+-> Regularize
+        \item<+-> Drop variables
+        \item<+-> Avoid dummy variable trap
+    \end{itemize}
+    \end{frame}
+    \begin{frame}{Dummy variables}
+    Say Pollution in Delhi = P
+    \pause \begin{center}
         P = $\theta_{0}$ + $\theta_{1}$*\#Vehicles + $\theta_{1}$*
         \textit{Wind speed} + $\theta_{3}$ * \textit{Wind Direction}
     \end{center}
@@ -171,18 +1148,94 @@
     \pause Then this implies that S$>$W$>$E$>$N
     \end{frame}
     
-    \begin{frame}The N-1 variable encoding is better because the N variable encoding can cause multi-collinearity. \\
+    \begin{frame}{Dummy Variables}
+    \begin{center}
+    
+    N-1 Variable encoding\\
+    \vspace{1em}
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+        & Is it N? &Is it E? &Is it W?\\
+        \hline
+        \hline
+        N & 1&0&0 \\
+        E & 0&1&0\\
+        W & 0&0&1\\
+        S & 0&0&0\\
+        \hline
+    \end{tabular}
+    
+    \end{center}
+    \end{frame}
+    
+    
+    \begin{frame}{Dummy Variables}
+    \begin{center}
+    
+    N Variable encoding\\
+    \vspace{1em}
+    \begin{tabular}{|c|c|c|c|c|}
+    \hline
+    & Is it N? &Is it E? &Is it W? & Is it S?\\
+    \hline
+    \hline
+    N & 1&0&0&0 \\
+    E & 0&1&0&0\\
+    W & 0&0&1&0\\
+    S & 0&0&0&1\\
+    \hline
+    \end{tabular}
+    \end{center}
+    \end{frame}
+    
+    
+    
+    \begin{frame}{Dummy Variables}
+    Which is better N variable encoding or N-1 variable encoding? \\
+    
+    \pause The N-1 variable encoding is better because the N variable encoding can cause multi-collinearity. \\
     
     \pause Is it S = 1 - (Is it N + Is it W + Is it E) 
     
     \end{frame}
-
-    \begin{frame}W and S are related by one bit. 
+    
+    
+    \begin{frame}{Binary Encoding}
+    
+    \begin{center}
+    \begin{tabular}{|c|c|}
+    \hline
+    N & 00 \\
+    E& 01\\
+    W & 10\\
+    S& 11\\
+    \hline
+    \end{tabular}\\
+    \end{center}
+    
+    
+    \vspace{1em}
+    \pause W and S are related by one bit. 
     
     \pause This introduces dependencies between them, and this can cause confusion in classifiers.
     \end{frame}
     
-    \begin{frame}Encoding
+    \begin{frame}{Interpreting Dummy variables}
+    \begin{center}
+    \begin{tabular}{c|c}
+    Gender& height\\
+    \hline
+    \hline
+    F & \dots \\
+    F & \dots \\
+    F & \dots \\
+    M & \dots \\
+    M & \dots \\
+    \end{tabular}
+    
+    \end{center}
+    
+    \pause Encoding
     
     \begin{center}
     \pause \begin{tabular}{c|c}
@@ -199,7 +1252,9 @@
     
     \end{frame}
     
-    \begin{frame}\begin{tabular}{c|c}
+    \begin{frame}{Interpreting Dummy Variables}
+    \begin{center}
+        \pause \begin{tabular}{c|c}
             Is Female& height\\
             \hline
             \hline
@@ -219,16 +1274,24 @@
     \pause $\theta_{1}$ = Avg. female height (5+5.2+5.4)/3 - Avg. male height(5.9)
     \end{frame}
     
-    \begin{frame}\(x_{i}=\left\{\begin{array}{ll}{1} & {\text { if } i \text { th person is female }} \\ {-1} & {\text { if } i \text { th person is male }}\end{array}\right.\)
+    \begin{frame}{Interpreting Dummy Variables}
+    Alternatively, instead of a 0/1 coding scheme, we could create a dummy variable
+    
+    \pause \(x_{i}=\left\{\begin{array}{ll}{1} & {\text { if } i \text { th person is female }} \\ {-1} & {\text { if } i \text { th person is male }}\end{array}\right.\)
     
     \pause \(y_{i}=\theta_{0}+\theta_{1} x_{i}+\epsilon_{i}=\left\{\begin{array}{ll}{\theta_{0}+\theta_{1}+\epsilon_{i}} & {\text { if } i \text { th person is female }} \\ {\theta_{0}-\theta_{1}+\epsilon_{i}} & {\text { if } i \text { th person is male. }}\end{array}\right.\)
-
+    
+    
     \pause Now, $\theta_{0}$ can be interpreted as average person height. $\theta_{1}$ as the amount that female height is above average and male height is below average.
 \end{frame}
 
 \section{Practice and Review}
 
-\begin{frame}\item When does the normal equation have a unique solution?
+\begin{frame}{Pop Quiz: Linear Regression}
+\begin{enumerate}
+\item What is the geometric interpretation of least squares?
+\pause
+\item When does the normal equation have a unique solution?
 \pause
 \item How do polynomial features help with non-linear relationships?
 \pause
@@ -236,27 +1299,13 @@
 \end{enumerate}
 \end{frame}
 
-\begin{frame}\textbf{Violation Consequences:}
-\begin{itemize}
-\item Biased coefficient estimates
-\item Invalid confidence intervals
-\pause
-\item Poor prediction performance
-\end{itemize}
-\end{frame}
-
 \begin{frame}{Key Takeaways}
-\begin{itemize}
+\begin{itemize}[<+->]
 \item \textbf{Linear Model}: Assumes linear relationship between features and target
-\pause
 \item \textbf{Least Squares}: Minimizes sum of squared residuals
-\pause
 \item \textbf{Normal Equation}: Closed-form solution when $\mX\tp\mX$ is invertible
-\pause
 \item \textbf{Geometric View}: Projection onto column space of design matrix
-\pause
 \item \textbf{Feature Engineering}: Basis expansion enables non-linear modeling
-\pause
 \item \textbf{Foundation}: Building block for more complex models
 \end{itemize}
 \end{frame}
