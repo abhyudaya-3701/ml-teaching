@@ -17,10 +17,8 @@ all:
 # Rule to compile LaTeX to PDF using XeLaTeX for Inter font support
 $(SLIDES_DIR)/%.pdf: $(SLIDES_DIR)/%.tex $(SHARED_DIR)/styles/*.sty $(SHARED_DIR)/notation/*.sty
 	@echo "  🔨 Compiling $(notdir $<)..."
-	@echo "    📄 Pass 1/2: Processing references and citations..."
-	@cd $(SLIDES_DIR) && xelatex -interaction=batchmode $(notdir $<) || true
-	@echo "    📄 Pass 2/2: Finalizing layout and cross-references..."
-	@cd $(SLIDES_DIR) && xelatex -interaction=batchmode $(notdir $<) || true
+	@cd $(SLIDES_DIR) && xelatex -interaction=batchmode $(notdir $<) > /dev/null 2>&1 || true
+	@cd $(SLIDES_DIR) && xelatex -interaction=batchmode $(notdir $<) > /dev/null 2>&1 || true
 	@if [ ! -f $@ ]; then echo "    ❌ ERROR: Failed to generate $@"; exit 1; else echo "    ✅ Generated $@"; fi
 
 # Clean auxiliary files

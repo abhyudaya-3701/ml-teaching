@@ -1,14 +1,26 @@
 #!/bin/bash
-# rebuild_all.sh - Script to rebuild all PDFs and report failures
+# rebuild_all.sh - Script to rebuild all PDFs and report failures with detailed timing
+
+SCRIPT_START_TIME=$(date +%s)
+SCRIPT_START_DATE=$(date)
 
 echo "=== ML Teaching Repository - Rebuild All Slides ==="
-echo "Starting full rebuild at $(date)"
+echo "🕐 Starting full rebuild at $SCRIPT_START_DATE"
 echo ""
+
+# Initialize timing arrays
+declare -A TOPIC_START_TIMES
+declare -A TOPIC_END_TIMES
+declare -A TOPIC_DURATIONS
 
 # Clean everything first AND remove all PDFs to force complete rebuild
 echo "🧹 Cleaning all build artifacts and existing PDFs..."
+CLEAN_START=$(date +%s)
 make clean
 make distclean
+CLEAN_END=$(date +%s)
+CLEAN_DURATION=$((CLEAN_END - CLEAN_START))
+echo "   ⏱️  Cleaning completed in ${CLEAN_DURATION}s"
 
 # Count total topics and tex files for progress tracking
 TOPICS=(basics maths supervised unsupervised neural-networks advanced optimization)
@@ -38,11 +50,37 @@ for topic in "${TOPICS[@]}"; do
     
     echo "[${CURRENT_TOPIC}/${TOTAL_TOPICS}] (${PROGRESS}%) Building ${topic}..."
     
-    # Force clean rebuild: clean PDFs first, then rebuild
-    if make -C "$topic" distclean >> build_results.log 2>&1 && make -C "$topic" all >> build_results.log 2>&1; then
-        echo "  ✅ ${topic} completed successfully"
+    # Start timing for this topic
+    TOPIC_START_TIMES[$topic]=$(date +%s)
+    TOPIC_START_DATE=$(date)
+    echo "    🕐 Started ${topic} at $(date +'%H:%M:%S')"
+    
+    # Count .tex files in this topic
+    if [ -d "$topic/slides" ]; then
+        TOPIC_TEX_COUNT=$(find "$topic/slides" -name "*.tex" | wc -l)
+        echo "    📄 Processing $TOPIC_TEX_COUNT .tex files..."
+    fi
+    
+    # Build topic with detailed logging
+    echo "    🔨 Building ${topic}..."
+    if make -C "$topic" all >> build_results.log 2>&1; then
+        TOPIC_END_TIMES[$topic]=$(date +%s)
+        TOPIC_DURATIONS[$topic]=$((TOPIC_END_TIMES[$topic] - TOPIC_START_TIMES[$topic]))
+        MINUTES=$((TOPIC_DURATIONS[$topic] / 60))
+        SECONDS=$((TOPIC_DURATIONS[$topic] % 60))
+        
+        # Count generated PDFs
+        TOPIC_PDF_COUNT=$(find "$topic/slides" -name "*.pdf" | wc -l)
+        
+        echo "  ✅ ${topic} completed successfully in ${MINUTES}m ${SECONDS}s"
+        echo "     📊 Generated ${TOPIC_PDF_COUNT}/${TOPIC_TEX_COUNT} PDFs"
     else
-        echo "  ❌ ${topic} failed to build"
+        TOPIC_END_TIMES[$topic]=$(date +%s)
+        TOPIC_DURATIONS[$topic]=$((TOPIC_END_TIMES[$topic] - TOPIC_START_TIMES[$topic]))
+        MINUTES=$((TOPIC_DURATIONS[$topic] / 60))
+        SECONDS=$((TOPIC_DURATIONS[$topic] % 60))
+        
+        echo "  ❌ ${topic} build failed after ${MINUTES}m ${SECONDS}s"
         BUILD_SUCCESS=false
     fi
     echo ""
@@ -54,10 +92,29 @@ else
     echo "❌ Some slides failed to build"
 fi
 
+# Calculate total script time
+SCRIPT_END_TIME=$(date +%s)
+TOTAL_SCRIPT_DURATION=$((SCRIPT_END_TIME - SCRIPT_START_TIME))
+TOTAL_MINUTES=$((TOTAL_SCRIPT_DURATION / 60))
+TOTAL_SECONDS=$((TOTAL_SCRIPT_DURATION % 60))
+
 # Analyze results
 echo ""
 echo "=== BUILD SUMMARY ==="
-echo "Completed at $(date)"
+echo "🕐 Started at: $SCRIPT_START_DATE"
+echo "🕐 Completed at: $(date)"
+echo "⏱️  Total time: ${TOTAL_MINUTES}m ${TOTAL_SECONDS}s"
+echo ""
+
+# Timing breakdown by topic
+echo "⏱️  TIMING BREAKDOWN:"
+for topic in "${TOPICS[@]}"; do
+    if [ "${TOPIC_DURATIONS[$topic]}" ]; then
+        MINUTES=$((TOPIC_DURATIONS[$topic] / 60))
+        SECONDS=$((TOPIC_DURATIONS[$topic] % 60))
+        echo "   ${topic}: ${MINUTES}m ${SECONDS}s"
+    fi
+done
 echo ""
 
 # Count successes and show detailed breakdown
