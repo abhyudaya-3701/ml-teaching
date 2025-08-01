@@ -5,18 +5,30 @@ echo "=== ML Teaching Repository - Rebuild All Slides ==="
 echo "Starting full rebuild at $(date)"
 echo ""
 
-# Clean everything first
-echo "🧹 Cleaning all build artifacts..."
+# Clean everything first AND remove all PDFs to force complete rebuild
+echo "🧹 Cleaning all build artifacts and existing PDFs..."
 make clean
+make distclean
 
 # Count total topics and tex files for progress tracking
 TOPICS=(basics maths supervised unsupervised neural-networks advanced optimization)
 TOTAL_TOPICS=${#TOPICS[@]}
-echo "📊 Building ${TOTAL_TOPICS} topics..."
+
+# Count total .tex files across all topics
+TOTAL_TEX_FILES=0
+for topic in "${TOPICS[@]}"; do
+    if [ -d "$topic/slides" ]; then
+        TEX_COUNT=$(find "$topic/slides" -name "*.tex" | wc -l)
+        TOTAL_TEX_FILES=$((TOTAL_TEX_FILES + TEX_COUNT))
+        echo "📄 Found $TEX_COUNT .tex files in $topic"
+    fi
+done
+
+echo "📊 Building ${TOTAL_TOPICS} topics with ${TOTAL_TEX_FILES} total .tex files..."
 echo ""
 
-# Build all with progress reporting
-echo "🔨 Building all slides with progress..."
+# Build all with progress reporting - Force rebuild by using clean + all
+echo "🔨 Building all slides with progress (FORCED REBUILD)..."
 BUILD_SUCCESS=true
 CURRENT_TOPIC=0
 
@@ -26,7 +38,8 @@ for topic in "${TOPICS[@]}"; do
     
     echo "[${CURRENT_TOPIC}/${TOTAL_TOPICS}] (${PROGRESS}%) Building ${topic}..."
     
-    if make -C "$topic" all >> build_results.log 2>&1; then
+    # Force clean rebuild: clean PDFs first, then rebuild
+    if make -C "$topic" distclean >> build_results.log 2>&1 && make -C "$topic" all >> build_results.log 2>&1; then
         echo "  ✅ ${topic} completed successfully"
     else
         echo "  ❌ ${topic} failed to build"
@@ -47,9 +60,24 @@ echo "=== BUILD SUMMARY ==="
 echo "Completed at $(date)"
 echo ""
 
-# Count successes
+# Count successes and show detailed breakdown
 SUCCESS_COUNT=$(find . -name "*.pdf" -path "*/slides/*" | wc -l)
-echo "📊 Generated PDFs: $SUCCESS_COUNT"
+echo "📊 Generated PDFs: $SUCCESS_COUNT out of $TOTAL_TEX_FILES .tex files"
+
+# Show breakdown by topic
+echo ""
+echo "📊 BREAKDOWN BY TOPIC:"
+for topic in "${TOPICS[@]}"; do
+    if [ -d "$topic/slides" ]; then
+        TEX_COUNT=$(find "$topic/slides" -name "*.tex" | wc -l)
+        PDF_COUNT=$(find "$topic/slides" -name "*.pdf" | wc -l)
+        if [ "$PDF_COUNT" -eq "$TEX_COUNT" ]; then
+            echo "  ✅ $topic: $PDF_COUNT/$TEX_COUNT PDFs generated"
+        else
+            echo "  ❌ $topic: $PDF_COUNT/$TEX_COUNT PDFs generated"
+        fi
+    fi
+done
 
 # List successful builds
 echo ""
