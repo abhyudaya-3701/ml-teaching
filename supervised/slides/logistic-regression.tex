@@ -15,17 +15,112 @@
 \begin{document}
 \maketitle
 
-\begin{frame}Aim: Probability(Tomatoes $|$ Radius) ? or
-	\pause \framebox{More generally, P($y = 1 | \mX = \vx$)?}
+\section{Problem Setup}
+
+\begin{frame}{Classification Technique}
+%\vspace{5cm}
+\begin{minipage}{0.3\textwidth}
+	% Show the image at item three and afterwards
 	
+	\begin{figure}
+		
+		% From https://i.imgur.com/AyzVOIO.jpg
+		\includegraphics{../assets/logistic-regression/figures/logistic-orange-tomatoes-original.pdf}
+	\end{figure}
+\end{minipage} \\
+
 \end{frame}
 
-\begin{frame}Generally,
+\begin{frame}{Classification Technique}
+%\vspace{5cm}
+\begin{minipage}{0.3\textwidth}
+	% Show the image at item three and afterwards
+	
+	\begin{figure}
+		
+		% From https://i.imgur.com/AyzVOIO.jpg
+		\includegraphics{../assets/logistic-regression/figures/logistic-orange-tomatoes.pdf}
+	\end{figure}
+\end{minipage} \\
+%\vspace{-1.7cm}
+\pause Aim: Probability(Tomatoes $|$ Radius) ? or
+\pause \framebox{More generally, P($y = 1 | X = x$)?}
+
+\end{frame}
+
+\begin{frame}{Idea: Use Linear Regression}
+\hspace{2.5cm}
+\begin{minipage}{0.3\textwidth}
+	% Show the image at item three and afterwards
+	
+	\begin{figure}
+		
+		% From https://i.imgur.com/AyzVOIO.jpg
+		\includegraphics{../assets/logistic-regression/figures/linear-orange-tomatoes.pdf}
+	\end{figure}
+\end{minipage} \\
 \begin{equation*}
-P(y = 1 | \vx) = \mX\vtheta
+P(X = Orange | Radius) = \theta_{0} + \theta_{1} \times Radius
+\end{equation*}
+\pause Generally,
+\begin{equation*}
+P(y = 1 | x) = X\theta
 \end{equation*}
 \end{frame}
-\begin{frame}$\sigma(z) \rightarrow 1$\\
+\begin{frame}{Idea: Use Linear Regression}
+Prediction:\\
+If $\theta_{0} + \theta_{1}\times Radius > 0.5 \rightarrow$ Orange \\
+\hspace{3.3cm} Else $\rightarrow$ Tomato\\
+Problem:\\
+Range of $X\theta$ is $(-\infty, \infty)$\\
+But $P(y = 1 | \ldots) \in [0, 1]$
+\end{frame}
+
+\begin{frame}{Idea: Use Linear Regression}
+\includegraphics{../assets/logistic-regression/figures/linear-orange-tomatoes-decision.pdf}
+\end{frame}
+
+\begin{frame}{Idea: Use Linear Regression}
+\includegraphics{../assets/logistic-regression/figures/linear-orange-tomatoes-decision-modified.pdf}
+
+
+Linear regression for classification gives a poor prediction!
+\end{frame}
+
+\begin{frame}{Ideal boundary}
+\includegraphics{../assets/logistic-regression/figures/linear-orange-tomatoes-decision-ideal.pdf}
+
+\begin{itemize}[<+->]
+	\item Have a decision function similar to the above (but not so sharp and discontinuous)
+	\item Aim: use linear regression still!
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Idea: Use Linear Regression}
+\hspace{1cm}
+\begin{minipage}{0.3\textwidth}
+% Show the image at item three and afterwards
+\includegraphics{../assets/logistic-regression/figures/logistic.pdf}
+\end{minipage} \\
+Question. Can we still use Linear Regression? \\
+Answer. Yes! Transform $\hat{y} \rightarrow [0, 1]$
+\end{frame}
+
+\section{Logistic/Sigmoid function}
+
+\begin{frame}{Logistic / Sigmoid Function}
+$\hat{y} \in (-\infty, \infty)$ \\
+$\phi =$ Sigmoid / Logistic Function $(\sigma)$ \\
+$\phi(\hat{y}) \in [0, 1]$
+\begin{equation*}
+\sigma(z) = \frac{1}{1 + e^{-z}}
+\end{equation*}
+\includegraphics{../assets/logistic-regression/figures/logistic-function.pdf}
+\end{frame}
+
+\begin{frame}{Logistic / Sigmoid Function}
+ $z \rightarrow \infty$\\
+\pause  $\sigma(z) \rightarrow 1$\\
 \pause $z \rightarrow -\infty$\\
  \pause $\sigma(z) \rightarrow 0$\\
  \pause $z = 0$\\
