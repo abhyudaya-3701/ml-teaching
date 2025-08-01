@@ -126,7 +126,7 @@ experience E.'' - Tom Mitchell
 \section{First ML Example: Tomato Quality Prediction}
 
 \begin{frame}{Pop Quiz \stepcounter{popquiz}\#\thepopquiz}
-\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Quick Question!]
+\begin{popquizbox}{\thepopquiz}
 In machine learning, which of the following is typically NOT a useful feature?
 \begin{itemize}
 	\item a) Color of a tomato for quality prediction
@@ -136,7 +136,7 @@ In machine learning, which of the following is typically NOT a useful feature?
 \end{itemize}
 \pause
 \textbf{Answer:} c) Sample ID numbers are arbitrary identifiers, not meaningful features!
-\end{tcolorbox}
+\end{popquizbox}
 \end{frame}
 
 \begin{frame}{First ML Task: Grocery Store Tomato Quality Prediction}
@@ -374,7 +374,7 @@ Answer:\begin{itemize}
 \section{Classification vs Regression}
 
 \begin{frame}{Pop Quiz \stepcounter{popquiz}\#\thepopquiz}
-\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Quick Question!]
+\begin{popquizbox}{\thepopquiz}
 Which of these is a regression problem?
 \begin{itemize}
 	\item a) Predicting if an email is spam or not
@@ -384,8 +384,8 @@ Which of these is a regression problem?
 \end{itemize}
 \pause
 \textbf{Answer:} c) House prices are continuous values - that's regression!
-\end{tcolorbox}
-\end{frame}
+\end{popquizbox}
+\end{frame>
 
 \begin{frame}{Classification vs Regression}
 \begin{itemize}
@@ -719,7 +719,7 @@ $$
 \end{frame}
 
 \begin{frame}{Pop Quiz \stepcounter{popquiz}\#\thepopquiz}
-\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Quick Question!]
+\begin{popquizbox}{\thepopquiz}
 In a dataset of 1000 samples where only 10 are positive cases, what's the accuracy of a classifier that always predicts "negative"?
 \begin{itemize}
 	\item a) 1\%
@@ -729,8 +729,8 @@ In a dataset of 1000 samples where only 10 are positive cases, what's the accura
 \end{itemize}
 \pause
 \textbf{Answer:} d) 99\% - but this classifier is useless! This shows why accuracy can be misleading.
-\end{tcolorbox}
-\end{frame}
+\end{popquizbox}
+\end{frame>
 
 \begin{frame}{Types of Data: Imbalanced Classes}
 Given predictions of whether a tissue is cancerous or not ($n = 100$).
@@ -999,7 +999,7 @@ Matthew's Coeff. = 0.14
 \section{Regression Metrics}
 
 \begin{frame}{Pop Quiz \stepcounter{popquiz}\#\thepopquiz}
-\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Quick Question!]
+\begin{popquizbox}{\thepopquiz}
 Why might Mean Absolute Error (MAE) be preferred over Mean Squared Error (MSE)?
 \begin{itemize}
 	\item a) MAE is always smaller
@@ -1009,7 +1009,7 @@ Why might Mean Absolute Error (MAE) be preferred over Mean Squared Error (MSE)?
 \end{itemize}
 \pause
 \textbf{Answer:} b) MAE is less sensitive to outliers since it doesn't square the errors!
-\end{tcolorbox}
+\end{popquizbox}
 \end{frame}
 
 \begin{frame}{Metrics for Regression: MSE \& MAE}
@@ -1096,7 +1096,7 @@ Linear regression line & 	y = 3.00 + 0.500x & up to 2 decimal places \\
 \section{Summary and Key Takeaways}
 
 \begin{frame}{Pop Quiz \stepcounter{popquiz}\#\thepopquiz}
-\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Final Challenge!]
+\begin{popquizbox}{\thepopquiz}
 For imbalanced datasets, which metrics should you prioritize over accuracy?
 \begin{itemize}
 	\item a) Only precision
@@ -1106,19 +1106,19 @@ For imbalanced datasets, which metrics should you prioritize over accuracy?
 \end{itemize}
 \pause
 \textbf{Answer:} c) Precision, recall, and F1-score give a more complete picture!
-\end{tcolorbox}
+\end{popquizbox}
 \end{frame}
 
 \begin{frame}{Key Takeaways}
-\begin{itemize}
+\begin{keypointsbox}
 	\item \textbf{ML vs Traditional Programming:} ML learns rules from data, traditional programming uses predefined rules
 	\item \textbf{Features matter:} Choose meaningful features, avoid arbitrary identifiers
 	\item \textbf{Classification vs Regression:} Discrete outputs vs continuous outputs
 	\item \textbf{Accuracy isn't everything:} For imbalanced data, use precision, recall, F1-score
 	\item \textbf{Visualization is crucial:} Always plot your data (Anscombe's Quartet lesson)
 	\item \textbf{Use baselines:} Simple baseline models help validate your approach
-\end{itemize}
-\end{frame}
+\end{keypointsbox}
+\end{frame>
 
 \begin{frame}{Summary: Evaluation Metrics}
 \begin{center}
@@ -1137,6 +1137,30 @@ For imbalanced datasets, which metrics should you prioritize over accuracy?
 
 \vspace{1cm}
 \textbf{Remember:} Choose metrics based on your problem's characteristics and business requirements!
+\end{frame}
+
+\begin{frame}{Colorbox Examples - Definition \& Example}
+\begin{definitionbox}{Machine Learning}
+A computer program is said to learn from experience E with respect to some class of tasks T and performance measure P if its performance at tasks in T, as measured by P, improves with experience E.
+\end{definitionbox}
+
+\vspace{0.5cm}
+
+\begin{examplebox}{Classification Task}
+Predicting whether an email is spam or not spam based on features like sender, subject line, and content.
+\end{examplebox}
+\end{frame}
+
+\begin{frame}{Colorbox Examples - Alert \& Theorem}
+\begin{alertbox}{Common Mistake}
+Never use accuracy alone for imbalanced datasets! A classifier that always predicts the majority class can have high accuracy but be completely useless.
+\end{alertbox}
+
+\vspace{0.5cm}
+
+\begin{theorembox}{Bayes' Theorem}
+For events A and B: $P(A|B) = \frac{P(B|A) \cdot P(A)}{P(B)}$
+\end{theorembox}
 \end{frame}
 
 \end{document}
