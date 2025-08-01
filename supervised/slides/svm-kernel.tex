@@ -10,6 +10,8 @@
 % 	\ifx\relax#1\relax  \item \else \item[#1] \fi
 % 	\abovedisplayskip=0pt\abovedisplayshortskip=0pt~\vspace*{-\baselineskip}}
 
+
+
 \graphicspath{ {./SVM/} }
 
 \title{Support Vector Machines}
@@ -253,23 +255,22 @@
   \end{minipage} \\
 	\end{frame}
 	\begin{frame}{RBF is Non-Parametric}
-		\begin{itemize}
-\item Now if we add a point to the dataset 
+		\begin{itemize}[<+->]
+			\item Now if we add a point to the dataset 
 			\item Functional form can adapt (similar to KNN) 
-			\pause
-\item $\therefore$ SVM with RBF kernel is non-parametric
+			\item $\therefore$ SVM with RBF kernel is non-parametric
 		\end{itemize}
 	\end{frame}
 
 	\begin{frame}{Interpretation of RBF}
-		\begin{itemize}
-\item $\hat{y}(x) = sign(\sum \alpha_{i}y_{i}e^{-\lvert\lvert x - x_{i} \rvert\rvert^{2}} + b)$
+		\begin{itemize}[<+->]
+			\item $\hat{y}(x) = sign(\sum \alpha_{i}y_{i}e^{-\lvert\lvert x - x_{i} \rvert\rvert^{2}} + b)$
 			\item ${-\lvert\lvert x - x_{i} \rvert\rvert^{2}}$ corresponds to radial term
-			\pause
-\item $\sum \alpha_{i}y_{i}$ is the activation component
+			\item $\sum \alpha_{i}y_{i}$ is the activation component
 			\item $e^{-\lvert\lvert x - x_{i} \rvert\rvert^{2}}$ is the basis component
 		\end{itemize}
-
+	    
+	    
 	\end{frame}
 	\begin{frame}{RBF: Effect of $\gamma$}
 	\vspace{2cm}
@@ -285,4 +286,5 @@
   \end{minipage} \\
 	\end{frame}
 
+	
 \end{document}

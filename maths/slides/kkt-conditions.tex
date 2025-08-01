@@ -11,6 +11,8 @@
 
 \graphicspath{ {../assets/kkt-conditions/diagrams/} }
 
+
+
 \title{KKT Conditions}
 \date{\today}
 \author{Nipun Batra}
@@ -31,7 +33,8 @@
 
 	\begin{frame}{Step 1}
 	\begin{itemize}
-\item Create a new function for minimization, \\
+	\only<1->{
+	\item Create a new function for minimization, \\
 	\vspace{0.5cm}
 	$L(x, \lambda_1, \dots, \lambda_m, \mu_1, \dots, \mu_n ) = f(x) + \sum\limits_{i=1}^{m}\lambda_ih_i(x) + \sum\limits_{j=1}^{n}\mu_jg_j(x)$\\
 	\vspace{0.5cm}
@@ -43,14 +46,14 @@
 
 	\begin{frame}{Step 2}
 	\begin{itemize}
-\item Minimize $L(x, \lambda, \mu)$ w.rt. $x \implies \nabla_xL(x, \lambda, \mu) = 0 $\\
+	\item Minimize $L(x, \lambda, \mu)$ w.rt. $x \implies \nabla_xL(x, \lambda, \mu) = 0 $\\
 	Gives $k$ equations
 	\end{itemize}
 	\end{frame}
 
 	\begin{frame}{Step 3}
 	\begin{itemize}
-\item Minimize $L(x, \lambda, \mu)$ w.rt. $\lambda \implies \nabla_\lambda L(x, \lambda, \mu) = 0 $\\
+	\item Minimize $L(x, \lambda, \mu)$ w.rt. $\lambda \implies \nabla_\lambda L(x, \lambda, \mu) = 0 $\\
 	Gives $m$ equations
 	\end{itemize}
 	\end{frame}

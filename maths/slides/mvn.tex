@@ -6,8 +6,11 @@
 
 %\beamerdefaultoverlayspecification{<+->}
 
+
 	\ifx\relax#1\relax  \item \else \item[#1] \fi
 	\abovedisplayskip=0pt\abovedisplayshortskip=0pt~\vspace*{-\baselineskip}}
+
+
 
 \title{Multivariate Normal Distribution I}
 \date{\today}
@@ -15,6 +18,9 @@
 \institute{IIT Gandhinagar}
 \begin{document}
   \maketitle
+  
+  
+
 
 \begin{frame}{Univariate Normal Distribution}
 
@@ -67,6 +73,7 @@ Pop Quiz: Why is the denominator the way it is? Let the normalizing constant be 
 \begin{frame}{Univariate Normal Distribution}
 	\includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{fig3}
 \end{frame}
+
 
 \begin{frame}{Bivariate Normal Distribution}
 Bivariate normal distribution of two-dimensional random vector $\bf{X} =\begin{bmatrix}
@@ -183,6 +190,7 @@ $g(\Sigma) = \begin{bmatrix}
 \end{bmatrix}_{2\times2} = \frac{1}{|\Sigma|} \operatorname{adj(\Sigma)} = \Sigma^{-1}$
 \end{frame}
 
+
 \begin{frame}{PDF of bivariate normal with no cross-correlation}
 Let us consider the normalizing constant part now.
 $M = \frac{1}{\sigma_1 \sigma_2 2\pi }$
@@ -200,6 +208,8 @@ $=\frac{1}{2\pi \times |\Sigma|^{\frac{1}{2}}}$
 		\includegraphics[width=\linewidth,height=\textheight - 10pt,keepaspectratio]{cross-0}
 	\end{center}
 \end{frame}
+
+
 
 \begin{frame}{Intuition for Multivariate Gaussian}
 	
@@ -237,17 +247,20 @@ $=\frac{1}{2\pi \times |\Sigma|^{\frac{1}{2}}}$
 	Now, let us remove the assumption of no covariance among the elements of X
 	
 	Main idea: A correlated Gaussian is a rotated independent Gaussian\footnote{Neil Lawrence GPSS 2016}
-
+	
+	
 	Rotate input space using rotation matrix $R$.
 	
 		\begin{gather}
 		p(\vx ; \mu, \Sigma)=\frac{1}{(2 \pi)^{\frac{n}{2}}|\Sigma|^{\frac{1}{2}}} \exp \left(-\frac{1}{2}(\mR^T\vx-R^T\mu)^{T} \Sigma^{-1}(\mR^T\vx-R^T\mu)\right)
 	\end{gather}
 
+	
 \begin{gather}
 	p(\vx ; \mu, \Sigma)=\frac{1}{(2 \pi)^{\frac{n}{2}}|\Sigma|^{\frac{1}{2}}} \exp \left(-\frac{1}{2}(\vx-\mu)^{T} R\Sigma^{-1}R^T(\vx-\mu)\right)
 \end{gather}
-
+	
+	
 \end{frame}
 
 \begin{frame}
