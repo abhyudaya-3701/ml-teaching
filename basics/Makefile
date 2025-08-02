@@ -25,9 +25,9 @@ $(SLIDES_DIR)/%.pdf: $(SLIDES_DIR)/%.tex $(SHARED_DIR)/styles/*.sty $(SHARED_DIR
 clean:
 	cd $(SLIDES_DIR) && rm -f *.aux *.log *.nav *.out *.snm *.toc *.vrb *.fls *.fdb_latexmk *.synctex.gz *.dat *.script
 
-# Clean all generated files
+# Clean all generated files (only PDFs that have corresponding .tex files)
 distclean: clean
-	cd $(SLIDES_DIR) && rm -f *.pdf
+	cd $(SLIDES_DIR) && for tex in *.tex; do [ -f "$$tex" ] && rm -f "$${tex%.tex}.pdf"; done
 
 # Copy PDFs to main slides directory for Quarto
 deploy: $(PDF_FILES)
