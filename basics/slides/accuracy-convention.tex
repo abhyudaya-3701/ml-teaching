@@ -13,8 +13,10 @@
 \begin{document}
 %\input{../../conventions-sanitized.tex}
 
-  % Define counter for pop quizzes
-  \newcounter{popquiz}
+  % Define counter for pop quizzes (only if not already defined)
+  \makeatletter
+  \@ifundefined{c@popquiz}{\newcounter{popquiz}}{}
+  \makeatother
   \setcounter{popquiz}{0}
 
   \maketitle
@@ -125,7 +127,8 @@ experience E.'' - Tom Mitchell
 
 \section{First ML Example: Tomato Quality Prediction}
 
-\begin{frame}{Pop Quiz \stepcounter{popquiz}\#\thepopquiz}
+\stepcounter{popquiz}
+\begin{frame}{Pop Quiz \#\thepopquiz}
 \begin{popquizbox}{\thepopquiz}
 In machine learning, which of the following is typically NOT a useful feature?
 \begin{itemize}
@@ -134,9 +137,11 @@ In machine learning, which of the following is typically NOT a useful feature?
 	\item c) Sample ID number
 	\item d) Age for medical diagnosis
 \end{itemize}
-\pause
-\textbf{Answer:} c) Sample ID numbers are arbitrary identifiers, not meaningful features!
 \end{popquizbox}
+\end{frame}
+
+\begin{frame}{Pop Quiz \#\thepopquiz{} - Answer}
+\textbf{Answer:} c) Sample ID numbers are arbitrary identifiers, not meaningful features!
 \end{frame}
 
 \begin{frame}{First ML Task: Grocery Store Tomato Quality Prediction}
@@ -373,7 +378,8 @@ Answer:\begin{itemize}
 
 \section{Classification vs Regression}
 
-\begin{frame}{Pop Quiz \stepcounter{popquiz}\#\thepopquiz}
+\stepcounter{popquiz}
+\begin{frame}{Pop Quiz \#\thepopquiz}
 \begin{popquizbox}{\thepopquiz}
 Which of these is a regression problem?
 \begin{itemize}
@@ -382,9 +388,11 @@ Which of these is a regression problem?
 	\item c) Predicting house prices
 	\item d) Determining if a tumor is malignant or benign
 \end{itemize}
-\pause
-\textbf{Answer:} c) House prices are continuous values - that's regression!
 \end{popquizbox}
+\end{frame}
+
+\begin{frame}{Pop Quiz \#\thepopquiz{} - Answer}
+\textbf{Answer:} c) House prices are continuous values - that's regression!
 \end{frame}
 
 \begin{frame}{Classification vs Regression}
@@ -718,7 +726,8 @@ $$
 
 \end{frame}
 
-\begin{frame}{Pop Quiz \stepcounter{popquiz}\#\thepopquiz}
+\stepcounter{popquiz}
+\begin{frame}{Pop Quiz \#\thepopquiz}
 \begin{popquizbox}{\thepopquiz}
 In a dataset of 1000 samples where only 10 are positive cases, what's the accuracy of a classifier that always predicts "negative"?
 \begin{itemize}
@@ -727,9 +736,11 @@ In a dataset of 1000 samples where only 10 are positive cases, what's the accura
 	\item c) 90\%
 	\item d) 99\%
 \end{itemize}
-\pause
-\textbf{Answer:} d) 99\% - but this classifier is useless! This shows why accuracy can be misleading.
 \end{popquizbox}
+\end{frame}
+
+\begin{frame}{Pop Quiz \#\thepopquiz{} - Answer}
+\textbf{Answer:} d) 99\% - but this classifier is useless! This shows why accuracy can be misleading.
 \end{frame}
 
 \begin{frame}{Types of Data: Imbalanced Classes}
@@ -998,7 +1009,8 @@ Matthew's Coeff. = 0.14
 
 \section{Regression Metrics}
 
-\begin{frame}{Pop Quiz \stepcounter{popquiz}\#\thepopquiz}
+\stepcounter{popquiz}
+\begin{frame}{Pop Quiz \#\thepopquiz}
 \begin{popquizbox}{\thepopquiz}
 Why might Mean Absolute Error (MAE) be preferred over Mean Squared Error (MSE)?
 \begin{itemize}
@@ -1007,9 +1019,11 @@ Why might Mean Absolute Error (MAE) be preferred over Mean Squared Error (MSE)?
 	\item c) MAE is easier to compute
 	\item d) MAE works only for classification
 \end{itemize}
-\pause
-\textbf{Answer:} b) MAE is less sensitive to outliers since it doesn't square the errors!
 \end{popquizbox}
+\end{frame}
+
+\begin{frame}{Pop Quiz \#\thepopquiz{} - Answer}
+\textbf{Answer:} b) MAE is less sensitive to outliers since it doesn't square the errors!
 \end{frame}
 
 \begin{frame}{Metrics for Regression: MSE \& MAE}
@@ -1095,7 +1109,8 @@ Linear regression line & 	y = 3.00 + 0.500x & up to 2 decimal places \\
 
 \section{Summary and Key Takeaways}
 
-\begin{frame}{Pop Quiz \stepcounter{popquiz}\#\thepopquiz}
+\stepcounter{popquiz}
+\begin{frame}{Pop Quiz \#\thepopquiz}
 \begin{popquizbox}{\thepopquiz}
 For imbalanced datasets, which metrics should you prioritize over accuracy?
 \begin{itemize}
@@ -1104,9 +1119,11 @@ For imbalanced datasets, which metrics should you prioritize over accuracy?
 	\item c) Precision, recall, and F1-score
 	\item d) Only confusion matrix
 \end{itemize}
-\pause
-\textbf{Answer:} c) Precision, recall, and F1-score give a more complete picture!
 \end{popquizbox}
+\end{frame}
+
+\begin{frame}{Pop Quiz \#\thepopquiz{} - Answer}
+\textbf{Answer:} c) Precision, recall, and F1-score give a more complete picture!
 \end{frame}
 
 \begin{frame}{Key Takeaways}
