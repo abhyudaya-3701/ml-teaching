@@ -62,6 +62,7 @@ Algorithms that learn from labeled data.
 Modern neural network architectures and deep learning techniques.
 
 - [Multi-Layer Perceptrons](neural-networks/slides/mlp.pdf)
+- [Recurrent Neural Networks](neural-networks/slides/rnn.pdf)
 - [Next Token Generation](neural-networks/slides/next.pdf)
 - [Next Token Prediction](neural-networks/slides/next-token-prediction.pdf)
 - [Convolutional Neural Networks](neural-networks/slides/cnn.pdf)
