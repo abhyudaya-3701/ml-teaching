@@ -4,6 +4,7 @@ project:
   render:
     - "*.qmd"
     - "notebooks/*.ipynb"
+    - "!acknowledgments.ipynb"
     - "!MIGRATION*.md"
     - "!PROJECT_STRUCTURE.md"
     - "!LATEX_PACKAGES.md"
