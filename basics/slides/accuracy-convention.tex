@@ -916,6 +916,163 @@ Precision = $\frac{\text{TP}}{\text{TP} + \text{FP}}$
 %\end{align*}
 %\end{frame}
 
+% Enhanced Confusion Matrix Design
+\begin{frame}{Enhanced Confusion Matrix: Complete Picture}
+\begin{center}
+	\renewcommand{\arraystretch}{1.8}
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		\multicolumn{2}{|c|}{\textbf{Confusion Matrix}} & \multicolumn{2}{c|}{\textbf{Actual (Ground Truth)}} \\
+		\hline
+		\multicolumn{2}{|c|}{} & \textbf{Positive} & \textbf{Negative} \\
+		\hline
+		\multirow{2}{*}{\rotatebox[origin=c]{90}{\textbf{Predicted}}} 
+		& \textbf{Positive} & \cellcolor{green!30}\textbf{TP} & \cellcolor{red!30}\textbf{FP} \\
+		\hline
+		& \textbf{Negative} & \cellcolor{red!30}\textbf{FN} & \cellcolor{green!30}\textbf{TN} \\
+		\hline
+	\end{tabular}
+\end{center}
+
+\vspace{0.3cm}
+\begin{definitionbox}{Confusion Matrix Elements}
+	\begin{itemize}
+		\item \textcolor{green!70!black}{\textbf{TP (True Positive):}} Correctly predicted positive cases
+		\item \textcolor{green!70!black}{\textbf{TN (True Negative):}} Correctly predicted negative cases  
+		\item \textcolor{red!70!black}{\textbf{FP (False Positive):}} Wrongly predicted as positive (Type I error)
+		\item \textcolor{red!70!black}{\textbf{FN (False Negative):}} Wrongly predicted as negative (Type II error)
+	\end{itemize}
+\end{definitionbox}
+\end{frame}
+
+\begin{frame}{Enhanced Confusion Matrix: Precision Focus}
+\begin{center}
+	\renewcommand{\arraystretch}{2.0}
+	\begin{tabular}{|c|c|c|c|c|}
+		\hline
+		\multicolumn{2}{|c|}{\textbf{Confusion Matrix}} & \multicolumn{2}{c|}{\textbf{Actual}} & \textbf{Totals} \\
+		\hline
+		\multicolumn{2}{|c|}{} & \textbf{Positive} & \textbf{Negative} & \\
+		\hline
+		\multirow{2}{*}{\rotatebox[origin=c]{90}{\textbf{Predicted}}} 
+		& \textbf{Positive} & \cellcolor{blue!40}\textbf{TP} & \cellcolor{blue!20}\textbf{FP} & \cellcolor{blue!60}\textbf{TP + FP} \\
+		\hline
+		& \textbf{Negative} & \textbf{FN} & \textbf{TN} & \textbf{FN + TN} \\
+		\hline
+		\multicolumn{2}{|c|}{\textbf{Totals}} & \textbf{TP + FN} & \textbf{FP + TN} & \textbf{All} \\
+		\hline
+	\end{tabular}
+\end{center}
+
+\vspace{0.5cm}
+\begin{examplebox}{Precision = Focus on Predicted Positives}
+	$$\text{Precision} = \frac{\textcolor{blue!70!black}{\textbf{TP}}}{\textcolor{blue!70!black}{\textbf{TP + FP}}} = \frac{\text{Correctly predicted positives}}{\text{All predicted positives}}$$
+	
+	\textbf{Question:} "Of all cases I predicted as positive, how many were actually positive?"
+\end{examplebox}
+\end{frame}
+
+\begin{frame}{Enhanced Confusion Matrix: Recall Focus}
+\begin{center}
+	\renewcommand{\arraystretch}{2.0}
+	\begin{tabular}{|c|c|c|c|c|}
+		\hline
+		\multicolumn{2}{|c|}{\textbf{Confusion Matrix}} & \multicolumn{2}{c|}{\textbf{Actual}} & \textbf{Totals} \\
+		\hline
+		\multicolumn{2}{|c|}{} & \textbf{Positive} & \textbf{Negative} & \\
+		\hline
+		\multirow{2}{*}{\rotatebox[origin=c]{90}{\textbf{Predicted}}} 
+		& \textbf{Positive} & \cellcolor{orange!40}\textbf{TP} & \textbf{FP} & \textbf{TP + FP} \\
+		\hline
+		& \textbf{Negative} & \cellcolor{orange!20}\textbf{FN} & \textbf{TN} & \textbf{FN + TN} \\
+		\hline
+		\multicolumn{2}{|c|}{\textbf{Totals}} & \cellcolor{orange!60}\textbf{TP + FN} & \textbf{FP + TN} & \textbf{All} \\
+		\hline
+	\end{tabular}
+\end{center}
+
+\vspace{0.5cm}
+\begin{examplebox}{Recall = Focus on Actual Positives}
+	$$\text{Recall} = \frac{\textcolor{orange!70!black}{\textbf{TP}}}{\textcolor{orange!70!black}{\textbf{TP + FN}}} = \frac{\text{Correctly predicted positives}}{\text{All actual positives}}$$
+	
+	\textbf{Question:} "Of all actual positive cases, how many did I correctly identify?"
+\end{examplebox}
+\end{frame}
+
+\begin{frame}{Enhanced Confusion Matrix: Real Example}
+\begin{center}
+	\begin{examplebox}{Medical Diagnosis: Cancer Detection}
+	Let's say we have 1000 patients, 100 have cancer (positive), 900 don't (negative)
+	\end{examplebox}
+	
+	\vspace{0.3cm}
+	\renewcommand{\arraystretch}{1.8}
+	\begin{tabular}{|c|c|c|c|c|}
+		\hline
+		\multicolumn{2}{|c|}{\textbf{Cancer Detection}} & \multicolumn{2}{c|}{\textbf{Actually Has Cancer}} & \textbf{Totals} \\
+		\hline
+		\multicolumn{2}{|c|}{} & \textbf{Yes} & \textbf{No} & \\
+		\hline
+		\multirow{2}{*}{\rotatebox[origin=c]{90}{\textbf{Test Says}}} 
+		& \textbf{Positive} & \cellcolor{green!30}\textbf{85} & \cellcolor{red!30}\textbf{45} & \textbf{130} \\
+		\hline
+		& \textbf{Negative} & \cellcolor{red!30}\textbf{15} & \cellcolor{green!30}\textbf{855} & \textbf{870} \\
+		\hline
+		\multicolumn{2}{|c|}{\textbf{Totals}} & \textbf{100} & \textbf{900} & \textbf{1000} \\
+		\hline
+	\end{tabular}
+\end{center}
+
+\vspace{0.3cm}
+\begin{keypointsbox}
+	\begin{itemize}
+		\item \textbf{Precision} = $\frac{85}{130} = 65.4\%$ (of positive tests, 65.4\% were correct)
+		\item \textbf{Recall} = $\frac{85}{100} = 85\%$ (caught 85\% of all cancer cases)
+		\item \textbf{Accuracy} = $\frac{85+855}{1000} = 94\%$ (overall correctness)
+	\end{itemize}
+\end{keypointsbox}
+\end{frame}
+
+\begin{frame}{Precision vs Recall: The Trade-off}
+\begin{center}
+	\begin{alertbox}{Understanding the Trade-off}
+	In most real systems, there's a trade-off between Precision and Recall!
+	\end{alertbox}
+\end{center}
+
+\begin{columns}
+\begin{column}{0.48\textwidth}
+	\begin{definitionbox}{High Precision}
+	\textbf{Conservative model:}
+	\begin{itemize}
+		\item Only predicts positive when very sure
+		\item Few false alarms (low FP)
+		\item But might miss some cases (high FN)
+		\item Good when false alarms are costly
+	\end{itemize}
+	\end{definitionbox}
+\end{column}
+
+\begin{column}{0.48\textwidth}
+	\begin{definitionbox}{High Recall}
+	\textbf{Sensitive model:}
+	\begin{itemize}
+		\item Tries to catch all positive cases
+		\item Few missed cases (low FN)  
+		\item But many false alarms (high FP)
+		\item Good when missing cases is costly
+	\end{itemize}
+	\end{definitionbox}
+\end{column}
+\end{columns}
+
+\vspace{0.3cm}
+\begin{examplebox}{Real Examples}
+\textbf{Email Spam:} High precision (few good emails marked spam) \\
+\textbf{Cancer Screening:} High recall (don't miss any cancer cases)
+\end{examplebox}
+\end{frame}
+
 \begin{frame}{Accuracy Metrics: F-Score}
 
 \begin{center}
