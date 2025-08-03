@@ -1,0 +1,190 @@
+\documentclass[usenames,dvipsnames]{beamer}
+\usepackage{../../shared/styles/custom}
+\usepackage{../../shared/styles/conventions}
+
+\title{Recurrent Neural Networks}
+\date{\today}
+\author{Nipun Batra and teaching staff}
+\institute{IIT Gandhinagar}
+
+% Pop quiz counter is defined in theme-nipun.sty
+\setcounter{popquiz}{0}
+
+\begin{document}
+	\maketitle
+	
+	% Table of Contents
+	\begin{frame}{Table of Contents}
+		\tableofcontents[hideallsubsections]
+	\end{frame}
+	
+	\section{Introduction and Motivation}
+	
+	\begin{frame}{Why Sequential Data Matters}
+		\begin{examplebox}{Sequential Data Examples}
+			\begin{itemize}
+				\item \textbf{Text}: "The quick brown fox jumps..."
+				\item \textbf{Speech}: Audio waveforms over time
+				\item \textbf{Stock Prices}: Daily market values
+				\item \textbf{Weather}: Temperature, humidity over days
+			\end{itemize}
+		\end{examplebox}
+		
+		\begin{alertbox}{Challenge}
+			Traditional feedforward networks treat inputs independently - they can't capture \textbf{temporal dependencies}.
+		\end{alertbox}
+	\end{frame}
+	
+	\section{Basic RNN Architecture}
+	
+	\begin{frame}{Simple RNN Cell}
+		\begin{definitionbox}{RNN Equations}
+			\begin{align}
+				h_t &= \tanh(W_{hh} h_{t-1} + W_{xh} x_t + b_h) \\
+				y_t &= W_{hy} h_t + b_y
+			\end{align}
+		\end{definitionbox}
+		
+		\begin{keypointsbox}
+			\begin{itemize}
+				\item Same weights shared across all time steps
+				\item Hidden state acts as "memory"
+				\item Can process variable length sequences
+			\end{itemize}
+		\end{keypointsbox}
+	\end{frame}
+	
+	\stepcounter{popquiz}
+	\begin{frame}{Pop Quiz \#\thepopquiz}
+		\begin{popquizbox}{\thepopquiz}
+			What happens to gradients in simple RNNs during backpropagation?
+			
+			\begin{enumerate}[A)]
+				\item They remain constant
+				\item They can explode or vanish
+				\item They always improve
+				\item They disappear completely
+			\end{enumerate}
+		\end{popquizbox}
+	\end{frame}
+	
+	\begin{frame}{Pop Quiz \#\thepopquiz{} - Answer}
+		\textbf{Answer: B) They can explode or vanish}
+		
+		\begin{alertbox}{The Gradient Problem}
+			\begin{itemize}
+				\item Gradients multiply by $W_{hh}$ at each time step
+				\item If $||W_{hh}|| > 1$: Exploding gradients
+				\item If $||W_{hh}|| < 1$: Vanishing gradients
+			\end{itemize}
+		\end{alertbox}
+	\end{frame}
+	
+	\section{RNN Applications}
+	
+	\begin{frame}{Sentiment Analysis (Many-to-One)}
+		\begin{examplebox}{Sequence Classification}
+			\begin{itemize}
+				\item Input: "This movie is great!"
+				\item Process each word sequentially
+				\item Output: Positive/Negative sentiment
+			\end{itemize}
+		\end{examplebox}
+		
+		\begin{keypointsbox}
+			Applications: Document classification, spam detection, review analysis
+		\end{keypointsbox}
+	\end{frame}
+	
+	\begin{frame}{Machine Translation (Many-to-Many)}
+		\begin{examplebox}{Sequence-to-Sequence}
+			\begin{itemize}
+				\item \textbf{Encoder}: French → "Je suis étudiant"
+				\item \textbf{Context}: Hidden representation
+				\item \textbf{Decoder}: English → "I am student"
+			\end{itemize}
+		\end{examplebox}
+	\end{frame}
+	
+	\section{Advanced Variants}
+	
+	\begin{frame}{LSTM: Long Short-Term Memory}
+		\begin{definitionbox}{LSTM Key Idea}
+			Use \textbf{gates} to control information flow:
+			\begin{itemize}
+				\item \textbf{Forget gate}: What to remove from memory
+				\item \textbf{Input gate}: What new information to store  
+				\item \textbf{Output gate}: What parts of memory to output
+			\end{itemize}
+		\end{definitionbox}
+		
+		\begin{theorembox}{Advantage}
+			LSTM gates solve the vanishing gradient problem by allowing gradients to flow unchanged through time.
+		\end{theorembox}
+	\end{frame}
+	
+	\begin{frame}{GRU: Gated Recurrent Unit}
+		\begin{keypointsbox}
+			\textbf{GRU vs LSTM:}
+			\begin{itemize}
+				\item Simpler: Only 2 gates instead of 3
+				\item Faster training and inference
+				\item Often performs similarly to LSTM
+				\item Good starting point for many applications
+			\end{itemize}
+		\end{keypointsbox}
+	\end{frame}
+	
+	\section{Modern Context}
+	
+	\begin{frame}{From RNNs to Transformers}
+		\begin{theorembox}{Why Transformers Won}
+			\begin{itemize}
+				\item \textbf{Parallelizable}: No sequential dependency
+				\item \textbf{Long-range dependencies}: Attention mechanism
+				\item \textbf{Scalable}: Works well with large datasets
+				\item \textbf{Transfer learning}: Pre-trained models (GPT, BERT)
+			\end{itemize}
+		\end{theorembox}
+	\end{frame}
+	
+	\begin{frame}{When to Still Use RNNs}
+		\begin{definitionbox}{RNN Strengths}
+			\begin{itemize}
+				\item \textbf{Memory efficiency}: Constant memory usage
+				\item \textbf{Online processing}: Can process streaming data
+				\item \textbf{Small datasets}: Less prone to overfitting
+				\item \textbf{Simple problems}: Often sufficient
+			\end{itemize}
+		\end{definitionbox}
+		
+		\begin{examplebox}{Modern Applications}
+			\begin{itemize}
+				\item Real-time speech recognition
+				\item IoT sensor data processing  
+				\item Mobile applications
+				\item Control systems
+			\end{itemize}
+		\end{examplebox}
+	\end{frame}
+	
+	\section{Summary}
+	
+	\begin{frame}{Key Takeaways}
+		\begin{keypointsbox}
+			\textbf{What we learned:}
+			\begin{enumerate}
+				\item RNNs process sequential data with memory
+				\item Simple RNNs suffer from gradient problems
+				\item LSTM and GRU solve long-term dependencies
+				\item Training uses Backpropagation Through Time
+				\item Transformers have largely replaced RNNs for NLP
+			\end{enumerate}
+		\end{keypointsbox}
+		
+		\begin{theorembox}{The Big Picture}
+			RNNs introduced \textbf{sequential processing with memory} to deep learning, paving the way for modern language models.
+		\end{theorembox}
+	\end{frame}
+
+\end{document}
