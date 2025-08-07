@@ -8,7 +8,7 @@
 
 \title{Conventions, Accuracy Metrics, Classification, Regression}
 \date{\today}
-\author{Nipun Batra}
+\author{Nipun Batra and teaching staff}
 \institute{IIT Gandhinagar}
 \begin{document}
 %\input{../../conventions-sanitized.tex}
@@ -29,11 +29,7 @@
   \section{Introduction and Demos}
   
   \begin{frame}{Demo}
-	\begin{itemize}
-		\item \href{https://storage.googleapis.com/tfjs-models/demos/posenet/camera.html}{Complete PoseNet Demo}
-		\item \href{https://blog.tensorflow.org/2018/05/real-time-human-pose-estimation-in.html}{Blog post from Google}
-		\item \href{https://rps-tfjs.netlify.app}{Rock Paper Scissors}
-	\end{itemize}
+	Comet browser and automation of tasks
   \end{frame}
   
 
@@ -125,25 +121,6 @@ tasks in T, as measured by P, improves with
 experience E.'' - Tom Mitchell
 \end{frame}
 
-\section{First ML Example: Tomato Quality Prediction}
-
-\stepcounter{popquiz}
-\begin{frame}{Pop Quiz \#\thepopquiz}
-\begin{popquizbox}{\thepopquiz}
-In machine learning, which of the following is typically NOT a useful feature?
-\begin{itemize}
-	\item a) Color of a tomato for quality prediction
-	\item b) Size of a house for price prediction  
-	\item c) Sample ID number
-	\item d) Age for medical diagnosis
-\end{itemize}
-\end{popquizbox}
-\end{frame}
-
-\begin{frame}{Pop Quiz \#\thepopquiz{} - Answer}
-\textbf{Answer:} c) Sample ID numbers are arbitrary identifiers, not meaningful features!
-\end{frame}
-
 \begin{frame}{First ML Task: Grocery Store Tomato Quality Prediction}
 Problem statement: You want to predict the quality of a tomato given its visual features.
 \end{frame}
@@ -157,7 +134,7 @@ Imagine you have some past data on quality of tomatoes. What visual features do 
 	\item \pause Texture
 \end{itemize}
 \end{frame}
-  
+
 \begin{frame}{Sample Dataset}
 Here is our example dataset with tomato features: 
 
@@ -173,10 +150,35 @@ Here is our example dataset with tomato features:
 \end{table}
 \end{frame}
 
-\begin{frame}{Useful Features}
+\section{First ML Example: Tomato Quality Prediction}
+
+\stepcounter{popquiz}
+\begin{frame}{Pop Quiz \#\thepopquiz}
+\begin{popquizbox}{\thepopquiz}
 Is the sample number a useful feature for predicting quality of a tomato?
 
 \pause Answer: Usually no! Sample numbers are typically arbitrary identifiers and not meaningful features. Let us remove it.
+
+\end{popquizbox}
+\end{frame}
+
+\begin{frame}{Pop Quiz \#\thepopquiz{} }
+	\begin{popquizbox}{\thepopquiz}
+
+When could sample number be useful?
+
+
+\pause
+In some cases, the sample number might be useful for tracking or auditing purposes. 
+E.g. if some trucks are delayed during delivery, the sample number could help identify 
+which batch of tomatoes was affected.
+\end{popquizbox}
+
+\end{frame}
+
+
+\begin{frame}{Useful Features}
+
 
 \pause Let us modify our data table for now.
 
@@ -221,35 +223,84 @@ Is the sample number a useful feature for predicting quality of a tomato?
 	\begin{tabular}{|l|l|l||l|}
 		\hline 
 		\rowcolor{white}
-		\textbf{Colour} & \textbf{Size} & \textbf{Texture} & \textbf{Condition} \\ \hline 
-		Orange & Small & Smooth  & Good      \\
-		Red    & Small  & Rough  & Good \\
-		Orange & Medium & Smooth & Bad \\
-		Yellow & Large  & Smooth & Bad \\ \hline 
+		\cellcolor{Lavender}\textbf{Colour} & \cellcolor{Lavender}\textbf{Size} & \cellcolor{Lavender}\textbf{Texture} & \cellcolor{Tan}\textbf{Condition} \\ \hline 
+		\cellcolor{Lavender}Orange & \cellcolor{Lavender}Small & \cellcolor{Lavender}Smooth  & \cellcolor{Tan}Good      \\
+		\cellcolor{Lavender}Red    & \cellcolor{Lavender}Small  & \cellcolor{Lavender}Rough  & \cellcolor{Tan}Good \\
+		\cellcolor{Lavender}Orange & \cellcolor{Lavender}Medium & \cellcolor{Lavender}Smooth & \cellcolor{Tan}Bad \\
+		\cellcolor{Lavender}Yellow & \cellcolor{Lavender}Large  & \cellcolor{Lavender}Smooth & \cellcolor{Tan}Bad \\ \hline 
 		
 	\end{tabular}
 \end{table}
 
+\pause Computers work with numbers! We need to encode categorical data numerically (one-hot encoding):
 
-\pause We call this matrix as $\cD$, containing:
+\begin{table}[]
+	\begin{tabular}{|l|l||l|l||l|l||l|}
+		\hline 
+		\rowcolor{white}
+		\cellcolor{Lavender}\textbf{C0} & \cellcolor{Lavender}\textbf{C1} & \cellcolor{Lavender}\textbf{S0} & \cellcolor{Lavender}\textbf{S1} & \cellcolor{Lavender}\textbf{T0} & \cellcolor{Lavender}\textbf{T1} & \cellcolor{Tan}\textbf{Good?} \\ \hline 
+		\cellcolor{Lavender}0 & \cellcolor{Lavender}0 & \cellcolor{Lavender}1 & \cellcolor{Lavender}0 & \cellcolor{Lavender}1 & \cellcolor{Lavender}0 & \cellcolor{Tan}1 \\
+		\cellcolor{Lavender}0 & \cellcolor{Lavender}1 & \cellcolor{Lavender}1 & \cellcolor{Lavender}0 & \cellcolor{Lavender}0 & \cellcolor{Lavender}1 & \cellcolor{Tan}1 \\
+		\cellcolor{Lavender}0 & \cellcolor{Lavender}0 & \cellcolor{Lavender}0 & \cellcolor{Lavender}1 & \cellcolor{Lavender}1 & \cellcolor{Lavender}0 & \cellcolor{Tan}0 \\
+		\cellcolor{Lavender}1 & \cellcolor{Lavender}0 & \cellcolor{Lavender}0 & \cellcolor{Lavender}0 & \cellcolor{Lavender}1 & \cellcolor{Lavender}0 & \cellcolor{Tan}0 \\ \hline 
+	\end{tabular}
+\end{table}
+
+\pause Orange=00, Red=01, Yellow=10; Small=10, Medium=01, Large=00; Smooth=10, Rough=01; Good=1, Bad=0
+
+More details on encoding later!
+\end{frame}
+
+
+\begin{frame}{Data Matrix}
+
+	\begin{table}[]
+	\begin{tabular}{|l|l||l|l||l|l||l|}
+		\hline 
+		\rowcolor{white}
+		\cellcolor{Lavender}\textbf{C0} & \cellcolor{Lavender}\textbf{C1} & \cellcolor{Lavender}\textbf{S0} & \cellcolor{Lavender}\textbf{S1} & \cellcolor{Lavender}\textbf{T0} & \cellcolor{Lavender}\textbf{T1} & \cellcolor{Tan}\textbf{Good?} \\ \hline 
+		\cellcolor{Lavender}0 & \cellcolor{Lavender}0 & \cellcolor{Lavender}1 & \cellcolor{Lavender}0 & \cellcolor{Lavender}1 & \cellcolor{Lavender}0 & \cellcolor{Tan}1 \\
+		\cellcolor{Lavender}0 & \cellcolor{Lavender}1 & \cellcolor{Lavender}1 & \cellcolor{Lavender}0 & \cellcolor{Lavender}0 & \cellcolor{Lavender}1 & \cellcolor{Tan}1 \\
+		\cellcolor{Lavender}0 & \cellcolor{Lavender}0 & \cellcolor{Lavender}0 & \cellcolor{Lavender}1 & \cellcolor{Lavender}1 & \cellcolor{Lavender}0 & \cellcolor{Tan}0 \\
+		\cellcolor{Lavender}1 & \cellcolor{Lavender}0 & \cellcolor{Lavender}0 & \cellcolor{Lavender}0 & \cellcolor{Lavender}1 & \cellcolor{Lavender}0 & \cellcolor{Tan}0 \\ \hline 
+	\end{tabular}
+\end{table}
+
+\pause We call this data matrix $\mX$, and the complete dataset $\cD$:
 \begin{enumerate}
 	\item Feature matrix ($\mX \in \Real^{n \times d}$) containing data of $n$ samples each of which is $d$ dimensional.
 	\item Output vector ($\vy \in \Real^n$) containing output variable for $n$ samples.
+	\item Complete dataset: $\cD = \{(\vx_i, y_i)\}_{i=1}^n$ (set of sample-label pairs)
 \end{enumerate}
 
+\pause For this example: $n = 4$ (samples), $d = 6$ (features after one-hot encoding)
+
+\end{frame}
+
+\begin{frame}{Mathematical Notation Convention}
+\begin{alertbox}{Mathematical Notation Convention}
+Matrices use \textbf{bold uppercase} ($\mX$), vectors use \textbf{bold lowercase} ($\vy$), scalars use regular letters ($n$, $d$)
+\end{alertbox}
+
+\begin{examplebox}{Examples from Our Tomato Dataset}
+\begin{itemize}
+	\item \textbf{Scalars}: $n = 4$ (samples), $d = 6$ (features), $y_1 = 1$ 
+	\item \pause \textbf{Vectors}: $\vy = [1, 1, 0, 0]^{\tp}$, $\vx_1 = [0, 0, 1, 0, 1, 0]^{\tp}$ 
+	\item \pause \textbf{Matrices}: $\mX \in \Real^{4 \times 6}$ (feature matrix)
+\end{itemize}
+\end{examplebox}
+
+\pause \textbf{Convention:} We write $[a, b, c]^{\tp}$ instead of $\begin{bmatrix} a \\ b \\ c \end{bmatrix}$ to save space
 \end{frame}
 
 \begin{frame}{Data Matrix Details}
 \begin{itemize}
 	\item Feature matrix: $\mX = \begin{bmatrix} \vx_1\tp \\ \vx_2\tp \\ \vdots \\ \vx_n\tp \end{bmatrix}$ where $\vx_i \in \Real^d$
-	\item \pause Example (after encoding): $\vx_1 = \begin{bmatrix}
-	1 \\ 
-	0 \\
-	1 \\
-	\end{bmatrix}$ (Orange=1, Small=0, Smooth=1)
+	\item \pause Example: $\vx_1 = [0, 0, 1, 0, 1, 0]^{\tp}$ (Orange=00, Small=10, Smooth=10)
 	\item \pause Complete dataset: $\cD = \{(\vx_i\tp, y_i)\}_{i=1}^n$
 \end{itemize}
 
+\pause For this example: $n = 4$, $d = 6$, so $\mX \in \Real^{4 \times 6}$ and $\vy \in \Real^4$
 \end{frame}
 
 
@@ -299,68 +350,101 @@ Estimate condition for unseen tomatoes (\#5, 6) based on data set.
 \begin{frame}{Prediction Task}
 We hope to:
 \begin{enumerate}
-	\item \pause Learn $f$: 		$\text{Condition} = f(\text{colour, size, texture})$
-	\item \pause From Training Dataset
-	\item \pause To Predict the condition for the Testing set
+	\item \pause Learn function $f$: $y = f(\vx)$ where $\vx$ represents features
+	\item \pause From training dataset $\cD = \{(\vx_i, y_i)\}_{i=1}^n$
+	\item \pause Predict condition for new test samples
 \end{enumerate}
 
-
+\pause
 \begin{table}[]
 	\begin{tabular}{|l|l|l||l|}
 		\hline 
-		
-		\textbf{Colour} & \textbf{Size} & \textbf{Texture} & \textbf{Condition} \\ \hline 
-		Orange & Small & Smooth  & Good      \\
-		Red    & Small  & Rough  & Good \\
-		Orange & Medium & Smooth & Bad \\
-		Yellow & Large  & Smooth & Bad \\ \hline
-		Red    & Large  & Rough  & ? \\
-		Orange &  Large & Rough  & ? \\ \hline          
+		\rowcolor{white}
+		\cellcolor{Lavender}\textbf{Colour} & \cellcolor{Lavender}\textbf{Size} & \cellcolor{Lavender}\textbf{Texture} & \cellcolor{Tan}\textbf{Condition} \\ \hline 
+		\rowcolor{Peach}
+		\cellcolor{Lavender}Orange & \cellcolor{Lavender}Small & \cellcolor{Lavender}Smooth  & \cellcolor{Tan}Good      \\
+		\rowcolor{Peach}
+		\cellcolor{Lavender}Red    & \cellcolor{Lavender}Small  & \cellcolor{Lavender}Rough  & \cellcolor{Tan}Good \\
+		\rowcolor{Peach}
+		\cellcolor{Lavender}Orange & \cellcolor{Lavender}Medium & \cellcolor{Lavender}Smooth & \cellcolor{Tan}Bad \\
+		\rowcolor{Peach}
+		\cellcolor{Lavender}Yellow & \cellcolor{Lavender}Large  & \cellcolor{Lavender}Smooth & \cellcolor{Tan}Bad \\ \hline
+		\rowcolor{YellowGreen}
+		\cellcolor{Lavender}Red    & \cellcolor{Lavender}Large  & \cellcolor{Lavender}Rough  & \cellcolor{Tan}? \\
+		\rowcolor{YellowGreen}
+		\cellcolor{Lavender}Orange & \cellcolor{Lavender}Large & \cellcolor{Lavender}Rough  & \cellcolor{Tan}? \\ \hline          
 	\end{tabular}
 \end{table}
+
+\textcolor{Peach}{\textbf{Training set}} used to learn $f$, \textcolor{YellowGreen}{\textbf{Test set}} for predictions
 \end{frame}
 
 \begin{frame}{Generalisation}
+\begin{alertbox}{Key Question}
+Is predicting well on our test set enough to say our model generalises?
+\end{alertbox}
+
+\pause
 \begin{itemize}
-	\item Q: Is predicting on test set enough to say our model generalises? 
-	\item \pause A: Ideally, no!
-	\item \pause Ideally - we want to predict ``well'' on all possible inputs. But, can we test that?
-	\item \pause No! Since, the test set is only a sample from all possible inputs.
+	\item \textbf{Answer}: Ideally, no!
+	\item \pause \textbf{Goal}: We want to predict well on \textit{all possible future inputs}
+	\item \pause \textbf{Reality}: Test set is only a \textit{sample} from all possible inputs
+	\item \pause \textbf{Assumption}: Test set is \textit{representative} of the true data distribution
 \end{itemize}
 
-
+\pause
+\begin{keypointsbox}
+Generalisation = Performance on \textbf{unseen data} from the same distribution as training data
+\end{keypointsbox}
 
 
 
 \end{frame}
 
-\begin{frame}{Generalisation}
+\begin{frame}{Sample vs Population: A Simple Example}
+\begin{examplebox}{Tomato Farm: 10,000 tomatoes ready for harvest}
+\begin{itemize}
+	\item \textbf{Population}: All 10,000 tomatoes
+	\item \pause \textbf{Sample}: You inspect 100 random tomatoes  
+	\item \pause \textbf{Goal}: Make decisions about all 10,000 based on your 100
+\end{itemize}
+\end{examplebox}
+
+\pause
+\textbf{Key Challenge:} Will your 100 tomatoes represent all 10,000? What if you only picked from one corner?
+
+\pause
+\textbf{ML Connection:} Training/test sets are samples from a larger population of all possible data
+\end{frame}
+
+\begin{frame}{From Tomatoes to Machine Learning}
 \begin{figure}
 	\centering
-	\includegraphics[width=0.8\textwidth]{../assets/accuracy-convention/diagrams/train-test.pdf}
+	\includegraphics[width=0.7\textwidth]{../assets/accuracy-convention/diagrams/train-test.pdf}
 	\caption{Image courtesy Google ML crash course}
 	\label{fig:train-test}
 \end{figure}
 
-\pause Both the training set and the test set are samples drawn from the hidden true distribution (also sometimes called population)
+\pause \textbf{The ML Connection:}
+\begin{itemize}
+	\item \textbf{Population}: All possible tomato data (past, present, future)
+	\item \pause \textbf{Training set}: Our 4 tomato samples (like picking from one area)
+	\item \pause \textbf{Test set}: 2 new samples (like picking from another area)
+\end{itemize}
 
-\pause More discussion later once we study bias and variance
+\pause \textbf{Generalisation goal}: Will our model work on \textit{all future tomatoes}, not just our small samples?
 \end{frame}
 
-\begin{frame}{Second ML Task: Predict energy consumption of campus}
+\begin{frame}{Second ML Task: Campus Energy Prediction}
 
-Question: What factors does the campus energy consumption depend on?
+\textbf{Regression Problem}: Predicting continuous energy consumption (kWh)
 
-Answer:\begin{itemize}
-	\item \pause \# People (More people $\implies$ More Energy)
-	\item \pause Temperature (Higher Temp. $\implies$ Higher Energy)
+\textbf{Key factors}: \# People, Temperature
 
-\pause \begin{table}[]
+\begin{table}[]
 	\begin{tabular}{|l|l||l|}
 		\hline 
-		
-		\textbf{\# People} & \textbf{Temp (C)} &  \textbf{Energy (kWh)} \\ \hline 
-		
+		\textbf{\# People} & \textbf{Temp (°C)} &  \textbf{Energy (kWh)} \\ \hline 
 		4000 & 30 & 30 \\
 		4200 & 30 & 32 \\
 		4200 & 35 & 40 \\ \hline
@@ -368,32 +452,10 @@ Answer:\begin{itemize}
 		1000 & 45 & ? \\ \hline          
 	\end{tabular}
 \end{table}	
-\end{itemize}
 
+\pause \textbf{Difference from tomatoes}: Energy is \textit{continuous}, not categories
 \end{frame}
 
-
-
-
-
-\section{Classification vs Regression}
-
-\stepcounter{popquiz}
-\begin{frame}{Pop Quiz \#\thepopquiz}
-\begin{popquizbox}{\thepopquiz}
-Which of these is a regression problem?
-\begin{itemize}
-	\item a) Predicting if an email is spam or not
-	\item b) Classifying images as cat, dog, or bird
-	\item c) Predicting house prices
-	\item d) Determining if a tumor is malignant or benign
-\end{itemize}
-\end{popquizbox}
-\end{frame}
-
-\begin{frame}{Pop Quiz \#\thepopquiz{} - Answer}
-\textbf{Answer:} c) House prices are continuous values - that's regression!
-\end{frame}
 
 \begin{frame}{Classification vs Regression}
 \begin{itemize}
@@ -420,6 +482,30 @@ Which of these is a regression problem?
 \end{itemize}
 
 \end{frame}
+
+
+
+
+\section{Classification vs Regression}
+
+\stepcounter{popquiz}
+\begin{frame}{Pop Quiz \#\thepopquiz}
+\begin{popquizbox}{\thepopquiz}
+Which of these is a regression problem?
+\begin{itemize}
+	\item a) Predicting if an email is spam or not
+	\item b) Classifying images as cat, dog, or bird
+	\item c) Predicting house prices
+	\item d) Determining if a tumor is malignant or benign
+\end{itemize}
+\end{popquizbox}
+\end{frame}
+
+\begin{frame}{Pop Quiz \#\thepopquiz{} - Answer}
+\textbf{Answer:} c) House prices are continuous values - that's regression!
+\end{frame}
+
+
 
 
 
@@ -572,20 +658,60 @@ Which of these is a regression problem?
 %%\end{frame}
 
 
+\begin{frame}{Now We Have Models - But How Good Are They?}
+\begin{itemize}
+	\item We've learned to predict tomato quality (classification)
+	\item We've learned to predict energy consumption (regression)
+	\item \pause \textbf{Key question}: How do we measure if our predictions are good?
+\end{itemize}
+
+\pause
+\begin{examplebox}{The Challenge}
+If our model predicts 5 tomatoes correctly and 3 incorrectly, is that good or bad? We need metrics!
+\end{examplebox}
+
+\pause
+\textbf{Coming up}: Different metrics for classification vs regression problems
+\end{frame}
+
 \section{Classification Metrics}
 
-\begin{frame}{Metrics for Classification}
+\begin{frame}{Back to Our Tomato Example: How Did We Do?}
 
+Let's say we trained our model and tested it on 5 new tomatoes:
 
+\begin{table}[]
+	\begin{tabular}{|c|c||c|}
+		\hline 
+		\textbf{\#} & \textbf{Actual} & \textbf{Predicted} \\ \hline 
+		1 & Good & Good \\
+		2 & Good & Good \\
+		3 & Bad & Good \\
+		4 & Bad & Good \\
+		5 & Bad & Bad \\ \hline
+	\end{tabular}
+\end{table}
 
-$$\bordermatrix{&\text{Prediction}\;(\hat{y})\cr
+\pause \textbf{Questions}: 
+\begin{itemize}
+	\item How many did we get right? How many wrong?
+	\item Is 3 out of 5 correct ``good enough''?
+	\item What if getting a bad tomato wrong is worse than getting a good tomato wrong?
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Organizing Our Results}
+
+Let's organize the predictions in a simpler way:
+
+$$\bordermatrix{&\text{Model Predicted}\;(\yhat)\cr
                 &\text{Good}\cr
                 &\text{Good}\cr
                 &\text{Good}\cr
                 &\text{Good}\cr
                 &\text{Bad}}
                 \qquad \qquad
-   \bordermatrix{&\text{Ground Truth}\;(\vy)\cr
+   \bordermatrix{&\text{Actually Was}\;(\vy)\cr
                 &\text{Good}\cr
                 &\text{Good}\cr
                 &\text{Bad}\cr
@@ -593,40 +719,69 @@ $$\bordermatrix{&\text{Prediction}\;(\hat{y})\cr
                 &\text{Bad}}
 $$
 
-\vspace{1cm}
+\pause \textbf{Each row} = one tomato's result
 
-\begin{tabular}{ll}
-Ground Truth: & From the actual training set \\ 
-Prediction: & Made by the model \\ 
-\end{tabular}
-
+\textbf{Goal}: Create systematic ways to measure performance from these comparisons
 \end{frame}
 
-\begin{frame}{Accuracy}
+\begin{frame}{Converting to Numbers for Computation}
+
+\textbf{Remember}: Computers work with numbers! Let's encode our categories:
+
+\begin{examplebox}{Binary Encoding}
+\textbf{Bad} = 0, \textbf{Good} = 1
+\end{examplebox}
+
+\vspace{-5pt}
+Now our results become:
+$$\bordermatrix{&\text{Predicted}\;(\hat{y})\cr
+                &1\cr
+                &1\cr
+                &1\cr
+                &1\cr
+                &0}
+                \qquad \qquad
+   \bordermatrix{&\text{Ground Truth}\;(\vy)\cr
+                &1\cr
+                &1\cr
+                &0\cr
+                &0\cr
+                &0}
 $$
-\bordermatrix{&\text{Prediction}\;(\hat{y})\cr
-               \checkmark&\text{Good}\cr
-               \checkmark&\text{Good}\cr
-                &\text{Good}\cr
-                &\text{Good}\cr
-               \checkmark&\text{Bad}}
+
+\textbf{Ground Truth} = The correct answers (what actually happened)
+\end{frame}
+
+\begin{frame}{Accuracy: Measuring Overall Performance}
+
+\textbf{How many predictions did we get exactly right?}
+
+$$
+\bordermatrix{&\text{Predicted}\;(\yhat)\cr
+               \checkmark&1\cr
+               \checkmark&1\cr
+                &1\cr
+                &1\cr
+               \checkmark&0}
 \qquad \qquad
 \bordermatrix{&\text{Ground Truth}\;(\vy)\cr
-                &\text{Good}\cr
-                &\text{Good}\cr
-                &\text{Bad}\cr
-                &\text{Bad}\cr
-                &\text{Bad}}
+                &1\cr
+                &1\cr
+                &0\cr
+                &0\cr
+                &0}
 $$
 
-\pause \begin{align*}
-\text{Accuracy} &= \frac{|\{i : y_i = \hat{y}_i\}|}{n} \\ 
-&= \frac{3}{5} = 0.6
-\end{align*}
+\pause
+\begin{definitionbox}{Accuracy Formula}
+$$\text{Accuracy} = \frac{\text{Number of Correct Predictions}}{\text{Total Predictions}}$$
+\end{definitionbox}
+
+\pause For our example: $\text{Accuracy} = \frac{3}{5} = 0.6$ or $60\%$
 
 \end{frame}
 
-\begin{frame}{Mathematical Notation: Set Cardinality and Indicator Functions}
+\begin{frame}{Mathematical Notation: Two Ways to Count Correct Predictions}
 \begin{itemize}
 	\item \pause \textbf{Set cardinality notation:} $|\{i : y_i = \hat{y}_i\}|$ 
 	\begin{itemize}
@@ -642,514 +797,488 @@ $$
 	
 	\item \pause Both notations are mathematically equivalent and commonly used in ML literature
 \end{itemize}
-\end{frame}
-
-\begin{frame}{Types of Data: Imbalanced Classes}
-\[
-  \begin{array}{@{} c @{}}
-    \begin{array}{@{} r @{}}
-      \text{1 sample}~\{\hspace{\nulldelimiterspace} \\
-      \text{100 samples}~\left\{\begin{array}{@{}c@{}}\null\\\null\\\null\\\null\end{array}\right.
-    \end{array}
-    \left (
-      \begin{array}{ *{1}{c} }
-        \text{Bad}  \\
-        \text{Good}  \\
-        \text{Good}  \\
-        \ldots  \\
-        \text{Good}  \\
-      \end{array}
-    \right ) \\
-    \mathstrut
-  \end{array}
-  \quad \quad \quad
-  \text{Imbalanced Classes}
-\]
-
-\pause
-
-Cases for this:
-\begin{itemize}%[<+->]
-\item Cancer Screening
-\item Planet Detection
-\end{itemize}
 
 \end{frame}
 
-\begin{frame}{Accuracy Metrics: Precision}
-$$
-\bordermatrix{&\text{Prediction}\;(\hat{y})\cr
-               \rightarrow\checkmark&\text{Good}\cr
-               \rightarrow\checkmark&\text{Good}\cr
-                \rightarrow&\text{Good}\cr
-                \rightarrow&\text{Good}\cr
-               &\text{Bad}}
-\qquad \qquad
-\bordermatrix{&\text{Ground Truth}\;(\vy)\cr
-                &\text{Good}\cr
-                &\text{Good}\cr
-                &\text{Bad}\cr
-                &\text{Bad}\cr
-                &\text{Good}}
-$$
-
-\begin{align*}
-\pause \text{Precision} &= \frac{|\{i : y_i = \hat{y}_i = \text{Good}\}|}{|\{i : \hat{y}_i = \text{Good}\}|} = \frac{2}{4} = 0.5
-\end{align*}
-
-``the fraction of relevant instances among the retrieved instances'', i.e. ``out of the number of times we predict \text{Good}, how many times is the condition actually \text{Good}''
-
-\end{frame}
-
-\begin{frame}{Accuracy Metrics: Recall}
-$$
-\bordermatrix{&\text{Prediction}\;(\hat{y})\cr
-               \rightarrow\checkmark&\text{Good}\cr
-               \rightarrow\checkmark&\text{Good}\cr
-                &\text{Good}\cr
-                &\text{Good}\cr
-               \rightarrow&\text{Bad}}
-\qquad \qquad
-\bordermatrix{&\text{Ground Truth}\;(\vy)\cr
-                &\text{Good}\cr
-                &\text{Good}\cr
-                &\text{Bad}\cr
-                &\text{Bad}\cr
-                &\text{Good}}
-$$
-
-\begin{align*}
-\text{Recall} &= \frac{|\{i : y_i = \hat{y}_i = \text{Good}\}|}{|\{i : y_i = \text{Good}\}|} = \frac{2}{3} = 0.67
-\end{align*}
-
-``the fraction of the total amount of relevant instances that were actually retrieved''
-
-\end{frame}
-
-\stepcounter{popquiz}
-\begin{frame}{Pop Quiz \#\thepopquiz}
-\begin{popquizbox}{\thepopquiz}
-In a dataset of 1000 samples where only 10 are positive cases, what's the accuracy of a classifier that always predicts "negative"?
-\begin{itemize}
-	\item a) 1\%
-	\item b) 50\% 
-	\item c) 90\%
-	\item d) 99\%
-\end{itemize}
-\end{popquizbox}
-\end{frame}
-
-\begin{frame}{Pop Quiz \#\thepopquiz{} - Answer}
-\textbf{Answer:} d) 99\% - but this classifier is useless! This shows why accuracy can be misleading.
-\end{frame}
-
-\begin{frame}{Types of Data: Imbalanced Classes}
-Given predictions of whether a tissue is cancerous or not ($n = 100$).
-$$
-\bordermatrix{&\text{Prediction}\;(\hat{y})\cr
-               \rightarrow&\text{Yes}\cr
-               &\text{No}\cr
-                &\text{No}\cr
-                &\ldots\cr
-               &\text{No}}
-\qquad \qquad
-\bordermatrix{&\text{Ground Truth}\;(\vy)\cr
-                &\text{No}\cr
-                &\text{No}\cr
-                &\ldots\cr
-                &\text{No}\cr
-                \rightarrow&\text{Yes}}
-            $$
-
-\pause 
-\begin{align*}
-\text{Accuracy} = \frac{98}{100} = 0.98 \qquad \qquad \qquad
-\text{Recall} &= \frac{0}{1} = 0 \\
-\text{Precision} &= \frac{0}{1} = 0
-\end{align*}
 
 
-\end{frame}
+\begin{frame}{Two Views: Predictions vs Confusion Matrix}
 
-\begin{frame}{Accuracy Metrics: Confusion Matrix}
-\begin{center}
+\begin{columns}[t]
 
+\begin{column}{0.48\textwidth}
+\textbf{Model Predictions}
+\vspace{0.2cm}
 
-\begin{tabular}{@{}cc cc@{}}
-	\multicolumn{1}{c}{} &\multicolumn{1}{c}{} &\multicolumn{2}{c}{Ground Truth} \\ 
-	\cmidrule(lr){3-4}
-	\multicolumn{1}{c}{} & 
-	\multicolumn{1}{c}{} & 
-	\multicolumn{1}{c}{Yes} & 
-	\multicolumn{1}{c}{No} \\ 
-	\cline{2-4}
-	\multirow[c]{2}{*}{\rotatebox[origin=tr]{90}{Predicted}}
-	& Yes  & 0 & 1   \\[1.5ex]
-	& No  & 1   & 98 \\ 
-	\cline{2-4}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{ccc}
+\textbf{\#} & \textbf{Actual} & \textbf{Predicted} \\
+\hline
+1 & Good & Good \\
+2 & Good & Good \\
+3 & Bad & Good \\
+4 & Bad & Good \\
+5 & Bad & Bad \\
 \end{tabular}
 
-\pause 
-\vspace{60pt}
-\begin{tabular}{@{}cc cc@{}}
-	\multicolumn{1}{c}{} &\multicolumn{1}{c}{} &\multicolumn{2}{c}{Ground Truth} \\ 
-	\cmidrule(lr){3-4}
-	\multicolumn{1}{c}{} & 
-	\multicolumn{1}{c}{} & 
-	\multicolumn{1}{c}{Yes} & 
-	\multicolumn{1}{c}{No} \\ 
-	\cline{2-4}
-	\multirow[c]{2}{*}{\rotatebox[origin=tr]{90}{Predicted}}
-	& Yes  & True Positive & False Positive   \\[1.5ex]
-	& No  & False Negative   & True Negative \\ 
-	\cline{2-4}
+\end{column}
+
+\begin{column}{0.48\textwidth}
+\textbf{Confusion Matrix}
+\vspace{0.2cm}
+
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{cccc}
+\multicolumn{2}{c}{} & \textbf{Bad} & \textbf{Good} \\
+\multirow{2}{*}{\rotatebox[origin=c]{90}{\textbf{Pred}}} 
+& \textbf{Bad} & 1 & 0 \\
+& \textbf{Good} & 2 & 2 \\
 \end{tabular}
-\end{center}
-\end{frame}
 
-\begin{frame}{Accuracy Metric: Confusion Matrix}
-\begin{center}
-	\begin{tabular}{@{}cc cc@{}}
-		\multicolumn{1}{c}{} &\multicolumn{1}{c}{} &\multicolumn{2}{c}{Ground Truth} \\ 
-		\cmidrule(lr){3-4}
-		\multicolumn{1}{c}{} & 
-		\multicolumn{1}{c}{} & 
-		\multicolumn{1}{c}{Yes} & 
-		\multicolumn{1}{c}{No} \\ 
-		\cline{2-4}
-		\multirow[c]{2}{*}{\rotatebox[origin=tr]{90}{Predicted}}
-		
-		& Yes  & \cellcolor{blue!25}True Positive & \cellcolor{blue!25}False Positive   \\[1.5ex]
-		& No  & False Negative   & True Negative \\ 
-		\cline{2-4}
-	\end{tabular}\\
-	
-	\vspace{30pt}
-	Precision = $\frac{\text{TP}}{\text{TP} + \text{FP}}$
-\end{center}
-\end{frame}
+\end{column}
 
-\begin{frame}{Accuracy Metric: Confusion Matrix}
-\begin{center}
-\begin{tabular}{@{}cc cc@{}}
-	\multicolumn{1}{c}{} &\multicolumn{1}{c}{} &\multicolumn{2}{c}{Ground Truth} \\ 
-	\cmidrule(lr){3-4}
-	\multicolumn{1}{c}{} & 
-	\multicolumn{1}{c}{} & 
-	\multicolumn{1}{c}{Yes} & 
-	\multicolumn{1}{c}{No} \\ 
-	\cline{2-4}
-	\multirow[c]{2}{*}{\rotatebox[origin=tr]{90}{Predicted}}
-	
-	& Yes  & \cellcolor{blue!60}True Positive & \cellcolor{blue!25}False Positive   \\[1.5ex]
-	& No  & False Negative   & True Negative \\ 
-	\cline{2-4}
-\end{tabular}\\
+\end{columns}
 
-\vspace{30pt}
-Precision = $\frac{\text{TP}}{\text{TP} + \text{FP}}$
-\end{center}
-\end{frame}
-
-\begin{frame}{Accuracy Metric: Confusion Matrix}
-\begin{center}
-	\begin{tabular}{@{}cc cc@{}}
-		\multicolumn{1}{c}{} &\multicolumn{1}{c}{} &\multicolumn{2}{c}{Ground Truth} \\ 
-		\cmidrule(lr){3-4}
-		\multicolumn{1}{c}{} & 
-		\multicolumn{1}{c}{} & 
-		\multicolumn{1}{c}{Yes} & 
-		\multicolumn{1}{c}{No} \\ 
-		\cline{2-4}
-		\multirow[c]{2}{*}{\rotatebox[origin=tr]{90}{Predicted}}
-		
-		& Yes  & \cellcolor{blue!25}True Positive &False Positive   \\[1.5ex]
-		& No  &  \cellcolor{blue!25}False Negative   & True Negative \\ 
-		\cline{2-4}
-	\end{tabular}\\
-	
-	\vspace{30pt}
-	Recall = $\frac{\text{TP}}{\text{TP} + \text{FN}}$
-\end{center}
-\end{frame}
-
-\begin{frame}{Accuracy Metric: Confusion Matrix}
-\begin{center}
-	\begin{tabular}{@{}cc cc@{}}
-		\multicolumn{1}{c}{} &\multicolumn{1}{c}{} &\multicolumn{2}{c}{Ground Truth} \\ 
-		\cmidrule(lr){3-4}
-		\multicolumn{1}{c}{} & 
-		\multicolumn{1}{c}{} & 
-		\multicolumn{1}{c}{Yes} & 
-		\multicolumn{1}{c}{No} \\ 
-		\cline{2-4}
-		\multirow[c]{2}{*}{\rotatebox[origin=tr]{90}{Predicted}}
-		
-		& Yes  & \cellcolor{blue!50}True Positive &False Positive   \\[1.5ex]
-		& No  &  \cellcolor{blue!25}False Negative   & True Negative \\ 
-		\cline{2-4}
-	\end{tabular}\\
-	
-	\vspace{30pt}
-	Recall = $\frac{\text{TP}}{\text{TP} + \text{FN}}$
-\end{center}
 \end{frame}
 
 
-%\begin{frame}{Accuracy Metrics: Confusion Matrix}
-%For the same data
-%\pause $$
-%\bordermatrix{&\text{G.T. Positive}&\text{G.T. Negative}\cr
-%               \text{Pred Positive}&0&1\cr
-%               \text{Pred Negative}&1&98}
-%$$
-%\pause $$
-%\bordermatrix{&\text{G.T. Positive}&\text{G.T. Negative}\cr
-%               \text{Pred Positive}&\text{True Positive}&\text{False Positive}\cr
-%               \text{Pred Negative}&\text{True Negative}&\text{False Negative}}
-%$$
-%
-%
-%\pause \begin{align*}
-%\text{Recall} = \frac{\text{T.P}}{\text{T.P + F.P}} \qquad \qquad 
-%\text{Precision} = \frac{\text{T.P}}{\text{T.P + F.N}}
-%\end{align*}
-%\end{frame}
 
-% Enhanced Confusion Matrix Design
-\begin{frame}{Enhanced Confusion Matrix: Complete Picture}
+\begin{frame}{Confusion Matrix: Understanding the Four Outcomes}
+
 \begin{center}
-	\renewcommand{\arraystretch}{1.8}
-	\begin{tabular}{|c|c|c|c|}
-		\hline
-		\multicolumn{2}{|c|}{\textbf{Confusion Matrix}} & \multicolumn{2}{c|}{\textbf{Actual (Ground Truth)}} \\
-		\hline
-		\multicolumn{2}{|c|}{} & \textbf{Positive} & \textbf{Negative} \\
-		\hline
+	\renewcommand{\arraystretch}{1.5}
+	\begin{tabular}{cccc}
+		%\hline
+		\multicolumn{2}{c}{\textbf{Confusion Matrix}} & \multicolumn{2}{c}{\textbf{Ground Truth}} \\
+		%\hline
+		\multicolumn{2}{c}{} & \textbf{Positive} & \textbf{Negative} \\
+		%\hline
 		\multirow{2}{*}{\rotatebox[origin=c]{90}{\textbf{Predicted}}} 
-		& \textbf{Positive} & \cellcolor{green!30}\textbf{TP} & \cellcolor{red!30}\textbf{FP} \\
-		\hline
-		& \textbf{Negative} & \cellcolor{red!30}\textbf{FN} & \cellcolor{green!30}\textbf{TN} \\
-		\hline
+		& \textbf{Positive} & \cellcolor{green!40}\textbf{TP} & \cellcolor{orange!40}\textbf{FP} \\
+		%\hline
+		& \textbf{Negative} & \cellcolor{red!40}\textbf{FN} & \cellcolor{blue!40}\textbf{TN} \\
+		%\hline
 	\end{tabular}
 \end{center}
 
 \vspace{0.3cm}
-\begin{definitionbox}{Confusion Matrix Elements}
+\begin{definitionbox}{Four Outcomes}
 	\begin{itemize}
-		\item \textcolor{green!70!black}{\textbf{TP (True Positive):}} Correctly predicted positive cases
-		\item \textcolor{green!70!black}{\textbf{TN (True Negative):}} Correctly predicted negative cases  
-		\item \textcolor{red!70!black}{\textbf{FP (False Positive):}} Wrongly predicted as positive (Type I error)
-		\item \textcolor{red!70!black}{\textbf{FN (False Negative):}} Wrongly predicted as negative (Type II error)
+		\item \textcolor{green!70!black}{\textbf{TP (True Positive):}} Correctly predicted positive 
+		\item \textcolor{blue!70!black}{\textbf{TN (True Negative):}} Correctly predicted negative  
+		\item \textcolor{orange!70!black}{\textbf{FP (False Positive):}} Wrong! Said positive but actually negative
+		\item \textcolor{red!70!black}{\textbf{FN (False Negative):}} Wrong! Said negative but actually positive
 	\end{itemize}
 \end{definitionbox}
 \end{frame}
 
-\begin{frame}{Enhanced Confusion Matrix: Precision Focus}
+\begin{frame}{Confusion Matrix: Precision Focus}
+
 \begin{center}
-	\renewcommand{\arraystretch}{2.0}
-	\begin{tabular}{|c|c|c|c|c|}
-		\hline
-		\multicolumn{2}{|c|}{\textbf{Confusion Matrix}} & \multicolumn{2}{c|}{\textbf{Actual}} & \textbf{Totals} \\
-		\hline
-		\multicolumn{2}{|c|}{} & \textbf{Positive} & \textbf{Negative} & \\
-		\hline
-		\multirow{2}{*}{\rotatebox[origin=c]{90}{\textbf{Predicted}}} 
-		& \textbf{Positive} & \cellcolor{blue!40}\textbf{TP} & \cellcolor{blue!20}\textbf{FP} & \cellcolor{blue!60}\textbf{TP + FP} \\
-		\hline
-		& \textbf{Negative} & \textbf{FN} & \textbf{TN} & \textbf{FN + TN} \\
-		\hline
-		\multicolumn{2}{|c|}{\textbf{Totals}} & \textbf{TP + FN} & \textbf{FP + TN} & \textbf{All} \\
-		\hline
-	\end{tabular}
+\renewcommand{\arraystretch}{1.6}
+\begin{tabular}{ccccc}
+	\multicolumn{2}{c}{\textbf{Confusion Matrix}} & \multicolumn{2}{c}{\textbf{Ground Truth}} & \textbf{Row Totals} \\
+	\multicolumn{2}{c}{} & \textbf{Positive} & \textbf{Negative} & \\
+	\multirow{2}{*}{\rotatebox[origin=c]{90}{\textbf{Predicted}}} 
+	& \textbf{Positive} & \cellcolor{green!40}TP & \cellcolor{orange!40}FP & \textbf{TP + FP} \\
+	& \textbf{Negative} & FN & TN & \textbf{FN + TN} \\
+	\multicolumn{2}{c}{} & \textbf{TP + FN} & \textbf{FP + TN} & \textbf{Total} \\
+\end{tabular}
 \end{center}
 
-\vspace{0.5cm}
-\begin{examplebox}{Precision = Focus on Predicted Positives}
-	$$\text{Precision} = \frac{\textcolor{blue!70!black}{\textbf{TP}}}{\textcolor{blue!70!black}{\textbf{TP + FP}}} = \frac{\text{Correctly predicted positives}}{\text{All predicted positives}}$$
-	
-	\textbf{Question:} "Of all cases I predicted as positive, how many were actually positive?"
+\vspace{0.4cm}
+\begin{examplebox}{Focus: Predicted Positives}
+$$\text{Precision} = \frac{\textcolor{green!70!black}{\textbf{TP}}}{\textcolor{green!70!black}{\textbf{TP}} + \textcolor{orange!70!black}{\textbf{FP}}}$$
+
+``Of all predicted positives, how many were actually positive?''
 \end{examplebox}
+
 \end{frame}
 
-\begin{frame}{Enhanced Confusion Matrix: Recall Focus}
+\begin{frame}{Confusion Matrix: Recall Focus}
+
 \begin{center}
-	\renewcommand{\arraystretch}{2.0}
-	\begin{tabular}{|c|c|c|c|c|}
-		\hline
-		\multicolumn{2}{|c|}{\textbf{Confusion Matrix}} & \multicolumn{2}{c|}{\textbf{Actual}} & \textbf{Totals} \\
-		\hline
-		\multicolumn{2}{|c|}{} & \textbf{Positive} & \textbf{Negative} & \\
-		\hline
-		\multirow{2}{*}{\rotatebox[origin=c]{90}{\textbf{Predicted}}} 
-		& \textbf{Positive} & \cellcolor{orange!40}\textbf{TP} & \textbf{FP} & \textbf{TP + FP} \\
-		\hline
-		& \textbf{Negative} & \cellcolor{orange!20}\textbf{FN} & \textbf{TN} & \textbf{FN + TN} \\
-		\hline
-		\multicolumn{2}{|c|}{\textbf{Totals}} & \cellcolor{orange!60}\textbf{TP + FN} & \textbf{FP + TN} & \textbf{All} \\
-		\hline
-	\end{tabular}
+\renewcommand{\arraystretch}{1.6}
+\begin{tabular}{ccccc}
+	\multicolumn{2}{c}{\textbf{Confusion Matrix}} & \multicolumn{2}{c}{\textbf{Ground Truth}} & \textbf{Row Totals} \\
+	\multicolumn{2}{c}{} & \textbf{Positive} & \textbf{Negative} & \\
+	\multirow{2}{*}{\rotatebox[origin=c]{90}{\textbf{Predicted}}} 
+	& \textbf{Positive} & \cellcolor{green!40}TP & FP & \textbf{TP + FP} \\
+	& \textbf{Negative} & \cellcolor{red!40}FN & TN & \textbf{FN + TN} \\
+	\multicolumn{2}{c}{} & \textbf{TP + FN} & \textbf{FP + TN} & \textbf{Total} \\
+\end{tabular}
 \end{center}
 
-\vspace{0.5cm}
-\begin{examplebox}{Recall = Focus on Actual Positives}
-	$$\text{Recall} = \frac{\textcolor{orange!70!black}{\textbf{TP}}}{\textcolor{orange!70!black}{\textbf{TP + FN}}} = \frac{\text{Correctly predicted positives}}{\text{All actual positives}}$$
-	
-	\textbf{Question:} "Of all actual positive cases, how many did I correctly identify?"
+\vspace{0.4cm}
+\begin{examplebox}{Focus: Actual Positives}
+$$\text{Recall} = \frac{\textcolor{green!70!black}{\textbf{TP}}}{\textcolor{green!70!black}{\textbf{TP}} + \textcolor{red!70!black}{\textbf{FN}}}$$
+
+``Of all actual positives, how many did I catch?''
 \end{examplebox}
+
 \end{frame}
 
-\begin{frame}{Enhanced Confusion Matrix: Real Example}
-\begin{center}
-	\begin{examplebox}{Medical Diagnosis: Cancer Detection}
-	Let's say we have 1000 patients, 100 have cancer (positive), 900 don't (negative)
-	\end{examplebox}
-	
-	\vspace{0.3cm}
-	\renewcommand{\arraystretch}{1.8}
-	\begin{tabular}{|c|c|c|c|c|}
-		\hline
-		\multicolumn{2}{|c|}{\textbf{Cancer Detection}} & \multicolumn{2}{c|}{\textbf{Actually Has Cancer}} & \textbf{Totals} \\
-		\hline
-		\multicolumn{2}{|c|}{} & \textbf{Yes} & \textbf{No} & \\
-		\hline
-		\multirow{2}{*}{\rotatebox[origin=c]{90}{\textbf{Test Says}}} 
-		& \textbf{Positive} & \cellcolor{green!30}\textbf{85} & \cellcolor{red!30}\textbf{45} & \textbf{130} \\
-		\hline
-		& \textbf{Negative} & \cellcolor{red!30}\textbf{15} & \cellcolor{green!30}\textbf{855} & \textbf{870} \\
-		\hline
-		\multicolumn{2}{|c|}{\textbf{Totals}} & \textbf{100} & \textbf{900} & \textbf{1000} \\
-		\hline
-	\end{tabular}
-\end{center}
+\begin{frame}{When Classes Are Imbalanced}
 
-\vspace{0.3cm}
+Many datasets have unequal class distributions!
+
+\begin{examplebox}{Example: Medical Screening}
+Out of 1000 patients tested:
+\begin{itemize}
+	\item \textbf{990} patients are healthy (negative class)
+	\item \textbf{10} patients have the disease (positive class)
+\end{itemize}
+\end{examplebox}
+
+\pause
+
 \begin{keypointsbox}
-	\begin{itemize}
-		\item \textbf{Precision} = $\frac{85}{130} = 65.4\%$ (of positive tests, 65.4\% were correct)
-		\item \textbf{Recall} = $\frac{85}{100} = 85\%$ (caught 85\% of all cancer cases)
-		\item \textbf{Accuracy} = $\frac{85+855}{1000} = 94\%$ (overall correctness)
-	\end{itemize}
+\textbf{Why is this a problem?}
+\begin{itemize}
+	\item A ``lazy'' classifier that always predicts ``healthy'' gets 99\% accuracy!
+	\item But it completely misses all disease cases
+	\item Accuracy alone becomes misleading
+\end{itemize}
 \end{keypointsbox}
+
+\pause
+
+\textbf{Other examples:} Fraud detection, spam email, rare event prediction
+
 \end{frame}
+
+\begin{frame}{Cancer Detection: Comparing Two Classifiers}
+
+\begin{columns}[t]
+
+\begin{column}{0.48\textwidth}
+\textbf{Dummy Classifier}
+
+\vspace{0.2cm}
+\scriptsize
+\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{cccc}
+	\multicolumn{2}{c}{\textbf{Confusion Matrix}} & \multicolumn{2}{c}{\textbf{Ground Truth}} \\
+	\multicolumn{2}{c}{} & \textbf{Pos} & \textbf{Neg} \\
+	\multirow{2}{*}{\rotatebox[origin=c]{90}{\textbf{Pred}}} 
+	& \textbf{Pos} & 0 & 0 \\
+	& \textbf{Neg} & 10 & 990 \\
+\end{tabular}
+
+\vspace{0.2cm}
+\begin{itemize}
+	\item Precision: N/A
+	\item Recall: 0\%
+	\item Accuracy: 99\%
+\end{itemize}
+
+\end{column}
+
+\begin{column}{0.48\textwidth}
+\textbf{Smart Classifier}
+
+\vspace{0.2cm}
+\scriptsize
+\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{cccc}
+	\multicolumn{2}{c}{\textbf{Confusion Matrix}} & \multicolumn{2}{c}{\textbf{Ground Truth}} \\
+	\multicolumn{2}{c}{} & \textbf{Pos} & \textbf{Neg} \\
+	\multirow{2}{*}{\rotatebox[origin=c]{90}{\textbf{Pred}}} 
+	& \textbf{Pos} & 8 & 40 \\
+	& \textbf{Neg} & 2 & 950 \\
+\end{tabular}
+
+\vspace{0.2cm}
+\begin{itemize}
+	\item Precision: \( \frac{8}{48} \approx 16.7\% \)
+	\item Recall: \( \frac{8}{10} = 80\% \)
+	\item Accuracy: \( \frac{8 + 950}{1000} = 95.8\% \)
+\end{itemize}
+
+\end{column}
+
+\end{columns}
+
+\end{frame}
+
+
+
 
 \begin{frame}{Precision vs Recall: The Trade-off}
-\begin{center}
-	\begin{alertbox}{Understanding the Trade-off}
-	In most real systems, there's a trade-off between Precision and Recall!
-	\end{alertbox}
-\end{center}
 
-\begin{columns}
+
+You often can't have both high precision and high recall — improving one may reduce the other.
+
+
+\begin{columns}[t]
 \begin{column}{0.48\textwidth}
 	\begin{definitionbox}{High Precision}
-	\textbf{Conservative model:}
 	\begin{itemize}
-		\item Only predicts positive when very sure
-		\item Few false alarms (low FP)
-		\item But might miss some cases (high FN)
-		\item Good when false alarms are costly
+		\item Predicts positive only when confident
+		\item Low false alarms (↓ FP)
+		\item May miss positives (↑ FN)
+		\item Useful when FP is costly
 	\end{itemize}
 	\end{definitionbox}
 \end{column}
 
 \begin{column}{0.48\textwidth}
 	\begin{definitionbox}{High Recall}
-	\textbf{Sensitive model:}
 	\begin{itemize}
-		\item Tries to catch all positive cases
-		\item Few missed cases (low FN)  
-		\item But many false alarms (high FP)
-		\item Good when missing cases is costly
+		\item Captures most positives
+		\item Few misses (↓ FN)
+		\item More false alarms (↑ FP)
+		\item Useful when FN is costly
 	\end{itemize}
 	\end{definitionbox}
 \end{column}
 \end{columns}
 
-\vspace{0.3cm}
-\begin{examplebox}{Real Examples}
-\textbf{Email Spam:} High precision (few good emails marked spam) \\
-\textbf{Cancer Screening:} High recall (don't miss any cancer cases)
+\vspace{0.2cm}
+\begin{examplebox}{Examples}
+\textbf{Spam Filter:} Prefer precision \hfill \textbf{Cancer Test:} Prefer recall
 \end{examplebox}
+
 \end{frame}
 
-\begin{frame}{Accuracy Metrics: F-Score}
+
+\begin{frame}{Accuracy Metric: F1-Score}
 
 \begin{center}
-	\begin{tabular}{@{}cc cc@{}}
-		\multicolumn{1}{c}{} &\multicolumn{1}{c}{} &\multicolumn{2}{c}{Ground Truth} \\ 
-		\cmidrule(lr){3-4}
-		\multicolumn{1}{c}{} & 
-		\multicolumn{1}{c}{} & 
-		\multicolumn{1}{c}{Yes} & 
-		\multicolumn{1}{c}{No} \\ 
-		\cline{2-4}
-		\multirow[c]{2}{*}{\rotatebox[origin=tr]{90}{Predicted}}
-		
-		& Yes  & True Positive &False Positive   \\[1.5ex]
-		& No  &  False Negative   & True Negative \\ 
-		\cline{2-4}
-	\end{tabular}\\
-	
-	\vspace{30pt}
-	\(\mathrm{F}-\) Score \(=\frac{2 \times \text { Precision } \times \text { Recall }}{\text { Precision }+\text { Recall }}\)
-
+\renewcommand{\arraystretch}{1.5}
+\scriptsize
+\begin{tabular}{cccc}
+	\multicolumn{2}{c}{\textbf{Confusion Matrix}} & \multicolumn{2}{c}{\textbf{Ground Truth}} \\
+	\multicolumn{2}{c}{} & \textbf{Positive} & \textbf{Negative} \\
+	\multirow{2}{*}{\rotatebox[origin=c]{90}{\textbf{Predicted}}}
+	& \textbf{Positive} & \cellcolor{green!40}TP & \cellcolor{orange!40}FP \\
+	& \textbf{Negative} & \cellcolor{red!40}FN & \cellcolor{blue!40}TN \\
+\end{tabular}
 \end{center}
+
+\vspace{0.4cm}
+\begin{examplebox}{F1-Score: Balancing Precision and Recall}
+\[
+\text{F1} = \frac{2 \times \text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}}
+\]
+\end{examplebox}
+
 \end{frame}
 
+\begin{frame}{Accuracy Metric: Matthews Correlation Coefficient (MCC)}
 
-\begin{frame}{Accuracy Metrics: Matthew's Correlation Coefficient}
 \begin{center}
-	\begin{tabular}{@{}cc cc@{}}
-		\multicolumn{1}{c}{} &\multicolumn{1}{c}{} &\multicolumn{2}{c}{Ground Truth} \\ 
-		\cmidrule(lr){3-4}
-		\multicolumn{1}{c}{} & 
-		\multicolumn{1}{c}{} & 
-		\multicolumn{1}{c}{Yes} & 
-		\multicolumn{1}{c}{No} \\ 
-		\cline{2-4}
-		\multirow[c]{2}{*}{\rotatebox[origin=tr]{90}{Predicted}}
-		
-		& Yes  & True Positive &False Positive   \\[1.5ex]
-		& No  &  False Negative   & True Negative \\ 
-		\cline{2-4}
-	\end{tabular}\\
-
-\vspace{30pt}
-Matthew's correlation coefficient =
-\(\frac{\mathrm{TP} \times \mathrm{TN}-\mathrm{FP} \times \mathrm{FN}}{\sqrt{(\mathrm{TP}+\mathrm{FP})(\mathrm{TP}+\mathrm{FN})(\mathrm{TN}+\mathrm{FP})(\mathrm{TN}+\mathrm{FN})}}\)
+\renewcommand{\arraystretch}{1.5}
+\scriptsize
+\begin{tabular}{cccc}
+	\multicolumn{2}{c}{\textbf{Confusion Matrix}} & \multicolumn{2}{c}{\textbf{Ground Truth}} \\
+	\multicolumn{2}{c}{} & \textbf{Positive} & \textbf{Negative} \\
+	\multirow{2}{*}{\rotatebox[origin=c]{90}{\textbf{Predicted}}}
+	& \textbf{Positive} & \cellcolor{green!40}TP & \cellcolor{orange!40}FP \\
+	& \textbf{Negative} & \cellcolor{red!40}FN & \cellcolor{blue!40}TN \\
+\end{tabular}
 \end{center}
+
+\vspace{0.4cm}
+\begin{examplebox}{MCC: Balanced Performance Measure}
+\[
+\text{MCC} = \frac{TP \cdot TN - FP \cdot FN}{\sqrt{(TP+FP)(TP+FN)(TN+FP)(TN+FN)}}
+\]
+\end{examplebox}
+
+\end{frame}
+
+\begin{frame}{MCC Comparison: Dummy vs Smart Classifier}
+
+\begin{columns}[t]
+
+\begin{column}{0.48\textwidth}
+\textbf{Dummy Classifier}
+
+\vspace{0.2cm}
+\scriptsize
+\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{cccc}
+	\multicolumn{2}{c}{Confusion Matrix} & \multicolumn{2}{c}{Ground Truth} \\
+	\multicolumn{2}{c}{} & Pos & Neg \\
+	\multirow{2}{*}{\rotatebox[origin=c]{90}{Pred}} 
+	& Pos & 0 & 0 \\
+	& Neg & 10 & 990 \\
+\end{tabular}
+
+\vspace{0.3cm}
+\[
+\text{MCC} = 0 \quad \text{(denominator undefined; treat as 0)}
+\]
+
+\end{column}
+
+\begin{column}{0.48\textwidth}
+\textbf{Smart Classifier}
+
+\vspace{0.2cm}
+\scriptsize
+\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{cccc}
+	\multicolumn{2}{c}{Confusion Matrix} & \multicolumn{2}{c}{Ground Truth} \\
+	\multicolumn{2}{c}{} & Pos & Neg \\
+	\multirow{2}{*}{\rotatebox[origin=c]{90}{Pred}} 
+	& Pos & 8 & 40 \\
+	& Neg & 2 & 950 \\
+\end{tabular}
+
+\vspace{0.3cm}
+\[
+\text{MCC} = 
+\frac{7600}{\sqrt{(48)(10)(990)(952)}} \approx \textbf{0.26}
+\]
+
+\end{column}
+
+\end{columns}
+
 \end{frame}
 
 
 
-\begin{frame}{Accuracy Metrics: Example}
-For the data given below, calculate: 
-$$
-\bordermatrix{&\text{G.T. Positive}&\text{G.T. Negative}\cr
-               \text{Pred Positive}&90&4\cr
-               \text{Pred Negative}&1&1}
-$$
+% \begin{frame}{Precision: Focus on Predicted Positives}
 
-Precision = ?  \\
-Recall = ?\\
-F-Score = ?\\
-Matthew's Coeff. = ?\\
-\end{frame}
+% \textbf{When we predict ``Good'', how often are we correct?}
 
-\begin{frame}{Accuracy Metrics: Answer}
-For the same data
-$$
-\bordermatrix{&\text{G.T. Positive}&\text{G.T. Negative}\cr
-               \text{Pred Positive}&90&4\cr
-               \text{Pred Negative}&1&1}
-$$
+% $$
+% \bordermatrix{&\text{Predicted}\;(\yhat)\cr
+%                \rightarrow\checkmark&\text{Good}\cr
+%                \rightarrow\checkmark&\text{Good}\cr
+%                 \rightarrow&\text{Good}\cr
+%                 \rightarrow&\text{Good}\cr
+%                &\text{Bad}}
+% \qquad \qquad
+% \bordermatrix{&\text{Ground Truth}\;(\vy)\cr
+%                 &\text{Good}\cr
+%                 &\text{Good}\cr
+%                 &\text{Bad}\cr
+%                 &\text{Bad}\cr
+%                 &\text{Good}}
+% $$
 
-Precision = $\frac{90}{94}$ \\
-Recall = $\frac{90}{91}$ \\
-F-Score = 0.9524 \\
-Matthew's Coeff. = 0.14
-\end{frame}
+% \pause
+% \begin{definitionbox}{Precision Formula}
+% $$\text{Precision} = \frac{\text{Correct Positive Predictions}}{\text{All Positive Predictions}} = \frac{\textcolor{green!70!black}{\textbf{TP}}}{\textcolor{green!70!black}{\textbf{TP}} + \textcolor{orange!70!black}{\textbf{FP}}}$$
+% \end{definitionbox}
+
+% \pause For our example: $\text{Precision} = \frac{2}{4} = 0.5$ or $50\%$
+
+% \textbf{Interpretation:} Half of our ``Good'' predictions were actually correct
+
+% \end{frame}
+
+% \begin{frame}{Recall: Focus on Actual Positives}
+
+% \textbf{Of all the ``Good'' tomatoes, how many did we correctly identify?}
+
+% $$
+% \bordermatrix{&\text{Predicted}\;(\yhat)\cr
+%                \rightarrow\checkmark&\text{Good}\cr
+%                \rightarrow\checkmark&\text{Good}\cr
+%                 &\text{Good}\cr
+%                 &\text{Good}\cr
+%                \rightarrow&\text{Bad}}
+% \qquad \qquad
+% \bordermatrix{&\text{Ground Truth}\;(\vy)\cr
+%                 \rightarrow&\text{Good}\cr
+%                 \rightarrow&\text{Good}\cr
+%                 &\text{Bad}\cr
+%                 &\text{Bad}\cr
+%                 \rightarrow&\text{Good}}
+% $$
+
+% \pause
+% \begin{definitionbox}{Recall Formula}
+% $$\text{Recall} = \frac{\text{Correct Positive Predictions}}{\text{All Actual Positives}} = \frac{\textcolor{green!70!black}{\textbf{TP}}}{\textcolor{green!70!black}{\textbf{TP}} + \textcolor{red!70!black}{\textbf{FN}}}$$
+% \end{definitionbox}
+
+% \pause For our example: $\text{Recall} = \frac{2}{3} = 0.67$ or $67\%$
+
+% \textbf{Interpretation:} We correctly identified $67\%$ of all actually good tomatoes
+
+% \end{frame}
+
+% \stepcounter{popquiz}
+% \begin{frame}{Pop Quiz \#\thepopquiz}
+% \begin{popquizbox}{\thepopquiz}
+% In a dataset of 1000 samples where only 10 are positive cases, what's the accuracy of a classifier that always predicts "negative"?
+% \begin{itemize}
+% 	\item a) 1\%
+% 	\item b) 50\% 
+% 	\item c) 90\%
+% 	\item d) 99\%
+% \end{itemize}
+% \end{popquizbox}
+% \end{frame}
+
+% \begin{frame}{Pop Quiz \#\thepopquiz{} - Answer}
+% \textbf{Answer:} d) 99\% - but this classifier is useless! This shows why accuracy can be misleading.
+% \end{frame}
+
+% \begin{frame}{Real-World Example: Cancer Detection}
+% Given predictions of whether a tissue is cancerous or not ($n = 100$).
+% $$
+% \bordermatrix{&\text{Predicted}\;(\yhat)\cr
+%                \rightarrow&\text{Yes}\cr
+%                &\text{No}\cr
+%                 &\text{No}\cr
+%                 &\ldots\cr
+%                &\text{No}}
+% \qquad \qquad
+% \bordermatrix{&\text{Ground Truth}\;(\vy)\cr
+%                 &\text{No}\cr
+%                 &\text{No}\cr
+%                 &\ldots\cr
+%                 &\text{No}\cr
+%                 \rightarrow&\text{Yes}}
+%             $$
+
+% \pause 
+% \begin{alertbox}{Problem with Accuracy Alone}
+% \begin{align*}
+% \text{Accuracy} = \frac{98}{100} = 98\% \qquad \text{Recall} = \frac{0}{1} = 0\% \qquad \text{Precision} = \frac{0}{1} = 0\%
+% \end{align*}
+% \textbf{98\% accuracy sounds great, but we missed the only cancer case!}
+% \end{alertbox}
+
+% \end{frame}
+
+
+
+% \begin{frame}{Accuracy Metrics: Example}
+% For the data given below, calculate: 
+% $$
+% \bordermatrix{&\text{G.T. Positive}&\text{G.T. Negative}\cr
+%                \text{Pred Positive}&90&4\cr
+%                \text{Pred Negative}&1&1}
+% $$
+
+% Precision = ?  \\
+% Recall = ?\\
+% F-Score = ?\\
+% Matthew's Coeff. = ?\\
+% \end{frame}
+
+% \begin{frame}{Accuracy Metrics: Answer}
+% For the same data
+% $$
+% \bordermatrix{&\text{G.T. Positive}&\text{G.T. Negative}\cr
+%                \text{Pred Positive}&90&4\cr
+%                \text{Pred Negative}&1&1}
+% $$
+
+% Precision = $\frac{90}{94}$ \\
+% Recall = $\frac{90}{91}$ \\
+% F-Score = 0.9524 \\
+% Matthew's Coeff. = 0.14
+% \end{frame}
+
+
 
 
 \begin{frame}{Confusion Matrix for multi-class classification}
@@ -1165,23 +1294,6 @@ Matthew's Coeff. = 0.14
 
 
 \section{Regression Metrics}
-
-\stepcounter{popquiz}
-\begin{frame}{Pop Quiz \#\thepopquiz}
-\begin{popquizbox}{\thepopquiz}
-Why might Mean Absolute Error (MAE) be preferred over Mean Squared Error (MSE)?
-\begin{itemize}
-	\item a) MAE is always smaller
-	\item b) MAE is less sensitive to outliers
-	\item c) MAE is easier to compute
-	\item d) MAE works only for classification
-\end{itemize}
-\end{popquizbox}
-\end{frame}
-
-\begin{frame}{Pop Quiz \#\thepopquiz{} - Answer}
-\textbf{Answer:} b) MAE is less sensitive to outliers since it doesn't square the errors!
-\end{frame}
 
 \begin{frame}{Metrics for Regression: MSE \& MAE}
 $$
@@ -1232,6 +1344,25 @@ $$
 \pause Errors can get cancelled out
 
 \end{frame}
+
+% \stepcounter{popquiz}
+% \begin{frame}{Pop Quiz \#\thepopquiz}
+% \begin{popquizbox}{\thepopquiz}
+% Why might Mean Absolute Error (MAE) be preferred over Mean Squared Error (MSE)?
+% \begin{itemize}
+% 	\item a) MAE is always smaller
+% 	\item b) MAE is less sensitive to outliers
+% 	\item c) MAE is easier to compute
+% 	\item d) MAE works only for classification
+% \end{itemize}
+% \end{popquizbox}
+% \end{frame}
+
+% \begin{frame}{Pop Quiz \#\thepopquiz{} - Answer}
+% \textbf{Answer:} b) MAE is less sensitive to outliers since it doesn't square the errors!
+% \end{frame}
+
+
 
 \section{Data Visualization and Baselines}
 
@@ -1296,47 +1427,31 @@ For imbalanced datasets, which metrics should you prioritize over accuracy?
 \end{keypointsbox}
 \end{frame}
 
-\begin{frame}{Summary: Evaluation Metrics}
-\begin{center}
-\begin{tabular}{|l|l|l|}
-\hline
-\textbf{Task} & \textbf{Common Metrics} & \textbf{When to Use} \\
-\hline
-\textbf{Classification} & Accuracy, Precision, Recall, F1 & Balanced/Imbalanced data \\
- & Confusion Matrix & Multi-class problems \\
-\hline
-\textbf{Regression} & MSE, RMSE, MAE & Continuous predictions \\
- & Mean Error & Check for bias \\
-\hline
-\end{tabular}
-\end{center}
+% \begin{frame}{Summary: Evaluation Metrics}
 
-\vspace{1cm}
-\textbf{Remember:} Choose metrics based on your problem's characteristics and business requirements!
-\end{frame}
+% \scriptsize
+% \begin{center}
+% \renewcommand{\arraystretch}{1.3}
+% \begin{tabular}{|p{2.8cm}|p{3.2cm}|p{4.5cm}|}
+% \hline
+% \textbf{Task} & \textbf{Common Metrics} & \textbf{When to Use} \\
+% \hline
+% Classification & Accuracy, Precision, Recall, F1, Confusion Matrix & 
+% - Balanced vs. imbalanced data \newline
+% - Multi-class settings \\
+% \hline
+% Regression & MSE, RMSE, MAE, Mean Error & 
+% - Continuous output \newline
+% - Check for bias and variance \\
+% \hline
+% \end{tabular}
+% \end{center}
 
-\begin{frame}{Colorbox Examples - Definition \& Example}
-\begin{definitionbox}{Machine Learning}
-A computer program is said to learn from experience E with respect to some class of tasks T and performance measure P if its performance at tasks in T, as measured by P, improves with experience E.
-\end{definitionbox}
+% \vspace{0.6cm}
+% \textbf{Reminder:} \textit{Pick metrics that align with your problem and what matters in practice.}
 
-\vspace{0.5cm}
+% \end{frame}
 
-\begin{examplebox}{Classification Task}
-Predicting whether an email is spam or not spam based on features like sender, subject line, and content.
-\end{examplebox}
-\end{frame}
 
-\begin{frame}{Colorbox Examples - Alert \& Theorem}
-\begin{alertbox}{Common Mistake}
-Never use accuracy alone for imbalanced datasets! A classifier that always predicts the majority class can have high accuracy but be completely useless.
-\end{alertbox}
-
-\vspace{0.5cm}
-
-\begin{theorembox}{Bayes' Theorem}
-For events A and B: $P(A|B) = \frac{P(B|A) \cdot P(A)}{P(B)}$
-\end{theorembox}
-\end{frame}
 
 \end{document}
