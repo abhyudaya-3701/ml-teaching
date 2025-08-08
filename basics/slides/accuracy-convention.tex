@@ -13,10 +13,7 @@
 \begin{document}
 %\input{../../conventions-sanitized.tex}
 
-  % Define counter for pop quizzes (only if not already defined)
-  \makeatletter
-  \@ifundefined{c@popquiz}{\newcounter{popquiz}}{}
-  \makeatother
+  % Pop quiz counter is defined globally in theme-nipun.sty
   \setcounter{popquiz}{0}
 
   \maketitle
@@ -1291,6 +1288,93 @@ You often can't have both high precision and high recall — improving one may r
 	
 \end{frame}
 
+\begin{frame}{Learning a Complicated Neural Network for Classification}
+\begin{center}
+\begin{tikzpicture}[
+	node distance=1.5cm and 2cm,
+	neuron/.style={circle, draw, minimum size=0.8cm, inner sep=0pt, fill=blue!20},
+	input/.style={circle, draw, minimum size=0.8cm, inner sep=0pt, fill=green!20},
+	output/.style={circle, draw, minimum size=0.8cm, inner sep=0pt, fill=red!20},
+	connection/.style={->, >=stealth, thick, opacity=0.7},
+	layer/.style={rectangle, draw=none, minimum width=1cm, minimum height=6cm}
+	]
+	
+	% Input layer
+	\node[input] (i1) at (0, 3) {$x_1$};
+	\node[input] (i2) at (0, 2) {$x_2$};
+	\node[input] (i3) at (0, 1) {$x_3$};
+	\node[input] (i4) at (0, 0) {$x_4$};
+	\node[input] (i5) at (0, -1) {$\vdots$};
+	\node[input] (i6) at (0, -2) {$x_d$};
+	
+	% Hidden layer 1
+	\node[neuron] (h11) at (2.5, 2.5) {};
+	\node[neuron] (h12) at (2.5, 1.5) {};
+	\node[neuron] (h13) at (2.5, 0.5) {};
+	\node[neuron] (h14) at (2.5, -0.5) {};
+	\node[neuron] (h15) at (2.5, -1.5) {};
+	
+	% Hidden layer 2
+	\node[neuron] (h21) at (4.5, 2.5) {};
+	\node[neuron] (h22) at (4.5, 1.5) {};
+	\node[neuron] (h23) at (4.5, 0.5) {};
+	\node[neuron] (h24) at (4.5, -0.5) {};
+	\node[neuron] (h25) at (4.5, -1.5) {};
+	
+	% Hidden layer 3
+	\node[neuron] (h31) at (6.5, 2) {};
+	\node[neuron] (h32) at (6.5, 1) {};
+	\node[neuron] (h33) at (6.5, 0) {};
+	\node[neuron] (h34) at (6.5, -1) {};
+	
+	% Output layer
+	\node[output] (o1) at (8.5, 1) {$\hat{y}_1$};
+	\node[output] (o2) at (8.5, 0) {$\hat{y}_2$};
+	\node[output] (o3) at (8.5, -1) {$\hat{y}_k$};
+	
+	% Connections from input to hidden layer 1
+	\foreach \i in {1,2,3,4,6} {
+		\foreach \j in {1,2,3,4,5} {
+			\draw[connection] (i\i) -- (h1\j);
+		}
+	}
+	
+	% Connections from hidden layer 1 to hidden layer 2
+	\foreach \i in {1,2,3,4,5} {
+		\foreach \j in {1,2,3,4,5} {
+			\draw[connection] (h1\i) -- (h2\j);
+		}
+	}
+	
+	% Connections from hidden layer 2 to hidden layer 3
+	\foreach \i in {1,2,3,4,5} {
+		\foreach \j in {1,2,3,4} {
+			\draw[connection] (h2\i) -- (h3\j);
+		}
+	}
+	
+	% Connections from hidden layer 3 to output
+	\foreach \i in {1,2,3,4} {
+		\foreach \j in {1,2,3} {
+			\draw[connection] (h3\i) -- (o\j);
+		}
+	}
+	
+	% Layer labels
+	\node[below=0.5cm of i6] {\textbf{Input Layer}};
+	\node[below=0.5cm of h15] {\textbf{Hidden 1}};
+	\node[below=0.5cm of h25] {\textbf{Hidden 2}};
+	\node[below=0.5cm of h34] {\textbf{Hidden 3}};
+	\node[below=0.5cm of o3] {\textbf{Output Layer}};
+	
+\end{tikzpicture}
+\end{center}
+
+\textbf{Challenge:} How do we measure if this complex model's predictions are good? \\ 
+$\rightarrow$ Same metrics: Accuracy, Precision, Recall, F1-score, Confusion Matrix!
+
+\end{frame>
+
 
 
 \section{Regression Metrics}
@@ -1451,6 +1535,33 @@ For imbalanced datasets, which metrics should you prioritize over accuracy?
 % \textbf{Reminder:} \textit{Pick metrics that align with your problem and what matters in practice.}
 
 % \end{frame}
+
+\begin{frame}{Computational Complexity: NP Classes in ML}
+\begin{definitionbox}{NP Complexity Classes}
+\begin{itemize}
+\item \textbf{P}: Problems solvable in polynomial time
+\item \textbf{NP}: Problems verifiable in polynomial time  
+\item \textbf{NP-Complete}: Hardest problems in NP (both in NP and NP-Hard)
+\item \textbf{NP-Hard}: At least as hard as NP-Complete (may not be in NP)
+\end{itemize}
+\end{definitionbox}
+
+\pause
+\begin{examplebox}{Decision Trees: NP-Complete vs NP-Hard}
+\textbf{Finding optimal decision tree}: NP-Complete
+\begin{itemize}
+\item Can verify a solution quickly (check tree accuracy)
+\item Finding the optimal tree is exponentially hard
+\end{itemize}
+
+\pause 
+\textbf{Why sometimes called NP-Hard?}
+\begin{itemize}
+\item Optimization version: "Find tree with minimum error"
+\item Decision version: "Does tree with error $\leq k$ exist?" (NP-Complete)
+\end{itemize}
+\end{examplebox}
+\end{frame}
 
 
 

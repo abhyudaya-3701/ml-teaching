@@ -9,8 +9,7 @@
 \author{Nipun Batra and teaching staff}
 \institute{IIT Gandhinagar}
 
-% Define counter for pop quizzes
-\newcounter{popquiz}
+% Pop quiz counter is defined globally in theme-nipun.sty
 \setcounter{popquiz}{0}
 
 \begin{document}
@@ -54,12 +53,74 @@
 \end{frame}
 
 \begin{frame}{Learning a Complicated Neural Network}
-\begin{figure}
-	\centering
-	\includegraphics[width=1\linewidth]{../assets/decision-trees/diagrams/neural}
+\begin{center}
+\begin{tikzpicture}[
+	node distance=1.5cm and 2cm,
+	neuron/.style={circle, draw, minimum size=0.8cm, inner sep=0pt, fill=blue!20},
+	input/.style={circle, draw, minimum size=0.8cm, inner sep=0pt, fill=green!20},
+	output/.style={circle, draw, minimum size=0.8cm, inner sep=0pt, fill=red!20},
+	connection/.style={->, >=stealth, thick, opacity=0.7}
+	]
 	
-	\label{fig:neural}
-\end{figure}
+	% Input layer (6 nodes)
+	\foreach \y in {1,2,3,4,5,6}
+		\node[input] (i\y) at (0, 6-\y) {$x_\y$};
+	
+	% Hidden layer 1 (5 nodes)
+	\foreach \y in {1,2,3,4,5}
+		\node[neuron] (h1\y) at (2.5, 5.5-\y) {};
+	
+	% Hidden layer 2 (5 nodes) 
+	\foreach \y in {1,2,3,4,5}
+		\node[neuron] (h2\y) at (5, 5.5-\y) {};
+	
+	% Hidden layer 3 (4 nodes)
+	\foreach \y in {1,2,3,4}
+		\node[neuron] (h3\y) at (7.5, 5-\y) {};
+	
+	% Output layer (3 nodes)
+	\foreach \y in {1,2,3}
+		\node[output] (o\y) at (10, 4.5-\y) {$\hat{y}_\y$};
+	
+	% Connections: Input to Hidden1
+	\foreach \i in {1,2,3,4,5,6} {
+		\foreach \j in {1,2,3,4,5} {
+			\draw[connection] (i\i) -- (h1\j);
+		}
+	}
+	
+	% Connections: Hidden1 to Hidden2
+	\foreach \i in {1,2,3,4,5} {
+		\foreach \j in {1,2,3,4,5} {
+			\draw[connection] (h1\i) -- (h2\j);
+		}
+	}
+	
+	% Connections: Hidden2 to Hidden3
+	\foreach \i in {1,2,3,4,5} {
+		\foreach \j in {1,2,3,4} {
+			\draw[connection] (h2\i) -- (h3\j);
+		}
+	}
+	
+	% Connections: Hidden3 to Output
+	\foreach \i in {1,2,3,4} {
+		\foreach \j in {1,2,3} {
+			\draw[connection] (h3\i) -- (o\j);
+		}
+	}
+	
+	% Layer labels
+	\node[above] at (0, 1.5) {\textbf{Input}};
+	\node[above] at (2.5, 1.5) {\textbf{Hidden 1}};
+	\node[above] at (5, 1.5) {\textbf{Hidden 2}};
+	\node[above] at (7.5, 1.5) {\textbf{Hidden 3}};
+	\node[above] at (10, 1.5) {\textbf{Output}};
+	
+\end{tikzpicture}
+\end{center}
+
+%\textbf{Complex model, same evaluation:} Even with this intricate network, we still use the same accuracy metrics to evaluate performance!
 \end{frame}
 
 \begin{frame}{Learnt Decision Tree}
@@ -100,40 +161,88 @@ node/.style={%
 
 \end{frame}
 
-
-\begin{frame}{Leo Brieman}
+\begin{frame}{Leo Breiman (1928-2005)}
+\begin{center}
 \begin{figure}
 	\centering
-	\includegraphics[width=1\linewidth]{../assets/decision-trees/diagrams/brieman}
-
+	\includegraphics[width=0.7\linewidth]{../assets/decision-trees/diagrams/brieman}
 	\label{fig:brieman}
 \end{figure}
-
+\end{center}
 \end{frame}
 
-\begin{frame}{Optimal Decision Tree}
+\begin{frame}{Leo Breiman: Revolutionary Contributions to ML}
+\begin{keypointsbox}
+\textbf{Major Algorithmic Breakthroughs:}
+\begin{itemize}
+\item \textbf{CART (1984)}: Classification and Regression Trees
+\item \textbf{Bagging (1994)}: Bootstrap Aggregating
+\item \textbf{Random Forests (2001)}: Ensemble of decision trees
+\item \textbf{Two Cultures (2001)}: Data modeling vs. algorithmic modeling
+\end{itemize}
+\end{keypointsbox}
+\end{frame}
+
+
+\begin{frame}{Computational Complexity Classes: A Quick Primer}
+\begin{definitionbox}{Key Complexity Classes}
+\begin{itemize}
+\item \textbf{P}: Problems solvable in polynomial time
+\begin{itemize}
+\item Example: Sorting $n$ numbers in $O(n \log n)$ time
+\end{itemize}
+\item \textbf{NP}: Problems where solutions can be \emph{verified} in polynomial time
+\begin{itemize}
+\item Example: Given a sudoku solution, verify it's correct
+\end{itemize}
+\item \textbf{NP-Complete}: Hardest problems in NP 
+\begin{itemize}
+\item Both in NP and at least as hard as any NP problem
+\item Example: Boolean satisfiability (SAT)
+\end{itemize}
+\item \textbf{NP-Hard}: At least as hard as NP-Complete problems
+\begin{itemize}
+\item May not be in NP (solutions might not be verifiable quickly)
+\item Example: Optimization versions of NP-Complete problems
+\end{itemize}
+\end{itemize}
+\end{definitionbox}
+\end{frame}
+
+
+
+
+\begin{frame}{Finding the Optimal Decision Tree}
+\begin{center}
 \begin{figure}
 	\centering
-	\includegraphics[width=1\linewidth]{../assets/decision-trees/diagrams/NP-hard}
-
+	\includegraphics[width=0.8\linewidth]{../assets/decision-trees/diagrams/NP-hard}
 	\label{fig:np-hard}
 \end{figure}
-
+\end{center}
+\textbf{The Problem}: Given training data, find the decision tree with highest accuracy
 \end{frame}
 
-\begin{frame}{Pop Quiz \stepcounter{popquiz}\#\thepopquiz}
-\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Quick Question!]
-Why is finding the optimal decision tree NP-hard?
-\begin{enumerate}[A)]
-\item The number of possible trees grows exponentially with features
-\item We need to consider all possible splits at each node
-\item The problem requires checking all subsets of training data
-\item All of the above
-\end{enumerate}
+\begin{frame}{Optimal Decision Trees are NP-Complete}
+\begin{alertbox}{Computational Complexity}
+\textbf{Finding optimal decision tree is NP-Complete}
+\begin{itemize}
+\item \textbf{Verification}: Given a tree, check its accuracy quickly \checkmark
+\item \textbf{Construction}: Exponentially many trees to check \crossmark
+\end{itemize}
+\end{alertbox}
+
 \pause
-\textbf{Answer: D) All of the above} - The search space is exponentially large, making brute force optimization computationally intractable.
-\end{tcolorbox}
+\begin{examplebox}{What This Means}
+\begin{itemize}
+\item No efficient algorithm exists (unless P = NP)
+\item Must use heuristics like greedy algorithms
+\item ID3, C4.5, CART use greedy approaches
+\item Good solutions, but no optimality guarantee
+\end{itemize}
+\end{examplebox}
 \end{frame}
+
 
 \begin{frame}{Greedy Algorithm}
 Core idea: At each level, choose an attribute that gives
@@ -147,6 +256,11 @@ Core idea: At each level, choose an attribute that gives
 \end{figure}
 
 \end{frame}
+
+
+\section{Discrete Input, Discrete Output}
+
+
 
 \begin{frame}{Towards biggest estimated performance gain}
 \begin{columns}
@@ -205,6 +319,156 @@ Core idea: At each level, choose an attribute that gives
 %	]
 %\end{forest}
 %\end{frame}
+
+\begin{frame}{Claude Shannon (1948): The Birth of Information Theory}
+\begin{definitionbox}{The Big Idea}
+Information is inversely related to probability. \textbf{Rare events are more informative!}
+\end{definitionbox}
+
+\pause
+\textbf{Think about it:} Which headline tells you more?
+\begin{itemize}
+\item "The sun rose this morning" 
+\item "It snowed in Death Valley in July"
+\end{itemize}
+
+\pause
+The second one! Because it's \textbf{unexpected}.
+
+\pause
+\textbf{Shannon's insight:} The amount of information in an event should be inversely proportional to its probability.
+\end{frame}
+
+\begin{frame}{Measuring Surprise: Step by Step}
+\textbf{Shannon's Information Formula:}
+$$I(x) = -\log_2 p(x)$$
+
+\pause
+\textbf{Why the negative log?}
+\begin{itemize}
+\item Probabilities are between 0 and 1
+\item $\log_2$ of values $< 1$ gives negative numbers
+\item We want information to be positive
+\item Hence the negative sign!
+\end{itemize}
+
+\pause
+\textbf{Why base 2?} So information is measured in \textbf{bits}.
+\end{frame}
+
+\begin{frame}{Calculating Surprise: Detailed Examples}
+\textbf{Example 1: Summer weather in Phoenix}
+\begin{itemize}
+\item Sunny day: $p = 0.9$
+\pause
+\item Information: $I = -\log_2(0.9) = -(-0.152) = 0.152$ bits
+\pause
+\item \textcolor{blue}{\textbf{Low surprise}} - we expect sunny weather
+\end{itemize}
+
+\pause
+\textbf{Example 2: Snow in Phoenix in July}
+\begin{itemize}
+\item Probability: $p = 0.0001$ (extremely rare!)
+\pause
+\item Information: $I = -\log_2(0.0001) = -(-13.29) = 13.29$ bits
+\pause
+\item \textcolor{red}{\textbf{High surprise}} - this would be shocking news!
+\end{itemize}
+
+\pause
+\textbf{Notice:} Rare events carry $\sim$90× more information!
+\end{frame}
+
+\begin{frame}{From Single Events to Distributions}
+\textbf{Question:} What if we have multiple possible outcomes?
+
+\pause
+\textbf{Example:} Weather in Seattle (4 possibilities)
+\begin{itemize}
+\item Rainy: $p = 0.5$
+\item Cloudy: $p = 0.3$  
+\item Sunny: $p = 0.15$
+\item Snowy: $p = 0.05$
+\end{itemize}
+
+\pause
+\textbf{Problem:} Each day gives different amounts of information!
+\begin{itemize}
+\item If it's rainy: $I = -\log_2(0.5) = 1.0$ bit
+\item If it's sunny: $I = -\log_2(0.15) = 2.74$ bits  
+\item If it's snowy: $I = -\log_2(0.05) = 4.32$ bits
+\end{itemize}
+
+\pause
+\textbf{Solution:} Take the \textbf{expected} (average) information!
+\end{frame}
+
+\begin{frame}{Entropy: Expected Information}
+\begin{definitionbox}{Entropy Formula}
+$$H(X) = \mathbb{E}[I(X)] = -\sum_{i} p(x_i) \log_2 p(x_i)$$
+\textbf{Entropy} = Expected amount of information per observation
+\end{definitionbox}
+
+\pause
+\textbf{Seattle weather calculation:}
+\begin{align}
+H &= -p(\text{rain}) \log_2 p(\text{rain}) - p(\text{cloudy}) \log_2 p(\text{cloudy}) \\
+&\quad - p(\text{sunny}) \log_2 p(\text{sunny}) - p(\text{snow}) \log_2 p(\text{snow})\\
+\pause
+&= -0.5 \log_2(0.5) - 0.3 \log_2(0.3) - 0.15 \log_2(0.15) - 0.05 \log_2(0.05)\\
+\pause  
+&= 0.5(1.0) + 0.3(1.74) + 0.15(2.74) + 0.05(4.32)\\
+\pause
+&= 0.5 + 0.52 + 0.41 + 0.22 = \mathbf{1.65} \text{ bits}
+\end{align}
+\end{frame}
+
+\begin{frame}{Entropy Intuition: Extreme Cases}
+\textbf{Case 1: Completely predictable}
+\begin{itemize}
+\item Desert: Always sunny ($p = 1.0$)
+\pause
+\item $H = -1.0 \log_2(1.0) = -1.0 \times 0 = \mathbf{0}$ bits
+\pause
+\item \textcolor{blue}{\textbf{Zero entropy}} = No surprise = Completely predictable
+\end{itemize}
+
+\pause
+\textbf{Case 2: Maximum uncertainty}  
+\begin{itemize}
+\item Fair coin: Heads/Tails equally likely ($p = 0.5$ each)
+\pause
+\item $H = -0.5 \log_2(0.5) - 0.5 \log_2(0.5) = 0.5(1) + 0.5(1) = \mathbf{1.0}$ bit
+\pause
+\item \textcolor{red}{\textbf{Maximum entropy}} = Maximum surprise = Completely unpredictable
+\end{itemize}
+
+\pause
+\textbf{Key insight:} Entropy ranges from 0 (certain) to $\log_2(n)$ (uniform over $n$ outcomes)
+\end{frame}
+
+\begin{frame}{Entropy in Decision Trees: The Connection}
+\textbf{Why do we care about entropy in ML?}
+
+\pause
+\begin{examplebox}{Decision Tree Goal}
+We want to split data into \textbf{pure} subsets where we can make confident predictions.
+\end{examplebox}
+
+\pause
+\begin{itemize}
+\item \textbf{Pure node}: All examples same class → \textcolor{blue}{Low entropy} → \textcolor{blue}{Good split}
+\pause
+\item \textbf{Mixed node}: Examples from different classes → \textcolor{red}{High entropy} → \textcolor{red}{Bad split}
+\end{itemize}
+
+\pause
+\textbf{Strategy:} Choose splits that \textbf{reduce entropy} the most!
+
+\pause
+This is exactly what \textbf{Information Gain} measures.
+\end{frame}
 
 \begin{frame}{Entropy}
  Statistical measure to characterize the
@@ -280,7 +544,7 @@ What does entropy measure in the context of decision trees?
 \item The accuracy of the tree
 \end{enumerate}
 \pause
-\textbf{Answer: B) The impurity or "disagreement" in a set of examples} - Higher entropy means more mixed classes, lower entropy means more pure subsets.
+\textbf{Answer: B) The impurity or ``disagreement'' in a set of examples} - Higher entropy means more mixed classes, lower entropy means more pure subsets.
 \end{tcolorbox}
 \end{frame}
 
@@ -609,16 +873,25 @@ node/.style={%
 \pause  No
 \end{frame}
 
-\begin{frame}{Limiting Depth of Tree}
-Assuming if you were only allowed depth-$1$ trees, how would it look for the current dataset? \\
+\begin{frame}{Limiting Tree Depth}
+\begin{definitionbox}{Depth-Limited Trees}
+When depth limit is reached, assign the \textbf{most common class} in that path as the leaf node prediction.
+\end{definitionbox}
 
-\pause Apply the same rules, except when depth limit is reached, the leaf node is assigned the most common occurring value in that path.
+\pause
+\begin{itemize}
+\item \textbf{Depth-0 tree} (no decisions):
+\begin{itemize}
+\item Always predict the most common class
+\item For our dataset: Always predict \textcolor{green}{\textbf{Yes}}
+\end{itemize}
 
-\pause What is depth-$0$ tree (no decision) for the examples? \\
-\pause Always predicting Yes
+\pause
+\item \textbf{Depth-1 tree} (single decision):
+\end{itemize}
 
-\pause What is depth-$1$ tree (no decision) for the examples? \\
-\pause \begin{tikzpicture}[
+\begin{center}
+\begin{tikzpicture}[
 node/.style={%
 	draw,
 	rectangle,
@@ -630,13 +903,12 @@ node/.style={%
 \path (A) ++(-90:\nodeDist/2) node [node, fill=green] (C) {Yes};
 \path (A) ++(-30:\nodeDist) node [node, fill=green] (D) {Yes};
 
-
 \draw (A) -- (B) node [left,pos=0.25] {Sunny}(A);
 \draw (A) -- (C) node [right,pos=0.8] {Overcast}(A);
 \draw (A) -- (D) node [right,pos=0.5] {Rain}(A);
 
 \end{tikzpicture}
-
+\end{center}
 \end{frame}
 
 \begin{frame}{Pop Quiz \stepcounter{popquiz}\#\thepopquiz}
