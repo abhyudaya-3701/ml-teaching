@@ -950,24 +950,47 @@ In the tennis dataset, why did "Outlook" have the highest information gain?
 \end{table}
 \end{frame}
 
-\begin{frame}{Measure of Impurity for Regression?}
+\begin{frame}{Regression Trees: From Classification to Regression}
 \begin{itemize}
-	\item \pause Any guesses?
-	\item \pause Mean Squared Error
-	\item \pause $\MSE(S) = 311.34$
-	\item \pause What about splitting criterion for regression?
-	\item \pause \textbf{MSE Reduction} (not Information Gain!)
-	\item \pause MSE Reduction = $\MSE(S) - \sum_{v} \frac{|S_v|}{|S|} \MSE(S_v)$
+	\item \pause Classification trees predict discrete classes (Yes/No, categories)
+	\item \pause Regression trees predict continuous numeric values  
+	\item \pause \textbf{Key Question:} How do we measure impurity for continuous outputs?
+	\item \pause For classification: Used entropy, information gain
+	\item \pause For regression: Use \textbf{Mean Squared Error (MSE)}
 \end{itemize}
 
+\pause
+\begin{keypointsbox}
+\textbf{Why MSE for Regression?}\\
+MSE measures how far predicted values are from actual values.\\
+Lower MSE = Better predictions = Less "impurity" in the data
+\end{keypointsbox}
 \end{frame}
 
-\begin{frame}{Gain by splitting on Wind}
-\begin{columns}
+\begin{frame}{Mean Squared Error (MSE): The Mathematics}
+\begin{definitionbox}{Mean Squared Error}
+For a dataset $S$ with $n$ data points and target values $y_1, y_2, \ldots, y_n$:
 
-\begin{column}{.5\textwidth}
-	\begin{scriptsize}
+\vspace{0.3cm}
+\[
+\MSE(S) = \frac{1}{n} \sum_{i=1}^{n} (y_i - \bar{y})^2
+\]
+\vspace{0.3cm}
 
+where $\bar{y} = \frac{1}{n} \sum_{i=1}^{n} y_i$ is the mean of target values
+\end{definitionbox}
+
+\pause
+\begin{itemize}
+	\item \pause $(y_i - \bar{y})^2$: Squared difference between actual and mean
+	\item \pause Squaring ensures positive values and penalizes large errors
+	\item \pause MSE = 0 when all values are identical (perfect homogeneity)
+	\item \pause Higher MSE = More variation = Higher impurity
+\end{itemize}
+\end{frame}
+
+\begin{frame}{MSE Calculation: Step 1 - The Complete Dataset}
+\begin{center}
 \begin{table}[]
 	\begin{tabular}{@{}ll@{}}
 		\toprule
@@ -987,65 +1010,320 @@ In the tennis dataset, why did "Outlook" have the highest information gain?
 		Weak          & 35                      \\
 		Strong        & 20                      \\ \bottomrule
 	\end{tabular}
-\caption{MSE(S)=311.34}
 \end{table}
-	\end{scriptsize}
-\end{column}
-\begin{column}{.5\textwidth}
-	\begin{tiny}
-\vspace{-5pt}		
-\begin{table}[]
-	\begin{tabular}{@{}ll@{}}
-		\toprule
-		\textbf{Wind} & \textbf{Minutes Played} \\ \midrule
-		Weak          & 20                      \\
-		Weak          & 40                      \\
-		Weak          & 50                      \\
-		Weak          & 60                      \\
-		Weak          & 10                      \\
-		Weak          & 60                      \\
-		Weak          & 40                      \\
-		Weak          & 35                      \\ \bottomrule
-	\end{tabular}
-\caption{$\MSE(S_{\text{Wind=Weak}}) = 277$, Weight = $\frac{8}{14}$}
-\end{table}
-\vspace{-25pt}
-	\end{tiny}
+\end{center}
 
-	\begin{tiny}
-	
-	\begin{table}[]
-		\begin{tabular}{@{}ll@{}}
-			\toprule
-			\textbf{Wind} & \textbf{Minutes Played} \\ \midrule
-
-			Strong        & 24                      \\
-			Strong        & 10                      \\
-			Strong        & 4                       \\
-			Strong        & 45                      \\
-			Strong        & 40                      \\
-			Strong        & 20                      \\ \bottomrule
-		\end{tabular}
-\caption{$\MSE(S_{\text{Wind=Strong}}) = 218$, Weight = $\frac{6}{14}$}
-	\end{table}
-\end{tiny}
-
-\end{column}
-\end{columns}
+\begin{itemize}
+	\item \textbf{Tennis Dataset:} Predicting minutes played (continuous target)
+	\item \textbf{Goal:} Calculate MSE for the entire dataset $S$
+	\item \textbf{Step 1:} Find the mean $\bar{y}$ of all target values
+\end{itemize}
 \end{frame}
 
-\begin{frame}{MSE Reduction Calculation}
-\textbf{Correct calculation for Wind split:}
+\begin{frame}{MSE Calculation: Step 2 - Computing the Mean}
+\begin{examplebox}{Calculating Mean Minutes Played}
+\textbf{All target values:} 20, 24, 40, 50, 60, 10, 4, 10, 60, 40, 45, 40, 35, 20
+
+\vspace{0.3cm}
+\textbf{Step 1:} Sum all values
 \[
-\text{MSE Reduction} = \MSE(S) - \text{Weighted Average MSE}
+\sum y_i = 20 + 24 + 40 + 50 + 60 + 10 + 4 + 10 + 60 + 40 + 45 + 40 + 35 + 20
 \]
+\pause
 \[
-= 311.34 - \left[\frac{8}{14} \times 277 + \frac{6}{14} \times 218\right] = 311.34 - [158.857 + 93.429] = 311.34 - 252.286 = \mathbf{59.05}
+= 458
 \]
 
-\textbf{Key insight:} MSE Reduction $> 0$ means the split improves our model!
+\pause
+\textbf{Step 2:} Divide by number of data points ($n = 14$)
+\[
+\bar{y} = \frac{458}{14} = 32.71 \text{ minutes}
+\]
+\end{examplebox}
+\end{frame}
 
-\textbf{For regression:} Use MSE Reduction, NOT Information Gain!
+\begin{frame}{MSE Calculation: Step 3 - Computing Squared Differences}
+\begin{examplebox}{Calculating $(y_i - \bar{y})^2$ for Each Data Point}
+\scriptsize
+With $\bar{y} = 32.71$:
+
+\vspace{0.2cm}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{$y_i$} & \textbf{$y_i - \bar{y}$} & \textbf{$(y_i - \bar{y})^2$} \\ \hline
+20 & $20 - 32.71 = -12.71$ & $(-12.71)^2 = 161.54$ \\
+24 & $24 - 32.71 = -8.71$ & $(-8.71)^2 = 75.86$ \\
+40 & $40 - 32.71 = 7.29$ & $(7.29)^2 = 53.14$ \\
+50 & $50 - 32.71 = 17.29$ & $(17.29)^2 = 299.14$ \\
+60 & $60 - 32.71 = 27.29$ & $(27.29)^2 = 744.74$ \\
+10 & $10 - 32.71 = -22.71$ & $(-22.71)^2 = 515.74$ \\
+4 & $4 - 32.71 = -28.71$ & $(-28.71)^2 = 824.26$ \\
+\hline
+\end{tabular}
+\end{examplebox}
+\pause
+\textbf{Continue this for all 14 data points...}
+\end{frame}
+
+\begin{frame}{MSE Calculation: Step 4 - Complete Squared Differences}
+\begin{examplebox}{All Squared Differences}
+\tiny
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{$y_i$} & \textbf{$y_i - \bar{y}$} & \textbf{$(y_i - \bar{y})^2$} \\ \hline
+20 & $-12.71$ & $161.54$ \\
+24 & $-8.71$ & $75.86$ \\
+40 & $7.29$ & $53.14$ \\
+50 & $17.29$ & $299.14$ \\
+60 & $27.29$ & $744.74$ \\
+10 & $-22.71$ & $515.74$ \\
+4 & $-28.71$ & $824.26$ \\
+10 & $-22.71$ & $515.74$ \\
+60 & $27.29$ & $744.74$ \\
+40 & $7.29$ & $53.14$ \\
+45 & $12.29$ & $151.04$ \\
+40 & $7.29$ & $53.14$ \\
+35 & $2.29$ & $5.24$ \\
+20 & $-12.71$ & $161.54$ \\ \hline
+\textbf{Sum} & & $\mathbf{4358.86}$ \\
+\hline
+\end{tabular}
+\end{examplebox}
+\end{frame}
+
+\begin{frame}{MSE Calculation: Step 5 - Final MSE Computation}
+\begin{examplebox}{Computing MSE for Complete Dataset}
+\textbf{Formula:} 
+\[
+\MSE(S) = \frac{1}{n} \sum_{i=1}^{n} (y_i - \bar{y})^2
+\]
+
+\pause
+\textbf{Substituting our values:}
+\[
+\MSE(S) = \frac{1}{14} \times 4358.86 = 311.35
+\]
+
+\pause
+\textbf{Interpretation:}
+\begin{itemize}
+	\item MSE = 311.35 square-minutes
+	\item This measures the "impurity" or variation in our dataset
+	\item Higher MSE = More variation in target values
+	\item When we split the data, we want to reduce this MSE
+\end{itemize}
+\end{examplebox}
+\end{frame}
+
+\begin{frame}{MSE Reduction: The Splitting Criterion}
+\begin{definitionbox}{MSE Reduction Formula}
+For a split on attribute $A$ with values $v_1, v_2, \ldots, v_k$:
+
+\vspace{0.3cm}
+\[
+\text{MSE Reduction} = \MSE(S) - \sum_{j=1}^{k} \frac{|S_{v_j}|}{|S|} \times \MSE(S_{v_j})
+\]
+\vspace{0.3cm}
+
+where:
+\begin{itemize}
+	\item $S$ is the original dataset
+	\item $S_{v_j}$ is the subset with attribute value $v_j$
+	\item $|S_{v_j}|$ is the size of subset $S_{v_j}$
+	\item $|S|$ is the size of original dataset
+\end{itemize}
+\end{definitionbox}
+
+\pause
+\begin{keypointsbox}
+\textbf{Key Insight:} MSE Reduction $> 0$ means the split improves our model!\\
+\textbf{Choose the split with highest MSE Reduction}
+\end{keypointsbox}
+\end{frame}
+
+\begin{frame}{Splitting on Wind: Step 1 - Partition the Data}
+\begin{columns}
+\begin{column}{.5\textwidth}
+\begin{examplebox}{Wind = Weak (8 points)}
+\scriptsize
+\begin{tabular}{|c|c|}
+\hline
+\textbf{Wind} & \textbf{Minutes} \\ \hline
+Weak & 20 \\
+Weak & 40 \\
+Weak & 50 \\
+Weak & 60 \\
+Weak & 10 \\
+Weak & 60 \\
+Weak & 40 \\
+Weak & 35 \\ \hline
+\end{tabular}
+\end{examplebox}
+\end{column}
+
+\begin{column}{.5\textwidth}
+\begin{examplebox}{Wind = Strong (6 points)}
+\scriptsize
+\begin{tabular}{|c|c|}
+\hline
+\textbf{Wind} & \textbf{Minutes} \\ \hline
+Strong & 24 \\
+Strong & 10 \\
+Strong & 4 \\
+Strong & 45 \\
+Strong & 40 \\
+Strong & 20 \\ \hline
+\end{tabular}
+\end{examplebox}
+\end{column}
+\end{columns}
+
+\vspace{0.3cm}
+\begin{itemize}
+	\item \textbf{Original dataset:} 14 points, MSE = 311.35
+	\item \textbf{After split:} 8 points (Weak) + 6 points (Strong)
+	\item \textbf{Next:} Calculate MSE for each subset
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Splitting on Wind: Step 2 - MSE for Wind=Weak}
+\begin{examplebox}{Calculating $\MSE(S_{\text{Wind=Weak}})$}
+\textbf{Data points:} 20, 40, 50, 60, 10, 60, 40, 35
+
+\pause
+\textbf{Step 1:} Calculate mean
+\[
+\bar{y}_{\text{weak}} = \frac{20 + 40 + 50 + 60 + 10 + 60 + 40 + 35}{8} = \frac{315}{8} = 39.375
+\]
+
+\pause
+\textbf{Step 2:} Calculate squared differences
+\scriptsize
+\begin{tabular}{|c|c|c|}
+\hline
+$y_i$ & $y_i - 39.375$ & $(y_i - 39.375)^2$ \\ \hline
+20 & $-19.375$ & $375.39$ \\
+40 & $0.625$ & $0.39$ \\
+50 & $10.625$ & $112.89$ \\
+60 & $20.625$ & $425.39$ \\
+10 & $-29.375$ & $862.89$ \\
+60 & $20.625$ & $425.39$ \\
+40 & $0.625$ & $0.39$ \\
+35 & $-4.375$ & $19.14$ \\ \hline
+\textbf{Sum} & & $\mathbf{2221.87}$ \\
+\hline
+\end{tabular}
+\end{examplebox}
+\end{frame}
+
+\begin{frame}{Splitting on Wind: Step 3 - Complete MSE for Wind=Weak}
+\begin{examplebox}{Final MSE Calculation for Wind=Weak}
+\[
+\MSE(S_{\text{Wind=Weak}}) = \frac{1}{8} \times 2221.87 = 277.73
+\]
+\end{examplebox}
+
+\pause
+\begin{examplebox}{Verification Check}
+\begin{itemize}
+	\item Original MSE for all data: 311.35
+	\item MSE for Wind=Weak subset: 277.73
+	\item \textbf{Good sign:} MSE decreased (less variation within this group)
+	\item This subset is more "homogeneous" than the full dataset
+\end{itemize}
+\end{examplebox}
+\end{frame}
+
+\begin{frame}{Splitting on Wind: Step 4 - MSE for Wind=Strong}
+\begin{examplebox}{Calculating $\MSE(S_{\text{Wind=Strong}})$}
+\textbf{Data points:} 24, 10, 4, 45, 40, 20
+
+\pause
+\textbf{Step 1:} Calculate mean
+\[
+\bar{y}_{\text{strong}} = \frac{24 + 10 + 4 + 45 + 40 + 20}{6} = \frac{143}{6} = 23.83
+\]
+
+\pause
+\textbf{Step 2:} Calculate squared differences
+\scriptsize
+\begin{tabular}{|c|c|c|}
+\hline
+$y_i$ & $y_i - 23.83$ & $(y_i - 23.83)^2$ \\ \hline
+24 & $0.17$ & $0.03$ \\
+10 & $-13.83$ & $191.27$ \\
+4 & $-19.83$ & $393.23$ \\
+45 & $21.17$ & $448.17$ \\
+40 & $16.17$ & $261.47$ \\
+20 & $-3.83$ & $14.67$ \\ \hline
+\textbf{Sum} & & $\mathbf{1308.84}$ \\
+\hline
+\end{tabular}
+
+\pause
+\[
+\MSE(S_{\text{Wind=Strong}}) = \frac{1}{6} \times 1308.84 = 218.14
+\]
+\end{examplebox}
+\end{frame}
+
+\begin{frame}{Splitting on Wind: Step 5 - Computing MSE Reduction}
+\begin{examplebox}{Final MSE Reduction Calculation}
+\textbf{We have:}
+\begin{itemize}
+	\item $\MSE(S) = 311.35$ (original dataset)
+	\item $\MSE(S_{\text{Wind=Weak}}) = 277.73$ (8 points)
+	\item $\MSE(S_{\text{Wind=Strong}}) = 218.14$ (6 points)
+\end{itemize}
+
+\pause
+\textbf{Weighted Average MSE:}
+\[
+\text{Weighted MSE} = \frac{8}{14} \times 277.73 + \frac{6}{14} \times 218.14
+\]
+\pause
+\[
+= 0.571 \times 277.73 + 0.429 \times 218.14
+\]
+\pause
+\[
+= 158.60 + 93.58 = 252.18
+\]
+
+\pause
+\textbf{MSE Reduction:}
+\[
+\text{MSE Reduction} = 311.35 - 252.18 = \mathbf{59.17}
+\]
+\end{examplebox}
+\end{frame}
+
+\begin{frame}{MSE Reduction: Interpretation and Decision Making}
+\begin{keypointsbox}
+\textbf{What Does MSE Reduction = 59.17 Mean?}
+\begin{itemize}
+	\item \textbf{Positive value:} The split improves our model!
+	\item \textbf{Magnitude:} We reduced prediction error by 59.17 square-minutes
+	\item \textbf{Percentage:} $(59.17 / 311.35) \times 100\% = 19\%$ improvement
+	\item \textbf{Intuition:} Wind attribute helps separate high/low playing minutes
+\end{itemize}
+\end{keypointsbox}
+
+\pause
+\begin{examplebox}{Decision Tree Building Process}
+\begin{itemize}
+	\item \textbf{Step 1:} Calculate MSE reduction for all possible splits
+	\item \textbf{Step 2:} Choose the split with \emph{highest} MSE reduction
+	\item \textbf{Step 3:} Recursively apply to child nodes
+	\item \textbf{Stop when:} MSE reduction becomes too small or max depth reached
+\end{itemize}
+\end{examplebox}
+
+\pause
+\begin{alertbox}{Key Difference from Classification}
+\textbf{Classification:} Use Information Gain (maximize information)\\
+\textbf{Regression:} Use MSE Reduction (minimize prediction error)
+\end{alertbox}
 \end{frame}
 
 \begin{frame}{Pop Quiz \stepcounter{popquiz}\#\thepopquiz}
