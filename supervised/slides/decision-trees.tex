@@ -2,8 +2,6 @@
 \usepackage{../../shared/styles/custom}
 \usepackage{../../shared/styles/conventions}
 
-
-
 \title{Decision Trees}
 \date{\today}
 \author{Nipun Batra and teaching staff}
@@ -13,43 +11,46 @@
 \setcounter{popquiz}{0}
 
 \begin{document}
-	\maketitle
-	
-	% Table of Contents
-	\begin{frame}{Table of Contents}
-		\tableofcontents[hideallsubsections]
-	\end{frame}
-	
-	\section{Introduction and Motivation}
+\maketitle
+
+% Table of Contents
+\begin{frame}{Table of Contents}
+    \tableofcontents[hideallsubsections]
+\end{frame}
+
+\section{Introduction and Motivation}
 	
 \begin{frame}{The need for interpretability}
-	\begin{figure}
-		\centering
-		\includegraphics[scale=0.32]{../assets/decision-trees/diagrams/interpretability}
-		\label{fig:interpretability}
-	\end{figure}
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.29]{../assets/decision-trees/diagrams/interpretability}
+    \label{fig:interpretability}
+\end{figure}
 	
 \end{frame}
 	
-	\renewcommand{\arraystretch}{0.85}
-	\begin{frame}{Training Data}
-	\begin{tabular}{lllll||l} \toprule
-	\textbf{Day} & \textbf{Outlook}  & \textbf{Temp} & \textbf{Humidity} & \textbf{Windy}  & \textbf{Play} \\ \midrule
-	D1  & Sunny    & Hot  & High     & Weak   & No   \\
-	D2  & Sunny    & Hot  & High     & Strong & No   \\
-	D3  & Overcast & Hot  & High     & Weak   & Yes  \\
-	D4  & Rain     & Mild & High     & Weak   & Yes  \\
-	D5  & Rain     & Cool & Normal   & Weak   & Yes  \\
-	D6  & Rain     & Cool & Normal   & Strong & No   \\
-	D7  & Overcast & Cool & Normal   & Strong & Yes  \\
-	D8  & Sunny    & Mild & High     & Weak   & No   \\
-	D9  & Sunny    & Cool & Normal   & Weak   & Yes  \\
-	D10 & Rain     & Mild & Normal   & Weak   & Yes  \\
-	D11 & Sunny    & Mild & Normal   & Strong & Yes  \\
-	D12 & Overcast & Mild & High     & Strong & Yes  \\
-	D13 & Overcast & Hot  & Normal   & Weak   & Yes  \\
-	D14 & Rain     & Mild & High     & Strong & No  \\ \bottomrule
-	\end{tabular}
+\renewcommand{\arraystretch}{0.85}
+
+\begin{frame}{Training Data}
+\begin{center}    
+\begin{tabular}{lllll||l} \toprule
+\textbf{Day} & \textbf{Outlook}  & \textbf{Temp} & \textbf{Humidity} & \textbf{Windy}  & \textbf{Play} \\ \midrule
+D1  & Sunny    & Hot  & High     & Weak   & No   \\
+D2  & Sunny    & Hot  & High     & Strong & No   \\
+D3  & Overcast & Hot  & High     & Weak   & Yes  \\
+D4  & Rain     & Mild & High     & Weak   & Yes  \\
+D5  & Rain     & Cool & Normal   & Weak   & Yes  \\
+D6  & Rain     & Cool & Normal   & Strong & No   \\
+D7  & Overcast & Cool & Normal   & Strong & Yes  \\
+D8  & Sunny    & Mild & High     & Weak   & No   \\
+D9  & Sunny    & Cool & Normal   & Weak   & Yes  \\
+D10 & Rain     & Mild & Normal   & Weak   & Yes  \\
+D11 & Sunny    & Mild & Normal   & Strong & Yes  \\
+D12 & Overcast & Mild & High     & Strong & Yes  \\
+D13 & Overcast & Hot  & Normal   & Weak   & Yes  \\
+D14 & Rain     & Mild & High     & Strong & No  \\ \bottomrule
+\end{tabular}
+\end{center}
 \end{frame}
 
 \begin{frame}{Learning a Complicated Neural Network}
@@ -111,11 +112,11 @@
 	}
 	
 	% Layer labels
-	\node[above] at (0, 1.5) {\textbf{Input}};
-	\node[above] at (2.5, 1.5) {\textbf{Hidden 1}};
-	\node[above] at (5, 1.5) {\textbf{Hidden 2}};
-	\node[above] at (7.5, 1.5) {\textbf{Hidden 3}};
-	\node[above] at (10, 1.5) {\textbf{Output}};
+	\node[below] at (0, -0.5) {\textbf{Input}};
+	\node[below] at (2.5, -0.5) {\textbf{Hidden 1}};
+	\node[below] at (5, -0.5) {\textbf{Hidden 2}};
+	\node[below] at (7.5, -0.5) {\textbf{Hidden 3}};
+	\node[below] at (10, -0.5) {\textbf{Output}};
 	
 \end{tikzpicture}
 \end{center}
@@ -165,7 +166,7 @@ node/.style={%
 \begin{center}
 \begin{figure}
 	\centering
-	\includegraphics[width=0.7\linewidth]{../assets/decision-trees/diagrams/brieman}
+	\includegraphics[width=1.1\linewidth]{../assets/decision-trees/diagrams/brieman}
 	\label{fig:brieman}
 \end{figure}
 \end{center}
@@ -174,73 +175,72 @@ node/.style={%
 \begin{frame}{Leo Breiman: Revolutionary Contributions to ML}
 \begin{keypointsbox}
 \textbf{Major Algorithmic Breakthroughs:}
-\begin{itemize}
-\item \textbf{CART (1984)}: Classification and Regression Trees
-\item \textbf{Bagging (1994)}: Bootstrap Aggregating
-\item \textbf{Random Forests (2001)}: Ensemble of decision trees
-\item \textbf{Two Cultures (2001)}: Data modeling vs. algorithmic modeling
-\end{itemize}
+\cleanitemize{
+    \item \textbf{CART (1984)}: Classification and Regression Trees
+    \item \textbf{Bagging (1994)}: Bootstrap Aggregating
+    \item \textbf{Random Forests (2001)}: Ensemble of Decision Trees
+    \item \textbf{Two Cultures (2001)}: Data Modeling vs. Algorithmic Modeling
+}
 \end{keypointsbox}
 \end{frame}
 
 
 \begin{frame}{Computational Complexity Classes: A Quick Primer}
+\scriptsize
 \begin{definitionbox}{Key Complexity Classes}
-\begin{itemize}
-\item \textbf{P}: Problems solvable in polynomial time
-\begin{itemize}
-\item Example: Sorting $n$ numbers in $O(n \log n)$ time
-\end{itemize}
-\item \textbf{NP}: Problems where solutions can be \emph{verified} in polynomial time
-\begin{itemize}
-\item Example: Given a sudoku solution, verify it's correct
-\end{itemize}
-\item \textbf{NP-Complete}: Hardest problems in NP 
-\begin{itemize}
-\item Both in NP and at least as hard as any NP problem
-\item Example: Boolean satisfiability (SAT)
-\end{itemize}
-\item \textbf{NP-Hard}: At least as hard as NP-Complete problems
-\begin{itemize}
-\item May not be in NP (solutions might not be verifiable quickly)
-\item Example: Optimization versions of NP-Complete problems
-\end{itemize}
-\end{itemize}
+\cleanitemize{
+    \item \textbf{P}: Problems solvable in polynomial time
+    \cleanitemize{
+        \item Example: Sorting $n$ numbers in $O(n \log n)$ time
+    }
+    \item \textbf{NP}: Problems where solutions can be \emph{verified} in polynomial time
+    \cleanitemize{
+        \item Example: Given a sudoku solution, verify it's correct
+    }
+    \item \textbf{NP-Complete}: Hardest problems in NP 
+    \cleanitemize{
+        \item Both in NP and at least as hard as any NP problem
+        \item Example: Boolean satisfiability (SAT)
+    }
+    \item \textbf{NP-Hard}: At least as hard as NP-Complete problems
+    \cleanitemize{
+        \item May not be in NP (solutions might not be verifiable quickly)
+        \item Example: Optimization versions of NP-Complete problems
+    }
+}
 \end{definitionbox}
 \end{frame}
-
-
-
 
 \begin{frame}{Finding the Optimal Decision Tree}
 \begin{center}
 \begin{figure}
-	\centering
-	\includegraphics[width=0.8\linewidth]{../assets/decision-trees/diagrams/NP-hard}
-	\label{fig:np-hard}
+\centering
+\includegraphics[width=0.8\linewidth]{../assets/decision-trees/diagrams/NP-hard}
+\label{fig:np-hard}
 \end{figure}
 \end{center}
-\textbf{The Problem}: Given training data, find the decision tree with highest accuracy
+\textbf{The Problem}: Given training data, find the decision tree with the highest accuracy
 \end{frame}
 
 \begin{frame}{Optimal Decision Trees are NP-Complete}
 \begin{alertbox}{Computational Complexity}
 \textbf{Finding optimal decision tree is NP-Complete}
-\begin{itemize}
-\item \textbf{Verification}: Given a tree, check its accuracy quickly \checkmark
-\item \textbf{Construction}: Exponentially many trees to check \crossmark
-\end{itemize}
+\cleanitemize{
+    \item \textbf{Verification}: Given a tree, check its accuracy quickly \checkmark
+    \item \textbf{Construction}: Exponentially many trees to check \crossmark
+}
 \end{alertbox}
 
-\pause
+\onslide<3->{
 \begin{examplebox}{What This Means}
-\begin{itemize}
-\item No efficient algorithm exists (unless P = NP)
-\item Must use heuristics like greedy algorithms
-\item ID3, C4.5, CART use greedy approaches
-\item Good solutions, but no optimality guarantee
-\end{itemize}
+    \cleanitemize{
+        \item No efficient algorithm exists (unless P = NP)
+        \item Must use heuristics like greedy algorithms
+        \item ID3, C4.5, CART use greedy approaches
+        \item Good solutions, but no optimality guarantee
+    }
 \end{examplebox}
+}
 \end{frame}
 
 
@@ -254,89 +254,64 @@ Core idea: At each level, choose an attribute that gives
 	\caption{Greedy $\neq$ Optimal}
 	\label{fig:gredy}
 \end{figure}
-
 \end{frame}
 
 
 \section{Discrete Input, Discrete Output}
 
-
-
 \begin{frame}{Towards biggest estimated performance gain}
 \begin{columns}
 \begin{column}{.7\textwidth}
-
-
 \begin{scriptsize}
-
-
-	\begin{tabular}{lllll||l} \toprule
-	\textbf{Day} & \textbf{Outlook}  & \textbf{Temp} & \textbf{Humidity} & \textbf{Windy}  & \textbf{Play} \\ \midrule
-	D1  & Sunny    & Hot  & High     & Weak   & No   \\
-	D2  & Sunny    & Hot  & High     & Strong & No   \\
-	D3  & Overcast & Hot  & High     & Weak   & Yes  \\
-	D4  & Rain     & Mild & High     & Weak   & Yes  \\
-	D5  & Rain     & Cool & Normal   & Weak   & Yes  \\
-	D6  & Rain     & Cool & Normal   & Strong & No   \\
-	D7  & Overcast & Cool & Normal   & Strong & Yes  \\
-	D8  & Sunny    & Mild & High     & Weak   & No   \\
-	D9  & Sunny    & Cool & Normal   & Weak   & Yes  \\
-	D10 & Rain     & Mild & Normal   & Weak   & Yes  \\
-	D11 & Sunny    & Mild & Normal   & Strong & Yes  \\
-	D12 & Overcast & Mild & High     & Strong & Yes  \\
-	D13 & Overcast & Hot  & Normal   & Weak   & Yes  \\
-	D14 & Rain     & Mild & High     & Strong & No  \\ \bottomrule
+\begin{tabular}{lllll||l} \toprule
+\textbf{Day} & \textbf{Outlook}  & \textbf{Temp} & \textbf{Humidity} & \textbf{Windy}  & \textbf{Play} \\ \midrule
+D1  & Sunny    & Hot  & High     & Weak   & No   \\
+D2  & Sunny    & Hot  & High     & Strong & No   \\
+D3  & Overcast & Hot  & High     & Weak   & Yes  \\
+D4  & Rain     & Mild & High     & Weak   & Yes  \\
+D5  & Rain     & Cool & Normal   & Weak   & Yes  \\
+D6  & Rain     & Cool & Normal   & Strong & No   \\
+D7  & Overcast & Cool & Normal   & Strong & Yes  \\
+D8  & Sunny    & Mild & High     & Weak   & No   \\
+D9  & Sunny    & Cool & Normal   & Weak   & Yes  \\
+D10 & Rain     & Mild & Normal   & Weak   & Yes  \\
+D11 & Sunny    & Mild & Normal   & Strong & Yes  \\
+D12 & Overcast & Mild & High     & Strong & Yes  \\
+D13 & Overcast & Hot  & Normal   & Weak   & Yes  \\
+D14 & Rain     & Mild & High     & Strong & No  \\ \bottomrule
 \end{tabular}
 \end{scriptsize}
 \end{column}
-\begin{column}{0.4\textwidth}
-	\begin{scriptsize}
-\begin{itemize}
-	\pause \item For examples, we have 9 Yes, 5 No
-	\pause \item Would it be trivial if we had 14 Yes or 14 No?
-	\pause \item Yes!
-	\pause \item Key insight: Problem is ``easier'' when there is less disagreement
-	\pause 	\item Need some statistical measure of ``disagreement'' 
-	\end{itemize}
-
+\onslide<2->{\begin{column}{0.4\textwidth}
+\begin{scriptsize}
+\cleanitemize{
+    \item For examples, we have 9 Yes, 5 No   
+    \item Would it be trivial if we had 14 Yes or 14 No?
+    \item Yes!
+    \item Key insight: Problem is ``easier'' when there is less disagreement
+    \item Need some statistical measure of ``disagreement'' 
+}
 \end{scriptsize}
-\end{column}
-
+\end{column}}
 \end{columns}
-
 \end{frame}
 
-
-
-
-%\begin{frame}
-%\begin{forest}
-%	for tree={grow'=south}
-%	[Outlook
-%	[Humidity, edge label={node[midway,fill=gray,font=\scriptsize]{Sunny}} []]
-%	[Wind, edge label={node[midway,fill=white,font=\scriptsize]{Rain}} [] [] []]
-%	[Yes, edge label={node[midway,fill=white,font=\scriptsize]{Overcast}}]
-%	]
-%\end{forest}
-%\end{frame}
 
 \begin{frame}{Claude Shannon (1948): The Birth of Information Theory}
 \begin{definitionbox}{The Big Idea}
 Information is inversely related to probability. \textbf{Rare events are more informative!}
 \end{definitionbox}
-
 \pause
 \textbf{Think about it:} Which headline tells you more?
-\begin{itemize}
+\pause
+\cleanitemize{
 \item "The sun rose this morning" 
-\item "It snowed in Death Valley in July"
-\end{itemize}
+\item "It snowed in Gandhinagar in July"
+}
 
-\pause
-The second one! Because it's \textbf{unexpected}.
-
-\pause
-\textbf{Shannon's insight:} The amount of information in an event should be inversely proportional to its probability.
+\onslide<5->{
+The second one! Because it's \textbf{unexpected}.\\
+\textbf{Shannon's insight:} The amount of information in an event should be inversely proportional to its probability.}
 \end{frame}
 
 \begin{frame}{Measuring Surprise: Step by Step}
@@ -345,39 +320,35 @@ $$I(x) = -\log_2 p(x)$$
 
 \pause
 \textbf{Why the negative log?}
-\begin{itemize}
+\cleanitemize{
 \item Probabilities are between 0 and 1
 \item $\log_2$ of values $< 1$ gives negative numbers
 \item We want information to be positive
 \item Hence the negative sign!
-\end{itemize}
+}
 
-\pause
-\textbf{Why base 2?} So information is measured in \textbf{bits}.
+\onslide<6->{
+\textbf{Why base 2?} So information is measured in \textbf{bits}.}
 \end{frame}
 
 \begin{frame}{Calculating Surprise: Detailed Examples}
 \textbf{Example 1: Summer weather in Phoenix}
-\begin{itemize}
+\cleanitemize{
 \item Sunny day: $p = 0.9$
-\pause
 \item Information: $I = -\log_2(0.9) = -(-0.152) = 0.152$ bits
-\pause
 \item \textcolor{blue}{\textbf{Low surprise}} - we expect sunny weather
-\end{itemize}
+}
 
-\pause
-\textbf{Example 2: Snow in Phoenix in July}
-\begin{itemize}
+\onslide<4->{
+\textbf{Example 2: Snow in Phoenix in July}}
+\cleanitemize{
 \item Probability: $p = 0.0001$ (extremely rare!)
-\pause
 \item Information: $I = -\log_2(0.0001) = -(-13.29) = 13.29$ bits
-\pause
 \item \textcolor{red}{\textbf{High surprise}} - this would be shocking news!
-\end{itemize}
+}
 
-\pause
-\textbf{Notice:} Rare events carry $\sim$90× more information!
+\onslide<7->{
+\textbf{Notice:} Rare events carry $\sim$90× more information!}
 \end{frame}
 
 \begin{frame}{From Single Events to Distributions}
@@ -385,23 +356,23 @@ $$I(x) = -\log_2 p(x)$$
 
 \pause
 \textbf{Example:} Weather in Seattle (4 possibilities)
-\begin{itemize}
+\cleanitemize{
 \item Rainy: $p = 0.5$
 \item Cloudy: $p = 0.3$  
 \item Sunny: $p = 0.15$
 \item Snowy: $p = 0.05$
-\end{itemize}
+}
 
-\pause
-\textbf{Problem:} Each day gives different amounts of information!
-\begin{itemize}
+\onslide<6->{
+\textbf{Problem:} Each day gives different amounts of information!}
+\cleanitemize{
 \item If it's rainy: $I = -\log_2(0.5) = 1.0$ bit
 \item If it's sunny: $I = -\log_2(0.15) = 2.74$ bits  
 \item If it's snowy: $I = -\log_2(0.05) = 4.32$ bits
-\end{itemize}
+}
 
-\pause
-\textbf{Solution:} Take the \textbf{expected} (average) information!
+\onslide<9->{
+\textbf{Solution:} Take the \textbf{expected} (average) information!}
 \end{frame}
 
 \begin{frame}{Entropy: Expected Information}
@@ -412,62 +383,46 @@ $$H(X) = \mathbb{E}[I(X)] = -\sum_{i} p(x_i) \log_2 p(x_i)$$
 
 \pause
 \textbf{Seattle weather calculation:}
-\begin{align}
-H &= -p(\text{rain}) \log_2 p(\text{rain}) - p(\text{cloudy}) \log_2 p(\text{cloudy}) \\
-&\quad - p(\text{sunny}) \log_2 p(\text{sunny}) - p(\text{snow}) \log_2 p(\text{snow})\\
 \pause
-&= -0.5 \log_2(0.5) - 0.3 \log_2(0.3) - 0.15 \log_2(0.15) - 0.05 \log_2(0.05)\\
-\pause  
-&= 0.5(1.0) + 0.3(1.74) + 0.15(2.74) + 0.05(4.32)\\
-\pause
-&= 0.5 + 0.52 + 0.41 + 0.22 = \mathbf{1.65} \text{ bits}
-\end{align}
+\begin{align*}
+\uncover<+-> {H &= -p(\text{rain}) \log_2 p(\text{rain}) - p(\text{cloudy}) \log_2 p(\text{cloudy})\\
+&\quad - p(\text{sunny}) \log_2 p(\text{sunny}) - p(\text{snow}) \log_2 p(\text{snow})}\\
+\uncover<+-> { &= -0.5 \log_2(0.5) - 0.3 \log_2(0.3) - 0.15 \log_2(0.15) - 0.05 \log_2(0.05)}\\
+\uncover<+-> { &= 0.5(1.0) + 0.3(1.74) + 0.15(2.74) + 0.05(4.32)}\\
+\uncover<+-> { &= 0.5 + 0.52 + 0.41 + 0.22 = \mathbf{1.65} \text{ bits}}
+\end{align*}
 \end{frame}
 
 \begin{frame}{Entropy Intuition: Extreme Cases}
 \textbf{Case 1: Completely predictable}
-\begin{itemize}
+\cleanitemize{
 \item Desert: Always sunny ($p = 1.0$)
-\pause
 \item $H = -1.0 \log_2(1.0) = -1.0 \times 0 = \mathbf{0}$ bits
-\pause
 \item \textcolor{blue}{\textbf{Zero entropy}} = No surprise = Completely predictable
-\end{itemize}
-
-\pause
-\textbf{Case 2: Maximum uncertainty}  
-\begin{itemize}
+}
+\onslide<4->{\textbf{Case 2: Maximum uncertainty}}
+\cleanitemize{
 \item Fair coin: Heads/Tails equally likely ($p = 0.5$ each)
-\pause
 \item $H = -0.5 \log_2(0.5) - 0.5 \log_2(0.5) = 0.5(1) + 0.5(1) = \mathbf{1.0}$ bit
-\pause
 \item \textcolor{red}{\textbf{Maximum entropy}} = Maximum surprise = Completely unpredictable
-\end{itemize}
-
-\pause
-\textbf{Key insight:} Entropy ranges from 0 (certain) to $\log_2(n)$ (uniform over $n$ outcomes)
+}
+\onslide<7->{\textbf{Key insight:} Entropy ranges from 0 (certain) to $\log_2(n)$ (uniform over $n$ outcomes)}
 \end{frame}
 
 \begin{frame}{Entropy in Decision Trees: The Connection}
 \textbf{Why do we care about entropy in ML?}
-
 \pause
 \begin{examplebox}{Decision Tree Goal}
 We want to split data into \textbf{pure} subsets where we can make confident predictions.
 \end{examplebox}
 
 \pause
-\begin{itemize}
+\cleanitemize{
 \item \textbf{Pure node}: All examples same class → \textcolor{blue}{Low entropy} → \textcolor{blue}{Good split}
-\pause
 \item \textbf{Mixed node}: Examples from different classes → \textcolor{red}{High entropy} → \textcolor{red}{Bad split}
-\end{itemize}
+}
 
-\pause
-\textbf{Strategy:} Choose splits that \textbf{reduce entropy} the most!
-
-\pause
-This is exactly what \textbf{Information Gain} measures.
+\onslide<5->{\textbf{Strategy:} Choose splits that \textbf{reduce entropy} the most! This is exactly what \textbf{Information Gain} measures.}
 \end{frame}
 
 \begin{frame}{Entropy}
@@ -486,44 +441,38 @@ This is exactly what \textbf{Information Gain} measures.
 \end{frame}
 	
 \begin{frame}{Towards biggest estimated performance gain}
-\begin{columns}
-	\begin{column}{.7\textwidth}
-		
-		
-		\begin{scriptsize}
-			
+\begin{columns}[T,onlytextwidth]
+    \begin{column}{.7\textwidth}
+        \begin{scriptsize}
+            \begin{tabular}{lllll||l} \toprule
+                \textbf{Day} & \textbf{Outlook}  & \textbf{Temp} & \textbf{Humidity} & \textbf{Windy}  & \textbf{Play} \\ \midrule
+                D1  & Sunny    & Hot  & High     & Weak   & No   \\
+                D2  & Sunny    & Hot  & High     & Strong & No   \\
+                D3  & Overcast & Hot  & High     & Weak   & Yes  \\
+                D4  & Rain     & Mild & High     & Weak   & Yes  \\
+                D5  & Rain     & Cool & Normal   & Weak   & Yes  \\
+                D6  & Rain     & Cool & Normal   & Strong & No   \\
+                D7  & Overcast & Cool & Normal   & Strong & Yes  \\
+                D8  & Sunny    & Mild & High     & Weak   & No   \\
+                D9  & Sunny    & Cool & Normal   & Weak   & Yes  \\
+                D10 & Rain     & Mild & Normal   & Weak   & Yes  \\
+                D11 & Sunny    & Mild & Normal   & Strong & Yes  \\
+                D12 & Overcast & Mild & High     & Strong & Yes  \\
+                D13 & Overcast & Hot  & Normal   & Weak   & Yes  \\
+                D14 & Rain     & Mild & High     & Strong & No  \\ \bottomrule
+            \end{tabular}
+        \end{scriptsize}
+    \end{column}
 
-			\begin{tabular}{lllll||l} \toprule
-				\textbf{Day} & \textbf{Outlook}  & \textbf{Temp} & \textbf{Humidity} & \textbf{Windy}  & \textbf{Play} \\ \midrule
-				D1  & Sunny    & Hot  & High     & Weak   & No   \\
-				D2  & Sunny    & Hot  & High     & Strong & No   \\
-				D3  & Overcast & Hot  & High     & Weak   & Yes  \\
-				D4  & Rain     & Mild & High     & Weak   & Yes  \\
-				D5  & Rain     & Cool & Normal   & Weak   & Yes  \\
-				D6  & Rain     & Cool & Normal   & Strong & No   \\
-				D7  & Overcast & Cool & Normal   & Strong & Yes  \\
-				D8  & Sunny    & Mild & High     & Weak   & No   \\
-				D9  & Sunny    & Cool & Normal   & Weak   & Yes  \\
-				D10 & Rain     & Mild & Normal   & Weak   & Yes  \\
-				D11 & Sunny    & Mild & Normal   & Strong & Yes  \\
-				D12 & Overcast & Mild & High     & Strong & Yes  \\
-				D13 & Overcast & Hot  & Normal   & Weak   & Yes  \\
-				D14 & Rain     & Mild & High     & Strong & No  \\ \bottomrule
-			\end{tabular}
-		\end{scriptsize}
-	\end{column}
-	\begin{column}{0.4\textwidth}
-		\begin{scriptsize}
-			\begin{itemize}
-				\pause \item Can we use Outlook as the root node?
-				\pause 	\item When Outlook is overcast, we always Play and thus no ``disagreement'' 
-			\end{itemize}
-			
-		\end{scriptsize}
-	\end{column}
-	
+    \begin{column}{0.4\textwidth}
+        \begin{scriptsize}
+            \cleanitemize{
+                \item Can we use Outlook as the root node?
+                \item When Outlook is overcast, we always Play and thus no ``disagreement''
+            }
+        \end{scriptsize}
+    \end{column}
 \end{columns}
-
 \end{frame}
 	
 \begin{frame}{Information Gain}
@@ -534,58 +483,43 @@ $$
 $$
 \end{frame}
 
-\begin{frame}{Pop Quiz \stepcounter{popquiz}\#\thepopquiz}
-\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Quick Question!]
-What does entropy measure in the context of decision trees?
+\popquiz{
+\textbf{What does entropy measure in the context of decision trees?}
+
 \begin{enumerate}[A)]
-\item The depth of the tree
-\item The impurity or "disagreement" in a set of examples
-\item The number of features in the dataset
-\item The accuracy of the tree
+  \item The depth of the tree
+  \item The impurity or "disagreement" in a set of examples
+  \item The number of features in the dataset
+  \item The accuracy of the tree
 \end{enumerate}
-\pause
-\textbf{Answer: B) The impurity or ``disagreement'' in a set of examples} - Higher entropy means more mixed classes, lower entropy means more pure subsets.
-\end{tcolorbox}
-\end{frame}
+}{
+{\color{magenta}\textbf{B) The impurity or ``disagreement'' in a set of examples}} — Higher entropy means more mixed classes, lower entropy means more pure subsets.
+}
 
 
 \begin{frame}{ID3 (Examples, Target Attribute, Attributes)}
-\begin{itemize}[<+->]
+\cleanitemize{
 	\item Create a root node for tree
 	\item If all examples are +/-, return root with label = +/-
 	\item  If attributes = empty, return root with most common value of
 	Target Attribute in Examples
 	\item Begin
-	\begin{itemize}[<+->]
+	\cleanitemize{
 		\item A $\leftarrow$ attribute from Attributes which best classifies
 		Examples
 		\item 	Root $\leftarrow$ A
 		\item  For each value (v) of A
-		\begin{itemize}[<+->]
+		\cleanitemize{
 			\item Add new tree branch : A = v
 			\item  Examples\textsubscript{v}: subset of examples that A = v
 			\item If Examples\textsubscript{v}is empty: add leaf with label = most
 			common value of Target Attribute
 			\item Else: ID3 (Examples\textsubscript{v}, Target attribute, Attributes - {A})
-		\end{itemize}
-	\end{itemize}
+		}
+	}
 
 
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Learnt Decision Tree}
-\begin{tikzpicture}[
-node/.style={%
-	draw,
-	rectangle,
-},
-]
-
-\node [node] (A) {Root Node (empty)};
-
-\end{tikzpicture}
-
+}
 \end{frame}
 
 	\begin{frame}{Training Data}
@@ -641,7 +575,6 @@ Rain     & No  \\ \bottomrule
 \begin{frame}{Information Gain for Outlook}
 \begin{columns}
 
-
 \begin{column}{.32\textwidth}
 	\begin{table}
 \begin{tabular}{l|l} \toprule
@@ -659,10 +592,9 @@ $\Entropy = -\frac{3}{5} \log_2\left(\frac{3}{5}\right) - \frac{2}{5} \log_2\lef
 \end{table}
 \end{column}
 
-\pause \begin{column}{.32\textwidth}
+\onslide<2->{
+\begin{column}{.32\textwidth}
 	\begin{table}
-
-
 \begin{tabular}{l|l} \toprule
 	\textbf{Outlook} & \textbf{Play} \\ \midrule
 
@@ -674,15 +606,12 @@ $\Entropy = -\frac{3}{5} \log_2\left(\frac{3}{5}\right) - \frac{2}{5} \log_2\lef
 \end{tabular}
 We have 4 Yes, 0 No
 $\Entropy = 0$ (pure subset)
-
-
 	\end{table}
-
-
 \end{column}
+}
 
-
-\pause \begin{column}{.32\textwidth}
+\onslide<3->{
+\begin{column}{.32\textwidth}
 	\begin{table}
 \begin{tabular}{l|l} \toprule
 	\textbf{Outlook} & \textbf{Play} \\ \midrule
@@ -696,21 +625,21 @@ We have 3 Yes, 2 No
 $\Entropy = -\frac{3}{5} \log_2\left(\frac{3}{5}\right) - \frac{2}{5} \log_2\left(\frac{2}{5}\right) = 0.971$
 \end{table}
 \end{column}
+}
 \end{columns}
 \end{frame}
 
 \begin{frame}{Information Gain}
-$$
-\operatorname{Gain}(S, \text{Outlook}) = \text{Entropy}(S)-\sum_{v \in \{\text{Rain, Sunny, Overcast}\}} \frac{|S_{v}|}{|S|} \text{Entropy}(S_{v}) 
-$$
-
-\[
-\Gain(S, \text{Outlook}) = \Entropy(S) - \frac{5}{14} \Entropy(S_{\text{Sunny}}) - \frac{4}{14} \Entropy(S_{\text{Overcast}}) - \frac{5}{14} \Entropy(S_{\text{Rain}})
-\]
-\[
-= 0.940 - \frac{5}{14} \times 0.971 - \frac{4}{14} \times 0 - \frac{5}{14} \times 0.971 = 0.940 - 0.347 - 0 - 0.347 = 0.246
-\]
-
+\begin{align*}
+\uncover<+->{\operatorname{Gain}(S, \text{Outlook}) 
+&= \text{Entropy}(S) - \\
+&\quad \sum_{v \in \{\text{Rain, Sunny, Overcast}\}} \frac{|S_{v}|}{|S|} \, \text{Entropy}(S_{v}) \\
+\uncover<+-> {&= 0.940 - \frac{5}{14} \times 0.971 
+     - \frac{4}{14} \times 0 
+     - \frac{5}{14} \times 0.971}} \\
+\uncover<+-> {&= 0.940 - 0.347 - 0 - 0.347} \\
+\uncover<+-> {&= 0.246}
+\end{align*}
 \end{frame}
 
 \begin{frame}{Information Gain}
@@ -765,11 +694,11 @@ node/.style={%
 	D11    & Mild & Normal   & Strong & Yes  \\ \bottomrule
 \end{tabular}
 
-\begin{itemize}
-	\pause \item Gain($S_{\text{Outlook=Sunny}}$, Temp) = Entropy(2 Yes, 3 No) - (2/5)*Entropy(0 Yes, 2 No) -(2/5)*Entropy(1 Yes, 1 No) - (1/5)*Entropy(1 Yes, 0 No) 
-	\pause \item Gain($S_{\text{Outlook=Sunny}}$, Humidity) = Entropy(2 Yes, 3 No) - (2/5)*Entropy(2 Yes, 0 No) -(3/5)*Entropy(0 Yes, 3 No) $\implies$ \textbf{maximum possible for the set}
-	\pause \item Gain($S_{\text{Outlook=Sunny}}$, Windy) = Entropy(2 Yes, 3 No) - (3/5)*Entropy(1 Yes, 2 No) -(2/5)*Entropy(1 Yes, 1 No) 
-\end{itemize}
+\cleanitemize{
+    \item Gain($S_{\text{Outlook=Sunny}}$, Temp) = Entropy(2 Yes, 3 No) - (2/5)*Entropy(0 Yes, 2 No) -(2/5)*Entropy(1 Yes, 1 No) - (1/5)*Entropy(1 Yes, 0 No) 
+    \item Gain($S_{\text{Outlook=Sunny}}$, Humidity) = Entropy(2 Yes, 3 No) - (2/5)*Entropy(2 Yes, 0 No) -(3/5)*Entropy(0 Yes, 3 No) $\implies$ \textbf{maximum possible for the set}
+    \item Gain($S_{\text{Outlook=Sunny}}$, Windy) = Entropy(2 Yes, 3 No) - (3/5)*Entropy(1 Yes, 2 No) -(2/5)*Entropy(1 Yes, 1 No) 
+}
 \end{frame}
 
 \begin{frame}{Learnt Decision Tree}
@@ -879,57 +808,56 @@ When depth limit is reached, assign the \textbf{most common class} in that path 
 \end{definitionbox}
 
 \pause
-\begin{itemize}
-\item \textbf{Depth-0 tree} (no decisions):
-\begin{itemize}
-\item Always predict the most common class
-\item For our dataset: Always predict \textcolor{green}{\textbf{Yes}}
-\end{itemize}
-
-\pause
-\item \textbf{Depth-1 tree} (single decision):
-\end{itemize}
-
-\begin{center}
-\begin{tikzpicture}[
-node/.style={%
-	draw,
-	rectangle,
-},
-]
-
-\node [node] (A) {Outlook};
-\path (A) ++(-150:\nodeDist) node [node, fill=red] (B) {No};
-\path (A) ++(-90:\nodeDist/2) node [node, fill=green] (C) {Yes};
-\path (A) ++(-30:\nodeDist) node [node, fill=green] (D) {Yes};
-
-\draw (A) -- (B) node [left,pos=0.25] {Sunny}(A);
-\draw (A) -- (C) node [right,pos=0.8] {Overcast}(A);
-\draw (A) -- (D) node [right,pos=0.5] {Rain}(A);
-
-\end{tikzpicture}
-\end{center}
+\cleanitemize
+{
+    \item \textbf{Depth-0 tree} (no decisions):
+    \cleanitemize{
+        \item Always predict the most common class
+        \item For our dataset: Always predict \textcolor{green}{\textbf{Yes}}
+    }
+    \item \textbf{Depth-1 tree} (single decision):
+}
+\onslide<6->{
+    \begin{center}
+    \begin{tikzpicture}[
+    node/.style={%
+    	draw,
+    	rectangle,
+    },
+    ]
+    
+    \node [node] (A) {Outlook};
+    \path (A) ++(-150:\nodeDist) node [node, fill=red] (B) {No};
+    \path (A) ++(-90:\nodeDist/2) node [node, fill=green] (C) {Yes};
+    \path (A) ++(-30:\nodeDist) node [node, fill=green] (D) {Yes};
+    
+    \draw (A) -- (B) node [left,pos=0.25] {Sunny}(A);
+    \draw (A) -- (C) node [right,pos=0.8] {Overcast}(A);
+    \draw (A) -- (D) node [right,pos=0.5] {Rain}(A);
+    
+    \end{tikzpicture}
+    \end{center}
+}
 \end{frame}
 
-\begin{frame}{Pop Quiz \stepcounter{popquiz}\#\thepopquiz}
-\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Quick Question!]
-In the tennis dataset, why did "Outlook" have the highest information gain?
+\stepcounter{popquiz}
+\popquiz{
+\textbf{In the tennis dataset, why did "Outlook" have the highest information gain?}
 \begin{enumerate}[A)]
-\item It was the first feature in the dataset
-\item When Outlook=Overcast, all examples have Play=Yes (pure subset)
-\item It has the most possible values
-\item It was chosen randomly
+    \item It was the first feature in the dataset
+    \item When Outlook=Overcast, all examples have Play=Yes (pure subset)
+    \item It has the most possible values
+    \item It was chosen randomly
 \end{enumerate}
-\pause
-\textbf{Answer: B) When Outlook=Overcast, all examples have Play=Yes} - This creates a pure subset with entropy=0, maximizing information gain.
-\end{tcolorbox}
-\end{frame}
+}{
+{\color{magenta}\textbf{B) When Outlook=Overcast, all examples have Play=Yes}} - This creates a pure subset with entropy=0, maximizing information gain.}
+
 
 \section{Discrete Input, Real Output}
 
 \begin{frame}{Modified Dataset}
 \begin{table}[]
-	\begin{tabular}{@{}llllll@{}}
+	\begin{tabular}{@{}lllllc@{}}
 		\toprule
 		\textbf{Day} & \textbf{Outlook} & \textbf{Temp} & \textbf{Humidity} & \textbf{Wind} & \textbf{Minutes Played} \\ \midrule
 		D1           & Sunny            & Hot           & High              & Weak          & 20                      \\
@@ -951,20 +879,21 @@ In the tennis dataset, why did "Outlook" have the highest information gain?
 \end{frame}
 
 \begin{frame}{Regression Trees: From Classification to Regression}
-\begin{itemize}
-	\item \pause Classification trees predict discrete classes (Yes/No, categories)
-	\item \pause Regression trees predict continuous numeric values  
-	\item \pause \textbf{Key Question:} How do we measure impurity for continuous outputs?
-	\item \pause For classification: Used entropy, information gain
-	\item \pause For regression: Use \textbf{Mean Squared Error (MSE)}
-\end{itemize}
+\cleanitemize{
+	\item Classification trees predict discrete classes (Yes/No, categories)
+	\item Regression trees predict continuous numeric values  
+	\item \textbf{Key Question:} How do we measure impurity for continuous outputs?
+	\item For classification: Used entropy, information gain
+	\item For regression: Use \textbf{Mean Squared Error (MSE)}
+}
 
-\pause
-\begin{keypointsbox}
-\textbf{Why MSE for Regression?}\\
-MSE measures how far predicted values are from actual values.\\
-Lower MSE = Better predictions = Less "impurity" in the data
-\end{keypointsbox}
+\onslide<6->{
+    \begin{keypointsbox}
+    \textbf{Why MSE for Regression?}\\
+    MSE measures how far predicted values are from actual values.\\
+    Lower MSE = Better predictions = Less "impurity" in the data
+    \end{keypointsbox}
+}
 \end{frame}
 
 \begin{frame}{Mean Squared Error (MSE): The Mathematics}
@@ -979,20 +908,21 @@ For a dataset $S$ with $n$ data points and target values $y_1, y_2, \ldots, y_n$
 
 where $\bar{y} = \frac{1}{n} \sum_{i=1}^{n} y_i$ is the mean of target values
 \end{definitionbox}
-
 \pause
-\begin{itemize}
-	\item \pause $(y_i - \bar{y})^2$: Squared difference between actual and mean
-	\item \pause Squaring ensures positive values and penalizes large errors
-	\item \pause MSE = 0 when all values are identical (perfect homogeneity)
-	\item \pause Higher MSE = More variation = Higher impurity
-\end{itemize}
+\cleanitemize
+{
+    \item $(y_i - \bar{y})^2$: Squared difference between actual and mean
+    \item Squaring ensures positive values and penalizes large errors
+    \item MSE = 0 when all values are identical (perfect homogeneity)
+    \item Higher MSE = More variation = Higher impurity
+}
 \end{frame}
 
 \begin{frame}{MSE Calculation: Step 1 - The Complete Dataset}
+\begin{scriptsize}
 \begin{center}
 \begin{table}[]
-	\begin{tabular}{@{}ll@{}}
+	\begin{tabular}{@{}lc@{}}
 		\toprule
 		\textbf{Wind} & \textbf{Minutes Played} \\ \midrule
 		Weak          & 20                      \\
@@ -1013,32 +943,32 @@ where $\bar{y} = \frac{1}{n} \sum_{i=1}^{n} y_i$ is the mean of target values
 \end{table}
 \end{center}
 
-\begin{itemize}
-	\item \textbf{Tennis Dataset:} Predicting minutes played (continuous target)
-	\item \textbf{Goal:} Calculate MSE for the entire dataset $S$
-	\item \textbf{Step 1:} Find the mean $\bar{y}$ of all target values
-\end{itemize}
+\cleanitemize{
+    \item \textbf{Tennis Dataset:} Predicting minutes played (continuous target)
+    \item \textbf{Goal:} Calculate MSE for the entire dataset $S$
+    \item \textbf{Step 1:} Find the mean $\bar{y}$ of all target values
+}
+\end{scriptsize}
 \end{frame}
 
 \begin{frame}{MSE Calculation: Step 2 - Computing the Mean}
+\small
 \begin{examplebox}{Calculating Mean Minutes Played}
 \textbf{All target values:} 20, 24, 40, 50, 60, 10, 4, 10, 60, 40, 45, 40, 35, 20
 
 \vspace{0.3cm}
+\pause
 \textbf{Step 1:} Sum all values
-\[
-\sum y_i = 20 + 24 + 40 + 50 + 60 + 10 + 4 + 10 + 60 + 40 + 45 + 40 + 35 + 20
-\]
-\pause
-\[
-= 458
-\]
+\begin{align*}
+\uncover<+-> {\sum y_i &= 20 + 24 + 40 + 50 + 60 + 10 + 4 + 10 \\
+&\quad + 60 + 40 + 45 + 40 + 35 + 20 \\}
+\uncover<+-> {&= 458}
+\end{align*}
 
-\pause
+\onslide<4->{
 \textbf{Step 2:} Divide by number of data points ($n = 14$)
-\[
-\bar{y} = \frac{458}{14} = 32.71 \text{ minutes}
-\]
+$$\bar{y} = \frac{458}{14} = 32.71 \text{ minutes}$$
+}
 \end{examplebox}
 \end{frame}
 
@@ -1046,8 +976,8 @@ where $\bar{y} = \frac{1}{n} \sum_{i=1}^{n} y_i$ is the mean of target values
 \begin{examplebox}{Calculating $(y_i - \bar{y})^2$ for Each Data Point}
 \scriptsize
 With $\bar{y} = 32.71$:
-
 \vspace{0.2cm}
+\begin{center}
 \begin{tabular}{|c|c|c|c|}
 \hline
 \textbf{$y_i$} & \textbf{$y_i - \bar{y}$} & \textbf{$(y_i - \bar{y})^2$} \\ \hline
@@ -1060,6 +990,7 @@ With $\bar{y} = 32.71$:
 4 & $4 - 32.71 = -28.71$ & $(-28.71)^2 = 824.26$ \\
 \hline
 \end{tabular}
+\end{center}
 \end{examplebox}
 \pause
 \textbf{Continue this for all 14 data points...}
@@ -1067,7 +998,8 @@ With $\bar{y} = 32.71$:
 
 \begin{frame}{MSE Calculation: Step 4 - Complete Squared Differences}
 \begin{examplebox}{All Squared Differences}
-\tiny
+\scriptsize
+\begin{center}
 \begin{tabular}{|c|c|c|c|}
 \hline
 \textbf{$y_i$} & \textbf{$y_i - \bar{y}$} & \textbf{$(y_i - \bar{y})^2$} \\ \hline
@@ -1088,10 +1020,12 @@ With $\bar{y} = 32.71$:
 \textbf{Sum} & & $\mathbf{4358.86}$ \\
 \hline
 \end{tabular}
+\end{center}
 \end{examplebox}
 \end{frame}
 
 \begin{frame}{MSE Calculation: Step 5 - Final MSE Computation}
+\scriptsize
 \begin{examplebox}{Computing MSE for Complete Dataset}
 \textbf{Formula:} 
 \[
@@ -1106,39 +1040,38 @@ With $\bar{y} = 32.71$:
 
 \pause
 \textbf{Interpretation:}
-\begin{itemize}
+\cleanitemize
+{
 	\item MSE = 311.35 square-minutes
 	\item This measures the "impurity" or variation in our dataset
 	\item Higher MSE = More variation in target values
 	\item When we split the data, we want to reduce this MSE
-\end{itemize}
+}
 \end{examplebox}
 \end{frame}
 
 \begin{frame}{MSE Reduction: The Splitting Criterion}
+\scriptsize
 \begin{definitionbox}{MSE Reduction Formula}
 For a split on attribute $A$ with values $v_1, v_2, \ldots, v_k$:
-
-\vspace{0.3cm}
 \[
 \text{MSE Reduction} = \MSE(S) - \sum_{j=1}^{k} \frac{|S_{v_j}|}{|S|} \times \MSE(S_{v_j})
 \]
-\vspace{0.3cm}
-
 where:
-\begin{itemize}
+\cleanitemize{
 	\item $S$ is the original dataset
 	\item $S_{v_j}$ is the subset with attribute value $v_j$
 	\item $|S_{v_j}|$ is the size of subset $S_{v_j}$
 	\item $|S|$ is the size of original dataset
-\end{itemize}
+}
 \end{definitionbox}
 
-\pause
-\begin{keypointsbox}
-\textbf{Key Insight:} MSE Reduction $> 0$ means the split improves our model!\\
-\textbf{Choose the split with highest MSE Reduction}
-\end{keypointsbox}
+\onslide<5->{
+    \begin{keypointsbox}
+    \textbf{Key Insight:} MSE Reduction $> 0$ means the split improves our model!\\
+    \textbf{Choose the split with highest MSE Reduction}
+    \end{keypointsbox}
+}
 \end{frame}
 
 \begin{frame}{Splitting on Wind: Step 1 - Partition the Data}
@@ -1187,14 +1120,16 @@ Strong & 20 \\ \hline
 \end{frame}
 
 \begin{frame}{Splitting on Wind: Step 2 - MSE for Wind=Weak}
+\small
 \begin{examplebox}{Calculating $\MSE(S_{\text{Wind=Weak}})$}
 \textbf{Data points:} 20, 40, 50, 60, 10, 60, 40, 35
 
 \pause
 \textbf{Step 1:} Calculate mean
-\[
-\bar{y}_{\text{weak}} = \frac{20 + 40 + 50 + 60 + 10 + 60 + 40 + 35}{8} = \frac{315}{8} = 39.375
-\]
+\begin{align*}
+\bar{y}_{\text{weak}} &= \frac{20 + 40 + 50 + 60 + 10 + 60 + 40 + 35}{8} \\
+&= \frac{315}{8} = 39.375    
+\end{align*}
 
 \pause
 \textbf{Step 2:} Calculate squared differences
@@ -1225,16 +1160,18 @@ $y_i$ & $y_i - 39.375$ & $(y_i - 39.375)^2$ \\ \hline
 
 \pause
 \begin{examplebox}{Verification Check}
-\begin{itemize}
-	\item Original MSE for all data: 311.35
-	\item MSE for Wind=Weak subset: 277.73
-	\item \textbf{Good sign:} MSE decreased (less variation within this group)
-	\item This subset is more "homogeneous" than the full dataset
-\end{itemize}
+\cleanitemize
+{
+    \item Original MSE for all data: 311.35
+    \item MSE for Wind=Weak subset: 277.73
+    \item \textbf{Good sign:} MSE decreased (less variation within this group)
+    \item This subset is more "homogeneous" than the full dataset
+}
 \end{examplebox}
 \end{frame}
 
 \begin{frame}{Splitting on Wind: Step 4 - MSE for Wind=Strong}
+\small
 \begin{examplebox}{Calculating $\MSE(S_{\text{Wind=Strong}})$}
 \textbf{Data points:} 24, 10, 4, 45, 40, 20
 
@@ -1247,6 +1184,7 @@ $y_i$ & $y_i - 39.375$ & $(y_i - 39.375)^2$ \\ \hline
 \pause
 \textbf{Step 2:} Calculate squared differences
 \scriptsize
+\begin{center}
 \begin{tabular}{|c|c|c|}
 \hline
 $y_i$ & $y_i - 23.83$ & $(y_i - 23.83)^2$ \\ \hline
@@ -1258,7 +1196,8 @@ $y_i$ & $y_i - 23.83$ & $(y_i - 23.83)^2$ \\ \hline
 20 & $-3.83$ & $14.67$ \\ \hline
 \textbf{Sum} & & $\mathbf{1308.84}$ \\
 \hline
-\end{tabular}
+\end{tabular}    
+\end{center}
 
 \pause
 \[
@@ -1268,54 +1207,60 @@ $y_i$ & $y_i - 23.83$ & $(y_i - 23.83)^2$ \\ \hline
 \end{frame}
 
 \begin{frame}{Splitting on Wind: Step 5 - Computing MSE Reduction}
+\scriptsize
 \begin{examplebox}{Final MSE Reduction Calculation}
 \textbf{We have:}
-\begin{itemize}
-	\item $\MSE(S) = 311.35$ (original dataset)
-	\item $\MSE(S_{\text{Wind=Weak}}) = 277.73$ (8 points)
-	\item $\MSE(S_{\text{Wind=Strong}}) = 218.14$ (6 points)
-\end{itemize}
+\cleanitemize{
+    \item $\MSE(S) = 311.35$ (original dataset)
+    \item $\MSE(S_{\text{Wind=Weak}}) = 277.73$ (8 points)
+    \item $\MSE(S_{\text{Wind=Strong}}) = 218.14$ (6 points)
+}
 
-\pause
+\onslide<4->{
 \textbf{Weighted Average MSE:}
-\[
-\text{Weighted MSE} = \frac{8}{14} \times 277.73 + \frac{6}{14} \times 218.14
-\]
-\pause
-\[
-= 0.571 \times 277.73 + 0.429 \times 218.14
-\]
-\pause
-\[
-= 158.60 + 93.58 = 252.18
-\]
-
-\pause
+\begin{align*}    
+\text{Weighted MSE} &= \frac{8}{14} \times 277.73 + \frac{6}{14} \times 218.14 \\
+&= 0.571 \times 277.73 + 0.429 \times 218.14 \\
+&= 158.60 + 93.58 = 252.18
+\end{align*}
+}
+\onslide<5->{
 \textbf{MSE Reduction:}
-\[
-\text{MSE Reduction} = 311.35 - 252.18 = \mathbf{59.17}
-\]
+$$\text{MSE Reduction} = 311.35 - 252.18 = \mathbf{59.17}$$
+}
 \end{examplebox}
 \end{frame}
 
 \begin{frame}{MSE Reduction: Interpretation and Decision Making}
+\scriptsize
 \begin{keypointsbox}
 \textbf{What Does MSE Reduction = 59.17 Mean?}
-\begin{itemize}
-	\item \textbf{Positive value:} The split improves our model!
-	\item \textbf{Magnitude:} We reduced prediction error by 59.17 square-minutes
-	\item \textbf{Percentage:} $(59.17 / 311.35) \times 100\% = 19\%$ improvement
-	\item \textbf{Intuition:} Wind attribute helps separate high/low playing minutes
-\end{itemize}
+\cleanitemize{
+    \item \textbf{Positive value:} The split improves our model!
+    \item \textbf{Magnitude:} We reduced prediction error by 59.17 square-minutes
+    \item \textbf{Percentage:} $(59.17 / 311.35) \times 100\% = 19\%$ improvement
+    \item \textbf{Intuition:} Wind attribute helps separate high/low playing minutes
+}
 \end{keypointsbox}
-
-\pause
+\onslide<5->{
 \begin{examplebox}{Decision Tree Building Process}
-\begin{itemize}
-	\item \textbf{Step 1:} Calculate MSE reduction for all possible splits
-	\item \textbf{Step 2:} Choose the split with \emph{highest} MSE reduction
-	\item \textbf{Step 3:} Recursively apply to child nodes
-	\item \textbf{Stop when:} MSE reduction becomes too small or max depth reached
+\cleanitemize{
+    \item \textbf{Step 1:} Calculate MSE reduction for all possible splits
+    \item \textbf{Step 2:} Choose the split with \emph{highest} MSE reduction
+    \item \textbf{Step 3:} Recursively apply to child nodes
+    \item \textbf{Stop when:} MSE reduction becomes too small or max depth reached
+}
+\end{examplebox}}
+\end{frame}
+
+\begin{frame}{MSE Reduction: Interpretation and Decision Making}
+\small
+\begin{examplebox}{Decision Tree Building Process}
+\begin{itemize}[<*>]
+    \item \textbf{Step 1:} Calculate MSE reduction for all possible splits
+    \item \textbf{Step 2:} Choose the split with \emph{highest} MSE reduction
+    \item \textbf{Step 3:} Recursively apply to child nodes
+    \item \textbf{Stop when:} MSE reduction becomes too small or max depth reached
 \end{itemize}
 \end{examplebox}
 
@@ -1326,197 +1271,192 @@ $y_i$ & $y_i - 23.83$ & $(y_i - 23.83)^2$ \\ \hline
 \end{alertbox}
 \end{frame}
 
-\begin{frame}{Pop Quiz \stepcounter{popquiz}\#\thepopquiz}
-\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Quick Question!]
-For regression trees, what criterion do we use instead of Information Gain?
+\stepcounter{popquiz}
+\popquiz{
+\textbf{For regression trees, what criterion do we use instead of Information Gain?}
 \begin{enumerate}[A)]
-\item Information Gain
-\item Gini Impurity
-\item Mean Squared Error (MSE) Reduction
-\item Accuracy
-\end{enumerate}
-\pause
-\textbf{Answer: C) Mean Squared Error (MSE) Reduction} - For regression, we minimize MSE instead of maximizing information gain.
-\end{tcolorbox}
-\end{frame}
+    \item Information Gain
+    \item Gini Impurity
+    \item Mean Squared Error (MSE) Reduction
+    \item Accuracy
+    \end{enumerate}
+}{
+{\color{magenta}\textbf{C) Mean Squared Error (MSE) Reduction}} - For regression, we minimize MSE instead of maximizing information gain.}
 
 \begin{frame}{MSE Reduction for Regression Trees}
-
-	\begin{figure}[htp]
-		\centering
-		\begin{notebookbox}{https://nipunbatra.github.io/ml-teaching/notebooks/decision-tree-real-output.html}
-		  \includegraphics[width=\linewidth]{../assets/decision-trees/figures/discrete-input-real-output-level-1.pdf}
-		\end{notebookbox}
-	  \end{figure}
-
+    \begin{figure}[htp]
+        \centering
+        \begin{notebookbox}{https://nipunbatra.github.io/ml-teaching/notebooks/decision-tree-real-output.html}
+          \includegraphics[width=\linewidth]{../assets/decision-trees/figures/discrete-input-real-output-level-1.pdf}
+        \end{notebookbox}
+    \end{figure}
 \end{frame}
 
 \begin{frame}{Learnt Tree}
 \begin{figure}
-	\centering
-	\includegraphics[width=1\linewidth]{../assets/decision-trees/diagrams/tree}
-
-	\label{fig:tree}
+    \centering
+    \includegraphics[width=1\linewidth]{../assets/decision-trees/diagrams/tree}
+    
+    \label{fig:tree}
 \end{figure}
 
 \end{frame}
 
 \begin{frame}{Learnt Tree}
 \begin{figure}
-	\centering
-	\includegraphics[width=1\linewidth]{../assets/decision-trees/diagrams/tree2}
-
-	\label{fig:tree}
+    \centering
+    \includegraphics[width=1\linewidth]{../assets/decision-trees/diagrams/tree2}
+    
+    \label{fig:tree}
 \end{figure}
 
 \end{frame}
 
 \section{Real Input Discrete Output}
 
+    \begin{frame}{Finding splits}
+    \begin{table}[]
+    	\begin{tabular}{@{}lrr@{}}
+    		\toprule
+    		\textbf{Day} & \textbf{Temperature} & \textbf{PlayTennis} \\ \midrule
+    		D1           & 40                   & No                  \\
+    		D2           & 48                   & No                  \\
+    		D3           & 60                   & Yes                 \\
+    		D4           & 72                   & Yes                 \\
+    		D5           & 80                   & Yes                 \\
+    		D6           & 90                   & No                  \\ \bottomrule
+    	\end{tabular}
+    \end{table}
+    \cleanitemize{
+    	\item How do you find splits?
+    	\item Sort by attribute
+    	\item Find potential split points (midpoints). 
+    	\item For the above example, we have 5 potential splits: 44, 54, 66, 76, 85
+    	\item Calculate the weighted impurity for each split
+    	\item Choose the split with the lowest impurity
+    }
+    \end{frame}
 
-\begin{frame}{Finding splits}
-\begin{table}[]
-	\begin{tabular}{@{}lrr@{}}
-		\toprule
-		\textbf{Day} & \textbf{Temperature} & \textbf{PlayTennis} \\ \midrule
-		D1           & 40                   & No                  \\
-		D2           & 48                   & No                  \\
-		D3           & 60                   & Yes                 \\
-		D4           & 72                   & Yes                 \\
-		D5           & 80                   & Yes                 \\
-		D6           & 90                   & No                  \\ \bottomrule
-	\end{tabular}
-\end{table}
-\begin{itemize}[<+->]
-	\item How do you find splits?
-	\item Sort by attribute
-	\item Find potential split points (midpoints). 
-	\item For the above example, we have 5 potential splits: 44, 54, 66, 76, 85
-	\item Calculate the weighted impurity for each split
-	\item Choose the split with the lowest impurity
-\end{itemize}
-\end{frame}
+    \begin{frame}{Finding splits}
+    \begin{table}[]
+        \begin{tabular}{@{}lcc@{}}
+            \toprule
+            \textbf{Day} & \textbf{Temperature} & \textbf{PlayTennis} \\ \midrule
+            D1           & 40                   & No                  \\
+            D2           & 48                   & No                  \\
+            D3           & 60                   & Yes                 \\
+            D4           & 72                   & Yes                 \\
+            D5           & 80                   & Yes                 \\
+            D6           & 90                   & No                  \\ \bottomrule
+        \end{tabular}
+    \end{table}
+    \cleanitemize{
+        \item Consider split at 44
+        \item LHS has 1 No and 0 Yes; RHS has 3 Yes and 2 No
+        \item Entropy for LHS = 0, Entropy for RHS = 0.971
+        \item Weighted Entropy = 0.971*5/6 = 0.808
+    }
+    \end{frame}
 
-\begin{frame}{Finding splits}
-	\begin{table}[]
-		\begin{tabular}{@{}lrr@{}}
-			\toprule
-			\textbf{Day} & \textbf{Temperature} & \textbf{PlayTennis} \\ \midrule
-			D1           & 40                   & No                  \\
-			D2           & 48                   & No                  \\
-			D3           & 60                   & Yes                 \\
-			D4           & 72                   & Yes                 \\
-			D5           & 80                   & Yes                 \\
-			D6           & 90                   & No                  \\ \bottomrule
-		\end{tabular}
-	\end{table}
-	\begin{itemize}
-		\item Consider split at 44
-		\item LHS has 1 No and 0 Yes; RHS has 3 Yes and 2 No
-		\item Entropy for LHS = 0, Entropy for RHS = 0.971
-		\item Weighted Entropy = 0.971*5/6 = 0.808
-	\end{itemize}
-	\end{frame}
+    \begin{frame}{Finding splits}
+        \begin{table}[]
+            \begin{tabular}{@{}lcc@{}}
+                \toprule
+                \textbf{Day} & \textbf{Temperature} & \textbf{PlayTennis} \\ \midrule
+                D1           & 40                   & No                  \\
+                D2           & 48                   & No                  \\
+                D3           & 60                   & Yes                 \\
+                D4           & 72                   & Yes                 \\
+                D5           & 80                   & Yes                 \\
+                D6           & 90                   & No                  \\ \bottomrule
+            \end{tabular}
+        \end{table}
+        \cleanitemize{
+            \item Consider split at 54
+            \item LHS has 2 No and 0 Yes; RHS has 3 Yes and 1 No
+            \item Entropy for LHS = 0, Entropy for RHS = 0.811
+            \item Weighted Entropy = 0.811*4/6 = 0.541
+        }
+    \end{frame}
 
-	\begin{frame}{Finding splits}
-		\begin{table}[]
-			\begin{tabular}{@{}lrr@{}}
-				\toprule
-				\textbf{Day} & \textbf{Temperature} & \textbf{PlayTennis} \\ \midrule
-				D1           & 40                   & No                  \\
-				D2           & 48                   & No                  \\
-				D3           & 60                   & Yes                 \\
-				D4           & 72                   & Yes                 \\
-				D5           & 80                   & Yes                 \\
-				D6           & 90                   & No                  \\ \bottomrule
-			\end{tabular}
-		\end{table}
-		\begin{itemize}
-			\item Consider split at 54
-			\item LHS has 2 No and 0 Yes; RHS has 3 Yes and 1 No
-			\item Entropy for LHS = 0, Entropy for RHS = 0.811
-			\item Weighted Entropy = 0.811*4/6 = 0.541
-		\end{itemize}
-		\end{frame}
-
-		\begin{frame}{Finding splits}
-			\begin{table}[]
-				\begin{tabular}{@{}lrr@{}}
-					\toprule
-					\textbf{Day} & \textbf{Temperature} & \textbf{PlayTennis} \\ \midrule
-					D1           & 40                   & No                  \\
-					D2           & 48                   & No                  \\
-					D3           & 60                   & Yes                 \\
-					D4           & 72                   & Yes                 \\
-					D5           & 80                   & Yes                 \\
-					D6           & 90                   & No                  \\ \bottomrule
-				\end{tabular}
-			\end{table}
-			\begin{itemize}
-				\item Consider split at 66
-				\item LHS has 2 No and 1 Yes; RHS has 2 Yes and 1 No
-				\item Entropy for LHS = 0.918, Entropy for RHS = 0.918
-				\item Weighted Entropy = 0.918*3/6 + 0.918*3/6 = 0.918
-			\end{itemize}
-			\end{frame}
+    \begin{frame}{Finding splits}
+        \begin{table}[]
+            \begin{tabular}{@{}lrr@{}}
+                \toprule
+                \textbf{Day} & \textbf{Temperature} & \textbf{PlayTennis} \\ \midrule
+                D1           & 40                   & No                  \\
+                D2           & 48                   & No                  \\
+                D3           & 60                   & Yes                 \\
+                D4           & 72                   & Yes                 \\
+                D5           & 80                   & Yes                 \\
+                D6           & 90                   & No                  \\ \bottomrule
+            \end{tabular}
+        \end{table}
+        \cleanitemize{
+            \item Consider split at 66
+            \item LHS has 2 No and 1 Yes; RHS has 2 Yes and 1 No
+            \item Entropy for LHS = 0.918, Entropy for RHS = 0.918
+            \item Weighted Entropy = 0.918*3/6 + 0.918*3/6 = 0.918
+        }
+    \end{frame}
 
 
-		\begin{frame}{Finding splits}
-			\begin{table}[]
-				\begin{tabular}{@{}lrr@{}}
-					\toprule
-					\textbf{Day} & \textbf{Temperature} & \textbf{PlayTennis} \\ \midrule
-					D1           & 40                   & No                  \\
-					D2           & 48                   & No                  \\
-					D3           & 60                   & Yes                 \\
-					D4           & 72                   & Yes                 \\
-					D5           & 80                   & Yes                 \\
-					D6           & 90                   & No                  \\ \bottomrule
-				\end{tabular}
-			\end{table}
-			\begin{itemize}
-				\item Consider split at 76
-				\item LHS has 2 No and 2 Yes; RHS has 1 Yes and 1 No
-				\item Entropy for LHS = 1, Entropy for RHS = 1
-				\item Weighted Entropy = 1*4/6 + 1*2/6 = 1
-			\end{itemize}
-			\end{frame}
+    \begin{frame}{Finding splits}
+        \begin{table}[]
+            \begin{tabular}{@{}lrr@{}}
+                \toprule
+                \textbf{Day} & \textbf{Temperature} & \textbf{PlayTennis} \\ \midrule
+                D1           & 40                   & No                  \\
+                D2           & 48                   & No                  \\
+                D3           & 60                   & Yes                 \\
+                D4           & 72                   & Yes                 \\
+                D5           & 80                   & Yes                 \\
+                D6           & 90                   & No                  \\ \bottomrule
+            \end{tabular}
+        \end{table}
+        \cleanitemize{
+            \item Consider split at 76
+            \item LHS has 2 No and 2 Yes; RHS has 1 Yes and 1 No
+            \item Entropy for LHS = 1, Entropy for RHS = 1
+            \item Weighted Entropy = 1*4/6 + 1*2/6 = 1
+        }
+    \end{frame}
 
-			\begin{frame}{Finding splits}
-				\begin{table}[]
-					\begin{tabular}{@{}lrr@{}}
-						\toprule
-						\textbf{Day} & \textbf{Temperature} & \textbf{PlayTennis} \\ \midrule
-						D1           & 40                   & No                  \\
-						D2           & 48                   & No                  \\
-						D3           & 60                   & Yes                 \\
-						D4           & 72                   & Yes                 \\
-						D5           & 80                   & Yes                 \\
-						D6           & 90                   & No                  \\ \bottomrule
-					\end{tabular}
-				\end{table}
-				\begin{notebookbox}{https://nipunbatra.github.io/ml-teaching/notebooks/decision-tree-real-input-discrete-output.html}
-					\includegraphics[scale=0.3]{../assets/decision-trees/figures/real-ip-1.pdf}
-				\end{notebookbox}
-				\end{frame}
+    \begin{frame}{Finding splits}
+        \begin{table}[]
+            \begin{tabular}{@{}lrr@{}}
+                \toprule
+                \textbf{Day} & \textbf{Temperature} & \textbf{PlayTennis} \\ \midrule
+                D1           & 40                   & No                  \\
+                D2           & 48                   & No                  \\
+                D3           & 60                   & Yes                 \\
+                D4           & 72                   & Yes                 \\
+                D5           & 80                   & Yes                 \\
+                D6           & 90                   & No                  \\ \bottomrule
+            \end{tabular}
+        \end{table}
+        \begin{notebookbox}{https://nipunbatra.github.io/ml-teaching/notebooks/decision-tree-real-input-discrete-output.html}
+            \includegraphics[scale=0.3]{../assets/decision-trees/figures/real-ip-1.pdf}
+        \end{notebookbox}
+    \end{frame}
 
-				\begin{frame}{Finding splits}
-					\begin{table}[]
-						\begin{tabular}{@{}lrr@{}}
-							\toprule
-							\textbf{Day} & \textbf{Temperature} & \textbf{PlayTennis} \\ \midrule
-							D1           & 40                   & No                  \\
-							D2           & 48                   & No                  \\
-							D3           & 60                   & Yes                 \\
-							D4           & 72                   & Yes                 \\
-							D5           & 80                   & Yes                 \\
-							D6           & 90                   & No                  \\ \bottomrule
-						\end{tabular}
-					\end{table}
-					\begin{notebookbox}{https://nipunbatra.github.io/ml-teaching/notebooks/decision-tree-real-input-discrete-output.html}
-						\includegraphics[scale=0.25]{../assets/decision-trees/figures/real-ip-2.pdf}
-					\end{notebookbox}
-					\end{frame}
+    \begin{frame}{Finding splits}
+        \begin{table}[]
+            \begin{tabular}{@{}lrr@{}}
+                \toprule
+                \textbf{Day} & \textbf{Temperature} & \textbf{PlayTennis} \\ \midrule
+                D1           & 40                   & No                  \\
+                D2           & 48                   & No                  \\
+                D3           & 60                   & Yes                 \\
+                D4           & 72                   & Yes                 \\
+                D5           & 80                   & Yes                 \\
+                D6           & 90                   & No                  \\ \bottomrule
+            \end{tabular}
+        \end{table}
+        \begin{notebookbox}{https://nipunbatra.github.io/ml-teaching/notebooks/decision-tree-real-input-discrete-output.html}
+            \includegraphics[scale=0.25]{../assets/decision-trees/figures/real-ip-2.pdf}
+        \end{notebookbox}
+        \end{frame}
 
 \foreach \i in {1,...,9} {
 \begin{frame}{Example (DT of depth \i)}
@@ -1530,118 +1470,111 @@ For regression trees, what criterion do we use instead of Information Gain?
 \end{frame}
 }
 
-
-
-
-
-
-\begin{frame}{Pop Quiz \stepcounter{popquiz}\#\thepopquiz}
-\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Quick Question!]
-When finding splits for continuous features, how do we determine candidate split points?
+\stepcounter{popquiz}
+\popquiz{
+\textbf{When finding splits for continuous features, how do we determine candidate split points?}
 \begin{enumerate}[A)]
-\item Use all feature values as split points
-\item Use midpoints between consecutive sorted feature values
-\item Use random values within the feature range
-\item Use only the minimum and maximum values
-\end{enumerate}
-\pause
-\textbf{Answer: B) Use midpoints between consecutive sorted feature values} - This ensures we test all meaningful boundaries between different class regions.
-\end{tcolorbox}
-\end{frame}
+    \item Use all feature values as split points
+    \item Use midpoints between consecutive sorted feature values
+    \item Use random values within the feature range
+    \item Use only the minimum and maximum values
+\end{enumerate}}{
+{\color{magenta}\textbf{B) Use midpoints between consecutive sorted feature values}} - This ensures we test all meaningful boundaries between different class regions.
+}
 
 \section{Real Input Real Output}
 
-\begin{frame}{Example 1}
-Let us consider the dataset given below
-\begin{center}
-	\begin{notebookbox}{https://nipunbatra.github.io/ml-teaching/notebooks/decision-tree-real-input-real-output.html}
-		\includegraphics{../assets/decision-trees/figures/ri-ro-dataset.pdf}
-	  \end{notebookbox}
-\end{center}
-\end{frame}
+    \begin{frame}{Example 1}
+    Let us consider the dataset given below
+    \begin{center}
+    	\begin{notebookbox}{https://nipunbatra.github.io/ml-teaching/notebooks/decision-tree-real-input-real-output.html}
+    		\includegraphics{../assets/decision-trees/figures/ri-ro-dataset.pdf}
+    	  \end{notebookbox}
+    \end{center}
+    \end{frame}
 
-\begin{frame}{Example 1}
-What would be the prediction for decision tree with depth 0?
-\begin{center}
-	\begin{notebookbox}{https://nipunbatra.github.io/ml-teaching/notebooks/decision-tree-real-input-real-output.html}
-		\includegraphics{../assets/decision-trees/figures/ri-ro-dataset.pdf}
-	  \end{notebookbox}
-\end{center}
-\end{frame}
+    \begin{frame}{Example 1}
+    What would be the prediction for decision tree with depth 0?
+    \begin{center}
+    	\begin{notebookbox}{https://nipunbatra.github.io/ml-teaching/notebooks/decision-tree-real-input-real-output.html}
+    		\includegraphics{../assets/decision-trees/figures/ri-ro-dataset.pdf}
+    	  \end{notebookbox}
+    \end{center}
+    \end{frame}
 
-\begin{frame}{Example 1}
-Prediction for decision tree with depth 0.\\
-Horizontal dashed line shows the predicted $Y$ value. It is the average of $Y$ values of all datapoints.\\
-\begin{center}
-	\begin{notebookbox}{https://nipunbatra.github.io/ml-teaching/notebooks/decision-tree-real-input-real-output.html}
-		\includegraphics{../assets/decision-trees/figures/ri-ro-depth-0.pdf}	
-	  \end{notebookbox}
-\end{center}
-\end{frame}
-
-
-\begin{frame}{Example 1}
-What would be the decision tree with depth 1?
-\begin{center}
-	\begin{notebookbox}{https://nipunbatra.github.io/ml-teaching/notebooks/decision-tree-real-input-real-output.html}
-		\includegraphics{../assets/decision-trees/figures/ri-ro-dataset.pdf}
-	  \end{notebookbox}
-\end{center}
-\end{frame}
-
-\begin{frame}{Example 1}
-Decision tree with depth 1
-\begin{center}
-	\begin{notebookbox}{https://nipunbatra.github.io/ml-teaching/notebooks/decision-tree-real-input-real-output.html}
-		\includegraphics{../assets/decision-trees/figures/ri-ro-depth-1.pdf}
-	\end{notebookbox}	
-\end{center}
-\end{frame}
-
-\begin{frame}{Example 1}
-The Decision Boundary
-\begin{center}
-	\begin{notebookbox}{https://nipunbatra.github.io/ml-teaching/notebooks/decision-tree-real-input-real-output.html}
-		\includegraphics[scale=0.6]{../assets/decision-trees/figures/ri-ro-depth-1-sklearn.pdf}
-	\end{notebookbox}
-\end{center}
-\end{frame}
+    \begin{frame}{Example 1}
+    Prediction for decision tree with depth 0.\\
+    Horizontal dashed line shows the predicted $Y$ value. It is the average of $Y$ values of all datapoints.\\
+    \begin{center}
+    	\begin{notebookbox}{https://nipunbatra.github.io/ml-teaching/notebooks/decision-tree-real-input-real-output.html}
+    		\includegraphics{../assets/decision-trees/figures/ri-ro-depth-0.pdf}	
+    	  \end{notebookbox}
+    \end{center}
+    \end{frame}
 
 
-\begin{frame}{Example 1}
-What would be the decision tree with depth 2	?
-\begin{center}
-	\begin{notebookbox}{https://nipunbatra.github.io/ml-teaching/notebooks/decision-tree-real-input-real-output.html}
-		\includegraphics{../assets/decision-trees/figures/ri-ro-dataset.pdf}
-	  \end{notebookbox}
-\end{center}
-\end{frame}
+    \begin{frame}{Example 1}
+    What would be the decision tree with depth 1?
+    \begin{center}
+    	\begin{notebookbox}{https://nipunbatra.github.io/ml-teaching/notebooks/decision-tree-real-input-real-output.html}
+    		\includegraphics{../assets/decision-trees/figures/ri-ro-dataset.pdf}
+    	  \end{notebookbox}
+    \end{center}
+    \end{frame}
 
-\begin{frame}{Example 1}
-	Decision tree with depth 2
-	\begin{center}
-		\begin{notebookbox}{https://nipunbatra.github.io/ml-teaching/notebooks/decision-tree-real-input-real-output.html}
-			\includegraphics{../assets/decision-trees/figures/ri-ro-depth-2.pdf}
-		\end{notebookbox}
-	\end{center}
-	\end{frame}
+    \begin{frame}{Example 1}
+    Decision tree with depth 1
+    \begin{center}
+    	\begin{notebookbox}{https://nipunbatra.github.io/ml-teaching/notebooks/decision-tree-real-input-real-output.html}
+    		\includegraphics{../assets/decision-trees/figures/ri-ro-depth-1.pdf}
+    	\end{notebookbox}	
+    \end{center}
+    \end{frame}
+
+    \begin{frame}{Example 1}
+    The Decision Boundary
+    \begin{center}
+    	\begin{notebookbox}{https://nipunbatra.github.io/ml-teaching/notebooks/decision-tree-real-input-real-output.html}
+    		\includegraphics[scale=0.6]{../assets/decision-trees/figures/ri-ro-depth-1-sklearn.pdf}
+    	\end{notebookbox}
+    \end{center}
+    \end{frame}
+
+
+    \begin{frame}{Example 1}
+    What would be the decision tree with depth 2	?
+    \begin{center}
+    	\begin{notebookbox}{https://nipunbatra.github.io/ml-teaching/notebooks/decision-tree-real-input-real-output.html}
+    		\includegraphics{../assets/decision-trees/figures/ri-ro-dataset.pdf}
+    	  \end{notebookbox}
+    \end{center}
+    \end{frame}
+
+    \begin{frame}{Example 1}
+        Decision tree with depth 2
+        \begin{center}
+        \begin{notebookbox}{https://nipunbatra.github.io/ml-teaching/notebooks/decision-tree-real-input-real-output.html}
+            \includegraphics{../assets/decision-trees/figures/ri-ro-depth-2.pdf}
+        \end{notebookbox}
+        \end{center}
+    \end{frame}
 	
-	\begin{frame}{Example 1}
-	The Decision Boundary
-	\begin{center}
-		\begin{notebookbox}{https://nipunbatra.github.io/ml-teaching/notebooks/decision-tree-real-input-real-output.html}
-			\includegraphics[scale=0.6]{../assets/decision-trees/figures/ri-ro-depth-2-sklearn.pdf}
-		\end{notebookbox}
-	\end{center}
-	\end{frame}
+    \begin{frame}{Example 1}
+        The Decision Boundary
+        \begin{center}
+            \begin{notebookbox}{https://nipunbatra.github.io/ml-teaching/notebooks/decision-tree-real-input-real-output.html}
+                \includegraphics[scale=0.6]{../assets/decision-trees/figures/ri-ro-depth-2-sklearn.pdf}
+            \end{notebookbox}
+        \end{center}
+    \end{frame}
 	
 
 \begin{frame}{Objective Function for Regression Trees}
+\small
 \only<1-4>{
 Feature is denoted by $X$ and target by $Y$.\\
 Let the split be at $X = s$.\\
 Define regions: $R_1 = \{x : x \leq s\}$ and $R_2 = \{x : x > s\}$.\\
-\vspace{1cm}
 }
 \only<2-4>{
 For each region, compute the mean prediction:\\
@@ -1651,11 +1584,16 @@ $c_2 = \frac{1}{|R_2|} \sum_{x_i \in R_2} y_i$ \\
 \only<3-4>{
 The loss function is:\\
 $$\text{Loss}(s) = \sum_{x_i \in R_1} (y_i - c_1)^2 + \sum_{x_i \in R_2} (y_i - c_2)^2$$
-\vspace{1cm}
 }
 \only<4>{
 Our objective is to find the optimal split:\\
-$$s^* = \argmin_{s} \left[ \sum_{x_i \in R_1(s)} (y_i - c_1(s))^2 + \sum_{x_i \in R_2(s)} (y_i - c_2(s))^2 \right]$$
+\begin{align*}
+s^* &= \operatorname*{\arg\min}_{s}
+\left[
+  \sum_{x_i \in R_1(s)} \bigl(y_i - c_1(s)\bigr)^2
+  + \sum_{x_i \in R_2(s)} \bigl(y_i - c_2(s)\bigr)^2
+\right],
+\end{align*}
 }
 \end{frame}
 
@@ -1714,238 +1652,196 @@ It has of depth 4. The decision boundaries are in figure below.\\
 \end{center}
 \end{frame}
 
-\begin{frame}{Pop Quiz \stepcounter{popquiz}\#\thepopquiz}
-\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Quick Question!]
-What is the prediction function for a regression tree leaf node?
+\popquiz{
+\textbf{What is the prediction function for a regression tree leaf node?}
 \begin{enumerate}[A)]
-\item The median of target values in that region
-\item The mode of target values in that region  
-\item The mean of target values in that region
-\item A linear function of the features
-\end{enumerate}
-\pause
-\textbf{Answer: C) The mean of target values in that region} - Each leaf predicts the average target value of training samples that reach that leaf.
-\end{tcolorbox}
-\end{frame}
+    \item The median of target values in that region
+    \item The mode of target values in that region  
+    \item The mean of target values in that region
+    \item A linear function of the features
+\end{enumerate}}{
+{\color{magenta}\textbf{C) The mean of target values in that region}} - Each leaf predicts the average target value of training samples that reach that leaf.
+}
 
 \section{Pruning and Overfitting}
 
 \begin{frame}{The Problem: Overfitting in Decision Trees}
-\begin{itemize}[<+->]
-\item \textbf{Unpruned trees}: Can grow very deep and complex
-\item \textbf{Perfect training accuracy}: Each leaf contains single training example
-\item \textbf{But}: Poor generalization to new data
-\item \textbf{Symptoms}:
-    \begin{itemize}
-    \item High training accuracy, low test accuracy
-    \item Very deep trees with many leaves
-    \item Rules that are too specific to training data
-    \end{itemize}
-\item \textbf{Solution}: Pruning to control model complexity
-\end{itemize}
+\cleanitemize{
+    \item \textbf{Unpruned trees}: Can grow very deep and complex
+    \item \textbf{Perfect training accuracy}: Each leaf contains single training example
+    \item \textbf{But}: Poor generalization to new data
+    \item \textbf{Symptoms}:
+    \cleanitemize{
+        \item High training accuracy, low test accuracy
+        \item Very deep trees with many leaves
+        \item Rules that are too specific to training data
+    }
+    \item \textbf{Solution}: Pruning to control model complexity
+}
 \end{frame}
 
 \begin{frame}{Pre-pruning (Early Stopping)}
 \textbf{Stop growing tree before it becomes too complex}:
-\begin{itemize}[<+->]
-\item \textbf{Maximum depth}: Limit tree depth (e.g., max\_depth = 5)
-\item \textbf{Minimum samples per split}: Don't split if node has < N samples
-\item \textbf{Minimum samples per leaf}: Ensure each leaf has $\geq$ M samples
-\item \textbf{Maximum features}: Consider only subset of features at each split
-\item \textbf{Minimum impurity decrease}: Only split if improvement > threshold
-\end{itemize}
-
-\textbf{Advantages}: Simple, computationally efficient \\
-\textbf{Disadvantages}: May stop too early, miss good splits later
+\cleanitemize{
+    \item \textbf{Maximum depth}: Limit tree depth (e.g., max\_depth = 5)
+    \item \textbf{Minimum samples per split}: Don't split if node has < N samples
+    \item \textbf{Minimum samples per leaf}: Ensure each leaf has $\geq$ M samples
+    \item \textbf{Maximum features}: Consider only subset of features at each split
+    \item \textbf{Minimum impurity decrease}: Only split if improvement > threshold
+}
+\onslide<6->{\textbf{Advantages}: Simple, computationally efficient} \\
+\onslide<7->{\textbf{Disadvantages}: May stop too early, miss good splits later}
 \end{frame}
 
 \begin{frame}{Post-pruning (Tree Simplification)}
 \textbf{Grow full tree, then remove unnecessary branches}:
-\begin{itemize}[<+->]
-\item \textbf{Algorithm}:
-    \begin{enumerate}
-    \item Grow complete tree on training data
-    \item Use validation set to evaluate subtree performance
-    \item Remove branches that don't improve validation accuracy
-    \item Repeat until no beneficial removals remain
-    \end{enumerate}
-\item \textbf{Cost Complexity Pruning}: Minimize $\text{Error} + \alpha \times \text{Tree Size}$
-\item \textbf{Advantages}: More thorough, can recover from early stopping mistakes
-\item \textbf{Disadvantages}: More computationally expensive
-\end{itemize}
+\cleanitemize{
+    \item \textbf{Algorithm}:
+        \begin{enumerate}[<+->]
+            \item Grow complete tree on training data
+            \item Use validation set to evaluate subtree performance
+            \item Remove branches that don't improve validation accuracy
+            \item Repeat until no beneficial removals remain
+        \end{enumerate}
+    \item \textbf{Cost Complexity Pruning}: Minimize $\text{Error} + \alpha \times \text{Tree Size}$
+    \item \textbf{Advantages}: More thorough, can recover from early stopping mistakes
+    \item \textbf{Disadvantages}: More computationally expensive
+}
 \end{frame}
 
 \begin{frame}{Cost Complexity Pruning Algorithm}
 \textbf{Systematic approach to find optimal tree size}:
-\begin{itemize}[<+->]
-\item \textbf{Cost function}: $R_\alpha(T) = R(T) + \alpha |T|$
-    \begin{itemize}
-    \item $R(T)$: Misclassification error on validation set
-    \item $|T|$: Number of terminal nodes (tree size)
-    \item $\alpha$: Complexity parameter (penalty for larger trees)
-    \end{itemize}
-\item \textbf{Process}:
-    \begin{enumerate}
-    \item Start with full tree ($\alpha = 0$)
-    \item Gradually increase $\alpha$
-    \item At each $\alpha$, prune branches that increase cost
-    \item Select $\alpha$ with best cross-validation performance
-    \end{enumerate}
-\end{itemize}
+\cleanitemize{
+    \item \textbf{Cost function}: $R_\alpha(T) = R(T) + \alpha |T|$
+        \cleanitemize{
+            \item $R(T)$: Misclassification error on validation set
+            \item $|T|$: Number of terminal nodes (tree size)
+            \item $\alpha$: Complexity parameter (penalty for larger trees)
+        }
+    \item \textbf{Process}:
+        \begin{enumerate}[<+->]
+            \item Start with full tree ($\alpha = 0$)
+            \item Gradually increase $\alpha$
+            \item At each $\alpha$, prune branches that increase cost
+            \item Select $\alpha$ with best cross-validation performance
+        \end{enumerate}
+}
 \end{frame}
 
 \begin{frame}{Bias-Variance Trade-off in Trees}
-\begin{itemize}[<+->]
-\item \textbf{Unpruned trees}:
-    \begin{itemize}
-    \item Low bias (can fit complex patterns)
-    \item High variance (sensitive to training data changes)
-    \item Prone to overfitting
-    \end{itemize}
-\item \textbf{Heavily pruned trees}:
-    \begin{itemize}
-    \item High bias (may miss important patterns)
-    \item Low variance (more stable predictions)
-    \item Risk of underfitting
-    \end{itemize}
-\item \textbf{Optimal pruning}: Balances bias and variance
-\item \textbf{Cross-validation}: Essential for finding this balance
-\end{itemize}
+\cleanitemize{
+    \item \textbf{Unpruned trees}:
+        \cleanitemize{
+            \item Low bias (can fit complex patterns)
+            \item High variance (sensitive to training data changes)
+            \item Prone to overfitting
+        }
+    \item \textbf{Heavily pruned trees}:
+        \cleanitemize{
+            \item High bias (may miss important patterns)
+            \item Low variance (more stable predictions)
+            \item Risk of underfitting
+        }
+    \item \textbf{Optimal pruning}: Balances bias and variance
+    \item \textbf{Cross-validation}: Essential for finding this balance
+}
 \end{frame}
 
 \begin{frame}{Practical Pruning Guidelines}
-\begin{itemize}[<+->]
-\item \textbf{Start simple}: Begin with restrictive pre-pruning parameters
-\item \textbf{Cross-validation}: Always use CV to select pruning parameters
-\item \textbf{Validation curves}: Plot training/validation error vs. tree complexity
-\item \textbf{Common parameters} (sklearn):
-    \begin{itemize}
-    \item \texttt{max\_depth}: Start with 3-10
-    \item \texttt{min\_samples\_split}: Try 10-100
-    \item \texttt{min\_samples\_leaf}: Try 5-50
-    \item \texttt{ccp\_alpha}: Use for cost complexity pruning
-    \end{itemize}
-\item \textbf{Domain knowledge}: Consider interpretability requirements
-\end{itemize}
+\cleanitemize{
+    \item \textbf{Start simple}: Begin with restrictive pre-pruning parameters
+    \item \textbf{Cross-validation}: Always use CV to select pruning parameters
+    \item \textbf{Validation curves}: Plot training/validation error vs. tree complexity
+    \item \textbf{Common parameters} (sklearn):
+        \cleanitemize{
+            \item \texttt{max\_depth}: Start with 3-10
+            \item \texttt{min\_samples\_split}: Try 10-100
+            \item \texttt{min\_samples\_leaf}: Try 5-50
+            \item \texttt{ccp\_alpha}: Use for cost complexity pruning
+        }
+    \item \textbf{Domain knowledge}: Consider interpretability requirements
+}
 \end{frame}
+
 
 \section{Summary and Key Takeaways}
 
-\begin{frame}{Summary}
-\begin{itemize}
-	\item Interpretability an important goal
-\item Decision trees: well known interpretable models
-\item  Learning optimal tree is hard
-\item  Greedy approach:
-\item  Recursively split to maximize “performance gain”
-\item  Issues:
-\begin{itemize}
-	\item Can overfit easily!
-	\item  Empirically not as powerful as other methods
-\end{itemize}
-\end{itemize}
-
+\begin{frame}{Summary and Key Takeaways}
+\cleanitemize{
+    \item Interpretability an important goal
+    \item Decision trees: well known interpretable models
+    \item  Learning optimal tree is hard
+    \item  Greedy approach:
+    \item  Recursively split to maximize “performance gain”
+    \item  Issues:
+    \cleanitemize{
+        \item Can overfit easily!
+        \item  Empirically not as powerful as other methods
+    }
+}
 \end{frame}
 
 
+\section{Weighted Entropy}
+\begin{frame}{Weighted Entropy}
+\begin{figure}
+    \centering
+    \includegraphics{../assets/decision-trees/figures/dt_weighted/fig1.pdf}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Weighted Entropy}
+\begin{figure}
+    \centering
+    \includegraphics{../assets/decision-trees/figures/dt_weighted/fig2.pdf}
+\end{figure}
+\end{frame}
+	
 \begin{frame}
+\begin{figure}
+    \centering
+    \includegraphics{../assets/decision-trees/figures/dt_weighted/fig2.pdf}
+\end{figure}
+\small
+$$\Entropy = -P(+) \log_2 P(+) - P(-) \log_2 P(-)$$
+$$P(+) = \frac{0.1 + 0.1 + 0.3}{1} = 0.5, \quad P(-) = \frac{0.3 + 0.1 + 0.1}{1} = 0.5$$
+$$\Entropy = E_s = -\frac{1}{2} \log_2 \frac{1}{2} - \frac{1}{2} \log_2 \frac{1}{2} = 1$$
+\end{frame}
+	
+\begin{frame}{Weighted Entropy}
+\begin{figure}
+    \centering
+    \includegraphics{../assets/decision-trees/figures/dt_weighted/fig3.pdf}
+\end{figure}
+Candidate Line: \(X1 = 4 (X1^*)\)
+\end{frame}
+		
+\begin{frame}
+\begin{figure}
+    \centering
+    \includegraphics{../assets/decision-trees/figures/dt_weighted/fig4.pdf}
+\end{figure}
+Entropy of \(X1 \leq X1^*  = E_{S(X1 < X1^*)}\)
+$$P(+) = \frac{0.1 + 0.1}{0.1 + 0.1 + 0.3} = \frac{2}{5}$$
+$$P(-) = \frac{3}{5}$$
+\end{frame}
+	
+\begin{frame}
+\begin{figure}
+    \centering
+    \includegraphics{../assets/decision-trees/figures/dt_weighted/fig5.pdf}
+\end{figure}
+Entropy of $X_1 > X_1^* = E_{S(X_1 > X_1^*)}$
+$$P(+) = \frac{3}{5}$$
+$$P(-) = \frac{2}{5}$$
+\end{frame}
+	
+\begin{frame}{Weighted Entropy}
+\begin{figure}
+    \centering
+    \includegraphics{../assets/decision-trees/figures/dt_weighted/fig5.pdf}
+\end{figure}
+$$\text{IG}(X_1 = X_1^*) = E_S - \frac{0.5}{1} \cdot E_{S(X_1 < X_1^*)} - \frac{0.5}{1} \cdot E_{S(X_1 > X_1^*)}$$
+\end{frame}
 
-	\begin{figure}
-		\centering
-		\includegraphics{../assets/decision-trees/figures/dt_weighted/fig1.pdf}
-	\end{figure}
-	
-	
-	\end{frame}
-	
-	
-	\begin{frame}
-	
-	\begin{figure}
-		\centering
-		\includegraphics{../assets/decision-trees/figures/dt_weighted/fig2.pdf}
-	\end{figure}
-	
-	
-	\end{frame}
-	
-	
-	\begin{frame}
-	
-	\begin{figure}
-		\centering
-		\includegraphics{../assets/decision-trees/figures/dt_weighted/fig2.pdf}
-	\end{figure}
-	
-	$$\Entropy = -P(+) \log_2 P(+) - P(-) \log_2 P(-)$$
-	
-	$$P(+) = \frac{0.1 + 0.1 + 0.3}{1} = 0.5, \quad P(-) = \frac{0.3 + 0.1 + 0.1}{1} = 0.5$$
-	
-	$$\Entropy = E_s = -\frac{1}{2} \log_2 \frac{1}{2} - \frac{1}{2} \log_2 \frac{1}{2} = 1$$
-	
-	\end{frame}
-	
-	
-	\begin{section}{Weighted Entropy}
-	
-	
-	
-	\begin{frame}
-	
-	\begin{figure}
-		\centering
-		\includegraphics{../assets/decision-trees/figures/dt_weighted/fig3.pdf}
-	\end{figure}
-	
-	
-	Candidate Line: \(X1 = 4 (X1^*)\)
-	
-	
-	\end{frame}
-	
-	
-	\begin{frame}
-	\begin{figure}
-		\centering
-		\includegraphics{../assets/decision-trees/figures/dt_weighted/fig4.pdf}
-	\end{figure}
-	
-	Entropy of \(X1 \leq X1^*  = E_{S(X1 < X1^*)}\)
-	
-	$$P(+) = \frac{0.1 + 0.1}{0.1 + 0.1 + 0.3} = \frac{2}{5}$$
-	
-	$$P(-) = \frac{3}{5}$$
-	
-	
-	\end{frame}
-	
-	
-	\begin{frame}
-	
-	\begin{figure}
-		\centering
-		\includegraphics{../assets/decision-trees/figures/dt_weighted/fig5.pdf}
-	\end{figure}
-	Entropy of $X_1 > X_1^* = E_{S(X_1 > X_1^*)}$
-	
-	$$P(+) = \frac{3}{5}$$
-	
-	$$P(-) = \frac{2}{5}$$
-	
-	\end{frame}
-	
-	
-	
-	\begin{frame}
-	
-	\begin{figure}
-		\centering
-		\includegraphics{../assets/decision-trees/figures/dt_weighted/fig5.pdf}
-	\end{figure}
-	
-	$$\text{IG}(X_1 = X_1^*) = E_S - \frac{0.5}{1} \cdot E_{S(X_1 < X_1^*)} - \frac{0.5}{1} \cdot E_{S(X_1 > X_1^*)}$$
-	
-	\end{frame}
-
-\end{section}
 \end{document}
