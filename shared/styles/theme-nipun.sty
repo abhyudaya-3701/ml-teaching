@@ -13,75 +13,95 @@
 % BASE THEME SETUP
 % ==============================================================================
 
-% Check if we're using Beamer class
-\@ifclassloaded{beamer}{
-    % Use clean simple theme
-    \usetheme{default}
-    \usecolortheme{default}
+% % Check if we're using Beamer class
+% \@ifclassloaded{beamer}{
+%     % Use clean simple theme
+%     \usetheme{default}
+%     \usecolortheme{default}
     
-    % Set up Inter font with XeLaTeX/LuaLaTeX
-    \RequirePackage{iftex}
-    \ifxetex
-        \RequirePackage{fontspec}
-        \IfFontExistsTF{Inter}{
-            \setsansfont[BoldFont={Inter Bold}]{Inter}
-        }{
-            \IfFontExistsTF{Roboto}{
-                \setsansfont[BoldFont={Roboto Bold}]{Roboto}
-            }{
-                \IfFontExistsTF{Helvetica Neue}{
-                    \setsansfont{Helvetica Neue}
-                }{
-                    \setsansfont{Arial}
-                }
-            }
-        }
-        \IfFontExistsTF{Roboto Mono}{
-            \setmonofont{Roboto Mono}
-        }{
-            \IfFontExistsTF{Monaco}{
-                \setmonofont{Monaco}
-            }{
-                \setmonofont{Courier New}
-            }
-        }
-    \else
-        \ifluatex
-            \RequirePackage{fontspec}
-            \IfFontExistsTF{Inter}{
-                \setsansfont[BoldFont={Inter Bold}]{Inter}
-            }{
-                \IfFontExistsTF{Roboto}{
-                    \setsansfont[BoldFont={Roboto Bold}]{Roboto}
-                }{
-                    \IfFontExistsTF{Helvetica Neue}{
-                        \setsansfont{Helvetica Neue}
-                    }{
-                        \setsansfont{Arial}
-                    }
-                }
-            }
-            \IfFontExistsTF{Roboto Mono}{
-                \setmonofont{Roboto Mono}
-            }{
-                \IfFontExistsTF{Monaco}{
-                    \setmonofont{Monaco}
-                }{
-                    \setmonofont{Courier New}
-                }
-            }
-        \fi
-    \fi
+%     % Set up Roboto font with XeLaTeX/LuaLaTeX
+%     \RequirePackage{iftex}
+%     \ifxetex
+%         \RequirePackage{fontspec}
+%         \IfFontExistsTF{Roboto}{
+%             \setsansfont[BoldFont={Roboto Bold}]{Roboto}
+%         }{
+%             \IfFontExistsTF{Helvetica Neue}{
+%                 \setsansfont{Helvetica Neue}
+%             }{
+%                 \setsansfont{Arial}
+%             }
+%         }
+%         \IfFontExistsTF{Roboto Mono}{
+%             \setmonofont{Roboto Mono}
+%         }{
+%             \IfFontExistsTF{Monaco}{
+%                 \setmonofont{Monaco}
+%             }{
+%                 \setmonofont{Courier New}
+%             }
+%         }
+%     \else
+%         \ifluatex
+%             \RequirePackage{fontspec}
+%             \IfFontExistsTF{Roboto}{
+%                 \setsansfont[BoldFont={Roboto Bold}]{Roboto}
+%             }{
+%                 \IfFontExistsTF{Helvetica Neue}{
+%                     \setsansfont{Helvetica Neue}
+%                 }{
+%                     \setsansfont{Arial}
+%                 }
+%             }
+%             \IfFontExistsTF{Roboto Mono}{
+%                 \setmonofont{Roboto Mono}
+%             }{
+%                 \IfFontExistsTF{Monaco}{
+%                     \setmonofont{Monaco}
+%                 }{
+%                     \setmonofont{Courier New}
+%                 }
+%             }
+%         \fi
+%     \fi
     
-    % Remove navigation symbols
-    \setbeamertemplate{navigation symbols}{}
-    \setbeamertemplate{frametitle}[default][left]
+%     % Remove navigation symbols
+%     \setbeamertemplate{navigation symbols}{}
+%     \setbeamertemplate{frametitle}[default][left]
     
-    \def\isbeamer{true}
-}{
-    % For non-beamer documents, just use basic setup
-    \def\isbeamer{false}
-}
+%     \def\isbeamer{true}
+% }{
+%     % For non-beamer documents, just use basic setup
+%     \def\isbeamer{false}
+% }
+
+\usepackage{iftex}
+\ifxetex
+    \usepackage{fontspec}
+\else\ifluatex
+    \usepackage{fontspec}
+\fi\fi
+
+\setmainfont{Roboto}
+\setmonofont{Roboto Mono}
+
+%%% For Overleaf Envs %%%
+% % Monospace: Roboto Mono variable font
+% \setmonofont[
+%     Path = {fonts/Roboto_Mono/},
+%     UprightFont = {RobotoMono-VariableFont_wght.ttf},
+%     Weight = 400,
+%     BoldFeatures = {Weight=700}
+% ]{RobotoMono}
+
+% % Optional: If you want Roboto as serif replacement
+% \setmainfont[
+%     Path = fonts/Roboto/,
+%     UprightFont = *-Regular.ttf,
+%     BoldFont = *-Bold.ttf
+% ]{Roboto}
+
+
 
 % ==============================================================================
 % COLOR PALETTE - Clean and Simple
@@ -199,17 +219,19 @@
 % Beamer-specific commands
 \@ifclassloaded{beamer}{
     % Pop quiz command
-    \newcommand{\popquiz}[2]{
-        \stepcounter{popquiz}
-        \begin{frame}{Quick Quiz \#\thepopquiz}
-            \begin{popquizbox}{\thepopquiz}
-                #1
-                
-                \vspace{0.5em}
-                \textbf{Answer:} #2
-            \end{popquizbox}
-        \end{frame}
-    }
+    % PopQuiz custom command with two arguments - this also forces the options to appear all at once on a slide
+\newcommand{\popquiz}[2]{
+    \stepcounter{popquiz}
+    \begin{frame}{Pop Quiz \#\thepopquiz}
+    \beamerdefaultoverlayspecification{}
+        \begin{popquizbox}{\thepopquiz}
+            #1
+            
+            \vspace{0.5em}
+            \onslide<2->{\textbf{Answer:} #2}
+        \end{popquizbox}
+    \end{frame}
+}
 
     % Section slide
     \newcommand{\sectionframe}[1]{
@@ -222,7 +244,6 @@
     }
 
     % Clean itemize
-    \newcommand{\cleanitem}{\item}
     \newcommand{\cleanitemize}[1]{
         \begin{itemize}[<+->]
             #1
