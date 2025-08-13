@@ -1312,37 +1312,129 @@ $$\text{MSE Reduction} = 311.35 - 252.18 = \mathbf{59.17}$$
 
 \end{frame}
 
-\section{Real Input Discrete Output}
+\section{Real Input, Discrete Output}
 
-    \begin{frame}{Finding splits}
-    \begin{table}[]
-    	\begin{tabular}{@{}lrr@{}}
-    		\toprule
-    		\textbf{Day} & \textbf{Temperature} & \textbf{PlayTennis} \\ \midrule
-    		D1           & 40                   & No                  \\
-    		D2           & 48                   & No                  \\
-    		D3           & 60                   & Yes                 \\
-    		D4           & 72                   & Yes                 \\
-    		D5           & 80                   & Yes                 \\
-    		D6           & 90                   & No                  \\ \bottomrule
-    	\end{tabular}
-    \end{table}
-    \cleanitemize{
-    	\item How do you find splits?
-    	\item Sort by attribute
-    	\item Find potential split points (midpoints). 
-    	\item For the above example, we have 5 potential splits: 44, 54, 66, 76, 85
-    	\item Calculate the weighted impurity for each split
-    	\item Choose the split with the lowest impurity
-    }
+\begin{frame}{Moving to Our Third Case}
+\begin{keypointsbox}
+    \scriptsize
+
+\textbf{Our Journey Through Decision Tree Types:}
+\begin{itemize}
+\item \textbf{Discrete Input, Discrete Output}: Simple categorical splits
+\item \textbf{Real Input, Real Output}: Continuous features, regression trees  
+\item \textbf{Real Input, Discrete Output}: Continuous features, classification
+\end{itemize}
+\end{keypointsbox}
+
+\vspace{0.3em}
+\textbf{What's different now?}
+\begin{itemize}
+\item Input: Continuous/real-valued features (like temperature, age, income)
+\item Output: Discrete classes (Yes/No, Low/Medium/High, etc.)
+\item Challenge: Where exactly should we split the continuous feature?
+\end{itemize}
+\end{frame}
+
+\begin{frame}{The Key Challenge: Infinite Split Points}
+\begin{alertbox}{The Problem}
+    \scriptsize
+
+With continuous features, we have potentially infinite split points!
+\begin{itemize}
+\item Temperature could be split at 45°C, 45.1°C, 45.01°C, ...
+\item We need a systematic approach to find the \textbf{best} split points
+\end{itemize}
+\end{alertbox}
+
+\vspace{0.3em}
+\textbf{The Intuitive Solution:}
+\begin{enumerate}
+\item Look for "natural boundaries" between different classes
+\item Focus on points where class labels actually change  
+\item Test splits that maximize information gain
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{The Tennis Example - Setting the Stage}
+\textbf{Scenario:} Should we play tennis based on temperature?
+\begin{table}[]
+	\begin{tabular}{@{}lrr@{}}
+		\toprule
+		\textbf{Day} & \textbf{Temperature} & \textbf{PlayTennis} \\ \midrule
+		D1           & 40                   & No                  \\
+		D2           & 48                   & No                  \\
+		D3           & 60                   & Yes                 \\
+		D4           & 72                   & Yes                 \\
+		D5           & 80                   & Yes                 \\
+		D6           & 90                   & No                  \\ \bottomrule
+	\end{tabular}
+\end{table}
+
+\textbf{Question:} How do we find the best split point in this continuous temperature data?
+\end{frame}
+
+\begin{frame}{The Sorting Intuition - Why Start Here?}
+\begin{examplebox}{Why Sort the Data First?}
+    \scriptsize
+
+\begin{itemize}
+\item Sorting reveals the natural \textbf{class boundaries} in the data
+\item We can see where labels change: No → Yes → No
+\item Only need to consider splits between different class labels
+\item Eliminates millions of irrelevant split points!
+\end{itemize}
+\end{examplebox}
+
+\textbf{Sorted Data:} (already sorted in our example)
+\begin{table}[]
+    \scriptsize
+
+	\begin{tabular}{@{}lrr@{}}
+		\toprule
+		\textbf{Day} & \textbf{Temperature} & \textbf{PlayTennis} \\ \midrule
+		D1           & 40                   & No                  \\
+		D2           & 48                   & No                  \\
+		D3           & 60                   & Yes                 \\
+		D4           & 72                   & Yes                 \\
+		D5           & 80                   & Yes                 \\
+		D6           & 90                   & No                  \\ \bottomrule
+	\end{tabular}
+\end{table}
+\end{frame}
+
+\begin{frame}{Finding Smart Split Points}
+\begin{definitionbox}{The Midpoint Strategy}
+    \scriptsize
+
+Only consider splits at \textbf{midpoints} between consecutive different classes:
+\begin{itemize}
+\item Between 48(No) and 60(Yes): split at $(48+60)/2 = 54$
+\item Between 80(Yes) and 90(No): split at $(80+90)/2 = 85$
+\end{itemize}
+\end{definitionbox}
+
+\textbf{All candidate splits:} 44, 54, 66, 76, 85
+
+\begin{keypointsbox}
+\textbf{Why These 5 Splits?}
+\scriptsize
+
+\begin{itemize}
+\item 44: Separates D1 from rest
+\item 54: Separates No's from Yes's  
+\item 66, 76: Split within the Yes region
+\item 85: Separates last Yes from final No
+\end{itemize}
+\end{keypointsbox}
     \end{frame}
 
-    \begin{frame}{Finding splits}
+    \begin{frame}{Evaluating Split at Temperature $\leq$ 44}
     \begin{table}[]
         \begin{tabular}{@{}lcc@{}}
             \toprule
             \textbf{Day} & \textbf{Temperature} & \textbf{PlayTennis} \\ \midrule
             D1           & 40                   & No                  \\
+            \hline
             D2           & 48                   & No                  \\
             D3           & 60                   & Yes                 \\
             D4           & 72                   & Yes                 \\
@@ -1350,79 +1442,87 @@ $$\text{MSE Reduction} = 311.35 - 252.18 = \mathbf{59.17}$$
             D6           & 90                   & No                  \\ \bottomrule
         \end{tabular}
     \end{table}
-    \cleanitemize{
-        \item Consider split at 44
-        \item LHS has 1 No and 0 Yes; RHS has 3 Yes and 2 No
-        \item Entropy for LHS = 0, Entropy for RHS = 0.971
-        \item Weighted Entropy = 0.971*5/6 = 0.808
-    }
+
+    \begin{examplebox}{Split Analysis}
+    \textbf{Left side (Temp $\leq$ 44):} 1 example, all "No" → Perfect purity! \\
+    \textbf{Right side (Temp > 44):} 5 examples, 3 "Yes", 2 "No" → Mixed
+
+    Entropy(Left) = 0, Entropy(Right) = 0.971 \\
+    Weighted Entropy = $\frac{1}{6} \times 0 + \frac{5}{6} \times 0.971 = 0.808$
+    \end{examplebox}
     \end{frame}
 
-    \begin{frame}{Finding splits}
+    \begin{frame}{Evaluating Split at Temperature $\leq$ 54}
         \begin{table}[]
             \begin{tabular}{@{}lcc@{}}
                 \toprule
                 \textbf{Day} & \textbf{Temperature} & \textbf{PlayTennis} \\ \midrule
                 D1           & 40                   & No                  \\
                 D2           & 48                   & No                  \\
+                \hline
                 D3           & 60                   & Yes                 \\
                 D4           & 72                   & Yes                 \\
                 D5           & 80                   & Yes                 \\
                 D6           & 90                   & No                  \\ \bottomrule
             \end{tabular}
         \end{table}
-        \cleanitemize{
-            \item Consider split at 54
-            \item LHS has 2 No and 0 Yes; RHS has 3 Yes and 1 No
-            \item Entropy for LHS = 0, Entropy for RHS = 0.811
-            \item Weighted Entropy = 0.811*4/6 = 0.541
-        }
+
+        \begin{examplebox}{Split Analysis}
+        \textbf{Left side (Temp $\leq$ 54):} 2 examples, all "No" → Perfect purity! \\
+        \textbf{Right side (Temp > 54):} 4 examples, 3 "Yes", 1 "No" → Better!
+
+        Entropy(Left) = 0, Entropy(Right) = 0.811 \\
+        Weighted Entropy = $\frac{2}{6} \times 0 + \frac{4}{6} \times 0.811 = 0.541$
+        \end{examplebox}
+
+        \textbf{Much better!} This split creates a purer separation.
     \end{frame}
 
-    \begin{frame}{Finding splits}
-        \begin{table}[]
-            \begin{tabular}{@{}lrr@{}}
-                \toprule
-                \textbf{Day} & \textbf{Temperature} & \textbf{PlayTennis} \\ \midrule
-                D1           & 40                   & No                  \\
-                D2           & 48                   & No                  \\
-                D3           & 60                   & Yes                 \\
-                D4           & 72                   & Yes                 \\
-                D5           & 80                   & Yes                 \\
-                D6           & 90                   & No                  \\ \bottomrule
-            \end{tabular}
-        \end{table}
-        \cleanitemize{
-            \item Consider split at 66
-            \item LHS has 2 No and 1 Yes; RHS has 2 Yes and 1 No
-            \item Entropy for LHS = 0.918, Entropy for RHS = 0.918
-            \item Weighted Entropy = 0.918*3/6 + 0.918*3/6 = 0.918
-        }
-    \end{frame}
+\begin{frame}{Comparing All Candidate Splits}
+    \scriptsize
 
+\begin{table}[]
+\centering
+\begin{tabular}{@{}ccccc@{}}
+\toprule
+\textbf{Split Point} & \textbf{Left Side} & \textbf{Right Side} & \textbf{Weighted Entropy} & \textbf{Info Gain} \\ \midrule
+44 & 1 No & 3 Yes, 2 No & 0.808 & 0.142 \\
+\textbf{54} & \textbf{2 No} & \textbf{3 Yes, 1 No} & \textbf{0.541} & \textbf{0.409} \\
+66 & 2 No, 1 Yes & 2 Yes, 1 No & 0.918 & 0.032 \\
+76 & 2 No, 2 Yes & 1 Yes, 1 No & 1.000 & -0.050 \\
+85 & 2 No, 3 Yes & 1 No & 0.650 & 0.300 \\ \bottomrule
+\end{tabular}
+\end{table}
 
-    \begin{frame}{Finding splits}
-        \begin{table}[]
-            \begin{tabular}{@{}lrr@{}}
-                \toprule
-                \textbf{Day} & \textbf{Temperature} & \textbf{PlayTennis} \\ \midrule
-                D1           & 40                   & No                  \\
-                D2           & 48                   & No                  \\
-                D3           & 60                   & Yes                 \\
-                D4           & 72                   & Yes                 \\
-                D5           & 80                   & Yes                 \\
-                D6           & 90                   & No                  \\ \bottomrule
-            \end{tabular}
-        \end{table}
-        \cleanitemize{
-            \item Consider split at 76
-            \item LHS has 2 No and 2 Yes; RHS has 1 Yes and 1 No
-            \item Entropy for LHS = 1, Entropy for RHS = 1
-            \item Weighted Entropy = 1*4/6 + 1*2/6 = 1
-        }
-    \end{frame}
+\begin{keypointsbox}
+\textbf{Winner: Split at 54!}
+\begin{itemize}
+\item Lowest weighted entropy (0.541)
+\item Highest information gain (0.409)
+\item Creates the best class separation
+\end{itemize}
+\end{keypointsbox}
+\end{frame}
 
-    \begin{frame}{Finding splits}
+\begin{frame}{The Algorithm Summary}
+\begin{definitionbox}{Decision Tree Algorithm for Continuous Features}
+\begin{enumerate}
+\item \textbf{Sort} data by feature values
+\item \textbf{Identify} candidate split points (midpoints between different classes)
+\item \textbf{Evaluate} each split using information gain:
+   \begin{itemize}
+   \item Calculate weighted entropy for the split
+   \item Information Gain = Original Entropy - Weighted Entropy
+   \end{itemize}
+\item \textbf{Choose} split with highest information gain
+\item \textbf{Recurse} on left and right subsets
+\end{enumerate}
+\end{definitionbox}
+
+%\textbf{Time Complexity:} $O(n \log n)$ for sorting + $O(n)$ for evaluation = $O(n \log n)$
+\end{frame}
+
+    \begin{frame}{Visual Example: The Resulting Decision Tree}
         \begin{table}[]
             \begin{tabular}{@{}lrr@{}}
                 \toprule
@@ -1482,38 +1582,151 @@ $$\text{MSE Reduction} = 311.35 - 252.18 = \mathbf{59.17}$$
 {\color{magenta}\textbf{B) Use midpoints between consecutive sorted feature values}} - This ensures we test all meaningful boundaries between different class regions.
 }
 
-\section{Real Input Real Output}
+\section{Real Input, Real Output}
 
-    \begin{frame}{Example 1}
-    Let us consider the dataset given below
+\begin{frame}{Completing Our Journey: The Fourth Case}
+\begin{keypointsbox}
+    \scriptsize
+\textbf{Our Decision Tree Journey - Final Stop:}
+\begin{itemize}
+\item \textbf{Discrete Input, Discrete Output}: Categorical splits, entropy
+\item \textbf{Real Input, Discrete Output}: Continuous features, classification (Case 3)
+\item \textbf{Real Input, Real Output}: Continuous features, regression (Case 2 - revisited!)
+\item \textbf{Real Input, Real Output}: Let's build intuition from Cases 2 \& 3!
+\end{itemize}
+\end{keypointsbox}
+
+\vspace{0.3em}
+\textbf{What we learned:}
+    \scriptsize
+
+\begin{itemize}
+\item From \textbf{Case 2}: Use MSE for regression, predict means in leaves
+\item From \textbf{Case 3}: Sort data, find midpoint splits, evaluate systematically
+\item \textbf{Case 4}: Combine both approaches for regression trees!
+\end{itemize}
+\end{frame}
+
+\begin{frame}{The Key Insights from Previous Cases}
+        \scriptsize
+
+\begin{examplebox}{From Case 3 (Real Input, Discrete Output)}
+        \scriptsize
+
+\begin{itemize}
+\item \textbf{Sorting Strategy}: Sort by feature values to find natural boundaries
+\item \textbf{Candidate Splits}: Only consider midpoints between different points
+\item \textbf{Systematic Evaluation}: Test each split, choose best information gain
+\end{itemize}
+\end{examplebox}
+
+\begin{examplebox}{From Case 2 (Regression Trees)}
+        \scriptsize
+
+\begin{itemize}
+\item \textbf{MSE Criterion}: Use Mean Squared Error instead of entropy
+\item \textbf{Leaf Predictions}: Predict mean of target values in each region
+\item \textbf{Weighted Loss}: Consider subset sizes in evaluation
+\end{itemize}
+\end{examplebox}
+\end{frame}
+
+\begin{frame}{The Challenge: Regression with Continuous Features}
+\begin{alertbox}{What Makes This Different?}
+        \scriptsize
+
+\begin{itemize}
+\item \textbf{Input}: Continuous features (like Case 3)
+\item \textbf{Output}: Continuous targets (like Case 2)
+\item \textbf{Challenge}: Where to split continuous features for best regression performance?
+\end{itemize}
+\end{alertbox}
+
+\textbf{Our Strategy:}
+\begin{enumerate}
+        \scriptsize
+
+\item Apply Case 3's sorting and candidate generation approach
+\item Use Case 2's MSE-based evaluation criteria
+\item Weight by sample sizes for fair comparison
+\end{enumerate}
+\end{frame}
+
+    \begin{frame}{Example Dataset}
+    Let us consider the regression dataset below:
     \begin{center}
     	\begin{notebookbox}{https://nipunbatra.github.io/ml-teaching/notebooks/decision-tree-real-input-real-output.html}
     		\includegraphics{../assets/decision-trees/figures/ri-ro-dataset.pdf}
     	  \end{notebookbox}
     \end{center}
+    \textbf{Goal:} Find the best split point to minimize prediction error
     \end{frame}
 
-    \begin{frame}{Example 1}
-    What would be the prediction for decision tree with depth 0?
+    \begin{frame}{Baseline: Decision Tree with Depth 0}
+    \textbf{Question:} What would be the prediction for decision tree with depth 0 (no splits)?
     \begin{center}
     	\begin{notebookbox}{https://nipunbatra.github.io/ml-teaching/notebooks/decision-tree-real-input-real-output.html}
     		\includegraphics{../assets/decision-trees/figures/ri-ro-dataset.pdf}
     	  \end{notebookbox}
     \end{center}
+    
+    \begin{keypointsbox}
+    \textbf{Answer:} Predict the mean of all Y values! (Same as Case 2)
+    \end{keypointsbox}
     \end{frame}
 
-    \begin{frame}{Example 1}
-    Prediction for decision tree with depth 0.\\
-    Horizontal dashed line shows the predicted $Y$ value. It is the average of $Y$ values of all datapoints.\\
+    \begin{frame}{Baseline Performance Visualization}
+    \textbf{Depth 0 Prediction:} Horizontal line = average of all Y values
     \begin{center}
     	\begin{notebookbox}{https://nipunbatra.github.io/ml-teaching/notebooks/decision-tree-real-input-real-output.html}
     		\includegraphics{../assets/decision-trees/figures/ri-ro-depth-0.pdf}	
     	  \end{notebookbox}
     \end{center}
+    
+    \textbf{Problem:} This single prediction doesn't capture the X-Y relationship!
+    
+    We need to find better splits to reduce prediction error.
     \end{frame}
 
+\begin{frame}{Finding Split Candidates - Learning from Case 3}
+\begin{definitionbox}{Split Candidate Strategy (from Case 3)}
+\begin{enumerate}
+\item \textbf{Sort} data points by X values: $(x_1, y_1), (x_2, y_2), \ldots, (x_n, y_n)$
+\item \textbf{Consider midpoints} between consecutive X values:
+   $$\text{Split candidates} = \left\{\frac{x_i + x_{i+1}}{2} \mid i = 1, 2, \ldots, n-1\right\}$$
+\item \textbf{Evaluate} each split using MSE reduction (not entropy!)
+\end{enumerate}
+\end{definitionbox}
 
-    \begin{frame}{Example 1}
+\textbf{Why midpoints?} They ensure we capture all meaningful boundaries where the trend might change.
+\end{frame}
+
+\begin{frame}{Objective Function for Regression Trees - Setup}
+Feature is denoted by $X$ and target by $Y$.
+
+Let the split be at $X = s$.
+
+Define regions: $R_1 = \{x : x \leq s\}$ and $R_2 = \{x : x > s\}$.
+
+For each region, compute the mean prediction:
+$$c_1 = \frac{1}{|R_1|} \sum_{x_i \in R_1} y_i \quad\text{and}\quad c_2 = \frac{1}{|R_2|} \sum_{x_i \in R_2} y_i$$
+\end{frame}
+
+\begin{frame}{Objective Function - Weighted MSE }
+
+\scriptsize
+\begin{examplebox}{Sample-Weighted MSE}
+$$\text{Weighted Loss}(s) = \frac{|R_1|}{|R_1| + |R_2|} \cdot \text{MSE}(R_1) + \frac{|R_2|}{|R_1| + |R_2|} \cdot \text{MSE}(R_2)$$
+
+Where: $\text{MSE}(R_i) = \frac{1}{|R_i|} \sum_{x_j \in R_i} (y_j - c_i)^2$
+\end{examplebox}
+
+Our objective: $s^* = \operatorname*{\arg\min}_{s} \text{Weighted Loss}(s)$
+\end{frame}
+
+
+
+    \begin{frame}{Example: Finding the Best Split}
     What would be the decision tree with depth 1?
     \begin{center}
     	\begin{notebookbox}{https://nipunbatra.github.io/ml-teaching/notebooks/decision-tree-real-input-real-output.html}
@@ -1569,33 +1782,7 @@ $$\text{MSE Reduction} = 311.35 - 252.18 = \mathbf{59.17}$$
     \end{frame}
 	
 
-\begin{frame}{Objective Function for Regression Trees}
-\small
-\only<1-4>{
-Feature is denoted by $X$ and target by $Y$.\\
-Let the split be at $X = s$.\\
-Define regions: $R_1 = \{x : x \leq s\}$ and $R_2 = \{x : x > s\}$.\\
-}
-\only<2-4>{
-For each region, compute the mean prediction:\\
-$c_1 = \frac{1}{|R_1|} \sum_{x_i \in R_1} y_i$ \\
-$c_2 = \frac{1}{|R_2|} \sum_{x_i \in R_2} y_i$ \\
-}
-\only<3-4>{
-The loss function is:\\
-$$\text{Loss}(s) = \sum_{x_i \in R_1} (y_i - c_1)^2 + \sum_{x_i \in R_2} (y_i - c_2)^2$$
-}
-\only<4>{
-Our objective is to find the optimal split:\\
-\begin{align*}
-s^* &= \operatorname*{\arg\min}_{s}
-\left[
-  \sum_{x_i \in R_1(s)} \bigl(y_i - c_1(s)\bigr)^2
-  + \sum_{x_i \in R_2(s)} \bigl(y_i - c_2(s)\bigr)^2
-\right],
-\end{align*}
-}
-\end{frame}
+
 
 \begin{frame}{Algorithm: Finding the Optimal Split}
 \begin{enumerate}
@@ -1655,13 +1842,148 @@ It has of depth 4. The decision boundaries are in figure below.\\
 \popquiz{
 \textbf{What is the prediction function for a regression tree leaf node?}
 \begin{enumerate}[A)]
-    \item The median of target values in that region
-    \item The mode of target values in that region  
-    \item The mean of target values in that region
-    \item A linear function of the features
+    \item The median of target values
+    \item The mode of target values  
+    \item The mean of target values
+    \item A linear function
 \end{enumerate}}{
-{\color{magenta}\textbf{C) The mean of target values in that region}} - Each leaf predicts the average target value of training samples that reach that leaf.
+{\color{magenta}\textbf{C) The mean of target values}}
 }
+
+\section{Weighted Entropy}
+
+\begin{frame}{Why Weighted Entropy?}
+\begin{keypointsbox}
+\begin{itemize}
+\item Sometimes points have \textbf{different importance}:
+  \begin{itemize}
+    \item From resampling (e.g., Boosting)
+    \item Class imbalance correction
+    \item Prior knowledge about reliability of examples
+  \end{itemize}
+\item Standard entropy assumes equal weight for all points.
+\item \textbf{Weighted entropy} respects point importance.
+\end{itemize}
+\end{keypointsbox}
+\end{frame}
+
+\begin{frame}{Weighted Entropy Formula}
+For dataset $S$ with points $(x_j, y_j)$ and weights $w_j$:
+
+\[
+H_w(S) = - \sum_{c \in \mathcal{C}} 
+\underbrace{\frac{\sum_{j \in c} w_j}{\sum_{j \in S} w_j}}_{\text{Weighted }P(c)}
+\log_2 \left( \frac{\sum_{j \in c} w_j}{\sum_{j \in S} w_j} \right)
+\]
+
+\begin{itemize}
+\item $w_j$: weight of point $j$ (can be fractional)
+\item $\mathcal{C}$: set of classes
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Weighted Entropy}
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.8]{../assets/decision-trees/figures/dt_weighted/fig1.pdf}
+\end{figure}
+\textbf{Setup:} We start with mixed data - let's see how splitting helps us achieve purity
+\end{frame}
+
+\begin{frame}{Weighted Entropy}
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.8]{../assets/decision-trees/figures/dt_weighted/fig2.pdf}
+\end{figure}
+\textbf{Original Entropy Calculation:}
+\end{frame}
+	
+\begin{frame}{Computing Original Entropy}
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.8]{../assets/decision-trees/figures/dt_weighted/fig2.pdf}
+\end{figure}
+\small
+$$\text{Entropy} = -P(+) \log_2 P(+) - P(-) \log_2 P(-)$$
+$$P(+) = \frac{0.1 + 0.1 + 0.3}{1} = 0.5, \quad P(-) = \frac{0.3 + 0.1 + 0.1}{1} = 0.5$$
+$$\text{Entropy} = E_s = -\frac{1}{2} \log_2 \frac{1}{2} - \frac{1}{2} \log_2 \frac{1}{2} = 1$$
+\textbf{Maximum impurity!} Perfect 50-50 split
+\end{frame}
+	
+\begin{frame}{Choosing a Split}
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.7]{../assets/decision-trees/figures/dt_weighted/fig3.pdf}
+\end{figure}
+\textbf{Candidate Split:} $X_1 = 4$ (denoted as $X_1^*$)
+
+Let's see if this vertical line creates purer subsets!
+\end{frame}
+		
+\begin{frame}{Left Subset: $X_1 \leq X_1^*$}
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.7]{../assets/decision-trees/figures/dt_weighted/fig4.pdf}
+\end{figure}
+\textbf{Computing entropy of left subset:}
+$$P(+) = \frac{0.1 + 0.1}{0.1 + 0.1 + 0.3} = \frac{2}{5} = 0.4$$
+$$P(-) = \frac{0.3}{0.5} = \frac{3}{5} = 0.6$$
+$$H(\text{left}) = -0.4 \log_2(0.4) - 0.6 \log_2(0.6) \approx 0.971$$
+\end{frame}
+	
+\begin{frame}{Right Subset: $X_1 > X_1^*$}
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.7]{../assets/decision-trees/figures/dt_weighted/fig5.pdf}
+\end{figure}
+\textbf{Computing entropy of right subset:}
+$$P(+) = \frac{0.3}{0.3 + 0.2} = \frac{3}{5} = 0.6$$
+$$P(-) = \frac{0.2}{0.5} = \frac{2}{5} = 0.4$$
+$$H(\text{right}) = -0.6 \log_2(0.6) - 0.4 \log_2(0.4) \approx 0.971$$
+\end{frame}
+	
+\begin{frame}{Computing Weighted Entropy}
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.7]{../assets/decision-trees/figures/dt_weighted/fig5.pdf}
+\end{figure}
+\scriptsize
+\begin{examplebox}{Weighted Entropy Calculation}
+$$\text{Weighted Entropy} = \frac{|S_{\text{left}}|}{|S|} \cdot H(\text{left}) + \frac{|S_{\text{right}}|}{|S|} \cdot H(\text{right})$$
+$$= \frac{0.5}{1.0} \cdot 0.971 + \frac{0.5}{1.0} \cdot 0.971$$
+$$= 0.5 \times 0.971 + 0.5 \times 0.971 = 0.971$$
+\end{examplebox}
+\end{frame}
+
+\begin{frame}{Information Gain Calculation}
+    \scriptsize
+\begin{keypointsbox}
+    
+\textbf{Information Gain = Original Entropy - Weighted Entropy}
+$$\text{IG}(X_1 = X_1^*) = E_S - \text{Weighted Entropy}$$
+$$= 1.0 - 0.971 = 0.029$$
+\end{keypointsbox}
+
+\textbf{Interpretation:} Small gain means this split doesn't help much in creating purer subsets. We should try other splits!
+\end{frame}
+
+
+
+
+
+
+
+
+% Key takeaways
+\begin{frame}{Key Takeaways}
+\begin{itemize}[<+->]
+\item Weighted entropy generalizes normal entropy.
+\item Handles fractional and non-uniform point importance.
+\item Essential for boosting and class imbalance handling.
+\item Always normalize weights before computing probabilities.
+\end{itemize}
+\end{frame}
 
 \section{Pruning and Overfitting}
 
@@ -1782,66 +2104,5 @@ It has of depth 4. The decision boundaries are in figure below.\\
 \end{frame}
 
 
-\section{Weighted Entropy}
-\begin{frame}{Weighted Entropy}
-\begin{figure}
-    \centering
-    \includegraphics{../assets/decision-trees/figures/dt_weighted/fig1.pdf}
-\end{figure}
-\end{frame}
-
-\begin{frame}{Weighted Entropy}
-\begin{figure}
-    \centering
-    \includegraphics{../assets/decision-trees/figures/dt_weighted/fig2.pdf}
-\end{figure}
-\end{frame}
-	
-\begin{frame}
-\begin{figure}
-    \centering
-    \includegraphics{../assets/decision-trees/figures/dt_weighted/fig2.pdf}
-\end{figure}
-\small
-$$\Entropy = -P(+) \log_2 P(+) - P(-) \log_2 P(-)$$
-$$P(+) = \frac{0.1 + 0.1 + 0.3}{1} = 0.5, \quad P(-) = \frac{0.3 + 0.1 + 0.1}{1} = 0.5$$
-$$\Entropy = E_s = -\frac{1}{2} \log_2 \frac{1}{2} - \frac{1}{2} \log_2 \frac{1}{2} = 1$$
-\end{frame}
-	
-\begin{frame}{Weighted Entropy}
-\begin{figure}
-    \centering
-    \includegraphics{../assets/decision-trees/figures/dt_weighted/fig3.pdf}
-\end{figure}
-Candidate Line: \(X1 = 4 (X1^*)\)
-\end{frame}
-		
-\begin{frame}
-\begin{figure}
-    \centering
-    \includegraphics{../assets/decision-trees/figures/dt_weighted/fig4.pdf}
-\end{figure}
-Entropy of \(X1 \leq X1^*  = E_{S(X1 < X1^*)}\)
-$$P(+) = \frac{0.1 + 0.1}{0.1 + 0.1 + 0.3} = \frac{2}{5}$$
-$$P(-) = \frac{3}{5}$$
-\end{frame}
-	
-\begin{frame}
-\begin{figure}
-    \centering
-    \includegraphics{../assets/decision-trees/figures/dt_weighted/fig5.pdf}
-\end{figure}
-Entropy of $X_1 > X_1^* = E_{S(X_1 > X_1^*)}$
-$$P(+) = \frac{3}{5}$$
-$$P(-) = \frac{2}{5}$$
-\end{frame}
-	
-\begin{frame}{Weighted Entropy}
-\begin{figure}
-    \centering
-    \includegraphics{../assets/decision-trees/figures/dt_weighted/fig5.pdf}
-\end{figure}
-$$\text{IG}(X_1 = X_1^*) = E_S - \frac{0.5}{1} \cdot E_{S(X_1 < X_1^*)} - \frac{0.5}{1} \cdot E_{S(X_1 > X_1^*)}$$
-\end{frame}
 
 \end{document}

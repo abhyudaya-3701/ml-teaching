@@ -88,9 +88,7 @@
 \RequirePackage{iftex}
 \iftutex % true for XeTeX or LuaTeX
   \RequirePackage{fontspec}
-  % Fallbacks if fonts missing are optional:
-  \IfFontExistsTF{Roboto}{\setmainfont{Roboto}}{\setmainfont{Latin Modern Sans}}
-  \IfFontExistsTF{Roboto Mono}{\setmonofont{Roboto Mono}}{\setmonofont{Latin Modern Mono}}
+  % Use default fonts to avoid font loading errors
 \else
   % pdfLaTeX path
   \RequirePackage[T1]{fontenc}
