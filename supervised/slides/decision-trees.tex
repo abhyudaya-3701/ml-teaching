@@ -305,8 +305,8 @@ Information is inversely related to probability. \textbf{Rare events are more in
 \textbf{Think about it:} Which headline tells you more?
 \pause
 \cleanitemize{
-\item "The sun rose this morning" 
-\item "It snowed in Gandhinagar in July"
+\item ``The sun rose this morning''
+\item ``It snowed in Gandhinagar in July''
 }
 
 \onslide<5->{
@@ -355,7 +355,7 @@ $$I(x) = -\log_2 p(x)$$
 \textbf{Question:} What if we have multiple possible outcomes?
 
 \pause
-\textbf{Example:} Weather in Seattle (4 possibilities)
+\textbf{Example:} Weather in Delhi (4 possibilities)
 \cleanitemize{
 \item Rainy: $p = 0.5$
 \item Cloudy: $p = 0.3$  
@@ -382,7 +382,7 @@ $$H(X) = \mathbb{E}[I(X)] = -\sum_{i} p(x_i) \log_2 p(x_i)$$
 \end{definitionbox}
 
 \pause
-\textbf{Seattle weather calculation:}
+\textbf{Delhi weather calculation:}
 \pause
 \begin{align*}
 \uncover<+-> {H &= -p(\text{rain}) \log_2 p(\text{rain}) - p(\text{cloudy}) \log_2 p(\text{cloudy})\\
@@ -488,7 +488,7 @@ $$
 
 \begin{enumerate}[A)]
   \item The depth of the tree
-  \item The impurity or "disagreement" in a set of examples
+  \item The impurity or ``disagreement'' in a set of examples
   \item The number of features in the dataset
   \item The accuracy of the tree
 \end{enumerate}
@@ -842,7 +842,7 @@ When depth limit is reached, assign the \textbf{most common class} in that path 
 
 \stepcounter{popquiz}
 \popquiz{
-\textbf{In the tennis dataset, why did "Outlook" have the highest information gain?}
+\textbf{In the tennis dataset, why did ``Outlook'' have the highest information gain?}
 \begin{enumerate}[A)]
     \item It was the first feature in the dataset
     \item When Outlook=Overcast, all examples have Play=Yes (pure subset)
@@ -891,7 +891,7 @@ When depth limit is reached, assign the \textbf{most common class} in that path 
     \begin{keypointsbox}
     \textbf{Why MSE for Regression?}\\
     MSE measures how far predicted values are from actual values.\\
-    Lower MSE = Better predictions = Less "impurity" in the data
+    Lower MSE = Better predictions = Less ``impurity'' in the data
     \end{keypointsbox}
 }
 \end{frame}
@@ -1043,7 +1043,7 @@ With $\bar{y} = 32.71$:
 \cleanitemize
 {
 	\item MSE = 311.35 square-minutes
-	\item This measures the "impurity" or variation in our dataset
+	\item This measures the ``impurity'' or variation in our dataset
 	\item Higher MSE = More variation in target values
 	\item When we split the data, we want to reduce this MSE
 }
@@ -1165,7 +1165,7 @@ $y_i$ & $y_i - 39.375$ & $(y_i - 39.375)^2$ \\ \hline
     \item Original MSE for all data: 311.35
     \item MSE for Wind=Weak subset: 277.73
     \item \textbf{Good sign:} MSE decreased (less variation within this group)
-    \item This subset is more "homogeneous" than the full dataset
+    \item This subset is more ``homogeneous'' than the full dataset
 }
 \end{examplebox}
 \end{frame}
