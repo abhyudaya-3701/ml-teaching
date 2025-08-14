@@ -254,7 +254,8 @@
 % Ensure proper spacing in beamer (only for beamer documents)
 \makeatletter
 \@ifclassloaded{beamer}{%
-    \beamerdefaultoverlayspecification{<+->}%
+    % Removed automatic overlay specification - let users control pauses manually
+    % \beamerdefaultoverlayspecification{<+->}%
 }{}
 \makeatother
 
