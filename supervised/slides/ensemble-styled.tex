@@ -1,4 +1,4 @@
-\documentclass[8pt]{beamer}
+\documentclass[9pt]{beamer}
 \usepackage{../../shared/styles/custom}
 \usepackage{../../shared/styles/conventions}
 \usepackage{tikz}
@@ -182,7 +182,9 @@ Some models cannot learn the true form of the target function.
     \fitpic{\includegraphics[scale=0.6]{../assets/ensemble/figures/1-representation.pdf}}
   \end{notebookbox}
 \end{figure}
+\end{frame}
 
+\begin{frame}{Individual Tree Behavior}
 \begin{keypointsbox}
 \textbf{Observation:} Individual trees create rigid, rectangular decision boundaries
 \end{keypointsbox}
@@ -199,11 +201,13 @@ Some models cannot learn the true form of the target function.
       \fitpic{\includegraphics[scale=0.6]{../assets/ensemble/figures/2-representation.pdf}}
     \end{notebookbox}
   \end{figure}
+\end{frame}
   
+\begin{frame}{Ensemble Advantage}
 \begin{keypointsbox}
 \textbf{Key Insight:} The ensemble overcomes individual model limitations!
 \end{keypointsbox}
-  \end{frame}
+\end{frame}
 
 
 
@@ -409,7 +413,9 @@ $D_2, D_4, D_1, D_n, D_3, \ldots$
   \begin{center}
   \fitpic{\includegraphics[width = 0.6\textwidth]{../assets/ensemble/figures/dataset}}
   \end{center}
+\end{frame}
 
+\begin{frame}{The Outlier Challenge}
 \begin{keypointsbox}
 \textbf{Question:} How will a single decision tree handle these outliers?
 \end{keypointsbox}
@@ -423,7 +429,9 @@ $D_2, D_4, D_1, D_n, D_3, \ldots$
   \begin{center}
   \fitpic{\includegraphics[width = 0.6\textwidth]{../assets/ensemble/figures/strong-tree}}
   \end{center}
+\end{frame}
 
+\begin{frame}{The High Variance Problem}
 \begin{alertbox}{The Problem}
 \textbf{High Variance:} Small changes in data → Very different decision boundaries
 \end{alertbox}
@@ -468,6 +476,23 @@ Generate different bootstrap samples from original dataset
 \textbf{Sample 4}
 
 \fitpic{\includegraphics[width = 0.9\textwidth]{../assets/ensemble/figures/dataset-rnd-3}}
+\end{column}
+\end{columns}
+\end{center}
+\end{frame}
+
+\begin{frame}{Bootstrap Samples: Part 3}
+\begin{center}
+\begin{columns}
+\begin{column}{0.45\textwidth}
+\centering
+\textbf{Sample 5}
+
+\fitpic{\includegraphics[width = 0.9\textwidth]{../assets/ensemble/figures/dataset-rnd-4}}
+\end{column}
+
+\begin{column}{0.45\textwidth}
+\centering
 \end{column}
 \end{columns}
 \end{center}
@@ -623,7 +648,9 @@ Each model adapts to previous model's mistakes
 \item Learner weights: $\alpha_m$ (importance of learner $m$ in final ensemble)
 \end{itemize}
 \end{definitionbox}
+\end{frame}
 
+\begin{frame}{AdaBoost: Visual Setup}
   \vspace{0.3cm}
   \centering
   \fitpic{\includegraphics[width = 0.4\textwidth]{../assets/ensemble/diagrams/ada_data}}
@@ -679,7 +706,9 @@ First classifier $h_1$ makes some mistakes (shown in red crosses)
 \item Key question: How much do we trust this classifier?
 \end{itemize}
 \end{keypointsbox}
+\end{frame}
 
+\begin{frame}{AdaBoost Step 2: Visualizing Mistakes}
   \vspace{0.3cm}
   \centering
   \fitpic{\includegraphics[width = 0.4\textwidth]{../assets/ensemble/diagrams/ada_iter1_misclassify}}
@@ -710,12 +739,12 @@ $$\alpha_m = \frac{1}{2}\ln\left(\frac{1 - \text{err}_m}{\text{err}_m}\right)$$
 \textbf{Purpose:} Determine how much to trust this classifier in final ensemble
 \end{definitionbox}
 
-  \begin{columns}
-    \begin{column}{0.5\textwidth}
-      \centering
-      \fitpic{\fitpic{\includegraphics[width = \textwidth]{../assets/ensemble/diagrams/ada_iter1_misclassify}}}
-    \end{column}
-    \begin{column}{0.5\textwidth}
+\begin{center}
+\fitpic{\includegraphics[width = 0.4\textwidth]{../assets/ensemble/diagrams/ada_iter1_misclassify}}
+\end{center}
+\end{frame}
+
+\begin{frame}{AdaBoost Step 4: Example Calculation}
 \begin{examplebox}{Example Calculation}
 $err_1 = 0.3$
 
@@ -730,8 +759,6 @@ $\alpha_1 = \frac{1}{2}\ln\left(\frac{1-0.3}{0.3}\right) = \frac{1}{2}\ln(2.33) 
 \item $\alpha = 0$ when $err = 0.5$ (random)
 \end{itemize}
 \end{keypointsbox}
-    \end{column}
-  \end{columns}
 \end{frame}
 
 \begin{frame}{Understanding the Alpha Formula}
@@ -1074,7 +1101,9 @@ $err = 0.9 \Rightarrow \alpha = -1.1$
 \item \textbf{Feature Subsampling:} Each split considers only random subset of features
 \end{itemize}
 \end{keypointsbox}
+\end{frame}
 
+\begin{frame}{Why Double Randomness?}
 \begin{examplebox}{Why Double Randomness?}
 \textbf{Goal:} Create diverse trees that make different mistakes
 \begin{itemize}
@@ -1085,7 +1114,7 @@ $err = 0.9 \Rightarrow \alpha = -1.1$
 \end{examplebox}
 \end{frame}
 
-\begin{frame}{Random Forest Algorithm: Step by Step}
+\begin{frame}{Random Forest Algorithm: Hyperparameters}
 \begin{definitionbox}{Random Forest Hyperparameters}
 \begin{itemize}
 \item $B$ = Number of trees in the forest
@@ -1093,7 +1122,9 @@ $err = 0.9 \Rightarrow \alpha = -1.1$
 \item $\text{max\_depth}$ = Maximum depth of each tree
 \end{itemize}
 \end{definitionbox}
+\end{frame}
 
+\begin{frame}{Random Forest Algorithm: Training Process}
 \begin{alertbox}{Random Forest Training Algorithm}
 \textbf{For } $b = 1, 2, \ldots, B$:
 \begin{enumerate}
@@ -1133,7 +1164,9 @@ $err = 0.9 \Rightarrow \alpha = -1.1$
 \end{definitionbox}
 \end{column}
 \end{columns}
+\end{frame}
 
+\begin{frame}{Random Forest: The Power of Feature Diversity}
 \begin{keypointsbox}
 \textbf{Result:} Different trees focus on different feature combinations → Diverse predictions
 \end{keypointsbox}
@@ -1147,7 +1180,9 @@ $err = 0.9 \Rightarrow \alpha = -1.1$
   \vspace{0.3cm}
   \centering
   \fitpic{\includegraphics[scale=0.5]{../assets/ensemble/diagrams/dataset-iris.png}}
+\end{frame}
 
+\begin{frame}{Random Forest Setup for Iris}
 \begin{keypointsbox}
 \textbf{Random Forest Setup:}
 \begin{itemize}
@@ -1181,11 +1216,9 @@ $err = 0.9 \Rightarrow \alpha = -1.1$
 \forloop{tree}{0}{\value{tree} < 10}{
   \begin{frame}{Decision Tree \# \thetree}
     \begin{figure}
-      % \includegraphics[scale=0.25]{../assets/ensemble/figures/feature-imp-\thetree.pdf}
       \centering
       \begin{notebookbox}{https://nipunbatra.github.io/ml-teaching/notebooks/ensemble-feature-importance.html}
-        \fitpic{\includegraphics[scale=0.25]{../assets/ensemble/figures/feature-imp-\thetree.pdf}}
-        
+        \fitpic{\includegraphics[scale=0.2]{../assets/ensemble/figures/feature-imp-\thetree.pdf}}
       \end{notebookbox}
     \end{figure}
   \end{frame}
