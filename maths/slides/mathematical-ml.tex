@@ -112,86 +112,98 @@
 \end{frame}
 
 
-\begin{frame}{Maths for ML}\
-\begin{enumerate}
-	\conti
-	\item   If $A$ is a row-vector ($1\times  n $ matrix).\\
-	and $\theta$ is a column-vector ($n \times 1)$ matrix.\\
-	and $A\theta$ is a scalar.\\
-	\seti
-\end{enumerate}
+\begin{frame}{Linear Functions: Row Vector Times Column Vector}
+\begin{definitionbox}{Setup}
+\textbf{Configuration:}
+\begin{itemize}
+\item $A$ is a row vector ($1 \times n$ matrix)
+\item $\theta$ is a column vector ($n \times 1$ matrix) 
+\item $A\theta$ produces a scalar
+\end{itemize}
+\end{definitionbox}
 
-  Example
-  \begin{equation*}
-      \theta = \begin{bmatrix}
-      \theta_{1}\\
-      \theta_{2}
-      \end{bmatrix}_{2\times 1}
-  \end{equation*}
-  
-    \begin{equation*}
-      A = \begin{bmatrix}
-      A_{1}& A_{2}
-      \end{bmatrix}_{1 \times 2}
-  \end{equation*}
-  
-    \begin{equation*}
-      A\theta_{1 \times 1} = 
-      A_{1}\theta_{1}+A_{2}\theta_{2}
-       \end{equation*}
-  
+\begin{examplebox}{Concrete Example}
+$$\theta = \begin{bmatrix}
+\theta_{1}\\
+\theta_{2}
+\end{bmatrix}_{2\times 1}, \quad A = \begin{bmatrix}
+A_{1} & A_{2}
+\end{bmatrix}_{1 \times 2}$$
+\end{examplebox}
+
+\begin{keypointsbox}{Matrix Multiplication Result}
+$$A\theta = A_{1}\theta_{1} + A_{2}\theta_{2}$$
+\textbf{This is a scalar!} (Linear combination of parameters)
+\end{keypointsbox}
+
+\begin{alertbox}{ML Relevance}
+This form appears everywhere in ML:
+\begin{itemize}
+\item Linear regression: $\mathbf{w}^T\mathbf{x}$
+\item Neural networks: $\mathbf{w}^T\mathbf{h} + b$
+\item Loss functions: $\mathbf{c}^T\mathbf{\theta}$
+\end{itemize}
+\end{alertbox}
 \end{frame}
 
-\begin{frame}{Maths for ML}
+\begin{frame}{Gradient of Linear Function: Key Result}
+\begin{keypointsbox}{Computing the Gradient}
+\textbf{Goal:} Find $\frac{\partial A\theta}{\partial \theta}$ where $A\theta = A_{1}\theta_{1} + A_{2}\theta_{2}$
+\end{keypointsbox}
 
-\begin{equation*}
-    \frac{\partial A\theta}{\partial \theta} = \begin{bmatrix}
-    \frac{\partial}{\partial \theta_{1} }(A_{1}\theta_{1}+A_{2}\theta_{2}) \\
-    \frac{\partial}{\partial \theta_{2} }(A_{1}\theta_{1}+A_{2}\theta_{2}) \\
-    \end{bmatrix}
-    = \begin{bmatrix}
-    A_{1}\\A_{2}
-    \end{bmatrix}_{2 \times 1}
-     = A^{T}
-\end{equation*}
-    
+\begin{examplebox}{Step-by-Step Calculation}
+$$\frac{\partial A\theta}{\partial \theta} = \begin{bmatrix}
+\frac{\partial}{\partial \theta_{1}}(A_{1}\theta_{1}+A_{2}\theta_{2}) \\
+\frac{\partial}{\partial \theta_{2}}(A_{1}\theta_{1}+A_{2}\theta_{2})
+\end{bmatrix}$$
+
+$$= \begin{bmatrix}
+A_{1} \\ A_{2}
+\end{bmatrix}_{2 \times 1} = A^{T}$$
+\end{examplebox}
+
+\begin{alertbox}{Fundamental Rule}
+$$\boxed{\frac{\partial A\theta}{\partial \theta} = A^{T}}$$
+\textbf{This is one of the most important rules in ML optimization!}
+\end{alertbox}
+
+\begin{definitionbox}{Intuition}
+\textbf{Why $A^T$?} Each component of the gradient equals the coefficient of the corresponding parameter in the linear function.
+\end{definitionbox}
 \end{frame}
 
 
-\begin{frame}{Maths for ML}
-\begin{enumerate}[<+->] \conti
-	\item Assume $Z$ is a matrix of format $X^{T}X$, then $\frac{\partial}{ \partial \theta} (\theta^{T}Z\theta)=2Z^T\theta$
-\end{enumerate}
+\section{Quadratic Forms and Their Derivatives}
 
+\begin{frame}{Quadratic Forms: Introduction}
+\begin{definitionbox}{Quadratic Form Derivative Rule}
+\textbf{Key Result:} For matrix $Z$ of form $X^{T}X$:
+$$\frac{\partial}{\partial \theta} (\theta^{T}Z\theta) = 2Z^T\theta$$
+\end{definitionbox}
 
-\pause
-\begin{equation*}
-    X = \begin{bmatrix}
-    a&b\\
-    c&d
-    \end{bmatrix}
-\end{equation*}
-
-\pause
-\begin{equation*}
-    X^{T} = \begin{bmatrix}
-    a&c\\
-    b&d
-    \end{bmatrix}
-\end{equation*}
+\begin{examplebox}{Understanding $X^TX$ Matrices}
+Starting with:
+$$X = \begin{bmatrix}
+a & b \\
+c & d
+\end{bmatrix}, \quad X^{T} = \begin{bmatrix}
+a & c \\
+b & d
+\end{bmatrix}$$
+\end{examplebox}
 
 \pause
-\begin{equation*}
-    Z = X^{T}X =  \begin{bmatrix}
-    a^{2}+c^{2}&ab+cd\\
-    ab+cd&b^{2}+d^{2}
-    \end{bmatrix}_{2\times 2}
-\end{equation*}
+\begin{keypointsbox}{Computing $Z = X^{T}X$}
+$$Z = X^{T}X = \begin{bmatrix}
+a^{2}+c^{2} & ab+cd \\
+ab+cd & b^{2}+d^{2}
+\end{bmatrix}_{2\times 2}$$
+\end{keypointsbox}
 
 \pause
-$Z$ has a property $Z_{ij}=Z_{ji} \implies Z^{T}=Z$
-
-    
+\begin{alertbox}{Symmetric Property}
+\textbf{Key Observation:} $Z_{ij} = Z_{ji} \Rightarrow Z^{T} = Z$ (symmetric matrix)
+\end{alertbox}
 \end{frame}
 
 
@@ -262,15 +274,37 @@ The term $\theta^{T}Z\theta$ is a scalar.
     \end{center}
 \end{frame}
 
-\begin{frame}{Maths for ML: Matrix Rank\footnotemark}
-\begin{itemize}[<+-> ]
-	\item An $r x c$ matrix as a set of $r$ row vectors, each having $c$ elements; or you can think of it as a set of $c$ column vectors, each having $r$ elements.
-	\item The rank of a matrix is defined as (a) the maximum number of linearly independent column vectors in the matrix or (b) the maximum number of linearly independent row vectors in the matrix. Both definitions are equivalent.
-	\item If $r$ is less than $c$, then the maximum rank of the matrix is $r$.
-	\item If $r$ is greater than $c$, then the maximum rank of the matrix is $c$.
-	
+\section{Matrix Rank and Invertibility}
+
+\begin{frame}{Matrix Rank: Fundamental Concept}
+\begin{definitionbox}{What is Matrix Rank?}
+\textbf{Rank} = Maximum number of linearly independent rows (or columns)
+\end{definitionbox}
+
+\begin{keypointsbox}{Two Equivalent Perspectives}
+For an $r \times c$ matrix:
+\begin{itemize}
+\item \textbf{Row perspective:} $r$ row vectors, each with $c$ elements
+\item \textbf{Column perspective:} $c$ column vectors, each with $r$ elements
 \end{itemize}
-\footnotetext[1]{Courtesy: \url{https://stattrek.com/matrix-algebra/matrix-rank.aspx}}
+\end{keypointsbox}
+
+\begin{examplebox}{Maximum Rank Rules}
+\begin{itemize}
+\item If $r < c$: Maximum rank = $r$ (\textcolor{blue}{more columns than rows})
+\item If $r > c$: Maximum rank = $c$ (\textcolor{red}{more rows than columns})
+\item If $r = c$: Maximum rank = $r = c$ (\textcolor{green}{square matrix})
+\end{itemize}
+\end{examplebox}
+
+\begin{alertbox}{ML Relevance}
+\textbf{Why rank matters:}
+\begin{itemize}
+\item Determines if matrix is invertible
+\item Affects uniqueness of solutions
+\item Critical for understanding overfitting
+\end{itemize}
+\end{alertbox}
 \end{frame}
 
 \begin{frame}{Maths for ML: Matrix Rank}

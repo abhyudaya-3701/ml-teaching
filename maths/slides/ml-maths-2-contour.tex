@@ -1,136 +1,245 @@
-\documentclass{beamer}
+\documentclass[10pt]{beamer}
 \usepackage{../../shared/styles/custom}
+\usepackage{../../shared/styles/conventions}
 
+% Remove navigation symbols
+\setbeamertemplate{navigation symbols}{}
 
+% Add fitpic for image fitting
+\newcommand{\fitpic}[1]{\begin{adjustbox}{max width=\linewidth, max totalheight=0.78\textheight}#1\end{adjustbox}}
 
-
-
-
-\title{Maths for ML II}
+\title{Mathematical Foundations for ML: Contour Plots and Gradients}
 \date{\today}
-\author{Nipun Batra}
+\author{Nipun Batra and teaching staff}
 \institute{IIT Gandhinagar}
 \begin{document}
-  \maketitle
+\maketitle
+
+\begin{frame}{Table of Contents}
+\tableofcontents
+\end{frame}
+
+\section{Understanding Contour Plots}
 
 
 
-\begin{frame}{Contour Plot}
+\begin{frame}{Introduction to Contour Plots}
+\begin{definitionbox}{What is a Contour Plot?}
+\textbf{Concept:} A contour plot shows curves where a function $f(x,y) = K$ for different constant values $K$
+\end{definitionbox}
 
-	$z = f(x,y) = x^{2} + y^{2}$\\
+\begin{examplebox}{Example Function: Circular Contours}
+$$z = f(x,y) = x^{2} + y^{2}$$
+\end{examplebox}
 
-	\begin{figure}[htp]
-		\centering
-		\begin{notebookbox}{https://nipunbatra.github.io/ml-teaching/notebooks/contour.html}
-		  \includegraphics[width=\linewidth]{../assets/mathematical-ml/figures/contour-x_squared_plus_y_squared.pdf}
-		\end{notebookbox}
-	  \end{figure}
+\begin{center}
+\fitpic{\includegraphics[width=0.8\linewidth]{../assets/mathematical-ml/figures/contour-x_squared_plus_y_squared.pdf}}
+\end{center}
 
-Then plot $f(x,y)=K$ for varying K.
-
+\begin{keypointsbox}
+\textbf{Key Insight:} Each contour line represents all points $(x,y)$ where $f(x,y) = K$ for a specific constant $K$
+\end{keypointsbox}
 \end{frame}
 
 
-\begin{frame}{Contour Plot}
+\begin{frame}{Contour Example: Parabolic Function}
+\begin{examplebox}{Function: $z = f(x,y) = x^{2}$}
+\textbf{Note:} This function depends only on $x$, not on $y$!
+\end{examplebox}
 
-$z = f(x,y) = x^{2}$\\
+\begin{center}
+\fitpic{\includegraphics[width=0.8\linewidth]{../assets/mathematical-ml/figures/contour-x_squared.pdf}}
+\end{center}
 
-\begin{figure}[htp]
-	\centering
-	\begin{notebookbox}{https://nipunbatra.github.io/ml-teaching/notebooks/contour.html}
-	  \includegraphics[width=\linewidth]{../assets/mathematical-ml/figures/contour-x_squared.pdf}
-	\end{notebookbox}
-  \end{figure}
+\begin{keypointsbox}
+\textbf{Observation:} Contour lines are vertical because $f(x,y) = x^2$ is constant for all $y$ values when $x$ is fixed
+\end{keypointsbox}
 
+\begin{alertbox}{ML Connection}
+\textbf{This represents:} A loss function that doesn't depend on one of the parameters!
+\end{alertbox}
 \end{frame}
 
-\begin{frame}{Contour Plot}
+\begin{frame}{Contour Example: Manhattan Distance}
+\begin{examplebox}{Function: $z = f(x,y) = |x| + |y|$}
+\textbf{Also known as:} Manhattan distance or L1 norm
+\end{examplebox}
 
-$z = f(x,y) = |x|+|y|$\\
+\begin{center}
+\fitpic{\includegraphics[width=0.8\linewidth]{../assets/mathematical-ml/figures/contour-mod_x_plus_mod_y.pdf}}
+\end{center}
 
-\begin{figure}[htp]
-	\centering
-	\begin{notebookbox}{https://nipunbatra.github.io/ml-teaching/notebooks/contour.html}
-	  \includegraphics[width=\linewidth]{../assets/mathematical-ml/figures/contour-mod_x_plus_mod_y.pdf}
-	\end{notebookbox}
-  \end{figure}
+\begin{keypointsbox}
+\textbf{Shape:} Diamond-shaped contours due to absolute value functions
+\end{keypointsbox}
 
+\begin{alertbox}{ML Connection}
+\textbf{This represents:} L1 regularization in machine learning (promotes sparsity!)
+\end{alertbox}
 \end{frame}
 
-\begin{frame}{Contour Plot}
+\begin{frame}{Contour Example: Polynomial Function}
+\begin{examplebox}{Function: $z = f(x,y) = x^2 \cdot y$}
+\textbf{Type:} Mixed polynomial (quadratic in $x$, linear in $y$)
+\end{examplebox}
 
-$z = f(x,y) = (x^2)*y$\\
+\begin{center}
+\fitpic{\includegraphics[width=0.8\linewidth]{../assets/mathematical-ml/figures/contour-x_square_times_y.pdf}}
+\end{center}
 
-\begin{figure}[htp]
-	\centering
-	\begin{notebookbox}{https://nipunbatra.github.io/ml-teaching/notebooks/contour.html}
-	  \includegraphics[width=\linewidth]{../assets/mathematical-ml/figures/contour-x_square_times_y.pdf}
-	\end{notebookbox}
-  \end{figure}
+\begin{keypointsbox}
+\textbf{Key Features:}
+\begin{itemize}
+\item Asymmetric contours
+\item Different behavior above and below $y = 0$
+\item Non-linear interaction between variables
+\end{itemize}
+\end{keypointsbox}
 
-
-\end{frame}
-
-
-\begin{frame}{Contour Plot}
-
-$z = f(x,y) = xy$\\
-
-\begin{figure}[htp]
-	\centering
-	\begin{notebookbox}{https://nipunbatra.github.io/ml-teaching/notebooks/contour.html}
-	  \includegraphics[width=\linewidth]{../assets/mathematical-ml/figures/contour-x_times_y.pdf}
-	\end{notebookbox}
-  \end{figure}
-
-\end{frame}
-
-
-
-
-
-
-
-
-
-\begin{frame}{Contours plots and gradients}
-    
-    
-    Gradient denotes the steepest change.\\
-    All points on the contour have the same $f(x,y)$\\
-    
-    
-\end{frame}
-
-\begin{frame}{Contour Plot And Gradients}
-
-$z = f(x,y) = x^{2} + y^{2}$\\
-
-\begin{figure}[htp]
-	\centering
-	\begin{notebookbox}{https://nipunbatra.github.io/ml-teaching/notebooks/contour.html}
-	  \includegraphics[width=\linewidth]{../assets/mathematical-ml/figures/contour-x_squared_plus_y_squared-with-gradient.pdf}
-	\end{notebookbox}
-  \end{figure}
-
-
+\begin{alertbox}{ML Connection}
+\textbf{This represents:} Complex loss surfaces with variable interactions
+\end{alertbox}
 \end{frame}
 
 
+\begin{frame}{Contour Example: Hyperbolic Function}
+\begin{examplebox}{Function: $z = f(x,y) = xy$}
+\textbf{Type:} Bilinear function (linear in each variable separately)
+\end{examplebox}
+
+\begin{center}
+\fitpic{\includegraphics[width=0.8\linewidth]{../assets/mathematical-ml/figures/contour-x_times_y.pdf}}
+\end{center}
+
+\begin{keypointsbox}
+\textbf{Shape:} Hyperbolic contours with saddle point at origin
+\end{keypointsbox}
+
+\begin{alertbox}{ML Significance}
+\textbf{Saddle points:} Common in neural network optimization - neither minimum nor maximum!
+\end{alertbox}
+\end{frame}
+
+\section{Gradients and Contour Plots}
 
 
 
 
 
 
-\begin{frame}{Contour Plots and Gradients}
-    
-    Gradient denotes the direction of steepest descent.\\
-    All points on the contour have the same f(x,y).\\
-    Gradient denotes the direction in which there is a maximum increase in f(x,y)\\
 
-    
-    
+
+
+\begin{frame}{Understanding Gradients}
+\begin{definitionbox}{What is a Gradient?}
+\textbf{Gradient $\nabla f$:} Vector pointing in the direction of steepest increase of function $f$
+\end{definitionbox}
+
+\begin{keypointsbox}{Key Properties}
+\begin{itemize}
+\item \textbf{Direction:} Points toward steepest ascent
+\item \textbf{Magnitude:} Rate of steepest change
+\item \textbf{Contour relationship:} Always perpendicular to contour lines
+\end{itemize}
+\end{keypointsbox}
+
+\begin{examplebox}{Fundamental Insight}
+\textbf{All points on the same contour have identical $f(x,y)$ values}
+
+\textbf{Moving along a contour:} No change in function value
+
+\textbf{Moving perpendicular to contour:} Maximum change in function value
+\end{examplebox}
+
+\begin{alertbox}{ML Application}
+\textbf{Gradient descent:} Move opposite to gradient direction to minimize loss!
+\end{alertbox}
+\end{frame}
+
+\begin{frame}{Gradients Visualized: Circular Contours}
+\begin{examplebox}{Function: $z = f(x,y) = x^{2} + y^{2}$}
+\textbf{Gradient:} $\nabla f = \begin{bmatrix} 2x \\ 2y \end{bmatrix}$
+\end{examplebox}
+
+\begin{center}
+\fitpic{\includegraphics[width=0.8\linewidth]{../assets/mathematical-ml/figures/contour-x_squared_plus_y_squared-with-gradient.pdf}}
+\end{center}
+
+\begin{keypointsbox}
+\textbf{Observations:}
+\begin{itemize}
+\item Gradient arrows point radially outward
+\item Arrows are perpendicular to circular contours
+\item Magnitude increases away from origin
+\item All arrows point toward steepest ascent
+\end{itemize}
+\end{keypointsbox}
+
+\begin{alertbox}{Perfect for Optimization}
+\textbf{This is an ideal optimization landscape:} Single global minimum at origin!
+\end{alertbox}
+\end{frame}
+
+
+
+
+
+
+
+
+\begin{frame}{Gradient Properties: Key Insights}
+\begin{alertbox}{Direction Interpretation}
+\textbf{Steepest Ascent:} Gradient $\nabla f$ points toward maximum increase in $f(x,y)$
+
+\textbf{Steepest Descent:} $-\nabla f$ points toward maximum decrease in $f(x,y)$
+\end{alertbox}
+
+\begin{keypointsbox}{Contour Relationship}
+\begin{itemize}
+\item \textbf{Same contour:} All points have identical $f(x,y)$ values
+\item \textbf{Gradient direction:} Always perpendicular to contour lines
+\item \textbf{Zero gradient:} Occurs at critical points (minima, maxima, saddle points)
+\end{itemize}
+\end{keypointsbox}
+
+\begin{definitionbox}{Machine Learning Connection}
+\textbf{Optimization algorithms use gradients to:}
+\begin{itemize}
+\item Find minimum loss (gradient descent: $\theta_{new} = \theta_{old} - \alpha \nabla L$)
+\item Navigate complex parameter spaces
+\item Escape saddle points
+\item Converge to optimal solutions
+\end{itemize}
+\end{definitionbox}
+\end{frame}
+
+\begin{frame}{Summary: Contours and Gradients in ML}
+\begin{keypointsbox}{What We Learned}
+\begin{itemize}
+\item \textbf{Contour plots:} Visualize function behavior in 2D
+\item \textbf{Different shapes:} Circular, diamond, hyperbolic, asymmetric
+\item \textbf{Gradients:} Point toward steepest function increase
+\item \textbf{Perpendicular relationship:} Gradients ⊥ contours
+\end{itemize}
+\end{keypointsbox}
+
+\begin{alertbox}{ML Applications}
+\begin{itemize}
+\item \textbf{Loss landscapes:} Understanding optimization challenges
+\item \textbf{Gradient descent:} Following steepest descent direction
+\item \textbf{Regularization:} L1/L2 penalties create different contour shapes
+\item \textbf{Saddle points:} Common in deep learning optimization
+\end{itemize}
+\end{alertbox}
+
+\begin{definitionbox}{Next Steps}
+\textbf{These concepts enable understanding of:}
+\begin{itemize}
+\item Advanced optimization algorithms
+\item Learning rate selection
+\item Convergence analysis
+\end{itemize}
+\end{definitionbox}
 \end{frame}
 
 
