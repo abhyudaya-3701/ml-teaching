@@ -1,35 +1,45 @@
-\documentclass{beamer}
+\documentclass[10pt]{beamer}
 \usepackage{../../shared/styles/custom}
 \usepackage{../../shared/styles/conventions}
 
-%\beamerdefaultoverlayspecification{<+->}
-% \newcommand{\data}{\mathcal{D}}
-% \newcommand\Item[1][]{%
-% 	\ifx\relax#1\relax  \item \else \item[#1] \fi
-% 	\abovedisplayskip=0pt\abovedisplayshortskip=0pt~\vspace*{-\baselineskip}}
+% Remove navigation symbols
+\setbeamertemplate{navigation symbols}{}
+
+% Add fitpic for image fitting
+\newcommand{\fitpic}[1]{\begin{adjustbox}{max width=\linewidth, max totalheight=0.78\textheight}#1\end{adjustbox}}
 
 \graphicspath{ {../assets/bias-variance/figures/} }
 
-
-
-\title{Bias-Variance}
+\title{The Bias-Variance Tradeoff: A Deep Dive}
 \date{\today}
 \author{Nipun Batra and teaching staff}
 \institute{IIT Gandhinagar}
 \begin{document}
-	\maketitle
+\maketitle
 
-\begin{frame}{The Scenario: True Function}
-\vspace*{0.4cm}
-For the purpose of this lecture we assume that there exists a relation between \textbf{Housing Prices} and \textbf{area of the house}.
-\pause
+\begin{frame}{Table of Contents}
+\tableofcontents
+\end{frame}
 
-Here, the true function $f_{\vtheta_{\text{true}}}$ is used to model the relation $y_t = f_{\vtheta_{\text{true}}}(x_t)$
-\begin{figure}
-\includegraphics[width=0.6\textwidth]{../assets/bias-variance/figures/true.pdf}
-\vspace*{-0.3cm}
-\caption{Modeling the relation}
-\end{figure}
+\section{Understanding the Problem Setup}
+
+\begin{frame}{The Learning Problem: A Real-World Example}
+\begin{definitionbox}{Our Scenario}
+\textbf{Goal:} Predict housing prices based on house area
+\end{definitionbox}
+
+\begin{examplebox}{The True Relationship}
+\textbf{Unknown to us:} There exists a true function $f_{\theta_{\text{true}}}$ that perfectly relates area to price:
+$$y_t = f_{\theta_{\text{true}}}(x_t)$$
+\end{examplebox}
+
+\begin{center}
+\fitpic{\includegraphics[width=0.7\textwidth]{../assets/bias-variance/figures/true.pdf}}
+\end{center}
+
+\begin{keypointsbox}
+\textbf{Key Challenge:} We never know $f_{\theta_{\text{true}}}$ - we must estimate it from data!
+\end{keypointsbox}
 \end{frame}
 
 \begin{frame}{The 3 Sources of Error}
