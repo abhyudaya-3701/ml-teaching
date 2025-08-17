@@ -2,15 +2,7 @@
 \RequirePackage{tcolorbox}
 \RequirePackage{bm}
 
-%\beamerdefaultoverlayspecification{<+->}
 \newcommand{\data}{\mathcal{D}}
-%\newcommand\Item[1][]{%
-%	\ifx\relax#1\relax  \item \else \item[#1] \fi
-%	\abovedisplayskip=0pt\abovedisplayshortskip=0pt~\vspace*{-\baselineskip}}
-
-\newcommand\Item[1][]{
-  \ifx\relax#1\relax  \item \else \item[#1] \fi
-}
 \newcommand{\set}[1]{\mathcal{#1}}
 \newcommand{\vecMat}[1]{\bm{#1}}
 \newcommand{\transpose}{^T}
@@ -25,4 +17,3 @@
 \newcommand{\param}{\vecMat{\theta}}
 \newcommand{\grad}{\nabla}
 \newcommand{\distrib}[3]{\mathcal{#1}\left(\vecMat{#2}, \ \vecMat{#3}\right)}
-

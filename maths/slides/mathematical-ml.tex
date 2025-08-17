@@ -1,175 +1,172 @@
 \documentclass{beamer}
 \usepackage{../../shared/styles/custom}
-
-
-%\beamerdefaultoverlayspecification{<+->}
-
-
-%	\ifx\relax#1\relax  \item \else \item[#1] \fi
-%	\abovedisplayskip=0pt\abovedisplayshortskip=0pt~\vspace*{-\baselineskip}}
-
+\usepackage{../../shared/notation/notation}
 
 \newcounter{saveenumi}
 \newcommand{\seti}{\setcounter{saveenumi}{\value{enumi}}}
 \newcommand{\conti}{\setcounter{enumi}{\value{saveenumi}}}
 \resetcounteronoverlays{saveenumi}
 
-
-
 \title{Maths for ML}
 \date{\today}
-\author{Nipun Batra}
+\author{Nipun Batra and teaching staff}
 \institute{IIT Gandhinagar}
 \begin{document}
   \maketitle
-  
-  
-  
-% \section{Linear Regression}
 
 \begin{frame}{Maths for ML}
-\begin{enumerate}
-	\item Given a vector of $\epsilon$, we can calculate $\sum \epsilon_{i}^{2}$ using $\epsilon^{T}\epsilon$
-	
-	\pause $$
-	\epsilon = \begin{bmatrix}
-	\epsilon_{1}   \\
-	\epsilon_{2}   \\
-	\dots \\
-	\epsilon_{N}
-	\end{bmatrix}_{N \times 1}   
-	$$
-	
-	\pause $$
-	\epsilon^T = \begin{bmatrix}
-	\epsilon_{1}, 
-	\epsilon_{2},  
-	\dots, 
-	\epsilon_{N}
-	\end{bmatrix}_{1 \times N}   
-	$$
-	
-	\pause $$\epsilon^T\epsilon = \sum \epsilon_{i}^{2}$$
-	    \seti
-	
-\end{enumerate}
-
-
-
+\cleanenumerate
+{
+    \item Given a vector of $\vecMat{\epsilon}$, we can calculate $\sum \epsilon_{i}^{2}$ using $\dotprod{\epsilon}{\epsilon}$
+    \onslide<2->{
+        $$
+        \vecMat{\epsilon} = \begin{bmatrix}
+        \epsilon_{1}   \\
+        \epsilon_{2}   \\
+        \dots \\
+        \epsilon_{N}
+        \end{bmatrix}_{N \times 1}   
+        $$
+    }
+    \onslide<3->{
+        $$
+        \vecMat{\epsilon}\transpose = \begin{bmatrix}
+        \epsilon_{1}, 
+        \epsilon_{2},  
+        \dots, 
+        \epsilon_{N}
+        \end{bmatrix}_{1 \times N}   
+        $$
+    }
+    \onslide<4->{
+        $$\dotprod{\epsilon}{\epsilon} = \sum \epsilon_{i}^{2}$$
+            \seti
+    }
+}
 \end{frame}
 
 \begin{frame}{Maths for ML}
-\begin{enumerate}
-	\conti
-	\item $$
-	(AB)^{T} = B^{T}A^{T}    
-	$$
-	\pause \item 
-	For a scalar s
-	$$
-	s = s^{T}    
-	$$
-	\seti
-\end{enumerate}
-
-
+\cleanenumerate
+{
+    \conti
+    \item $$
+    (\vecMat{A}\vecMat{B})\transpose = \vecMat{B}\transpose\vecMat{A}\transpose    
+    $$
+    \item 
+    For a scalar s
+    $$
+    s = s^{T}    
+    $$
+    \seti
+}
 \end{frame}
 
 
 \begin{frame}{Maths for ML}
-
-\begin{enumerate}
-	\conti
-	\item Derivative of a scalar $s$ wrt a vector $\theta$
-	\seti
-\end{enumerate}
+\cleanenumerate
+{
+    \conti
+    \item Derivative of a scalar $s$ wrt a vector $\param$
+    \seti
+}
  
     $$
-        \theta = \begin{bmatrix}
-  \theta_{1}\\
-  \theta_{2}\\
-  \vdots\\
-  \theta_{N}
-    \end{bmatrix}   
-  $$
-  
-
-
-   
- 
-  $$
-        \frac{\partial s}{\partial \theta} =\pause  \begin{bmatrix}
-  \frac{\partial s}{\partial \theta_{1}}\\
-  \frac{\partial s}{\partial \theta_{2}}\\
+    \param = \begin{bmatrix}
+    \theta_{1}\\
+    \theta_{2}\\
     \vdots\\
-  \frac{\partial s}{\partial \theta_{N}}\\
-    \end{bmatrix}
- $$
-      
-   
+    \theta_{N}
+    \end{bmatrix}   
+    $$
     
-
+    \onslide<2->{
+        $$
+        \frac{\partial s}{\partial \param} =
+        \begin{bmatrix}
+            \frac{\partial s}{\partial \theta_{1}}\\
+            \frac{\partial s}{\partial \theta_{2}}\\
+            \vdots\\
+            \frac{\partial s}{\partial \theta_{N}}\\
+        \end{bmatrix}
+        $$
+    }
 \end{frame}
 
 
 \begin{frame}{Linear Functions: Row Vector Times Column Vector}
 \begin{definitionbox}{Setup}
 \textbf{Configuration:}
-\begin{itemize}
-\item $A$ is a row vector ($1 \times n$ matrix)
-\item $\theta$ is a column vector ($n \times 1$ matrix) 
-\item $A\theta$ produces a scalar
-\end{itemize}
+\cleanitemize
+{
+    \item $\vecMat{A}$ is a row vector ($1 \times n$ matrix)
+    \item $\param$ is a column vector ($n \times 1$ matrix) 
+    \item $\dotprod{A}{\param}$ produces a scalar
+}
 \end{definitionbox}
 
-\begin{examplebox}{Concrete Example}
-$$\theta = \begin{bmatrix}
-\theta_{1}\\
-\theta_{2}
-\end{bmatrix}_{2\times 1}, \quad A = \begin{bmatrix}
-A_{1} & A_{2}
-\end{bmatrix}_{1 \times 2}$$
-\end{examplebox}
+\onslide<4->{
+    \begin{examplebox}{Concrete Example}
+    $$\param = \begin{bmatrix}
+    \theta_{1}\\
+    \theta_{2}
+    \end{bmatrix}_{2\times 1}, \quad \vecMat{A} = \begin{bmatrix}
+    A_{1} & A_{2}
+    \end{bmatrix}_{1 \times 2}$$
+    \end{examplebox}
+}
+\end{frame}
 
+\begin{frame}{Linear Functions: Row Vector Times Column Vector}
 \begin{keypointsbox}{Matrix Multiplication Result}
-$$A\theta = A_{1}\theta_{1} + A_{2}\theta_{2}$$
-\textbf{This is a scalar!} (Linear combination of parameters)
+$$\vecMat{A}\param = A_{1}\theta_{1} + A_{2}\theta_{2}$$
+\onslide<2->{\textbf{This is a scalar!} (Linear combination of parameters)}
 \end{keypointsbox}
 
-\begin{alertbox}{ML Relevance}
-This form appears everywhere in ML:
-\begin{itemize}
-\item Linear regression: $\mathbf{w}^T\mathbf{x}$
-\item Neural networks: $\mathbf{w}^T\mathbf{h} + b$
-\item Loss functions: $\mathbf{c}^T\mathbf{\theta}$
-\end{itemize}
-\end{alertbox}
+\onslide<3->{
+    \begin{alertbox}{ML Relevance}
+    This form appears everywhere in ML:
+    \onslide<4->{
+        \cleanitemize
+        {
+            \item Linear regression: $\dotprod{w}{x}$
+            \item Neural networks: $\dotprod{w}{h} + b$
+            \item Loss functions: $\dotprod{c}{\param}$
+        }
+    }
+    \end{alertbox}
+}
 \end{frame}
 
 \begin{frame}{Gradient of Linear Function: Key Result}
-\begin{keypointsbox}{Computing the Gradient}
-\textbf{Goal:} Find $\frac{\partial A\theta}{\partial \theta}$ where $A\theta = A_{1}\theta_{1} + A_{2}\theta_{2}$
+\begin{keypointsbox}{Computing the Gradient}\\
+\onslide<2->{\textbf{Goal:} Find $\frac{\partial \vecMat{A}\param}{\partial \param}$ where $\vecMat{A}\param = A_{1}\theta_{1} + A_{2}\theta_{2}$}
 \end{keypointsbox}
 
-\begin{examplebox}{Step-by-Step Calculation}
-$$\frac{\partial A\theta}{\partial \theta} = \begin{bmatrix}
-\frac{\partial}{\partial \theta_{1}}(A_{1}\theta_{1}+A_{2}\theta_{2}) \\
-\frac{\partial}{\partial \theta_{2}}(A_{1}\theta_{1}+A_{2}\theta_{2})
-\end{bmatrix}$$
+\onslide<3->{
+    \begin{examplebox}{Step-by-Step Calculation}
+    $$\frac{\partial \vecMat{A}\param}{\partial \param} = \begin{bmatrix}
+    \frac{\partial}{\partial \theta_{1}}(A_{1}\theta_{1}+A_{2}\theta_{2}) \\
+    \frac{\partial}{\partial \theta_{2}}(A_{1}\theta_{1}+A_{2}\theta_{2})
+    \end{bmatrix}$$
+    \onslide<4->{
+        $$= \begin{bmatrix}
+        A_{1} \\ A_{2}
+        \end{bmatrix}_{2 \times 1} = \vecMat{A}\transpose$$
+    }
+    \end{examplebox}
+}
+\end{frame}
 
-$$= \begin{bmatrix}
-A_{1} \\ A_{2}
-\end{bmatrix}_{2 \times 1} = A^{T}$$
-\end{examplebox}
-
+\begin{frame}{Gradient of Linear Function: Key Result}
 \begin{alertbox}{Fundamental Rule}
-$$\boxed{\frac{\partial A\theta}{\partial \theta} = A^{T}}$$
-\textbf{This is one of the most important rules in ML optimization!}
+$$\boxed{\frac{\partial \vecMat{A}\param}{\partial \param} = \vecMat{A}\transpose}$$
+\onslide<2->{\textbf{This is one of the most important rules in ML optimization!}}
 \end{alertbox}
-
-\begin{definitionbox}{Intuition}
-\textbf{Why $A^T$?} Each component of the gradient equals the coefficient of the corresponding parameter in the linear function.
-\end{definitionbox}
+\onslide<3->{
+    \begin{definitionbox}{Intuition}
+    \textbf{Why $\vecMat{A}\transpose$?} \onslide<4->{Each component of the gradient equals the coefficient of the corresponding parameter in the linear function.}
+    \end{definitionbox}
+}
 \end{frame}
 
 
@@ -177,56 +174,63 @@ $$\boxed{\frac{\partial A\theta}{\partial \theta} = A^{T}}$$
 
 \begin{frame}{Quadratic Forms: Introduction}
 \begin{definitionbox}{Quadratic Form Derivative Rule}
-\textbf{Key Result:} For matrix $Z$ of form $X^{T}X$:
-$$\frac{\partial}{\partial \theta} (\theta^{T}Z\theta) = 2Z^T\theta$$
+\textbf{Key Result:} For matrix $\vecMat{Z}$ of form $\dotprod{X}{X}$:
+\onslide<2->{$$\frac{\partial}{\partial \param} (\param\transpose\vecMat{Z}\param) = 2\vecMat{Z}\transpose\param$$}
 \end{definitionbox}
 
-\begin{examplebox}{Understanding $X^TX$ Matrices}
-Starting with:
-$$X = \begin{bmatrix}
-a & b \\
-c & d
-\end{bmatrix}, \quad X^{T} = \begin{bmatrix}
-a & c \\
-b & d
-\end{bmatrix}$$
-\end{examplebox}
+\onslide<3->{
+    \begin{examplebox}{Understanding $\dotprod{X}{X}$ Matrices}
+    \onslide<4->{
+        Starting with:
+        $$\vecMat{X} = \begin{bmatrix}
+        a & b \\
+        c & d
+        \end{bmatrix}, \quad \vecMat{X}\transpose = \begin{bmatrix}
+        a & c \\
+        b & d
+        \end{bmatrix}$$
+    }
+    \end{examplebox}
+}
+\end{frame}
 
-\pause
-\begin{keypointsbox}{Computing $Z = X^{T}X$}
-$$Z = X^{T}X = \begin{bmatrix}
-a^{2}+c^{2} & ab+cd \\
-ab+cd & b^{2}+d^{2}
-\end{bmatrix}_{2\times 2}$$
+\begin{frame}{Quadratic Forms: Introduction}
+\begin{keypointsbox}{Computing $\vecMat{Z} = \dotprod{X}{X}$}
+\onslide<2->{
+    $$\vecMat{Z} = \dotprod{X}{X} = \begin{bmatrix}
+    a^{2}+c^{2} & ab+cd \\
+    ab+cd & b^{2}+d^{2}
+    \end{bmatrix}_{2\times 2}$$
+}
 \end{keypointsbox}
 
-\pause
-\begin{alertbox}{Symmetric Property}
-\textbf{Key Observation:} $Z_{ij} = Z_{ji} \Rightarrow Z^{T} = Z$ (symmetric matrix)
-\end{alertbox}
+\onslide<3->{
+    \begin{alertbox}{Symmetric Property}
+    \onslide<4->{\textbf{Key Observation:} $Z_{ij} = Z_{ji} \Rightarrow \vecMat{Z}\transpose = \vecMat{Z}$ (symmetric matrix)}
+    \end{alertbox}
+}
 \end{frame}
 
 
 \begin{frame}{Maths for ML}
 Let
 \begin{equation*}
-Z = X^{T}X =  \begin{bmatrix}
+\vecMat{Z} = \dotprod{X}{X} =  \begin{bmatrix}
 e&f\\
 f&g
 \end{bmatrix}_{2\times 2}
 \end{equation*}
- \pause   \begin{equation*}
-        \theta = \begin{bmatrix}
-        \theta_{1}\\
-        \theta_{2}
-        \end{bmatrix}_{2\times 1}
-    \end{equation*}
+\begin{equation*}
+    \param = \begin{bmatrix}
+    \theta_{1}\\
+    \theta_{2}
+    \end{bmatrix}_{2\times 1}
+\end{equation*}
     
-    \pause
+\onslide<2->{
     \begin{equation*}
-    \theta^{T}Z\theta=  \begin{bmatrix}
+    \param \transpose \vecMat{Z} \param=  \begin{bmatrix}
     \theta_1&\theta_2\\
-
     \end{bmatrix}_{1\times 2} \begin{bmatrix}
     e&f\\
     f&g
@@ -235,10 +239,11 @@ f&g
     \theta_{2}
     \end{bmatrix}_{2\times 1}
     \end{equation*}
+}
     
-    \pause
-       \begin{equation*}
-    \theta^{T}Z\theta=  \begin{bmatrix}
+\onslide<3->{
+    \begin{equation*}
+    \param \transpose \vecMat{Z} \param = \begin{bmatrix}
     \theta_1&\theta_2\\
     
     \end{bmatrix}_{1\times 2} \begin{bmatrix}
@@ -246,14 +251,14 @@ f&g
     f\theta_1+g\theta_2
     \end{bmatrix}_{2\times 1}
     \end{equation*}
+}
     
-    
+\onslide<4->{    
     \begin{equation*}
-        \theta^{T}Z\theta = e\theta_{1}^{2} + 2f\theta_{1}\theta_{2}+g\theta_{2}^{2} 
+        \param\transpose\vecMat{Z}\param = e\theta_{1}^{2} + 2f\theta_{1}\theta_{2}+g\theta_{2}^{2} 
     \end{equation*}
-
-The term $\theta^{T}Z\theta$ is a scalar.
-
+}
+\onslide<5->{The term $\param\transpose\vecMat{Z}\param$ is a scalar.}
 \end{frame}
 
 
@@ -262,14 +267,14 @@ The term $\theta^{T}Z\theta$ is a scalar.
     \begin{center}
     
         \begin{align*}
-             \cfrac{\partial}{\partial \theta} \theta^{T} Z \theta &= \cfrac{\partial}{\partial \theta} (e\theta_{1}^{2} + 2f\theta_{1}\theta_{2}+g\theta_{2}^{2} )\\
-            &= \begin{bmatrix}\cfrac{\partial}{\partial \theta_{1}} (e\theta_{1}^{2} + 2f\theta_{1}\theta_{2}+g\theta_{2}^{2} )\\
+             \uncover<+-> {\cfrac{\partial}{\partial \param} \param\transpose\vecMat{Z}\param &= \cfrac{\partial}{\partial \theta} (e\theta_{1}^{2} + 2f\theta_{1}\theta_{2}+g\theta_{2}^{2} )\\}
+            \uncover<+-> {&= \begin{bmatrix}\cfrac{\partial}{\partial \theta_{1}} (e\theta_{1}^{2} + 2f\theta_{1}\theta_{2}+g\theta_{2}^{2} )\\
             \cfrac{\partial}{\partial \theta_{2}} (e\theta_{1}^{2} + 2f\theta_{1}\theta_{2}+g\theta_{2}^{2} )
-            \end{bmatrix}\\
-            &=\begin{bmatrix}2e\theta_{1}+2f\theta_{2}\\
+            \end{bmatrix}\\}
+            \uncover<+-> {&=\begin{bmatrix}2e\theta_{1}+2f\theta_{2}\\
             2f\theta_{1}+2g\theta_{2}\end{bmatrix}
-            =  2\begin{bmatrix}e&f\\f&g\end{bmatrix}\begin{bmatrix}\theta_{1}\\ \theta_{1} \end{bmatrix} \\
-            =2Z\theta = 2Z^{T}\theta
+            =  2\begin{bmatrix}e&f\\f&g\end{bmatrix}\begin{bmatrix}\theta_{1}\\ \theta_{1} \end{bmatrix} \\}
+            \uncover<+-> {&=2\vecMat{Z}\param = 2\vecMat{Z}\transpose\param}
     \end{align*}
     \end{center}
 \end{frame}
@@ -277,39 +282,48 @@ The term $\theta^{T}Z\theta$ is a scalar.
 \section{Matrix Rank and Invertibility}
 
 \begin{frame}{Matrix Rank: Fundamental Concept}
-\begin{definitionbox}{What is Matrix Rank?}
-\textbf{Rank} = Maximum number of linearly independent rows (or columns)
-\end{definitionbox}
+\onslide<1->{
+    \begin{definitionbox}{What is Matrix Rank?}
+    \onslide<2->{\textbf{Rank} = Maximum number of linearly independent rows (or columns)}
+    \end{definitionbox}
+}
 
-\begin{keypointsbox}{Two Equivalent Perspectives}
-For an $r \times c$ matrix:
-\begin{itemize}
-\item \textbf{Row perspective:} $r$ row vectors, each with $c$ elements
-\item \textbf{Column perspective:} $c$ column vectors, each with $r$ elements
-\end{itemize}
-\end{keypointsbox}
+\onslide<3->{
+    \begin{keypointsbox}{Two Equivalent Perspectives}
+    For an $r \times c$ matrix:
+    \cleanitemize{
+        \onslide<4->{\item \textbf{Row perspective:} $r$ row vectors, each with $c$ elements}
+        \onslide<5->{\item \textbf{Column perspective:} $c$ column vectors, each with $r$ elements}
+    }
+    \end{keypointsbox}
+}
+\end{frame}
+
+\begin{frame}{Matrix Rank: Fundamental Concept}
 
 \begin{examplebox}{Maximum Rank Rules}
-\begin{itemize}
-\item If $r < c$: Maximum rank = $r$ (\textcolor{blue}{more columns than rows})
-\item If $r > c$: Maximum rank = $c$ (\textcolor{red}{more rows than columns})
-\item If $r = c$: Maximum rank = $r = c$ (\textcolor{green}{square matrix})
-\end{itemize}
+\cleanitemize{
+    \item If $r < c$: Maximum rank = $r$ (\textcolor{blue}{more columns than rows})
+    \item If $r > c$: Maximum rank = $c$ (\textcolor{red}{more rows than columns})
+    \item If $r = c$: Maximum rank = $r = c$ (\textcolor{teal}{square matrix})
+}
 \end{examplebox}
 
-\begin{alertbox}{ML Relevance}
-\textbf{Why rank matters:}
-\begin{itemize}
-\item Determines if matrix is invertible
-\item Affects uniqueness of solutions
-\item Critical for understanding overfitting
-\end{itemize}
-\end{alertbox}
+\onslide<4->{
+    \begin{alertbox}{ML Relevance}
+    \textbf{Why rank matters:}
+    \cleanitemize{
+        \item Determines if matrix is invertible
+        \item Affects uniqueness of solutions
+        \item Critical for understanding overfitting
+    }
+    \end{alertbox}
+}
 \end{frame}
 
 \begin{frame}{Maths for ML: Matrix Rank}
 \begin{itemize}[<+-> ] 
-\item Given a matrix $A$:$$
+\item Given a matrix $\vecMat{A}$:$$
 \left[\begin{array}{lll}
 	{0} & {1} & {2} \\
 	{1} & {2} & {1} \\
@@ -317,8 +331,8 @@ For an $r \times c$ matrix:
 \end{array}\right]
 $$
 \item What is the rank?
-\item $r=c=$. Thus, rank is $<=3$
-\item Row 3 can be written as: 3 times Row 1 + 2 times Row 1. Thus, Row 3 is linearly dependent on Row 1 and 2. Thus, rank(A)=2
+\item $r=c=3$. Thus, rank is $<=3$
+\item Row 3 can be written as: 3 times Row 1 + 2 times Row 1. Thus, Row 3 is linearly dependent on Row 1 and 2. Thus, rank($\vecMat{A}$)=2
 \end{itemize}
 \end{frame}
 
@@ -326,21 +340,20 @@ $$
 \begin{frame}{Maths for ML: Matrix Rank}
 What is the rank of
 \begin{equation*}
- X=\left[\begin{array}{llll}
+\vecMat{X} =\left[\begin{array}{llll}
 {1} & {2} & {4} & {4} \\
 {3} & {4} & {8} & {0}
 \end{array}\right]
 \end{equation*}
-\pause Since $X$ has fewer rows than columns, its maximum rank is equal to the maximum number of linearly independent rows. And because neither row is linearly dependent on the other row, the matrix has 2 linearly independent rows; so its rank is 2.
+\pause Since $\vecMat{X}$ has fewer rows than columns, its maximum rank is equal to the maximum number of linearly independent rows. And because neither row is linearly dependent on the other row, the matrix has 2 linearly independent rows; so its rank is 2.
 \end{frame}
 
 \begin{frame}{Maths for ML: Matrix Inverse}
-Suppose $\mathrm{A}$ is an $n \times n$ matrix. The inverse of $\mathrm{A}$ is another $n \times n$ matrix, denoted $\mathrm{A}^{-1}$, that satisfies the following conditions.
+Suppose $\vecMat{A}$ is an $n \times n$ matrix. The inverse of $\vecMat{A}$ is another $n \times n$ matrix, denoted $\vecMat{A}^{-1}$, that satisfies the following conditions.
 \[
-\mathrm{AA}^{-1}=\mathrm{A}^{-1} \mathrm{A}=\mathrm{I}_{\mathrm{n}}
+\vecMat{A}\vecMat{A}^{-1}=\vecMat{A}^{-1} \vecMat{A}=\vecMat{I}_n
 \]
-\pause 
-where $\mathrm{I}_{\mathrm{n}}$ is the identity matrix.
+where $\vecMat{I}_n$ is the identity matrix.
 
 \pause  Below, with an example, we illustrate the relationship between a matrix and its inverse.
 
@@ -374,14 +387,12 @@ where $\mathrm{I}_{\mathrm{n}}$ is the identity matrix.
 \begin{frame}{Maths for ML: Matrix Inverse}
 There are two ways to determine whether the inverse of a square matrix exists.
 
-\pause 
-\begin{itemize}[<+->]
-	\item If the rank of an $n \times n$ matrix is less than $n,$ the matrix does not have an inverse.
-	\item When the determinant for a square matrix is equal to zero, the inverse for that matrix does not exist.
-\end{itemize}
-\pause A square matrix that has an inverse is said to be nonsingular or invertible; a square matrix that does not have an inverse is said to be singular. \\
-\pause Not every square matrix has an inverse; but if a matrix does have an inverse, it is unique.
-
+\cleanitemize{
+    \item If the rank of an $n \times n$ matrix is less than $n,$ the matrix does not have an inverse.
+    \item When the determinant for a square matrix is equal to zero, the inverse for that matrix does not exist.
+}
+\onslide<3->{A square matrix that has an inverse is said to be nonsingular or invertible; a square matrix that does not have an inverse is said to be singular. \\}
+\onslide<4-> {Not every square matrix has an inverse; but if a matrix does have an inverse, it is unique.}
 \end{frame}
 
 \end{document}
