@@ -1,4 +1,4 @@
-\documentclass{beamer}
+\documentclass[handout]{beamer}
 \usepackage{../../shared/styles/custom}
 \usepackage{../../shared/notation/notation}
 
@@ -98,9 +98,9 @@
 \textbf{Configuration:}
 \cleanitemize
 {
-    \item $\vecMat{A}$ is a row vector ($1 \times n$ matrix)
+    \item $\vecMat{A} \transpose$ is a row vector ($1 \times n$ matrix)
     \item $\param$ is a column vector ($n \times 1$ matrix) 
-    \item $\vecMat{A}\param$ produces a scalar
+    \item $\dotprod{A}{\param}$ produces a scalar
 }
 \end{definitionbox}
 
@@ -109,7 +109,7 @@
     $$\param = \begin{bmatrix}
     \theta_{1}\\
     \theta_{2}
-    \end{bmatrix}_{2\times 1}, \quad \vecMat{A} = \begin{bmatrix}
+    \end{bmatrix}_{2\times 1}, \quad \vecMat{A}\transpose = \begin{bmatrix}
     A_{1} & A_{2}
     \end{bmatrix}_{1 \times 2}$$
     \end{examplebox}
@@ -118,7 +118,7 @@
 
 \begin{frame}{Linear Functions: Row Vector Times Column Vector}
 \begin{keypointsbox}{Matrix Multiplication Result}
-$$\vecMat{A}\param = A_{1}\theta_{1} + A_{2}\theta_{2}$$
+$$\vecMat{A}\transpose \param = A_{1}\theta_{1} + A_{2}\theta_{2}$$
 \onslide<2->{\textbf{This is a scalar!} (Linear combination of parameters)}
 \end{keypointsbox}
 
@@ -138,20 +138,20 @@ $$\vecMat{A}\param = A_{1}\theta_{1} + A_{2}\theta_{2}$$
 \end{frame}
 
 \begin{frame}{Gradient of Linear Function: Key Result}
-\begin{keypointsbox}{Computing the Gradient}\\
-\onslide<2->{\textbf{Goal:} Find $\frac{\partial \vecMat{A}\param}{\partial \param}$ where $\vecMat{A}\param = A_{1}\theta_{1} + A_{2}\theta_{2}$}
+\begin{keypointsbox}{Computing the Gradient}
+\textbf{Goal:} Find $\frac{\partial \vecMat{A}\transpose\param}{\partial \param}$ where $\vecMat{A}\transpose\param = A_{1}\theta_{1} + A_{2}\theta_{2}$
 \end{keypointsbox}
 
-\onslide<3->{
+\onslide<2->{
     \begin{examplebox}{Step-by-Step Calculation}
-    $$\frac{\partial \vecMat{A}\param}{\partial \param} = \begin{bmatrix}
+    $$\frac{\partial \vecMat{A}\transpose\param}{\partial \param} = \begin{bmatrix}
     \frac{\partial}{\partial \theta_{1}}(A_{1}\theta_{1}+A_{2}\theta_{2}) \\
     \frac{\partial}{\partial \theta_{2}}(A_{1}\theta_{1}+A_{2}\theta_{2})
     \end{bmatrix}$$
-    \onslide<4->{
+    \onslide<3->{
         $$= \begin{bmatrix}
         A_{1} \\ A_{2}
-        \end{bmatrix}_{2 \times 1} = \vecMat{A}\transpose$$
+        \end{bmatrix}_{2 \times 1} = \vecMat{A}$$
     }
     \end{examplebox}
 }
@@ -159,14 +159,9 @@ $$\vecMat{A}\param = A_{1}\theta_{1} + A_{2}\theta_{2}$$
 
 \begin{frame}{Gradient of Linear Function: Key Result}
 \begin{alertbox}{Fundamental Rule}
-$$\boxed{\frac{\partial \vecMat{A}\param}{\partial \param} = \vecMat{A}\transpose}$$
-\onslide<2->{\textbf{This is one of the most important rules in ML optimization!}}
+$$\boxed{\frac{\partial \vecMat{A}\transpose\param}{\partial \param} = \vecMat{A}}$$
+\textbf{This is one of the most important rules in ML optimization!}
 \end{alertbox}
-\onslide<3->{
-    \begin{definitionbox}{Intuition}
-    \textbf{Why $\vecMat{A}\transpose$?} \onslide<4->{Each component of the gradient equals the coefficient of the corresponding parameter in the linear function.}
-    \end{definitionbox}
-}
 \end{frame}
 
 
@@ -309,31 +304,24 @@ f&g
 }
 \end{examplebox}
 
-\onslide<4->{
-    \begin{alertbox}{ML Relevance}
-    \textbf{Why rank matters:}
-    \cleanitemize{
-        \item Determines if matrix is invertible
-        \item Affects uniqueness of solutions
-        \item Critical for understanding overfitting
-    }
-    \end{alertbox}
-}
 \end{frame}
 
 \begin{frame}{Maths for ML: Matrix Rank}
-\begin{itemize}[<+-> ] 
-\item Given a matrix $\vecMat{A}$:$$
-\left[\begin{array}{lll}
-	{0} & {1} & {2} \\
-	{1} & {2} & {1} \\
-	{2} & {7} & {8}
-\end{array}\right]
-$$
-\item What is the rank?
-\item $r=c=3$. Thus, rank is $<=3$
-\item Row 3 can be written as: 3 times Row 1 + 2 times Row 1. Thus, Row 3 is linearly dependent on Row 1 and 2. Thus, rank($\vecMat{A}$)=2
-\end{itemize}
+\cleanitemize
+{
+    \item Given a matrix $\vecMat{A}$:$$
+    \left[\begin{array}{lll}
+    	{0} & {1} & {2} \\
+    	{1} & {2} & {1} \\
+    	{2} & {7} & {8}
+    \end{array}\right]
+    $$
+    \item What is the rank?
+    \item $r=c=3$. Thus, rank is $<=3$
+    \item $\rm Row(3) = 3 \times \rm Row(1) + 2 \times \rm Row(1)$. 
+    \item Thus, $\rm Row(3)$ is linearly dependent on $\rm Row(1)$ and $\rm Row(2)$.
+    \item rank($\vecMat{A}$)=2
+}
 \end{frame}
 
 
@@ -348,39 +336,72 @@ What is the rank of
 \pause Since $\vecMat{X}$ has fewer rows than columns, its maximum rank is equal to the maximum number of linearly independent rows. And because neither row is linearly dependent on the other row, the matrix has 2 linearly independent rows; so its rank is 2.
 \end{frame}
 
+%%%%%%%%%%%%%%%%
+\popquiz{
+\footnotesize
+\textbf{What is the rank of a $3 \times 3$ matrix $\vecMat{A}$ formed by the outer product of two non-zero vectors, $\vecMat{u}$ ($3 \times 1$) and $\vecMat{v}\transpose$ ($1 \times 3$)?
+$$\vecMat{A} = \vecMat{u}\vecMat{v}\transpose = \begin{bmatrix} u_1 \\ u_2 \\ u_3 \end{bmatrix}
+        \begin{bmatrix} v_1 & v_2 & v_3 \end{bmatrix}$$
+}
+\begin{enumerate}[A)]
+    \item 0
+    \item 1
+    \item 2
+    \item 3
+\end{enumerate}}{\footnotesize
+{\color{magenta}\textbf{B) 1}}
+}
+
+
+\begin{frame}{Maths for ML: Rank of an Outer Product}
+    \begin{keypointsbox}{Matrix Formation}
+    First, let's construct the matrix $\vecMat{A} = \vecMat{u}\vecMat{v}\transpose$:
+    $$
+    \vecMat{A} = \begin{bmatrix} u_1 \\ u_2 \\ u_3 \end{bmatrix}
+    \begin{bmatrix} v_1 & v_2 & v_3 \end{bmatrix}
+    \uncover<2->{=}
+    \uncover<2->{
+    \begin{bmatrix}
+        u_1v_1 & u_1v_2 & u_1v_3 \\
+        u_2v_1 & u_2v_2 & u_2v_3 \\
+        u_3v_1 & u_3v_2 & u_3v_3
+    \end{bmatrix}
+    }
+    $$
+    \end{keypointsbox}
+\end{frame}
+
+\begin{frame}{Maths for ML: Rank of an Outer Product}
+\footnotesize
+    \cleanitemize
+    {
+        \item \textbf{Look at the columns:} Each column is just a scalar multiple of the original vector $\vecMat{u}$.
+        $$
+        \text{Column 1} = v_1\vecMat{u}, \quad \text{Column 2} = v_2\vecMat{u}, \quad \text{Column 3} = v_3\vecMat{u}
+        $$
+        
+        \item \textbf{Look at the rows:} Similarly, each row is a scalar multiple of the original vector $\vecMat{v}\transpose$.
+         $$
+        \text{Row 1} = u_1\vecMat{v}\transpose, \quad \text{Row 2} = u_2\vecMat{v}\transpose, \quad \text{Row 3} = u_3\vecMat{v}\transpose
+        $$
+    }
+
+    \onslide<3->{
+        \begin{alertbox}{Conclusion}
+        Since all rows and columns are linearly dependent on a single vector, the maximum number of linearly independent rows (or columns) is one.
+        \vspace{1em}
+        Therefore, the rank of the matrix is \textbf{1}.
+        \end{alertbox}
+    }
+\end{frame}
+%%%%%%%%%%%%%%%%
+
 \begin{frame}{Maths for ML: Matrix Inverse}
 Suppose $\vecMat{A}$ is an $n \times n$ matrix. The inverse of $\vecMat{A}$ is another $n \times n$ matrix, denoted $\vecMat{A}^{-1}$, that satisfies the following conditions.
 \[
 \vecMat{A}\vecMat{A}^{-1}=\vecMat{A}^{-1} \vecMat{A}=\vecMat{I}_n
 \]
 where $\vecMat{I}_n$ is the identity matrix.
-
-\pause  Below, with an example, we illustrate the relationship between a matrix and its inverse.
-
-\pause \[
-\begin{array}{l}
-{\left[\begin{array}{cc}
-	{2} & {1} \\
-	{3} & {4}
-	\end{array}\right]\left[\begin{array}{cc}
-	{0.8} & {-0.2} \\
-	{-0.6} & {0.4}
-	\end{array}\right]=\left[\begin{array}{ll}
-	{1} & {0} \\
-	{0} & {1}
-	\end{array}\right]} \\ \\
-{\left[\begin{array}{cc}
-	{0.8} & {-0.2} \\
-	{-0.6} & {0.2}
-	\end{array}\right]\left[\begin{array}{ll}
-	{2} & {1} \\
-	{3} & {4}
-	\end{array}\right]=\left[\begin{array}{ll}
-	{1} & {0} \\
-	{0} & {1}
-	\end{array}\right]}
-\end{array}
-\]
 
 \end{frame}
 
@@ -393,6 +414,109 @@ There are two ways to determine whether the inverse of a square matrix exists.
 }
 \onslide<3->{A square matrix that has an inverse is said to be nonsingular or invertible; a square matrix that does not have an inverse is said to be singular. \\}
 \onslide<4-> {Not every square matrix has an inverse; but if a matrix does have an inverse, it is unique.}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%
+
+\section{Generalizing Derivatives: Gradients and Jacobians}
+
+\begin{frame}{Derivatives of $\mathbb{R}^n \to \mathbb{R}$: The Gradient}
+\footnotesize
+\begin{definitionbox}{Recap: Derivative of a Scalar Function}
+For a function $f: \mathbb{R}^n \to \mathbb{R}$ that takes a vector $\param \in \mathbb{R}^n$ and returns a scalar, its derivative is the \textbf{gradient}.
+\onslide<2->{
+    $$
+    \grad f(\param) = \frac{\partial f}{\partial \param} =
+    \begin{bmatrix}
+        \frac{\partial f}{\partial \theta_{1}}\\
+        \frac{\partial f}{\partial \theta_{2}}\\
+        \vdots\\
+        \frac{\partial f}{\partial \theta_{n}}\\
+    \end{bmatrix}_{n \times 1}
+    $$
+}
+\onslide<3->{\textbf{Note:} By convention in ML, the gradient is a column vector.}
+\end{definitionbox}
+
+\onslide<4->{
+    \begin{alertbox}{Geometric Intuition}
+    The gradient vector $\nabla f(\param)$ points in the direction of the \textbf{steepest ascent} of the function $f$ at point $\param$. The magnitude $||\nabla f(\param)||$ gives the rate of that increase.
+    \end{alertbox}
+}
+\end{frame}
+
+\begin{frame}{From $\mathbb{R}^n \to \mathbb{R}$ to $\mathbb{R}^n \to \mathbb{R}^m$}
+\begin{alertbox}{Handling Vector Outputs}
+What if our function takes a vector and also \textit{outputs} a vector?\\
+\onslide<2->{
+    Let $\vecMat{f}: \mathbb{R}^n \to \mathbb{R}^m$. We can think of $\vecMat{f}$ as a stack of $m$ scalar-valued functions:
+    $$
+    \vecMat{f}(\param) = \begin{bmatrix}
+        f_1(\param) \\
+        f_2(\param) \\
+        \vdots \\
+        f_m(\param)
+    \end{bmatrix}_{m \times 1}
+    $$
+}
+\onslide<3->{\textbf{Question:} How do we differentiate $\vecMat{f}$ with respect to $\param$?} \\
+\onslide<4->{We need to track how \textbf{every output} changes with respect to \textbf{every input}}.
+\end{alertbox}
+\end{frame}
+
+\begin{frame}{The Jacobian Matrix}
+\begin{definitionbox}{The Derivative of a Vector Function}
+The derivative of $\vecMat{f}: \mathbb{R}^n \to \mathbb{R}^m$ is the \textbf{Jacobian matrix} $\vecMat{J}$, an $m \times n$ matrix of all first-order partial derivatives.
+\onslide<2->{
+    $$
+    \vecMat{J} = \frac{\partial \vecMat{f}}{\partial \param} = \begin{bmatrix}
+        \frac{\partial f_1}{\partial \theta_1} & \frac{\partial f_1}{\partial \theta_2} & \cdots & \frac{\partial f_1}{\partial \theta_n} \\
+        \frac{\partial f_2}{\partial \theta_1} & \frac{\partial f_2}{\partial \theta_2} & \cdots & \frac{\partial f_2}{\partial \theta_n} \\
+        \vdots & \vdots & \ddots & \vdots \\
+        \frac{\partial f_m}{\partial \theta_1} & \frac{\partial f_m}{\partial \theta_2} & \cdots & \frac{\partial f_m}{\partial \theta_n}
+    \end{bmatrix}_{m \times n}
+    $$
+}
+\onslide<3->{
+    \textbf{Key Structure:} Row $i$ of the Jacobian is the transpose of the gradient of the $i$-th output function, $f_i$.
+    $$
+    (\vecMat{J})_{[i,:]} = (\nabla f_i(\param))\transpose
+    $$
+}
+\end{definitionbox}
+\end{frame}
+
+\begin{frame}{Jacobian: A Concrete Example}
+\begin{examplebox}{Let's Compute a Jacobian}
+Consider $\vecMat{f}: \mathbb{R}^2 \to \mathbb{R}^2$ with $\param = [\theta_1, \theta_2]\transpose$.
+$$
+\vecMat{f}(\param) = \begin{bmatrix}
+f_1(\theta_1, \theta_2) \\
+f_2(\theta_1, \theta_2)
+\end{bmatrix} =
+\begin{bmatrix}
+\theta_1^2 \theta_2 \\
+5\theta_1 + \sin(\theta_2)
+\end{bmatrix}
+$$
+\onslide<2->{
+    The Jacobian $\vecMat{J}$ will be a $2 \times 2$ matrix.
+    $$
+    \vecMat{J} = \begin{bmatrix}
+        \frac{\partial f_1}{\partial \theta_1} & \frac{\partial f_1}{\partial \theta_2} \\
+        \frac{\partial f_2}{\partial \theta_1} & \frac{\partial f_2}{\partial \theta_2}
+    \end{bmatrix}
+    $$
+}
+\onslide<3->{
+    $$
+    \vecMat{J} = \begin{bmatrix}
+        2\theta_1 \theta_2 & \theta_1^2 \\
+        5 & \cos(\theta_2)
+    \end{bmatrix}
+    $$
+}
+\end{examplebox}
 \end{frame}
 
 \end{document}

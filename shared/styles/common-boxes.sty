@@ -85,7 +85,7 @@
 
 % Key points box (only if not already defined)
 \@ifundefined{keypointsbox}{%
-\newtcolorbox{keypointsbox}{
+\newtcolorbox{keypointsbox}[1]{
   colback=purple!5!white,
   colframe=purple!75!black,
   boxrule=1.2pt,
@@ -94,7 +94,7 @@
   right=8pt,
   top=8pt,
   bottom=8pt,
-  title={\textbf{Key Points}},
+  title={\textbf{Key Points: #1}},
   fonttitle=\bfseries,
   enhanced,
   borderline west={3pt}{0pt}{purple!40}
