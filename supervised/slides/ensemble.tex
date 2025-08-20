@@ -130,8 +130,8 @@ When data is limited, many competing hypotheses can achieve the same accuracy on
 \end{itemize}
 \end{examplebox}
 
-\begin{center}
-\fitpic{\includegraphics[scale=0.15]{../assets/ensemble/diagrams/statistical.jpg}}
+\begin{center} 
+\fitpic{\includegraphics[scale=0.13]{../assets/ensemble/diagrams/statistical.jpg}}
 \end{center}
 \end{frame}
 
@@ -149,7 +149,7 @@ Learning algorithms can get stuck in local optima or use greedy strategies.
 \end{examplebox}
 
 \begin{center}
-\fitpic{\includegraphics[scale=0.15]{../assets/ensemble/diagrams/computational.jpg}}
+\fitpic{\includegraphics[scale=0.13]{../assets/ensemble/diagrams/computational.jpg}}
 \end{center}
 \end{frame}
 
@@ -167,7 +167,7 @@ Some models cannot learn the true form of the target function.
 \end{examplebox}
 
 \begin{center}
-\fitpic{\includegraphics[scale=0.15]{../assets/ensemble/diagrams/representational.jpg}}
+\fitpic{\includegraphics[scale=0.13]{../assets/ensemble/diagrams/representational.jpg}}
 \end{center}
 \end{frame}
 
@@ -323,10 +323,14 @@ $= 0.189 + 0.027 = \mathbf{0.216}$
 \end{keypointsbox}
 \end{frame}
 
+\vspace{-0.2cm}
+
 \begin{frame}{When Ensembles Fail: Common Pitfalls}
 \begin{alertbox}{Ensemble Limitations}
 \textbf{Ensembles DON'T work well when:}
 \end{alertbox}
+
+\vspace{-0.55cm}
 
 \begin{columns}
 \begin{column}{0.5\textwidth}
@@ -586,7 +590,7 @@ Generate different bootstrap samples from original dataset
 \end{keypointsbox}
 
 \begin{examplebox}{The Boosting Intuition}
-\textbf{``If at first you don't succeed, try harder on what you got wrong!''}
+\textbf{\small{``If at first you don't succeed, try harder on what you got wrong!''}}
 \end{examplebox}
 \end{frame}
 
@@ -620,7 +624,7 @@ Generate different bootstrap samples from original dataset
 \end{columns}
 
 \begin{definitionbox}{Weak Learner Definition}
-\textbf{Weak Learner:} Any classifier that performs slightly better than random guessing (accuracy > 50% for binary classification)
+\small{\textbf{Weak Learner:} Any classifier that performs slightly better than random guessing (accuracy > 50\% for binary classification)}
 \end{definitionbox}
 \end{frame}
 
@@ -1246,22 +1250,28 @@ $err = 0.9 \Rightarrow \alpha = -1.1$
 
 \begin{frame}{Random Forest: Multiple Trees Overview}
 \begin{center}
-\begin{tikzpicture}[scale=0.6]
+\begin{tikzpicture}[
+    node distance=2cm,
+    source/.style={circle, draw, fill=blue!30, minimum size=0.8cm},
+    intermediate/.style={circle, draw, fill=green!30, minimum size=0.8cm},
+    target/.style={circle, draw, fill=orange!30, minimum size=0.8cm},
+    sink/.style={circle, draw, fill=red!30, minimum size=0.8cm}
+]
 % Tree 1
 \node[draw, circle, fill=blue!20] (t1) at (0,0) {Tree 1};
-\node[below] at (0,-0.5) {\scriptsize Uses: $X_1, X_3, X_2$};
+\node[above] at (0,0.7) {\scriptsize Uses: $X_1, X_3, X_2$};
 
 % Tree 2  
 \node[draw, circle, fill=green!20] (t2) at (3,0) {Tree 2};
-\node[below] at (3,-0.5) {\scriptsize Uses: $X_2, X_1, X_4$};
+\node[above] at (3,0.7) {\scriptsize Uses: $X_2, X_1, X_4$};
 
 % Tree 3
 \node[draw, circle, fill=red!20] (t3) at (6,0) {Tree 3};
-\node[below] at (6,-0.5) {\scriptsize Uses: $X_4, X_3, X_1$};
+\node[above] at (6,0.7) {\scriptsize Uses: $X_4, X_3, X_1$};
 
 % Tree M
 \node[draw, circle, fill=purple!20] (tm) at (9,0) {Tree M};
-\node[below] at (9,-0.5) {\scriptsize Uses: $X_1, X_2, X_3$};
+\node[above] at (9,0.7) {\scriptsize Uses: $X_1, X_2, X_3$};
 
 % Dots
 \node at (7.5,0) {$\cdots$};
@@ -1341,9 +1351,9 @@ $err = 0.9 \Rightarrow \alpha = -1.1$
 \draw (right) -- (rr) node[midway, right] {\scriptsize $\geq 0.8$};
 
 % Feature annotations
-\node[red] at (4.5,0) {\textbf{$X_1$ used at root}};
-\node[green!70!black] at (4.5,-1.5) {\textbf{$X_3$ used at left node}};
-\node[blue] at (4.5,-2.5) {\textbf{$X_2$ used at right node}};
+\node[red] at (2.5,0) {\textbf{$X_1$ used at root}};
+\node[green!70!black] at (-4.5,-1.5) {\textbf{$X_3$ used at left node}};
+\node[blue] at (4.5,-1.5) {\textbf{$X_2$ used at right node}};
 \end{tikzpicture}
 \end{center}
 
@@ -1387,7 +1397,7 @@ For $X_1$ at root node: We need $p(\text{root}) \times \Delta i(\text{root})$
 \draw (right) -- (rr);
 
 % Highlight the X1 contribution
-\node[red, text width=4cm] at (5,0) {\textbf{Focus on $X_1$:} \\ Calculate $p(root) \times \Delta i(root)$};
+\node[red, text width=4cm] at (3.5,0) {\textbf{Focus on $X_1$:} Calculate $p(root) \ \text{x} \ \Delta i(root)$};
 \end{tikzpicture}
 \end{center}
 \end{frame}
@@ -1413,7 +1423,7 @@ $$p(t) = \frac{N_t}{N} = \frac{\text{samples at node } t}{\text{total samples}}$
 \node[draw, rectangle, fill=yellow!20] at (0,-2) {Total Dataset: 1000 samples};
 
 % Calculation
-\node[text width=4cm] at (4.5,0) {
+\node[text width=4cm] at (6.5,0) {
 \textbf{Calculation:} \\
 $p(\text{root}) = \frac{1000}{1000} = 1.0$
 };
@@ -1432,25 +1442,25 @@ $$\Delta i(t) = i(t) - \frac{N_{t_L}}{N_t} i(t_L) - \frac{N_{t_R}}{N_t} i(t_R)$$
 \begin{tikzpicture}[scale=0.7]
 % Parent node
 \node[draw, circle, fill=red!30] (parent) at (0,1) {$X_1$};
-\node[below] at (0,0.3) {$i(\text{root}) = 0.5$};
-\node[below] at (0,0) {1000 samples};
+\node[above] at (0,1.8) {$i(\text{root}) = 0.5$};
+\node[above] at (0,1.4) {1000 samples};
 
 % Left child
 \node[draw, circle, fill=blue!20] (left) at (-2.5,-1) {$X_3$};
 \node[below] at (-2.5,-1.7) {$i(t_L) = 0.3$};
-\node[below] at (-2.5,-2) {400 samples};
+\node[below] at (-2.5,-2.2) {400 samples};
 
 % Right child  
 \node[draw, circle, fill=green!20] (right) at (2.5,-1) {$X_2$};
 \node[below] at (2.5,-1.7) {$i(t_R) = 0.2$};
-\node[below] at (2.5,-2) {600 samples};
+\node[below] at (2.5,-2.2) {600 samples};
 
 % Edges
 \draw (parent) -- (left);
 \draw (parent) -- (right);
 
 % Calculation
-\node[text width=6cm] at (6.5,0) {
+\node[text width=6cm] at (8.5,0) {
 \textbf{Calculation:} \\
 $\Delta i = 0.5 - \frac{400}{1000} \times 0.3 - \frac{600}{1000} \times 0.2$ \\
 $= 0.5 - 0.4 \times 0.3 - 0.6 \times 0.2$ \\
@@ -1518,7 +1528,7 @@ $$\text{Contribution}_{X_1, \text{Tree 1}} = p(\text{root}) \times \Delta i(\tex
 \draw (right) -- (rr);
 
 % Highlight the X3 contribution
-\node[green!70!black, text width=4cm] at (6,0) {\textbf{Focus on $X_3$:} \\ Calculate $p(left) \times \Delta i(left)$};
+\node[green!70!black, text width=4cm] at (5.5,0) {\textbf{Focus on $X_3$:} \\ Calculate $p(left) \times \Delta i(left)$};
 \end{tikzpicture}
 \end{center}
 \end{frame}
@@ -1534,7 +1544,7 @@ $$p(left) = \frac{N_{left}}{N} = \frac{\text{samples at left node}}{\text{total 
 \begin{tikzpicture}[scale=0.8]
 % Show samples at left node
 \node[draw, circle, minimum size=0.8cm, fill=gray!20] (root) at (0,1) {$X_1$};
-\node[below] at (0,0.3) {1000 samples};
+\node[above] at (0,1.5) {1000 samples};
 
 \node[draw, circle, minimum size=0.8cm, fill=green!30] (left) at (-2.5,-1) {$X_3$};
 \node[below] at (-2.5,-1.7) {\textbf{400 samples}};
@@ -1559,24 +1569,24 @@ $p(left) = \frac{400}{1000} = 0.4$
 \begin{tikzpicture}[scale=0.8]
 % Parent node (left child)
 \node[draw, circle, fill=green!30] (parent) at (0,1) {$X_3$};
-\node[below] at (0,0.3) {$i(left) = 0.3$};
-\node[below] at (0,0) {400 samples};
+\node[above] at (0,2) {$i(left) = 0.3$};
+\node[above] at (0,1.6) {400 samples};
 
 % Children of left node
 \node[draw, rectangle, fill=yellow!20] (ll) at (-2,-1.5) {Class A};
 \node[below] at (-2,-2.2) {$i(ll) = 0.1$};
-\node[below] at (-2,-2.5) {150 samples};
+\node[below] at (-2,-2.7) {150 samples};
 
 \node[draw, rectangle, fill=yellow!20] (lr) at (2,-1.5) {Class B};
 \node[below] at (2,-2.2) {$i(lr) = 0.2$};
-\node[below] at (2,-2.5) {250 samples};
+\node[below] at (2,-2.7) {250 samples};
 
 % Edges
 \draw (parent) -- (ll);
 \draw (parent) -- (lr);
 
 % Calculation
-\node[text width=7cm] at (7,0) {
+\node[text width=7cm] at (8,0) {
 \textbf{Calculation:} \\
 $\Delta i = 0.3 - \frac{150}{400} \times 0.1 - \frac{250}{400} \times 0.2$ \\
 $= 0.3 - 0.375 \times 0.1 - 0.625 \times 0.2$ \\
@@ -1616,21 +1626,27 @@ $$\text{Contribution}_{X_3, \text{Tree 1}} = p(left) \times \Delta i(left) = 0.4
 
 \begin{frame}{Step 7: Aggregate Across All Trees}
 \begin{center}
-\begin{tikzpicture}[scale=0.6]
+\begin{tikzpicture}[
+    node distance=2cm,
+    source/.style={circle, draw, fill=blue!30, minimum size=0.8cm},
+    intermediate/.style={circle, draw, fill=green!30, minimum size=0.8cm},
+    target/.style={circle, draw, fill=orange!30, minimum size=0.8cm},
+    sink/.style={circle, draw, fill=red!30, minimum size=0.8cm}
+][scale=0.6]
 % Show multiple trees with X1 contributions
 \node[draw, circle, fill=blue!20] (t1) at (0,2) {Tree 1};
-\node[below] at (0,1.5) {\scriptsize $X_1$ contrib: 0.26};
+\node[above] at (0,2.7) {\scriptsize $X_1$ contrib: 0.26};
 
 \node[draw, circle, fill=green!20] (t2) at (3,2) {Tree 2};
-\node[below] at (3,1.5) {\scriptsize $X_1$ contrib: 0.15};
+\node[above] at (3,2.7) {\scriptsize $X_1$ contrib: 0.15};
 
 \node[draw, circle, fill=red!20] (t3) at (6,2) {Tree 3};
-\node[below] at (6,1.5) {\scriptsize $X_1$ contrib: 0.31};
+\node[above] at (6,2.7) {\scriptsize $X_1$ contrib: 0.31};
 
 \node at (7.5,2) {$\cdots$};
 
 \node[draw, circle, fill=purple!20] (tm) at (9,2) {Tree M};
-\node[below] at (9,1.5) {\scriptsize $X_1$ contrib: 0.22};
+\node[above] at (9,2.7) {\scriptsize $X_1$ contrib: 0.22};
 
 % Final calculation
 \node[draw, rectangle, fill=yellow!30, minimum width=4cm, minimum height=1cm] (result) at (4.5,0) {
@@ -1709,8 +1725,6 @@ $$\text{Importance}(X_j) = \frac{1}{M} \sum_{m=1}^M \sum_{t \in \varphi_{m}} \ma
 \item $\mathbf{1}(j_t = j)$ = indicator function (1 if node $t$ uses feature $X_j$, 0 otherwise)
 \end{itemize}
 \end{keypointsbox}
-
-\vspace{1cm}
 
 \begin{examplebox}
 \textbf{Remaining components:}
