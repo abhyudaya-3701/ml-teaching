@@ -519,4 +519,43 @@ $$
 \end{examplebox}
 \end{frame}
 
+
+\begin{frame}{Visualizing Functions: Graphs and Level Sets}
+\footnotesize
+\begin{definitionbox}{The Graph of a Function}
+For a function $f: \mathbb{R}^n \to \mathbb{R}$, its \textbf{graph} is the set of all input-output pairs.
+$$ \text{Graph}(f) = \{ (\param, f(\param)) \mid \param \in \mathbb{R}^n \} $$
+\onslide<2->{
+    This graph lives in one higher dimension, $\mathbb{R}^{n+1}$.
+    
+    \textbf{Example:} For $f: \mathbb{R}^2 \to \mathbb{R}$, the graph is a surface in 3D space.
+    
+}
+\end{definitionbox}
+
+\onslide<3->{
+\begin{definitionbox}{Level Sets (Contours)}
+A \textbf{level set} (or contour) is the set of all points in the \textit{domain} where the function's output is a constant value, $c$.
+$$ \text{Level Set}_c = \{ \param \in \mathbb{R}^n \mid f(\param) = c \} $$
+\onslide<4->{
+    This set lives in the original domain space, $\mathbb{R}^n$.
+}
+\end{definitionbox}
+}
+\end{frame}
+
+\begin{frame}{Surplus - Directional Derivative}
+\begin{alertbox}{Why the Gradient is the Steepest Direction}
+\begin{itemize}[<*>]
+    \item Let's define a line through $\vecMat{x} \in \mathbb{R}^n$ on the function $f:\mathbb{R}^n \to \mathbb{R}$ in direction $\vecMat{v}$ as $\vecMat{c}(t) = \vecMat{x} + t\vecMat{v}$. The rate of change of $f$ along this line is $\frac{d}{dt}f(\vecMat{c}(t))$.
+    
+    \item Using the chain rule, this derivative is $\grad f(\vecMat{c}(t)) \cdot \vecMat{c}'(t)$. At our point $\vecMat{x}$ (where $t=0$), this becomes $\grad f(\vecMat{x}) \cdot \vecMat{v}$.
+        
+    \item From geometry, we know $\grad f(\vecMat{x}) \cdot \vecMat{v} = ||\grad f(\vecMat{x})|| \ ||\vecMat{v}|| \cos(\theta)$. Since $||\vecMat{v}||=1$, this value is maximized when $\cos(\theta)=1$.
+        
+    \item This occurs when $\vecMat{v}$ points in the same direction as $\grad f(\vecMat{x})$. Thus, the gradient points in the direction of steepest ascent.
+\end{itemize}
+\end{alertbox}
+\end{frame}
+
 \end{document}
