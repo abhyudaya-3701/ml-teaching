@@ -15,6 +15,7 @@
 
 % Table of Contents
 \begin{frame}{Table of Contents}
+    \small
     \tableofcontents[hideallsubsections]
 \end{frame}
 
@@ -173,8 +174,7 @@ node/.style={%
 \end{frame}
 
 \begin{frame}{Leo Breiman: Revolutionary Contributions to ML}
-\begin{keypointsbox}
-\textbf{Major Algorithmic Breakthroughs:}
+\begin{keypointsbox}{Major Algorithmic Breakthroughs:}
 \cleanitemize{
     \item \textbf{CART (1984)}: Classification and Regression Trees
     \item \textbf{Bagging (1994)}: Bootstrap Aggregating
@@ -888,9 +888,8 @@ When depth limit is reached, assign the \textbf{most common class} in that path 
 }
 
 \onslide<6->{
-    \begin{keypointsbox}
-    \textbf{Why MSE for Regression?}\\
-    MSE measures how far predicted values are from actual values.\\
+    \begin{keypointsbox}{Why MSE for Regression?}
+    MSE measures how far predicted values are from actual values.
     Lower MSE = Better predictions = Less ``impurity'' in the data
     \end{keypointsbox}
 }
@@ -1067,8 +1066,8 @@ where:
 \end{definitionbox}
 
 \onslide<5->{
-    \begin{keypointsbox}
-    \textbf{Key Insight:} MSE Reduction $> 0$ means the split improves our model!\\
+    \begin{keypointsbox}{Key Insight} 
+        MSE Reduction $> 0$ means the split improves our model!\\
     \textbf{Choose the split with highest MSE Reduction}
     \end{keypointsbox}
 }
@@ -1079,6 +1078,7 @@ where:
 \begin{column}{.5\textwidth}
 \begin{examplebox}{Wind = Weak (8 points)}
 \scriptsize
+\begin{center}
 \begin{tabular}{|c|c|}
 \hline
 \textbf{Wind} & \textbf{Minutes} \\ \hline
@@ -1091,12 +1091,14 @@ Weak & 60 \\
 Weak & 40 \\
 Weak & 35 \\ \hline
 \end{tabular}
+\end{center}
 \end{examplebox}
 \end{column}
 
 \begin{column}{.5\textwidth}
 \begin{examplebox}{Wind = Strong (6 points)}
 \scriptsize
+\begin{center}
 \begin{tabular}{|c|c|}
 \hline
 \textbf{Wind} & \textbf{Minutes} \\ \hline
@@ -1107,6 +1109,7 @@ Strong & 45 \\
 Strong & 40 \\
 Strong & 20 \\ \hline
 \end{tabular}
+\end{center}
 \end{examplebox}
 \end{column}
 \end{columns}
@@ -1134,6 +1137,7 @@ Strong & 20 \\ \hline
 \pause
 \textbf{Step 2:} Calculate squared differences
 \scriptsize
+\begin{center}
 \begin{tabular}{|c|c|c|}
 \hline
 $y_i$ & $y_i - 39.375$ & $(y_i - 39.375)^2$ \\ \hline
@@ -1148,6 +1152,7 @@ $y_i$ & $y_i - 39.375$ & $(y_i - 39.375)^2$ \\ \hline
 \textbf{Sum} & & $\mathbf{2221.87}$ \\
 \hline
 \end{tabular}
+\end{center}
 \end{examplebox}
 \end{frame}
 
@@ -1233,8 +1238,7 @@ $$\text{MSE Reduction} = 311.35 - 252.18 = \mathbf{59.17}$$
 
 \begin{frame}{MSE Reduction: Interpretation and Decision Making}
 \scriptsize
-\begin{keypointsbox}
-\textbf{What Does MSE Reduction = 59.17 Mean?}
+\begin{keypointsbox}{What Does MSE Reduction = 59.17 Mean?}
 \cleanitemize{
     \item \textbf{Positive value:} The split improves our model!
     \item \textbf{Magnitude:} We reduced prediction error by 59.17 square-minutes
@@ -1315,10 +1319,8 @@ $$\text{MSE Reduction} = 311.35 - 252.18 = \mathbf{59.17}$$
 \section{Real Input, Discrete Output}
 
 \begin{frame}{Moving to Our Third Case}
-\begin{keypointsbox}
-    \scriptsize
-
-\textbf{Our Journey Through Decision Tree Types:}
+\footnotesize
+\begin{keypointsbox}{Our Journey Through Decision Tree Types}
 \begin{itemize}
 \item \textbf{Discrete Input, Discrete Output}: Simple categorical splits
 \item \textbf{Real Input, Real Output}: Continuous features, regression trees  
@@ -1336,9 +1338,8 @@ $$\text{MSE Reduction} = 311.35 - 252.18 = \mathbf{59.17}$$
 \end{frame}
 
 \begin{frame}{The Key Challenge: Infinite Split Points}
+\scriptsize
 \begin{alertbox}{The Problem}
-    \scriptsize
-
 With continuous features, we have potentially infinite split points!
 \begin{itemize}
 \item Temperature could be split at 45°C, 45.1°C, 45.01°C, ...
@@ -1415,8 +1416,7 @@ Only consider splits at \textbf{midpoints} between consecutive different classes
 
 \textbf{All candidate splits:} 44, 54, 66, 76, 85
 
-\begin{keypointsbox}
-\textbf{Why These 5 Splits?}
+\begin{keypointsbox}{Why These 5 Splits?}
 \scriptsize
 
 \begin{itemize}
@@ -1494,8 +1494,7 @@ Only consider splits at \textbf{midpoints} between consecutive different classes
 \end{tabular}
 \end{table}
 
-\begin{keypointsbox}
-\textbf{Winner: Split at 54!}
+\begin{keypointsbox}{Winner: Split at 54!}
 \begin{itemize}
 \item Lowest weighted entropy (0.541)
 \item Highest information gain (0.409)
@@ -1585,9 +1584,8 @@ Only consider splits at \textbf{midpoints} between consecutive different classes
 \section{Real Input, Real Output}
 
 \begin{frame}{Completing Our Journey: The Fourth Case}
-\begin{keypointsbox}
-    \scriptsize
-\textbf{Our Decision Tree Journey - Final Stop:}
+\scriptsize
+\begin{keypointsbox}{Our Decision Tree Journey - Final Stop:}
 \begin{itemize}
 \item \textbf{Discrete Input, Discrete Output}: Categorical splits, entropy
 \item \textbf{Real Input, Discrete Output}: Continuous features, classification (Case 3)
@@ -1670,8 +1668,8 @@ Only consider splits at \textbf{midpoints} between consecutive different classes
     	  \end{notebookbox}
     \end{center}
     
-    \begin{keypointsbox}
-    \textbf{Answer:} Predict the mean of all Y values! (Same as Case 2)
+    \begin{keypointsbox}{Answer} 
+        Predict the mean of all Y values! (Same as Case 2)
     \end{keypointsbox}
     \end{frame}
 
@@ -1853,7 +1851,7 @@ It has of depth 4. The decision boundaries are in figure below.\\
 \section{Weighted Entropy}
 
 \begin{frame}{Why Weighted Entropy?}
-\begin{keypointsbox}
+\begin{keypointsbox}{Weighted Entropy}
 \begin{itemize}
 \item Sometimes points have \textbf{different importance}:
   \begin{itemize}
@@ -1958,31 +1956,24 @@ $$= 0.5 \times 0.971 + 0.5 \times 0.971 = 0.971$$
 
 \begin{frame}{Information Gain Calculation}
     \scriptsize
-\begin{keypointsbox}
-    
+\begin{keypointsbox}{Information Gain}
 \textbf{Information Gain = Original Entropy - Weighted Entropy}
 $$\text{IG}(X_1 = X_1^*) = E_S - \text{Weighted Entropy}$$
 $$= 1.0 - 0.971 = 0.029$$
 \end{keypointsbox}
-
 \textbf{Interpretation:} Small gain means this split doesn't help much in creating purer subsets. We should try other splits!
 \end{frame}
 
 
 
-
-
-
-
-
 % Key takeaways
 \begin{frame}{Key Takeaways}
-\begin{itemize}[<+->]
+\cleanitemize{
 \item Weighted entropy generalizes normal entropy.
 \item Handles fractional and non-uniform point importance.
 \item Essential for boosting and class imbalance handling.
 \item Always normalize weights before computing probabilities.
-\end{itemize}
+}
 \end{frame}
 
 \section{Pruning and Overfitting}
@@ -2102,7 +2093,4 @@ $$= 1.0 - 0.971 = 0.029$$
     }
 }
 \end{frame}
-
-
-
 \end{document}

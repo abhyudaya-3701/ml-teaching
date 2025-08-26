@@ -41,8 +41,7 @@
 \textbf{``The wisdom of crowds''}: Combine multiple models to make better predictions than any single model could achieve alone.
 \end{alertbox}
 
-\begin{keypointsbox}
-\textbf{Key Insight:}
+\begin{keypointsbox}{Key Insight}
 \begin{itemize}
 \item Individual models make different mistakes
 \item By combining them intelligently, we can reduce overall error
@@ -109,7 +108,7 @@
 \textbf{Three fundamental reasons why combining models works better:}
 \end{alertbox}
 
-\begin{keypointsbox}
+\begin{keypointsbox}{Three Key Reasons}
 \begin{enumerate}
 \item \textbf{Statistical}: Limited data → Multiple valid hypotheses
 \item \textbf{Computational}: Models get stuck in local optima
@@ -185,8 +184,8 @@ Some models cannot learn the true form of the target function.
 \end{frame}
 
 \begin{frame}{Individual Tree Behavior}
-\begin{keypointsbox}
-\textbf{Observation:} Individual trees create rigid, rectangular decision boundaries
+\begin{keypointsbox}{Observation} 
+  Individual trees create rigid, rectangular decision boundaries
 \end{keypointsbox}
 \end{frame}
 
@@ -204,8 +203,8 @@ Some models cannot learn the true form of the target function.
 \end{frame}
   
 \begin{frame}{Ensemble Advantage}
-\begin{keypointsbox}
-\textbf{Key Insight:} The ensemble overcomes individual model limitations!
+\begin{keypointsbox}{Key Insight} 
+  The ensemble overcomes individual model limitations!
 \end{keypointsbox}
 \end{frame}
 
@@ -221,8 +220,7 @@ For an ensemble to outperform individual members, models must be:
 \end{enumerate}
 \end{definitionbox}
 
-\begin{keypointsbox}
-\textbf{Key Terms:}
+\begin{keypointsbox}{Key Terms}
 \begin{itemize}
 \item \textbf{Accurate}: Error rate < 50\% (better than coin flip)
 \item \textbf{Diverse}: Models disagree on different examples
@@ -259,8 +257,8 @@ When $h_1(x)$ is wrong:
 \end{column}
 \end{columns}
 
-\begin{keypointsbox}
-\textbf{Bottom Line:} Diversity allows the ensemble to correct individual model errors!
+\begin{keypointsbox}{Bottom Line}
+Diversity allows the ensemble to correct individual model errors!
 \end{keypointsbox}
 \end{frame}
 \begin{frame}{Mathematical Proof: Why Ensembles Work}
@@ -278,8 +276,8 @@ $= 3 \times 0.3^2 \times 0.7 + 1 \times 0.3^3$
 $= 0.189 + 0.027 = \mathbf{0.216}$
 \end{examplebox}
 
-\begin{keypointsbox}
-\textbf{Result:} Ensemble error (21.6\%) < Individual error (30\%)!
+\begin{keypointsbox}{Result}
+Ensemble error (21.6\%) < Individual error (30\%)!
 \end{keypointsbox}
 \end{frame}
 
@@ -318,8 +316,8 @@ $= 0.189 + 0.027 = \mathbf{0.216}$
 \end{column}
 \end{columns}
 
-\begin{keypointsbox}
-\textbf{Key Insight:} Ensembles only help when base models are better than random!
+\begin{keypointsbox}{Key Insight}
+Ensembles only help when base models are better than random!
 \end{keypointsbox}
 \end{frame}
 
@@ -354,8 +352,8 @@ $= 0.189 + 0.027 = \mathbf{0.216}$
 \end{column}
 \end{columns}
 
-\begin{keypointsbox}
-\textbf{Solution:} Ensure base models are accurate AND diverse!
+\begin{keypointsbox}{Solution}
+Ensure base models are accurate AND diverse!
 \end{keypointsbox}
 \end{frame}
 
@@ -366,8 +364,8 @@ $= 0.189 + 0.027 = \mathbf{0.216}$
 \textbf{Goal:} Create diverse models from a single dataset to reduce variance
 \end{definitionbox}
 
-\begin{keypointsbox}
-\textbf{Key Insight:} Even with the same algorithm and same data, we can create different models by training on different subsets!
+\begin{keypointsbox}{Key Insight}
+Even with the same algorithm and same data, we can create different models by training on different subsets!
 \end{keypointsbox}
 
 \begin{alertbox}{The Challenge}
@@ -402,8 +400,8 @@ $D_2, D_4, D_1, D_n, D_3, \ldots$
 \end{column}
 \end{columns}
 
-\begin{keypointsbox}
-\textbf{Result:} Each bootstrap sample is slightly different → Diverse models!
+\begin{keypointsbox}{Result}
+Each bootstrap sample is slightly different → Diverse models!
 \end{keypointsbox}
 \end{frame}
 
@@ -420,8 +418,8 @@ $D_2, D_4, D_1, D_n, D_3, \ldots$
 \end{frame}
 
 \begin{frame}{The Outlier Challenge}
-\begin{keypointsbox}
-\textbf{Question:} How will a single decision tree handle these outliers?
+\begin{keypointsbox}{Question}
+How will a single decision tree handle these outliers?
 \end{keypointsbox}
 \end{frame}
 
@@ -501,8 +499,8 @@ Generate different bootstrap samples from original dataset
 \end{columns}
 \end{center}
 
-\begin{keypointsbox}
-\textbf{Key Insight:} Each sample has different combinations of points!
+\begin{keypointsbox}{Key Insight}
+Each sample has different combinations of points!
 \end{keypointsbox}
 \end{frame}
 
@@ -580,8 +578,7 @@ Generate different bootstrap samples from original dataset
 \textbf{Goal:} Combine weak learners sequentially to create a strong ensemble
 \end{definitionbox}
 
-\begin{keypointsbox}
-\textbf{Key Differences from Bagging:}
+\begin{keypointsbox}{Key Differences from Bagging}
 \begin{itemize}
 \item \textbf{Sequential:} Models built one after another (not in parallel)
 \item \textbf{Focus on Mistakes:} Each model learns from previous model's errors
@@ -633,8 +630,7 @@ Generate different bootstrap samples from original dataset
 Each model adapts to previous model's mistakes
 \end{definitionbox}
 
-\begin{keypointsbox}
-\textbf{Process:}
+\begin{keypointsbox}{Process}
 \begin{enumerate}
 \item Train weak learner on weighted data
 \item Increase weights of misclassified examples
@@ -659,8 +655,8 @@ Each model adapts to previous model's mistakes
   \centering
   \fitpic{\includegraphics[width = 0.4\textwidth]{../assets/ensemble/diagrams/ada_data}}
 
-\begin{keypointsbox}
-\textbf{Goal:} Learn a strong classifier $H(x) = \text{sign}\left(\sum_{m=1}^M \alpha_m h_m(x)\right)$
+\begin{keypointsbox}{Goal}
+Learn a strong classifier $H(x) = \text{sign}\left(\sum_{m=1}^M \alpha_m h_m(x)\right)$
 \end{keypointsbox}
 \end{frame}
 
@@ -685,8 +681,8 @@ Each model adapts to previous model's mistakes
 Train weak learner $h_1$ using current sample weights $w_i^{(1)}$
 \end{alertbox}
 
-\begin{keypointsbox}
-\textbf{Key Insight:} Higher weight = more training focus
+\begin{keypointsbox}{Key Insight}
+Higher weight = more training focus
 \begin{itemize}
 \item Initially all weights equal → standard training
 \end{itemize}
@@ -702,8 +698,7 @@ Train weak learner $h_1$ using current sample weights $w_i^{(1)}$
 First classifier $h_1$ makes some mistakes (shown in red crosses)
 \end{alertbox}
 
-\begin{keypointsbox}
-\textbf{Important Observation:}
+\begin{keypointsbox}{Important Observation}
 \begin{itemize}
 \item Even weak learners make mistakes
 \item These mistakes guide the next learning step
@@ -755,8 +750,7 @@ $err_1 = 0.3$
 $\alpha_1 = \frac{1}{2}\ln\left(\frac{1-0.3}{0.3}\right) = \frac{1}{2}\ln(2.33) = 0.42$
 \end{examplebox}
 
-\begin{keypointsbox}
-\textbf{Alpha Intuition:}
+\begin{keypointsbox}{Alpha Intuition}
 \begin{itemize}
 \item Lower error → Higher $\alpha$
 \item Higher $\alpha$ → More trust
@@ -766,8 +760,8 @@ $\alpha_1 = \frac{1}{2}\ln\left(\frac{1-0.3}{0.3}\right) = \frac{1}{2}\ln(2.33) 
 \end{frame}
 
 \begin{frame}{Understanding the Alpha Formula}
-\begin{keypointsbox}
-\textbf{What does } $\alpha = \frac{1}{2}\ln\left(\frac{1-err}{err}\right)$ \textbf{ really mean?}
+\begin{keypointsbox}{Understanding Alpha}
+What does $\alpha = \frac{1}{2}\ln\left(\frac{1-err}{err}\right)$ really mean?
 \end{keypointsbox}
 
 \begin{columns}
@@ -1100,8 +1094,7 @@ $err = 0.9 \Rightarrow \alpha = -1.1$
 \textbf{Core Idea:} Combine many decision trees trained on random subsets of data AND random subsets of features
 \end{definitionbox}
 
-\begin{keypointsbox}
-\textbf{Two Sources of Randomness:}
+\begin{keypointsbox}{Two Sources of Randomness}
 \begin{itemize}
 \item \textbf{Bootstrap Sampling:} Each tree sees different training samples (like bagging)
 \item \textbf{Feature Subsampling:} Each split considers only random subset of features
@@ -1143,8 +1136,8 @@ $err = 0.9 \Rightarrow \alpha = -1.1$
 \end{enumerate}
 \end{alertbox}
 
-\begin{keypointsbox}
-\textbf{Key Insight:} Each tree is ``strong'' individually but they make different mistakes due to randomness!
+\begin{keypointsbox}{Key Insight}
+Each tree is ``strong'' individually but they make different mistakes due to randomness!
 \end{keypointsbox}
 \end{frame}
 
@@ -1173,8 +1166,8 @@ $err = 0.9 \Rightarrow \alpha = -1.1$
 \end{frame}
 
 \begin{frame}{Random Forest: The Power of Feature Diversity}
-\begin{keypointsbox}
-\textbf{Result:} Different trees focus on different feature combinations → Diverse predictions
+\begin{keypointsbox}{Result}
+Different trees focus on different feature combinations → Diverse predictions
 \end{keypointsbox}
 \end{frame}
 
@@ -1189,8 +1182,7 @@ $err = 0.9 \Rightarrow \alpha = -1.1$
 \end{frame}
 
 \begin{frame}{Random Forest Setup for Iris}
-\begin{keypointsbox}
-\textbf{Random Forest Setup:}
+\begin{keypointsbox}{Random Forest Setup}
 \begin{itemize}
 \item 4 features available → Consider $m = 2$ features per split
 \item Bootstrap samples for each tree
@@ -1238,8 +1230,7 @@ $err = 0.9 \Rightarrow \alpha = -1.1$
 
 \vspace{1cm}
 
-\begin{keypointsbox}
-\textbf{Core Intuition:}
+\begin{keypointsbox}{Core Intuition}
 \begin{itemize}
 \item Features that create ``better splits'' (reduce impurity more) are more important
 \item We measure this across ALL trees in the forest
@@ -1359,8 +1350,8 @@ $err = 0.9 \Rightarrow \alpha = -1.1$
 
 \vspace{0.5cm}
 
-\begin{keypointsbox}
-\textbf{Tree 1 uses:} $X_1$, $X_2$, and $X_3$ (but NOT $X_4$)
+\begin{keypointsbox}{Tree 1 Feature Usage}
+Tree 1 uses: $X_1$, $X_2$, and $X_3$ (but NOT $X_4$)
 \end{keypointsbox}
 \end{frame}
 
@@ -1407,8 +1398,8 @@ For $X_1$ at root node: We need $p(\text{root}) \times \Delta i(\text{root})$
 $$p(t) = \frac{N_t}{N} = \frac{\text{samples at node } t}{\text{total samples}}$$
 \end{definitionbox}
 
-\begin{keypointsbox}
-\textbf{Root node always has } $p(\text{root}) = 1.0$ \textbf{ (all samples start here)}
+\begin{keypointsbox}{Root Node Property}
+Root node always has $p(\text{root}) = 1.0$ (all samples start here)
 \end{keypointsbox}
 \end{frame}
 
@@ -1483,8 +1474,7 @@ $$\text{Contribution}_{X_1, \text{Tree 1}} = p(\text{root}) \times \Delta i(\tex
 \end{frame}
 
 \begin{frame}{Step 6b: What's Next?}
-\begin{keypointsbox}
-\textbf{Remaining Steps:}
+\begin{keypointsbox}{Remaining Steps}
 \begin{itemize}
 \item Calculate $X_1$'s contribution in Tree 2, Tree 3, ..., Tree M
 \item Sum all contributions and divide by M (number of trees)
@@ -1607,8 +1597,7 @@ $$\text{Contribution}_{X_3, \text{Tree 1}} = p(left) \times \Delta i(left) = 0.4
 \end{frame}
 
 \begin{frame}{Comparison: $X_1$ vs $X_3$ in Tree 1}
-\begin{keypointsbox}
-\textbf{Comparison in Tree 1:}
+\begin{keypointsbox}{Comparison in Tree 1}
 \begin{itemize}
 \item $X_1$ contribution: 0.26 (at root)
 \item $X_3$ contribution: 0.055 (at left child)
@@ -1667,7 +1656,7 @@ $\frac{0.26 + 0.15 + 0.31 + \cdots + 0.22}{M}$
 \vspace{0.5cm}
 
 \begin{definitionbox}{Final Formula for $X_1$}
-$$\text{Importance}(X_1) = \frac{1}{M} \sum_{m=1}^M \sum_{t \in \text{Tree}_m} \mathbf{1}[j_t = 1] \cdot p(t) \cdot \Delta i(t)$$
+$$\text{Importance}(X_1) = \frac{1}{M} \sum_{m=1}^M \sum_{t \in \text{Tree}_m} \indicator[j_t = 1] \cdot p(t) \cdot \Delta i(t)$$
 \end{definitionbox}
 \end{frame}
 
@@ -1698,15 +1687,15 @@ $$\text{Importance}(X_1) = \frac{1}{M} \sum_{m=1}^M \sum_{t \in \text{Tree}_m} \
 
 \vspace{0.5cm}
 
-\begin{keypointsbox}
-\textbf{Result:} $X_3$ is most important (0.32), followed by $X_1$ (0.24), then $X_2$ (0.21), and $X_4$ (0.12)
+\begin{keypointsbox}{Feature Importance Result}
+$X_3$ is most important (0.32), followed by $X_1$ (0.24), then $X_2$ (0.21), and $X_4$ (0.12)
 \end{keypointsbox}
 \end{frame}
 
 \begin{frame}{Feature Importance: General Mathematical Formula}
 \begin{definitionbox}{Complete Feature Importance Formula}
 For any feature $X_j$ in a Random Forest with $M$ trees:
-$$\text{Importance}(X_j) = \frac{1}{M} \sum_{m=1}^M \sum_{t \in \varphi_{m}} \mathbf{1}(j_t = j) \cdot p(t) \cdot \Delta i(t)$$
+$$\text{Importance}(X_j) = \frac{1}{M} \sum_{m=1}^M \sum_{t \in \varphi_{m}} \indicator(j_t = j) \cdot p(t) \cdot \Delta i(t)$$
 \end{definitionbox}
 
 \vspace{1cm}
@@ -1717,12 +1706,12 @@ $$\text{Importance}(X_j) = \frac{1}{M} \sum_{m=1}^M \sum_{t \in \varphi_{m}} \ma
 \end{frame}
 
 \begin{frame}{Formula Components Explained}
-\begin{keypointsbox}
-\textbf{Where:}
+\begin{keypointsbox}{Formula Components}
+Where:
 \begin{itemize}
 \item $M$ = number of trees in the forest
 \item $\varphi_m$ = set of all nodes in tree $m$
-\item $\mathbf{1}(j_t = j)$ = indicator function (1 if node $t$ uses feature $X_j$, 0 otherwise)
+\item $\indicator(j_t = j)$ = indicator function (1 if node $t$ uses feature $X_j$, 0 otherwise)
 \end{itemize}
 \end{keypointsbox}
 
@@ -1741,7 +1730,7 @@ $$\text{Importance}(X_j) = \frac{1}{M} \sum_{m=1}^M \sum_{t \in \varphi_{m}} \ma
   \end{figure}
   Importance of variable $X_j$ for an ensemble of $M$ trees $\varphi_{m}$ is:
   \begin{equation*}
-    \text{Imp}(X_j) = \frac{1}{M} \sum_{m=1}^M \sum_{t \in \varphi_{m}} 1(j_t = j) \Big[ p(t) \Delta i(t) \Big],
+    \text{Imp}(X_j) = \frac{1}{M} \sum_{m=1}^M \sum_{t \in \varphi_{m}} \indicator(j_t = j) \Big[ p(t) \Delta i(t) \Big],
   \end{equation*}
   where $j_t$ denotes the variable used at node $t$, $p(t)=N_t/N$ and $\Delta i(t)$ is the impurity reduction at node $t$:
   \begin{equation*}
