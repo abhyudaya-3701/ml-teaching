@@ -1100,78 +1100,8 @@ Span of ($\begin{bmatrix}
 
 \end{frame}
 
-\section{Regularization}
 
-\begin{frame}{The Problem: Overfitting}
-\begin{itemize}[<+->]
-\item Linear regression can overfit with:
-    \begin{itemize}
-    \item Too many features relative to data points
-    \item Highly correlated features (multicollinearity)
-    \item Noisy data with complex models
-    \end{itemize}
-\item \textbf{Solution}: Add penalty term to control model complexity
-\item This prevents coefficients from becoming too large
-\end{itemize}
-\end{frame}
 
-\begin{frame}{Ridge Regression (L2 Regularization)}
-\textbf{Objective Function}:
-$$J(\vtheta) = \text{MSE} + \lambda\sum_{j=1}^{n}\theta_j^2$$
-
-\begin{itemize}[<+->]
-\item $\lambda \geq 0$ is the \textbf{regularization parameter}
-\item Larger $\lambda$ → more regularization → simpler model
-\item \textbf{Effect}: Shrinks coefficients toward zero
-\item \textbf{Closed-form solution}: $\vtheta = (\mX\tp\mX + \lambda\mI)^{-1}\mX\tp\vy$
-\item Note: $(\mX\tp\mX + \lambda\mI)$ is always invertible for $\lambda > 0$
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Lasso Regression (L1 Regularization)}
-\textbf{Objective Function}:
-$$J(\vtheta) = \frac{1}{2m}\sum_{i=1}^{m}(h_\vtheta(\vx^{(i)}) - y^{(i)})^2 + \lambda\sum_{j=1}^{n}|\theta_j|$$
-
-\begin{itemize}[<+->]
-\item Uses absolute value penalty instead of squared penalty
-\item \textbf{Key Property}: Can set coefficients exactly to zero
-\item \textbf{Automatic Feature Selection}: Eliminates irrelevant features
-\item No closed-form solution → requires iterative optimization
-\item \textbf{Use Case}: When you suspect many features are irrelevant
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Ridge vs Lasso: Geometric Intuition}
-\begin{itemize}[<+->]
-\item \textbf{Ridge (L2)}: Constraint region is a circle
-    \begin{itemize}
-    \item Smooth boundary → coefficients shrink smoothly
-    \item Rarely sets coefficients exactly to zero
-    \end{itemize}
-\item \textbf{Lasso (L1)}: Constraint region is a diamond
-    \begin{itemize}
-    \item Sharp corners at axes → coefficients can become exactly zero
-    \item Performs automatic feature selection
-    \end{itemize}
-\item \textbf{Elastic Net}: Combines both penalties
-    $$J(\vtheta) = \text{MSE} + \lambda_1\sum|\theta_j| + \lambda_2\sum\theta_j^2$$
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Choosing Regularization Parameter $\lambda$}
-\begin{itemize}[<+->]
-\item \textbf{$\lambda = 0$}: No regularization (standard linear regression)
-\item \textbf{$\lambda$ very small}: Minimal regularization
-\item \textbf{$\lambda$ very large}: Heavy regularization (underfitting)
-\item \textbf{Selection Methods}:
-    \begin{itemize}
-    \item Cross-validation (most common)
-    \item Information criteria (AIC, BIC)
-    \item Validation curves
-    \end{itemize}
-\item \textbf{Critical Insight}: $\lambda$ controls bias-variance tradeoff
-\end{itemize}
-\end{frame}
 
 \section{Dummy Variables and Multicollinearity}
 \begin{frame}{Multi-collinearity}
