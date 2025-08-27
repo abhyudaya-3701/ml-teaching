@@ -228,8 +228,8 @@ In the previous example y = f(x), where x is one-dimensional.\\
     	Temperature_i\\\#Occupants_i
     	\end{bmatrix}$
         \item Estimated demand for $i^{th}$ sample is  $\hat{demand_{i}} = \theta_{0} + \theta_{1} Temperature_i + \theta_{2} Occupants_i$
-        \item $\hat{demand_{i}} = x_{i}'^{T} \theta$
-        \item where $\theta = \begin{bmatrix}\theta_0\\\theta_1\\ \theta_2
+        \item $\hat{demand_{i}} = x_{i}'^{T} \vtheta$
+        \item where $\vtheta = \begin{bmatrix}\theta_0\\\theta_1\\ \theta_2
         \end{bmatrix}$
         \item and $x_{i}' = \begin{bmatrix}
         1\\Temperature_i\\\#Occupants_i
@@ -297,7 +297,7 @@ In the previous example y = f(x), where x is one-dimensional.\\
        
    
 
-   $ \hat{Y} = X\theta$
+   $ \yhat = \mX\vtheta$
    \end{center}
    \end{tcolorbox}
 
@@ -463,13 +463,13 @@ coordinates{ % plot 1 dataset
 
 
 	\begin{itemize}[<+->]
-		\item $y_{i} = \hat{y}_{i} + \epsilon_{i}$ where $\epsilon_{i} \sim \mathcal{N}(0, \sigma^2)$
+		\item $y_{i} = \yhati + \epsilon_{i}$ where $\epsilon_{i} \sim \mathcal{N}(0, \sigma^2)$
 		\item \textbf{Critical Assumption}: $\epsilon_{i}$ are \textcolor{red}{independent and identically distributed (i.i.d.)}
 		\item $y_{i}$ denotes the ground truth for $i^{th}$ sample
-		\item $\hat{y}_{i}$ denotes the prediction for $i^{th}$ sample, where $\hat{y}_{i} = \vx_{i}\tp \vtheta$
+		\item $\yhati$ denotes the prediction for $i^{th}$ sample, where $\yhati = \vx_{i}\tp \vtheta$
 		\item $\epsilon_{i}$ denotes the error/residual for $i^{th}$ sample
 		\item $\theta_{0}, \theta_{1}$: The parameters of the linear regression
-		\item   $  \epsilon_{i} = y_{i} - \hat{y}_{i}$
+		\item   $  \epsilon_{i} = y_{i} - \yhati$
 		\item     $\epsilon_{i} = y_{i} - (\theta_{0} + x_{i} \cdot \theta_{1})$
 
 \end{itemize}
@@ -501,10 +501,10 @@ ${\text{minimize }} |\epsilon_{1}| + |\epsilon_{2}| + \dots + |\epsilon_{n}|$ - 
     
     
    \pause  \begin{tcolorbox}
-       $ Y = X\theta + \epsilon$
+       $ \vy = \mX\vtheta + \vepsilon$
     \end{tcolorbox}
     
-    \pause To Learn: $\theta$ \\
+    \pause To Learn: $\vtheta$ \\
     \pause Objective: ${\text{minimize }} \epsilon_{1}^2 + \epsilon_{2}^2 + \dots + \epsilon_{N}^2$  
 \end{frame}
 
@@ -661,9 +661,9 @@ Given the data above, find $\theta_{0}$ and $\theta_{1}$.
 
 
 \begin{frame}{Worked out example}
-    $$\theta = (X^{T}X)^{-1}(X^{T}y)$$
+    $$\vtheta = (\mX\tp\mX)\inv(\mX\tp\vy)$$
     
-    $$\begin{bmatrix}
+    $$\vtheta = \begin{bmatrix}
         \theta_{0}\\
         \theta_{1}
     \end{bmatrix} = \frac{1}{20} \begin{bmatrix}
@@ -772,19 +772,19 @@ coordinates{ % plot 1 dataset
 \end{frame}
 
 \begin{frame}{Worked out example}
-$$X = \begin{bmatrix}
+$$\mX = \begin{bmatrix}
 1 & 1\\
 1 & 2\\
 1 & 3 \\
 1 & 4
 \end{bmatrix}$$
 
-$$X^{T} = \begin{bmatrix}
+$$\mX\tp = \begin{bmatrix}
 1&1&1&1\\
 1&2&3&4
 \end{bmatrix}$$
 
-$$X^{T}X = \begin{bmatrix}
+$$\mX\tp\mX = \begin{bmatrix}
 4 &10\\10&30
 \end{bmatrix}$$
 
@@ -808,7 +808,7 @@ $$\mX\tp\vy = \begin{bmatrix}
 \begin{frame}{Worked out example}
 $$\vtheta = (\mX\tp\mX)\inv(\mX\tp\vy)$$
 
-$$\begin{bmatrix}
+$$\vtheta = \begin{bmatrix}
 \theta_{0}\\
 \theta_{1}
 \end{bmatrix} = 
@@ -914,7 +914,7 @@ Add the higher degree features to the previous table
 	\item Is $\hat{s}=\theta_0 + \theta_1*t + {\rm e}^{\theta_2}*t$
 	linear?
 	\item All except \#4 are linear models! 
-	\item Linear refers to the relationship between the parameters that you are estimating ($\theta$) and the outcome 
+	\item Linear refers to the relationship between the parameters that you are estimating ($\vtheta$) and the outcome 
 \end{enumerate}
 \footnotetext[1]{\url{https://stats.stackexchange.com/questions/8689/what-does-linear-stand-for-in-linear-regression}}
 \end{frame}
@@ -1105,11 +1105,11 @@ Span of ($\begin{bmatrix}
 
 \section{Dummy Variables and Multicollinearity}
 \begin{frame}{Multi-collinearity}
-    There can be situations where inverse of $X^{T}X$ is not computable. \\
-    \pause This condition arises when the $|X^{T}X|$ = 0.
+    There can be situations where inverse of $\mX\tp\mX$ is not computable. \\
+    \pause This condition arises when the $|\mX\tp\mX|$ = 0.
     
     \begin{equation}
-    X = \begin{bmatrix}
+    \mX = \begin{bmatrix}
     1 & 1& 2\\
     1 & 2& 4\\
     1 & 3& 6\\
