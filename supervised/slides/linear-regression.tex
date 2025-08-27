@@ -511,7 +511,7 @@ ${\text{minimize }} |\epsilon_{1}| + |\epsilon_{2}| + \dots + |\epsilon_{n}|$ - 
 \begin{frame}{Normal Equation}
     
 \begin{equation*}
- \epsilon = 
+ \vepsilon = 
 \begin{bmatrix}
     \epsilon_{1} \\
     \epsilon_{2} \\
@@ -521,7 +521,7 @@ ${\text{minimize }} |\epsilon_{1}| + |\epsilon_{2}| + \dots + |\epsilon_{n}|$ - 
 \end{equation*}
 \\
 \begin{center}
- \pause Objective:   Minimize $\epsilon^{T}\epsilon$    
+ \pause Objective:   Minimize $\vepsilon\tp\vepsilon$    
 \end{center}
 \end{frame}
 
@@ -663,7 +663,7 @@ Given the data above, find $\theta_{0}$ and $\theta_{1}$.
 \begin{frame}{Worked out example}
     $$\vtheta = (\mX\tp\mX)\inv(\mX\tp\vy)$$
     
-    $$\vtheta = \begin{bmatrix}
+    $$\begin{bmatrix}
         \theta_{0}\\
         \theta_{1}
     \end{bmatrix} = \frac{1}{20} \begin{bmatrix}
@@ -808,7 +808,7 @@ $$\mX\tp\vy = \begin{bmatrix}
 \begin{frame}{Worked out example}
 $$\vtheta = (\mX\tp\mX)\inv(\mX\tp\vy)$$
 
-$$\vtheta = \begin{bmatrix}
+$$\begin{bmatrix}
 \theta_{0}\\
 \theta_{1}
 \end{bmatrix} = 
