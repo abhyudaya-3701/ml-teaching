@@ -112,7 +112,7 @@ Why does following $-\grad f$ lead us toward the minimum?
 \textbf{Univariate Taylor expansion:}
 \begin{center}
 \Large
-\[f(x) \approx f(x_0) + f'(x_0)(x-x_0) + \frac{1}{2}f''(x_0)(x-x_0)^2\]
+\[f(x) \approx f(x_0) + f^{\prime}(x_0)(x-x_0) + \frac{1}{2}f^{\prime\prime}(x_0)(x-x_0)^2\]
 \end{center}
 
 \pause
@@ -124,33 +124,46 @@ Why does following $-\grad f$ lead us toward the minimum?
 \end{frame}
 
 \begin{frame}{Visual: Tangent Line Approximation}
+\textbf{Linear approximation:} Use tangent line to approximate function locally
+
 \begin{center}
-\begin{tikzpicture}[scale=1.4]
-% Original function (blue curve)
-\draw[blue, very thick, domain=-1.5:2.5, samples=100] 
-  plot (\x, {0.3*(\x-0.5)*(\x-0.5) + 1});
+\begin{tikzpicture}[scale=1.5]
+% Original function (blue curve) - slightly steeper parabola
+\draw[blue, very thick, domain=-1.2:2.2, samples=100] 
+  plot (\x, {0.4*(\x-0.5)*(\x-0.5) + 1.2});
 
 % Point of tangency
-\fill[black] (0.5,1) circle (0.06);
-\node at (0.5,0.7) {$x_0$};
+\fill[black] (0.5,1.2) circle (0.05);
+\node[below] at (0.5,1.05) {$x_0$};
 
-% Tangent line (red)
-\draw[red, very thick, domain=-0.8:1.8] 
-  plot (\x, {0.3*(\x-0.5) + 1});
+% Tangent line (red) - extends further and clearer slope
+\draw[red, very thick, domain=-0.5:1.5] 
+  plot (\x, {0.4*(\x-0.5) + 1.2});
 
-% Step direction
-\draw[-{Latex[scale=1.5]}, red, thick] (0.5,1) -- (0.2,0.91);
-\node[red] at (0.1,0.85) {$-\alpha f'(x_0)$};
+% Show the step we would take
+\draw[-{Latex[scale=1.8]}, red, thick] (0.5,1.2) -- (0.15,1.06);
+\node[red, below] at (0.15,1.0) {$-\alpha f^{\prime}(x_0)$};
+
+% Show approximation quality at different points
+\fill[green] (0.8, {0.4*(0.8-0.5)*0.4*(0.8-0.5) + 1.2}) circle (0.03);
+\fill[green] (0.8, {0.4*(0.8-0.5) + 1.2}) circle (0.03);
+\draw[green, dashed, thick] (0.8, {0.4*(0.8-0.5) + 1.2}) -- (0.8, {0.4*(0.8-0.5)*0.4*(0.8-0.5) + 1.2});
+\node[green, right] at (0.85,1.35) {\small error};
 
 % Labels
-\node[blue] at (-1,2.2) {\textbf{f(x)}};
-\node[red] at (1.5,1.6) {\textbf{tangent}};
+\node[blue] at (-0.8,2.1) {\textbf{True function}};
+\node[red] at (1.2,1.8) {\textbf{Linear approximation}};
 
-% Axes
-\draw[->] (-1.5,0) -- (2.5,0) node[right] {$x$};
-\draw[->] (0,0) -- (0,2.5) node[above] {$f$};
+% Axes with better spacing
+\draw[->] (-1.3,0.5) -- (2.3,0.5) node[right] {$x$};
+\draw[->] (0,0.5) -- (0,2.3) node[above] {$f(x)$};
+
+% Mark the zero point
+\node[below] at (0,0.45) {0};
 \end{tikzpicture}
 \end{center}
+
+\textbf{Key insight:} Tangent gives best local linear approximation!
 \end{frame}
 
 \begin{frame}{Visual: Adding Quadratic Term}
@@ -188,9 +201,9 @@ Why does following $-\grad f$ lead us toward the minimum?
 \begin{frame}{Concrete Example: $f(x) = \cos(x)$ at $x_0 = 0$}
 \begin{align}
 f(0) &= \cos(0) = 1\\
-f'(0) &= -\sin(0) = 0\\
-f''(0) &= -\cos(0) = -1\\
-f'''(0) &= \sin(0) = 0\\
+f^{\prime}(0) &= -\sin(0) = 0\\
+f^{\prime\prime}(0) &= -\cos(0) = -1\\
+f^{\prime\prime\prime}(0) &= \sin(0) = 0\\
 f^{(4)}(0) &= \cos(0) = 1
 \end{align}
 
@@ -261,6 +274,39 @@ where $\Delta\vx = \vx - \vx_0$
 \end{center}
 
 \textbf{Key:} Gradient $\perp$ level sets, tangent plane $\perp$ gradient
+\end{frame}
+
+\begin{frame}{Why is Gradient Perpendicular to Level Sets?}
+\textbf{Mathematical insight:} Level set = \{$\vx : f(\vx) = c$\} for constant $c$
+
+\pause
+\textbf{On level sets:} Moving along the level curve keeps $f(\vx)$ constant
+\begin{itemize}
+\item If $\vx(t)$ parameterizes level curve: $f(\vx(t)) = c$ (constant)
+\item Taking derivative: $\frac{d}{dt}f(\vx(t)) = \grad f(\vx) \cdot \vx'(t) = 0$
+\end{itemize}
+
+\pause
+\textbf{Conclusion:} $\grad f(\vx) \perp \vx'(t)$ for any tangent direction $\vx'(t)$
+
+\pause
+\begin{center}
+\begin{tikzpicture}[scale=1.2]
+% Level curve
+\draw[blue, very thick] (0,0) ellipse (2 and 1.2);
+% Point on curve
+\fill[black] (1.4,0.8) circle (0.04);
+% Tangent vector to level curve
+\draw[-{Latex[scale=1.5]}, green, thick] (1.4,0.8) -- (0.8,1.3);
+\node[green] at (0.6,1.4) {$\vx'(t)$ (tangent)};
+% Gradient vector (perpendicular)
+\draw[-{Latex[scale=1.5]}, red, thick] (1.4,0.8) -- (2.1,1.2);
+\node[red] at (2.3,1.3) {$\grad f$ (perpendicular)};
+% Show perpendicular angle
+\draw[dashed] (1.4,0.8) -- (1.1,1.15) -- (0.8,1.3);
+\node at (1.2,1.0) {\small $90°$};
+\end{tikzpicture}
+\end{center}
 \end{frame}
 
 \section{Gradient Descent Algorithm}
@@ -531,6 +577,143 @@ where $(\vx,y)$ is sampled uniformly from $\{(\vx_i,y_i)\}_{i=1}^n$
 \[\E[\grad \tilde{L}(\vtheta)] = \sum_{i=1}^n \frac{1}{n}\,\grad \ell(f(\vx_i;\vtheta),y_i) = \grad L(\vtheta)\]
 
 \textbf{Implication:} Individual SGD steps might be ``wrong'', but average in correct direction!
+\end{frame}
+
+\begin{frame}{SGD Computational Graph: From Samples to Gradients}
+\begin{center}
+\begin{tikzpicture}[
+    node distance=1.5cm,
+    sample/.style={rectangle, draw=blue, fill=blue!10, thick, minimum width=1.2cm, minimum height=0.8cm},
+    loss/.style={rectangle, draw=orange, fill=orange!10, thick, minimum width=1.2cm, minimum height=0.8cm},
+    grad/.style={rectangle, draw=red, fill=red!10, thick, minimum width=1.2cm, minimum height=0.8cm},
+    avg/.style={rectangle, draw=green, fill=green!10, thick, minimum width=1.8cm, minimum height=0.8cm},
+    arrow/.style={-{Latex[scale=1.2]}, thick}
+]
+
+% Individual samples
+\node[sample] (s1) at (0,3) {\scriptsize $(\vx_1,y_1)$};
+\node[sample] (s2) at (0,1.5) {\scriptsize $(\vx_2,y_2)$};
+\node[sample] (s3) at (0,0) {\scriptsize $(\vx_3,y_3)$};
+\node at (0,-0.8) {$\vdots$};
+
+% Individual losses
+\node[loss] (l1) at (3,3) {\scriptsize $\ell_1(\vtheta)$};
+\node[loss] (l2) at (3,1.5) {\scriptsize $\ell_2(\vtheta)$};
+\node[loss] (l3) at (3,0) {\scriptsize $\ell_3(\vtheta)$};
+
+% Individual gradients
+\node[grad] (g1) at (6,3) {\scriptsize $\grad\ell_1$};
+\node[grad] (g2) at (6,1.5) {\scriptsize $\grad\ell_2$};
+\node[grad] (g3) at (6,0) {\scriptsize $\grad\ell_3$};
+
+% True gradient (average)
+\node[avg] (gtrue) at (9,1.5) {\scriptsize $\grad L = \frac{1}{n}\sum \grad\ell_i$};
+
+% SGD sample selection
+\node[sample, fill=yellow!20] (sgd) at (0,-2.5) {\scriptsize Random $(\vx_i,y_i)$};
+\node[grad, fill=yellow!20] (gsgd) at (6,-2.5) {\scriptsize $\grad\tilde{L} = \grad\ell_i$};
+
+% Arrows
+\draw[arrow] (s1) -- (l1);
+\draw[arrow] (s2) -- (l2);
+\draw[arrow] (s3) -- (l3);
+\draw[arrow] (l1) -- (g1);
+\draw[arrow] (l2) -- (g2);
+\draw[arrow] (l3) -- (g3);
+\draw[arrow] (g1) -- (gtrue);
+\draw[arrow] (g2) -- (gtrue);
+\draw[arrow] (g3) -- (gtrue);
+
+\draw[arrow, yellow, very thick] (sgd) -- (gsgd);
+\draw[arrow, yellow, dashed, thick] (gsgd) to[bend right=20] (gtrue);
+
+% Labels
+\node at (1.5,4) {\textbf{Batch GD}};
+\node at (1.5,-1.8) {\textbf{SGD}};
+\node[yellow] at (8,-2.2) {\scriptsize $\E[\grad\tilde{L}] = \grad L$};
+\end{tikzpicture}
+\end{center}
+
+\textbf{Key insight:} SGD randomly samples one gradient, but expectation equals true gradient!
+\end{frame}
+
+\begin{frame}{Visual Intuition 1: Individual Sample Loss Surfaces}
+\textbf{Each data point creates its own loss landscape}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+% Individual loss surface 1 (shifted and rotated)
+\begin{scope}[shift={(-3,1)}]
+\draw[blue, thick] (0,0) ellipse (1.5 and 0.8);
+\draw[blue, thick] (0,0) ellipse (1.0 and 0.5);
+\draw[blue, thick] (0,0) ellipse (0.5 and 0.3);
+\fill[blue] (0,0) circle (0.04);
+\node[blue, below] at (0,-1.2) {\footnotesize Sample 1: $(\vx_1, y_1)$};
+\end{scope}
+
+% Individual loss surface 2 (different shape and position)
+\begin{scope}[shift={(0,-0.5)}, rotate=30]
+\draw[red, thick] (0,0) ellipse (1.2 and 0.9);
+\draw[red, thick] (0,0) ellipse (0.8 and 0.6);
+\draw[red, thick] (0,0) ellipse (0.4 and 0.3);
+\fill[red] (0,0) circle (0.04);
+\end{scope}
+\node[red, below] at (0,-1.7) {\footnotesize Sample 2: $(\vx_2, y_2)$};
+
+% Individual loss surface 3 (different orientation)
+\begin{scope}[shift={(3,0.5)}, rotate=-45]
+\draw[green, thick] (0,0) ellipse (1.3 and 0.7);
+\draw[green, thick] (0,0) ellipse (0.9 and 0.5);
+\draw[green, thick] (0,0) ellipse (0.4 and 0.2);
+\fill[green] (0,0) circle (0.04);
+\end{scope}
+\node[green, below] at (3,-1.4) {\footnotesize Sample 3: $(\vx_3, y_3)$};
+
+% Show parameter space
+\node at (0,2.5) {\textbf{Different data points $\Rightarrow$ Different loss shapes}};
+\draw[dashed, gray] (-4.5,-2.5) rectangle (4.5,2.5);
+\node[gray] at (-4,2.2) {\small Parameter space $\vtheta$};
+\end{tikzpicture}
+\end{center}
+
+\textbf{Key:} Each sample $(\vx_i, y_i)$ defines loss $\ell_i(\vtheta)$ with different optimal $\vtheta_i^*$
+\end{frame}
+
+\begin{frame}{Visual Intuition 2: Averaging Individual Gradients}
+\textbf{True gradient} = Average of individual gradients
+
+\begin{center}
+\begin{tikzpicture}[scale=1.0]
+% Combined loss surface (average)
+\draw[black, very thick] (0,0) ellipse (2.0 and 1.2);
+\draw[black, very thick] (0,0) ellipse (1.4 and 0.8);
+\draw[black, very thick] (0,0) ellipse (0.8 and 0.5);
+\fill[black] (0,0) circle (0.05);
+
+% Point where we evaluate gradients
+\fill[purple] (1.2,0.6) circle (0.06);
+\node at (1.5,0.8) {$\vtheta$};
+
+% Individual gradient vectors (different directions, thin)
+\draw[-{Latex[scale=1.2]}, blue, thick] (1.2,0.6) -- (1.8,1.1);
+\draw[-{Latex[scale=1.2]}, red, thick] (1.2,0.6) -- (0.9,1.2);
+\draw[-{Latex[scale=1.2]}, green, thick] (1.2,0.6) -- (1.6,0.2);
+
+% True gradient (average direction, thicker but reasonable)
+\draw[-{Latex[scale=1.5]}, orange, very thick, line width=2pt] (1.2,0.6) -- (1.4,0.9);
+
+% Labels
+\node[blue] at (2.0,1.2) {\footnotesize $\grad\ell_1$};
+\node[red] at (0.7,1.3) {\footnotesize $\grad\ell_2$};
+\node[green] at (1.8,0.1) {\footnotesize $\grad\ell_3$};
+\node[orange] at (1.7,1.0) {\footnotesize $\grad L = \frac{1}{n}\sum\grad\ell_i$};
+
+% Add averaging illustration
+\node at (0,-2) {$\grad L(\vtheta) = \frac{1}{n}[\grad\ell_1(\vtheta) + \grad\ell_2(\vtheta) + \grad\ell_3(\vtheta)]$};
+\end{tikzpicture}
+\end{center}
+
+\textbf{SGD}: Pick one random individual gradient instead of computing expensive average!
 \end{frame}
 
 \begin{frame}{Why Unbiasedness Matters}
