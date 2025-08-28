@@ -1123,7 +1123,8 @@ Span of ($\begin{bmatrix}
 \begin{frame}{Multi-collinearity}
 \begin{itemize}[<+->]
     \item There can be situations where inverse of $\mX\tp\mX$ is not computable
-    \item This condition arises when the $|\mX\tp\mX|$ = 0
+    \item This condition arises when the $|\mX\tp\mX|$ = 0 (determinant is zero)
+    \item \textbf{Example:} Perfect multicollinearity
 \end{itemize}
     
     \begin{equation}
@@ -1135,7 +1136,9 @@ Span of ($\begin{bmatrix}
     \end{equation}
     
     \begin{itemize}[<+->]
-        \item The matrix X is not full rank
+        \item The matrix X is not full rank (rank = 2, not 3)
+        \item Notice: Column 3 = 2 × Column 2 (perfect linear dependence)
+        \item \textcolor{red}{Cannot uniquely solve for $\vtheta$!}
     \end{itemize} 
     \end{frame}
     
@@ -1143,85 +1146,158 @@ Span of ($\begin{bmatrix}
     
     
     
-    \begin{frame}{Multi-collinearity}
+    \begin{frame}{Multi-collinearity: Definition and Problems}
     
-    It arises when one or more predictor variables/features in X can be expressed as a linear combination of others\\
-    \vspace{5mm}
+    \begin{definitionbox}{Multicollinearity}
+    Arises when predictor variables/features in $\mX$ can be expressed as a linear combination of others
+    \end{definitionbox}
     
+    \textbf{Types:}
+    \begin{itemize}[<+->]
+        \item \textbf{Perfect}: Exact linear relationship (determinant = 0)
+        \item \textbf{High}: Strong but not perfect correlation (determinant $\approx 0$)
+    \end{itemize}
     
-    
-    How to tackle it?
-    \begin{itemize}
-        \item<+-> Regularize
-        \item<+-> Drop variables
-        \item<+-> Avoid dummy variable trap
+    \pause
+    \textbf{Problems caused:}
+    \begin{itemize}[<+->]
+        \item Unstable coefficient estimates (same data → different $\vtheta$)
+        \item High variance: Small changes in data → Large changes in coefficients
+        \item Can't interpret individual feature importance
     \end{itemize}
     \end{frame}
-    \begin{frame}{Dummy variables}
-    Say Pollution in Delhi = P
+    
+    \begin{frame}{Why Multicollinearity Causes Instability}
+    
+    \textbf{The core problem:} Multiple parameter combinations give identical results
+    
+    \begin{examplebox}{Simple Example}
+    If $x_2 = 2x_1$ exactly, then:
+    \\ $y = \theta_0 + \theta_1 x_1 + \theta_2 x_2$
+    \\ $y = \theta_0 + \theta_1 x_1 + \theta_2 (2x_1)$
+    \\ $y = \theta_0 + (\theta_1 + 2\theta_2) x_1$
+    \end{examplebox}
+    
+    \pause
+    \begin{itemize}[<+->]
+        \item Many $(\theta_1, \theta_2)$ pairs give same prediction
+        \item $(\theta_1=1, \theta_2=0)$ and $(\theta_1=3, \theta_2=-1)$ both work!
+        \item Small noise ``chooses'' randomly between solutions
+        \item Result: Wildly different coefficients for same data
+    \end{itemize}
+    \end{frame}
+    
+    \begin{frame}{Numerical Example: Why Coefficients Go Wild}
+    \textbf{Dataset:} House prices with sq\_ft and sq\_m (perfectly correlated)
+    
+    \begin{center}
+    \begin{tabular}{|c|c|c|}
+    \hline
+    Price (\$k) & sq\_ft & sq\_m \\
+    \hline
+    200 & 2000 & 186 \\
+    300 & 3000 & 279 \\
+    400 & 4000 & 372 \\
+    \hline
+    \end{tabular}
+    \end{center}
+    
+    \pause
+    \textbf{What happens with tiny noise?}
+    \begin{itemize}[<+->]
+        \item \textbf{Clean data:} $(\theta_1, \theta_2) = (0.1, 0)$
+        \item \textbf{Add 0.1\% noise:} $(\theta_1, \theta_2) = (-2.5, 28.0)$
+        \item Same predictions, completely different coefficients!
+        \item Which feature is ``important''? Impossible to say!
+    \end{itemize}
+    
+    \pause
+    \begin{keypointsbox}{}
+    \textbf{Solutions:} Drop one variable, or use regularization (Ridge/Lasso)
+    \end{keypointsbox}
+    \end{frame}
+    
+    \begin{frame}{Dummy Variables: The Problem}
+    \textbf{Example:} Pollution in Delhi = P
     \begin{itemize}[<+->]
         \item Model specification:
             \begin{center}
-            P = $\theta_{0}$ + $\theta_{1}$*\#Vehicles + $\theta_{1}$*
+            P = $\theta_{0}$ + $\theta_{1}$*\#Vehicles + $\theta_{2}$*
             \textit{Wind speed} + $\theta_{3}$ * \textit{Wind Direction}
             \end{center}
         \item But, wind direction is a categorical variable
-        \item It is denoted as follows \{N:0, E:1, W:2, S:3 \}
-        \item Can we use the direct encoding?
-        \item This incorrectly implies that S$>$W$>$E$>$N (a meaningless ordering)
+        \item \textbf{Naive approach:} \{N:0, E:1, W:2, S:3 \}
+        \item \textcolor{red}{Problem:} This incorrectly implies S$>$W$>$E$>$N (meaningless ordering!)
+        \item Model assumes: S is ``3 times better'' than N for reducing pollution
     \end{itemize}
     \end{frame}
     
-    \begin{frame}{Dummy Variables}
-    \begin{center}
+    \begin{frame}{One-Hot Encoding (N-1 Variables)}
+    \textbf{Correct approach:} Use binary indicators for each category
     
-    N-1 Variable encoding\\
+    \begin{center}
+    \textbf{N-1 encoding (recommended)}\\
     \vspace{1em}
     \begin{tabular}{|c|c|c|c|}
         \hline
-        & Is it N? &Is it E? &Is it W?\\
+        Wind Direction & Is North? & Is East? & Is West?\\
         \hline
         \hline
-        N & 1&0&0 \\
-        E & 0&1&0\\
-        W & 0&0&1\\
-        S & 0&0&0\\
+        North & 1 & 0 & 0 \\
+        East & 0 & 1 & 0\\
+        West & 0 & 0 & 1\\
+        South & 0 & 0 & 0\\
         \hline
     \end{tabular}
-    
     \end{center}
+    
+    \pause
+    \begin{keypointsbox}{}
+    South is the \textbf{reference category} - all others are compared to it
+    \end{keypointsbox}
     \end{frame}
     
     
-    \begin{frame}{Dummy Variables}
-    \begin{center}
+    \begin{frame}{Why Not N Variables?}
+    \textbf{Full encoding (problematic):}
     
-    N Variable encoding\\
-    \vspace{1em}
+    \begin{center}
     \begin{tabular}{|c|c|c|c|c|}
     \hline
-    & Is it N? &Is it E? &Is it W? & Is it S?\\
+    Wind & Is N? & Is E? & Is W? & Is S?\\
     \hline
-    \hline
-    N & 1&0&0&0 \\
-    E & 0&1&0&0\\
-    W & 0&0&1&0\\
-    S & 0&0&0&1\\
+    North & 1 & 0 & 0 & 0 \\
+    East & 0 & 1 & 0 & 0\\
+    West & 0 & 0 & 1 & 0\\
+    South & 0 & 0 & 0 & 1\\
     \hline
     \end{tabular}
     \end{center}
+    
+    \pause
+    \begin{alertbox}{Multicollinearity Problem!}
+    Notice: Is\_N + Is\_E + Is\_W + Is\_S = 1 (always!)
+    \\ One column is perfectly predictable from the others
+    \end{alertbox}
     \end{frame}
     
     
     
-    \begin{frame}{Dummy Variables}
-    Which is better N variable encoding or N-1 variable encoding? \\
+    \begin{frame}{N-1 vs N Encoding: The Dummy Variable Trap}
     
+    \textbf{Why N-1 encoding is better:}
     \begin{itemize}[<+->]
-        \item The N-1 variable encoding is better because the N variable encoding can cause multi-collinearity
-        \item Is it S = 1 - (Is it N + Is it W + Is it E)
-    \end{itemize} 
+        \item \textbf{N encoding problem:} Perfect multicollinearity
+        \item Mathematical relationship: Is\_S = 1 - (Is\_N + Is\_E + Is\_W)
+        \item Matrix $\mX\tp\mX$ becomes non-invertible
+        \item No unique solution exists!
+    \end{itemize}
     
+    \pause
+    \begin{examplebox}{The Dummy Variable Trap}
+    Always use N-1 dummy variables for N categories.
+    \\ The omitted category becomes the \textbf{baseline/reference}.
+    \end{examplebox}
     \end{frame}
     
     
@@ -1294,21 +1370,62 @@ Span of ($\begin{bmatrix}
     \begin{itemize}[<+->]
         \item Model: $height_{i}$ = $\theta_{0}$ + $\theta_{1}$ *  (Is Female) + $\epsilon_{i}$
         \item We get $\theta_0$ = 5.9 and $\theta_1$ = -0.7
-        \item $\theta_{0}$ = Avg height of Male = 5.9
-        \item $\theta_{0} + \theta_{1}$ is chosen based (equal to) on 5, 5.2, 5.4 (for three records)
-        \item $\theta_{1}$ is chosen based on 5-5.9, 5.2-5.9, 5.4-5.9
-        \item $\theta_{1}$ = Avg. female height (5+5.2+5.4)/3 - Avg. male height(5.9)
+        \item \textbf{$\theta_{0}$ = 5.9:} Average height of males (reference category)
+        \item \textbf{$\theta_{1}$ = -0.7:} Difference between female and male heights
+        \item \textbf{Female height} = $\theta_{0} + \theta_{1}$ = 5.9 + (-0.7) = 5.2
+        \item \textbf{Male height} = $\theta_{0}$ = 5.9
+        \item So $\theta_{1}$ = Avg(female) - Avg(male) = 5.2 - 5.9 = -0.7
     \end{itemize}
     \end{frame}
     
-    \begin{frame}{Interpreting Dummy Variables}
-    Alternatively, instead of a 0/1 coding scheme, we could create a dummy variable
+    \begin{frame}{Alternative Encoding: +1/-1 Scheme}
+    \textbf{Instead of 0/1, we could use +1/-1:}
     
+    \begin{examplebox}{+1/-1 Encoding}
+    \(x_{i}=\left\{\begin{array}{ll}{+1} & {\text { if female }} \\ {-1} & {\text { if male }}\end{array}\right.\)
+    \end{examplebox}
+    
+    \pause
     \begin{itemize}[<+->]
-        \item Alternative encoding: \(x_{i}=\left\{\begin{array}{ll}{1} & {\text { if } i \text { th person is female }} \\ {-1} & {\text { if } i \text { th person is male }}\end{array}\right.\)
-        \item Model becomes: \(y_{i}=\theta_{0}+\theta_{1} x_{i}+\epsilon_{i}=\left\{\begin{array}{ll}{\theta_{0}+\theta_{1}+\epsilon_{i}} & {\text { if } i \text { th person is female }} \\ {\theta_{0}-\theta_{1}+\epsilon_{i}} & {\text { if } i \text { th person is male. }}\end{array}\right.\)
-        \item Interpretation: $\theta_{0}$ = average person height, $\theta_{1}$ = amount that female height is above average and male height is below average
+        \item Model: \(y_{i}=\theta_{0}+\theta_{1} x_{i}+\epsilon_{i}\)
+        \item For females: \(y_{i}=\theta_{0}+\theta_{1} \cdot (+1) = \theta_{0}+\theta_{1}\)
+        \item For males: \(y_{i}=\theta_{0}+\theta_{1} \cdot (-1) = \theta_{0}-\theta_{1}\)
     \end{itemize}
+    
+    \pause
+    \begin{keypointsbox}{Interpretation}
+    \begin{itemize}
+        \item $\theta_{0}$ = overall average height across all people
+        \item $\theta_{1}$ = half the difference between female and male heights
+    \end{itemize}
+    \end{keypointsbox}
+\end{frame}
+
+\begin{frame}{Summary: Categorical Variable Encodings}
+\begin{center}
+\begin{tabular}{|l|c|c|l|}
+\hline
+\textbf{Method} & \textbf{Good?} & \textbf{Variables} & \textbf{Issue} \\
+\hline
+\hline
+Ordinal (0,1,2,3) & No & 1 & Implies fake ordering \\
+\hline
+Full One-Hot & No & N & Multicollinearity \\
+\hline
+N-1 One-Hot & Yes & N-1 & Recommended \\
+\hline
+Binary Encoding & Maybe & log₂(N) & Artificial relationships \\
+\hline
++1/-1 Encoding & Yes & 1* & Only for 2 categories \\
+\hline
+\end{tabular}
+\end{center}
+
+\pause
+\begin{definitionbox}{Best Practice}
+Use \textbf{N-1 one-hot encoding} for categorical variables.
+\\ Choose the most common category as reference.
+\end{definitionbox}
 \end{frame}
 
 \section{Practice and Review}
