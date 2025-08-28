@@ -758,34 +758,50 @@
     \textbf{True loss function using all data points:}
     
     \begin{center}
-    \begin{tikzpicture}[scale=1.2]
-      % Overall loss contours (elliptical)
-      \draw[blue, very thick] (0,0) ellipse (3 and 1.8);
-      \draw[blue, very thick] (0,0) ellipse (2.2 and 1.3);
-      \draw[blue, very thick] (0,0) ellipse (1.5 and 0.9);
-      \draw[blue, very thick] (0,0) ellipse (0.8 and 0.5);
+    \begin{tikzpicture}[scale=1.3]
+      % Define colors
+      \definecolor{contourblue}{RGB}{30,90,150}
+      \definecolor{gradred}{RGB}{180,30,30}
+      \definecolor{pointred}{RGB}{200,50,50}
+      \definecolor{minimumgreen}{RGB}{0,120,50}
+      
+      % Overall loss contours with gradient colors
+      \draw[contourblue!30, line width=1.5pt] (0,0) ellipse (3.2 and 2);
+      \draw[contourblue!50, line width=1.8pt] (0,0) ellipse (2.4 and 1.5);
+      \draw[contourblue!70, line width=2pt] (0,0) ellipse (1.6 and 1);
+      \draw[contourblue!90, line width=2.2pt] (0,0) ellipse (0.9 and 0.55);
+      \draw[contourblue, line width=2.5pt] (0,0) ellipse (0.4 and 0.25);
 
-      % Current point theta
-      \coordinate (theta) at (2,1);
-      \fill[red] (theta) circle (0.08);
-      \node[red] at (2.3,1.2) {$\vtheta$};
+      % Current point theta with better styling
+      \coordinate (theta) at (2.2,1.2);
+      \fill[pointred, drop shadow={shadow xshift=0.1cm, shadow yshift=-0.1cm, opacity=0.3}] 
+        (theta) circle (0.12);
+      \node[pointred, font=\Large\bfseries] at (2.7,1.5) {$\vtheta$};
 
-      % True gradient vector (long, pointing toward center)
-      \draw[-{Latex[scale=2]}, red, line width=3pt] (theta) -- +(-1.5,-0.75);
-      \node[red] at (0.8,1.8) {\textbf{True gradient}};
-      \node[red] at (0.8,1.5) {$\nabla L(\vtheta)$};
-      \node[red] at (0.8,1.2) {\small (all data)};
+      % True gradient vector with professional arrow
+      \draw[-{Stealth[scale=1.8]}, gradred, line width=4pt, 
+            drop shadow={shadow xshift=0.05cm, shadow yshift=-0.05cm, opacity=0.2}] 
+        (theta) -- +(-1.8,-0.9);
+      
+      % Gradient label with background
+      \node[gradred, font=\Large\bfseries, fill=white, fill opacity=0.9, 
+            rounded corners=2pt, inner sep=4pt] at (0.2,2.1) {True Gradient};
+      \node[gradred, font=\large] at (0.2,1.7) {$\nabla L(\vtheta)$};
+      \node[gradred, font=\small] at (0.2,1.4) {(computed from all $n$ samples)};
 
-      % Global minimum
-      \fill[green] (0,0) circle (0.06);
-      \node[green] at (0,-0.4) {\small minimum};
+      % Global minimum with halo effect
+      \fill[minimumgreen!20] (0,0) circle (0.15);
+      \fill[minimumgreen] (0,0) circle (0.08);
+      \node[minimumgreen, font=\small\bfseries] at (0,-0.6) {Global Minimum};
 
-      \node[blue] at (-2.5,1.5) {\small Loss $L(\vtheta)$};
+      % Contour label
+      \node[contourblue, font=\Large] at (-2.8,1.8) {Loss Surface $L(\vtheta)$};
     \end{tikzpicture}
     \end{center}
     
+    \vspace{0.3cm}
     \begin{keypointsbox}{}
-    {\small This is what we want: gradient computed using ALL data points}
+    {\small \textbf{Gold standard:} Gradient computed using ALL data points gives true direction}
     \end{keypointsbox}
   \end{frame}
 
