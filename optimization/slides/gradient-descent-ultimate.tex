@@ -438,7 +438,7 @@
     \end{keypointsbox}
   \end{frame}
 
-  \begin{frame}{🎬 Animated Gradient Descent in Action}
+  \begin{frame}{Animated Gradient Descent in Action}
     \textbf{Watch how gradient descent finds the minimum:}
     
     \begin{center}
@@ -512,7 +512,7 @@
         \draw[-{Latex[scale=0.8]}, orange] (p5) -- (p6);
         
         % Show convergence
-        \node[purple, font=\small] at (2, -1.5) {Converged! 🎯};
+        \node[purple, font=\small] at (2, -1.5) {Converged!};
       }
       
       % Labels
@@ -616,7 +616,7 @@
     \end{alertbox}
   \end{frame}
 
-  \begin{frame}{🔥 Learning Rate Showdown: All Together}
+  \begin{frame}{Learning Rate Showdown: All Together}
     \textbf{Compare different learning rates side by side:}
     
     \begin{center}
@@ -652,7 +652,7 @@
         \foreach \step/\x/\y in {0/-1.0/0.6, 1/-0.6/0.35, 2/-0.3/0.18, 3/-0.1/0.06} {
           \fill[green!70] (\x, \y) circle (0.04);
         }
-        \node[green] at (0, -1.5) {\tiny Just right! 🎯};
+        \node[green] at (0, -1.5) {\tiny Just right!};
       \end{scope}
       
       % Right: Too large learning rate
@@ -913,7 +913,10 @@
 
   \section{Mathematical Properties}
 
-  \begin{frame}{SGD as an Unbiased Estimator}
+  \begin{frame}{Step 1: The Gradient Computation Challenge}
+    \textbf{The fundamental question:} How do we compute gradients efficiently?
+    
+    \pause
     \textbf{True gradient (what we want):}
     \begin{align}
     \nabla L(\vtheta) &= \nabla \left(\frac{1}{n}\sum_{i=1}^n \ell(f(\vx_i;\vtheta),y_i)\right)\\
@@ -921,9 +924,133 @@
     \end{align}
 
     \pause
-    \textbf{SGD gradient estimate (what we compute):}
+    \textbf{The challenge:}
+    \begin{itemize}[<+->]
+        \item Computing all $n$ gradients is expensive for large datasets
+        \item Need faster approximation that still gives good direction
+        \item Enter: Stochastic Gradient Descent (SGD)
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Step 2a: Setting up the Gradient Computation}
+    \textbf{Starting with our total loss function:}
+    
+    \begin{center}
+    \begin{tikzpicture}[
+        node distance=1.5cm,
+        loss/.style={rectangle, draw=orange, fill=orange!10, thick, minimum width=2cm, minimum height=1cm},
+        arrow/.style={-{Latex[scale=1.5]}, thick},
+        scale=1.2
+    ]
+
+    % Total loss - larger and more prominent
+    \node[loss] (total) at (0,1) {\large $L(\vtheta) = \frac{1}{n}\sum_{i=1}^n \ell(f(\vx_i;\vtheta),y_i)$};
+    
+    % Gradient operation
+    \node[rectangle, draw=blue, fill=blue!10, thick, minimum width=3cm, minimum height=1cm] (grad) at (0,-1.5) {\large $\nabla L(\vtheta) = \nabla \left(\frac{1}{n}\sum_{i=1}^n \ell(f(\vx_i;\vtheta),y_i)\right)$};
+
+    % Arrow showing the gradient operation
+    \draw[arrow, red, very thick] (total) -- (grad);
+    \node[red] at (1.5,0) {\textbf{Take gradient}};
+    \end{tikzpicture}
+    \end{center}
+    
+    \pause
+    \begin{alertbox}{The Question}
+    Can we compute this gradient more efficiently than evaluating all $n$ terms?
+    \end{alertbox}
+  \end{frame}
+
+  \begin{frame}{Step 2b: Gradient Linearity - The Key Mathematical Insight}
+    \textbf{The magic of linearity:}
+    
+    \begin{center}
+    \begin{tikzpicture}[
+        node distance=1.5cm,
+        sample/.style={rectangle, draw=blue, fill=blue!10, thick, minimum width=1.4cm, minimum height=0.8cm},
+        loss/.style={rectangle, draw=orange, fill=orange!10, thick, minimum width=1.4cm, minimum height=0.8cm},
+        grad/.style={rectangle, draw=red, fill=red!10, thick, minimum width=1.4cm, minimum height=0.8cm},
+        sum/.style={circle, draw=green, fill=green!10, thick, minimum width=1.2cm, minimum height=1.2cm},
+        arrow/.style={-{Latex[scale=1.2]}, thick},
+        scale=0.8
+    ]
+
+    % Individual losses  
+    \node[loss] (l1) at (-2,1) {\scriptsize $\ell_1(\vtheta)$};
+    \node[loss] (l2) at (0,1) {\scriptsize $\ell_2(\vtheta)$};
+    \node[loss] (l3) at (2,1) {\scriptsize $\ell_n(\vtheta)$};
+
+    % Individual gradients
+    \node[grad] (g1) at (-2,-1) {\scriptsize $\nabla\ell_1$};
+    \node[grad] (g2) at (0,-1) {\scriptsize $\nabla\ell_2$};  
+    \node[grad] (g3) at (2,-1) {\scriptsize $\nabla\ell_n$};
+
+    % Sum operation
+    \node[sum] (gradsum) at (4,0) {\scriptsize $\frac{1}{n}\sum$};
+    
+    % Final gradient
+    \node[grad, fill=green!20] (final) at (6.5,0) {\scriptsize $\nabla L$};
+
+    % Arrows
+    \draw[arrow] (l1) -- (g1);
+    \draw[arrow] (l2) -- (g2);
+    \draw[arrow] (l3) -- (g3);
+    \draw[arrow] (g1) -- (gradsum);
+    \draw[arrow] (g2) -- (gradsum);
+    \draw[arrow] (g3) -- (gradsum);
+    \draw[arrow] (gradsum) -- (final);
+
+    % Linearity annotation
+    \node at (1,2.2) {\textbf{Linearity of $\nabla$}};
+    \draw[<->, thick, blue] (-2,0.5) -- (2,0.5);
+    \end{tikzpicture}
+    \end{center}
+    
+    \begin{theorembox}{Linearity of Gradient Operator}
+    $\nabla L(\vtheta) = \frac{1}{n}\sum_{i=1}^n \nabla \ell(f(\vx_i;\vtheta),y_i)$
+    \end{theorembox}
+  \end{frame}
+
+  \begin{frame}{Step 3: SGD as Unbiased Estimator Implementation}
+    \textbf{SGD solution:} Instead of computing all $n$ gradients, sample one!
+    
+    \pause
+    \textbf{SGD gradient estimate:}
     $$\nabla \tilde{L}(\vtheta) = \nabla \ell(f(\vx_j;\vtheta),y_j)$$
     where $(\vx_j,y_j)$ is sampled uniformly from $\{(\vx_i,y_i)\}_{i=1}^n$
+
+    \pause
+    \begin{center}
+    \begin{tikzpicture}[
+        node distance=1.5cm,
+        sample/.style={rectangle, draw=blue, fill=blue!10, thick, minimum width=1.2cm, minimum height=0.8cm},
+        grad/.style={rectangle, draw=red, fill=red!10, thick, minimum width=1.2cm, minimum height=0.8cm},
+        avg/.style={rectangle, draw=green, fill=green!10, thick, minimum width=1.6cm, minimum height=0.8cm},
+        arrow/.style={-{Latex[scale=1.2]}, thick},
+        scale=0.9
+    ]
+
+    % Show sampling process
+    \node[sample, fill=yellow!30] (sgd) at (0,1) {\scriptsize Random pick};
+    \node[grad, fill=yellow!30] (gsgd) at (3.5,1) {\scriptsize $\nabla\ell_i$};
+    
+    % True gradient reference
+    \node[avg] (gtrue) at (7,1) {\scriptsize $\nabla L$ (true)};
+
+    % Arrows
+    \draw[arrow, yellow, very thick] (sgd) -- (gsgd);
+    \draw[arrow, yellow, dashed, thick] (gsgd) -- (gtrue);
+
+    % Show expectation
+    \node[yellow, font=\small] at (3.5,0.2) {SGD estimate};
+    \node[green, font=\small] at (7,0.3) {Target};
+    \node at (5.2,1.4) {\scriptsize $\E[\cdot] =$};
+    \end{tikzpicture}
+    \end{center}
+
+    \begin{alertbox}{Unbiased Property: The Foundation}
+    $\E[\nabla \tilde{L}(\vtheta)] = \nabla L(\vtheta)$ - SGD points in the right direction on average!
+    \end{alertbox}
   \end{frame}
 
   \begin{frame}{The Unbiased Property: Mathematical Proof}
