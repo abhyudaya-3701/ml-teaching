@@ -48,14 +48,14 @@
 \end{frame}
 
 \begin{frame}{bayesian Nets}
-    $P(X_{1},X_{2},X_{3},\dots,X_{N})$ denotes the joint probability, where $X_{i}$ are random variables.
+    $\Prob(X_{1},X_{2},X_{3},\dots,X_{N})$ denotes the joint probability, where $X_{i}$ are random variables.
     \begin{equation*}
-        P(X_{1},X_{2},X_{3},\dots,X_{N}) = \Pi_{k=1}^{N} P(X_{k} | parents(X_{k}))
+        \Prob(X_{1},X_{2},X_{3},\dots,X_{N}) = \Pi_{k=1}^{N} \Prob(X_{k} | parents(X_{k}))
     \end{equation*}
     
     
     \begin{equation*}
-        P(S,G,R) =  P(G|S,R)P(S|R)P(R)
+        \Prob(S,G,R) =  \Prob(G|S,R)\Prob(S|R)\Prob(R)
     \end{equation*}
     
 \end{frame}
@@ -63,8 +63,8 @@
 
 \begin{frame}{Bayesian Networks}
     % $$
-    %     P(Grass = Wet, Rain  = True, Sprinkler = True) =
-    %     \\P(G = W| S = T,R = T)P(S = T | R = T)P(R = T)
+    %     \Prob(Grass = Wet, Rain  = True, Sprinkler = True) =
+    %     \\\Prob(G = W| S = T,R = T)\Prob(S = T | R = T)\Prob(R = T)
     % $$
 \end{frame}
 
@@ -72,10 +72,10 @@
 \begin{frame}{Example}
     Known Random variables
     \begin{itemize}
-        \item $P(T)$
-        \item $P(E)$
-        \item $P(A|T,E)$
-        \item $P(R|E)$
+        \item $\Prob(T)$
+        \item $\Prob(E)$
+        \item $\Prob(A|T,E)$
+        \item $\Prob(R|E)$
     \end{itemize}
 \end{frame}
 
@@ -83,15 +83,15 @@
 \begin{frame}{Question}
     Given, the above, calculate
     \begin{equation*}
-        P(A|T)
+        \Prob(A|T)
     \end{equation*}
 \end{frame}
 
 \begin{frame}{Solution}
     \[
         \begin{split}
-            P(A|T) &= \frac{P(A,T)}{P(A)}\\
-            &=\frac{P(A,T,E)+P(A,T,\bar{E})}{P(A,T,E)+P(A,T,\bar{E}) + P(A,\bar{T},E)+P(A,\bar{T},\bar{E})}
+            \Prob(A|T) &= \frac{\Prob(A,T)}{\Prob(A)}\\
+            &=\frac{\Prob(A,T,E)+\Prob(A,T,\bar{E})}{\Prob(A,T,E)+\Prob(A,T,\bar{E}) + \Prob(A,\bar{T},E)+\Prob(A,\bar{T},\bar{E})}
         \end{split}
     \]
 \end{frame}
@@ -100,31 +100,31 @@
     You tested positive for a disease.\\
     Well, the test is only 99\% accurate.\\
     \begin{itemize}
-        \item $P(Test = +ve | Disease = True) = 0.99$
-        \item $P(Test = -ve | Disease = False) = 0.99$
+        \item $\Prob(Test = +ve | Disease = True) = 0.99$
+        \item $\Prob(Test = -ve | Disease = False) = 0.99$
     \end{itemize}
     Also, the disease is a rare one. Only one in 10,000 has it.
 \end{frame}
 
 \begin{frame}{Problem}
     \begin{itemize}
-        \item $P(T|D)$ = 0.99
-        \item $P(\bar{T}|\bar{D})$ = 0.99
-        \item $P(T|\bar{D})$ = 0.01
-        \item $P(\bar{T}|D)$ = 0.01
-        \item $P(D)$ =$ 10^{-4}$
-        \item $P(\bar{D})$ =$ 1 - 10^{-4}$
+        \item $\Prob(T|D)$ = 0.99
+        \item $\Prob(\bar{T}|\bar{D})$ = 0.99
+        \item $\Prob(T|\bar{D})$ = 0.01
+        \item $\Prob(\bar{T}|D)$ = 0.01
+        \item $\Prob(D)$ =$ 10^{-4}$
+        \item $\Prob(\bar{D})$ =$ 1 - 10^{-4}$
     \end{itemize}
     
-    Given the above, calculate $P(D|T)$. Given the result is positive, what is the probability that someone has the disease
+    Given the above, calculate $\Prob(D|T)$. Given the result is positive, what is the probability that someone has the disease
 \end{frame}
 
 \begin{frame}{Problem}
     \begin{align}
     \label{eqn*:eqlabel}
         \begin{split}
-            P(D|T) &= \frac{P(T|D)P(D)}{P(T)}\\
-            &=\frac{P(T|D)P(D)}{P(T|D)P(D) + P(T|\bar{D})P(\bar{D})}
+            \Prob(D|T) &= \frac{\Prob(T|D)\Prob(D)}{\Prob(T)}\\
+            &=\frac{\Prob(T|D)\Prob(D)}{\Prob(T|D)\Prob(D) + \Prob(T|\bar{D})\Prob(\bar{D})}
         \end{split}
     \end{align}
 
@@ -133,8 +133,8 @@
     % \label{eqn*:eqlabel}
     % \begin{split}
     
-            %     P(D|T) &= \frac{P(T|D)P(D)}{P(T)}\\
-            % &=\frac{P(T|D)P(D)}{P(T|D)P(D) + P(T|\bar{D})P(\bar{D})}
+            %     \Prob(D|T) &= \frac{\Prob(T|D)\Prob(D)}{\Prob(T)}\\
+            % &=\frac{\Prob(T|D)\Prob(D)}{\Prob(T|D)\Prob(D) + \Prob(T|\bar{D})\Prob(\bar{D})}
             
             
             
@@ -150,8 +150,8 @@
 
     % \begin{align}
     %     \begin{split}
-            % P(D|T) &= \frac{P(T|D)P(D)}{P(T)}\\
-            % &=\frac{P(T|D)P(D)}{P(T|D)P(D) + P(T|\bar{D})P(\bar{D})}
+            % \Prob(D|T) &= \frac{\Prob(T|D)\Prob(D)}{\Prob(T)}\\
+            % &=\frac{\Prob(T|D)\Prob(D)}{\Prob(T|D)\Prob(D) + \Prob(T|\bar{D})\Prob(\bar{D})}
             
             
             
@@ -171,7 +171,7 @@
     \end{itemize}
     
     \begin{equation*}
-        P(x_{1},x_{2},x_{3},\dots,x_{n} \vert y) = P(x_{1}|y) P(x_{2}|y) \dots P(x_{N}|y)
+        \Prob(x_{1},x_{2},x_{3},\dots,x_{n} \vert y) = \Prob(x_{1}|y) \Prob(x_{2}|y) \dots \Prob(x_{N}|y)
     \end{equation*}
 \end{frame}
 
@@ -186,7 +186,7 @@
 
 \begin{frame}{What do we need to predict?}
     \begin{equation*}
-        P(y|x_{1},x_{2},\dots,x_{N}) =  \frac{P(x_{1},x_{2},\dots,x_{N}|y)P(y)}{P(x_{1},x_{2},\dots,x_{N})}
+        \Prob(y|x_{1},x_{2},\dots,x_{N}) =  \frac{\Prob(x_{1},x_{2},\dots,x_{N}|y)\Prob(y)}{\Prob(x_{1},x_{2},\dots,x_{N})}
     \end{equation*}
 \end{frame}
 
@@ -194,13 +194,13 @@
 \begin{frame}{Spam Mail Classification}
     Probability of $x_{i}$ being a spam email\\
     $$
-    P(x_{i} = 1|y = 1) = \frac{\text{Count} (x_{i} = 1 \text{ and } y = 1)}{\text{Count }(y=1)}
+    \Prob(x_{i} = 1|y = 1) = \frac{\text{Count} (x_{i} = 1 \text{ and } y = 1)}{\text{Count }(y=1)}
     $$
     
     Similarly,
     
     $$
-    P(x_{i} = 0|y = 1) = \frac{\text{Count} (x_{i} = 0 \text{ and } y = 1)}{\text{Count }(y=1)}
+    \Prob(x_{i} = 0|y = 1) = \frac{\text{Count} (x_{i} = 0 \text{ and } y = 1)}{\text{Count }(y=1)}
     $$
     
     
@@ -209,13 +209,13 @@
 
 \begin{frame}{Spam Mail classification}
     $$
-        P(y = 1) = \frac{\text{Count }(y=1) }{\text{Count }(y=1) +\text{Count }(y=0) }
+        \Prob(y = 1) = \frac{\text{Count }(y=1) }{\text{Count }(y=1) +\text{Count }(y=0) }
     $$
     
     Similarly,
     
     $$
-        P(y = 0) = \frac{\text{Count }(y=0) }{\text{Count }(y=1) +\text{Count }(y=0) }
+        \Prob(y = 0) = \frac{\text{Count }(y=0) }{\text{Count }(y=1) +\text{Count }(y=0) }
     $$
     
     
@@ -246,18 +246,18 @@
 \begin{frame}{Spam Classification}
     if y=0
     \begin{itemize}
-        \item $P(w_{1}=0\vert y=0)$ = $\frac{3}{5}$ = 0.6 \\
-        \item $P(w_{2}=0\vert y=0)$ = $\frac{2}{5}$ = 0.4 \\
-        \item $P(w_{3}=0\vert y=0)$ = $\frac{3}{5}$ = 0.6 \\
+        \item $\Prob(w_{1}=0\vert y=0)$ = $\frac{3}{5}$ = 0.6 \\
+        \item $\Prob(w_{2}=0\vert y=0)$ = $\frac{2}{5}$ = 0.4 \\
+        \item $\Prob(w_{3}=0\vert y=0)$ = $\frac{3}{5}$ = 0.6 \\
     \end{itemize}
-    P(y=0) = 0.5\\
+    $\Prob(y=0) = 0.5$\\
     Similarly, if y=1
     \begin{itemize}
-        \item $P(w_{1}=1\vert y=1)$ = $\frac{2}{5}$ = 0.4 \\
-        \item $P(w_{2}=1\vert y=1)$ = $\frac{1}{5}$ = 0.2 \\
-        \item $P(w_{3}=1\vert y=1)$ = $\frac{3}{5}$ = 0.6 \\
+        \item $\Prob(w_{1}=1\vert y=1)$ = $\frac{2}{5}$ = 0.4 \\
+        \item $\Prob(w_{2}=1\vert y=1)$ = $\frac{1}{5}$ = 0.2 \\
+        \item $\Prob(w_{3}=1\vert y=1)$ = $\frac{3}{5}$ = 0.6 \\
     \end{itemize}
-    P(y=1) = 0.5
+    $\Prob(y=1) = 0.5$
 \end{frame}
 
 \begin{frame}{Spam Classification}
@@ -265,8 +265,8 @@
     Given, test email {0,0,1}, classify it. Using naive bayes rule, we can do the following, 
     \begin{center}
 $$
-        P(y=1\vert w_{1}=0,w_{2} = 0,w_{3}=1) 
-         \frac{P(w_{1}=0|y=1) P(w_{2}=0|y=1) P(w_{3}=1|y=1) P(y=1)}{P(w_{1}=0, w_{2}=0, w_{3}=1} 
+        \Prob(y=1\vert w_{1}=0,w_{2} = 0,w_{3}=1) 
+         \frac{\Prob(w_{1}=0|y=1) \Prob(w_{2}=0|y=1) \Prob(w_{3}=1|y=1) \Prob(y=1)}{\Prob(w_{1}=0, w_{2}=0, w_{3}=1} 
     $$
     
     \end{center}
@@ -275,9 +275,9 @@ $$
 
 %\begin{frame}{Spam Classification}
 %    
-%    Calculate, $P(y=1 \vert w_{1}=0, w_{2}=0, w_{3}=1)$ and $P(y=1 \vert w_{1}=0, w_{2}=0, w_{3}=1)$
+%    Calculate, $\Prob(y=1 \vert w_{1}=0, w_{2}=0, w_{3}=1)$ and $\Prob(y=1 \vert w_{1}=0, w_{2}=0, w_{3}=1)$
 %    
-%    if $P(y=1 \vert w_{1}=0, w_{2}=0, w_{3}=1)$ $\gt$ $P(y=0 \vert w_{1}=0, w_{2}=0, w_{3}=1)$, then it is a spam mail
+%    if $\Prob(y=1 \vert w_{1}=0, w_{2}=0, w_{3}=1)$ $\gt$ $\Prob(y=0 \vert w_{1}=0, w_{2}=0, w_{3}=1)$, then it is a spam mail
 %\end{frame}
 
 \begin{frame}{Gaussian naive Bayes}
@@ -294,7 +294,7 @@ $$
 \begin{frame}{Guassian Naive Bayes}
     Now for x = some observation 'v'\\
     \begin{equation*}
-        P(x=v\vert C_{k}) = \frac{1}{\sqrt{2\pi \sigma_{k}^{2}}} \exp^{\frac{-(v-\mu_{k})^{2}}{2\sigma_{k}^{2}}}
+        \Prob(x=v\vert C_{k}) = \frac{1}{\sqrt{2\pi \sigma_{k}^{2}}} \exp^{\frac{-(v-\mu_{k})^{2}}{2\sigma_{k}^{2}}}
     \end{equation*}
 \end{frame}
 
@@ -1010,7 +1010,7 @@ $$
 % % \begin{itemize}
 
 
-% %     \item $P(A|B)P(B) = P(B|A)P(A)$
+% %     \item $\Prob(A|B)\Prob(B) = \Prob(B|A)\Prob(A)$
 % %     \item Let us consider for a machine learning problem:
 % %     \begin{itemize}
 % %     	\item A = Parameters ($\theta$)
@@ -1018,7 +1018,7 @@ $$
 % %     \end{itemize}
 % % \item We can rewrite the Bayes rule as:
 % % \begin{itemize}
-% % 	\item $P(\theta|\mathcal{D}) = \frac{P(\mathcal{D}|\theta)P(\theta)}{P(\mathcal{D})}$
+% % 	\item $\Prob(\theta|\mathcal{D}) = \frac{\Prob(\mathcal{D}|\theta)\Prob(\theta)}{\Prob(\mathcal{D})}$
 % % 	\item Posterior: 
 % % 	\item Prior:
 % % 	\item Likelihood
@@ -1030,7 +1030,7 @@ $$
 % % \begin{frame}{Likelihood}
 % % \begin{itemize}
 % % 	\item Likelihood is a function of $\theta$
-% % 	\item Given a coin flip and 5 H and 1 T, what is more likely: P(H) = 0.5 or P(H) = 1
+% % 	\item Given a coin flip and 5 H and 1 T, what is more likely: \Prob(H) = 0.5 or \Prob(H) = 1
 % % \end{itemize}
 % % \end{frame}
 
@@ -1041,7 +1041,7 @@ $$
 % % \begin{frame}{Coin flipping}
 % % \begin{itemize}
 % % 	\item Assume we do a coin flip multiple times and we get the following observation: \{H, H, H, H, H, H, T, T, T, T\}: 6 Heads and 4 Tails
-% % 	\item  What is $P(Head)$?
+% % 	\item  What is $\Prob(Head)$?
 % % 	\item Is your answer: 6/10. Why?
 % % \end{itemize}
 
@@ -1051,9 +1051,9 @@ $$
 % % \begin{itemize}
 % % 	\item We have $\mathcal{D} = \{\data_1, \data_2, ...\data_{N}\}$ for $N$ observations where each $\mathcal{D}_i \in \{H, T\}$
 % % 	\item Assume we have $n_H$ heads and $n_T$ tails, $n_H + n_T = N$
-% % 	\item Let us have $P(H) = \theta, P(T) = 1-\theta$
-% % 	\item We have Likelihood, $L(\theta) = P(\mathcal{D}|\theta) = P(\data_1, \data_2, ..., \data_N|\theta)$
-% % 	\item Since observations are i.i.d., $L(\theta) = P(\data_1|\theta).P(\data_2|\theta) ... P(\data_N|\theta)$
+% % 	\item Let us have $\Prob(H) = \theta, \Prob(T) = 1-\theta$
+% % 	\item We have Likelihood, $L(\theta) = \Prob(\mathcal{D}|\theta) = \Prob(\data_1, \data_2, ..., \data_N|\theta)$
+% % 	\item Since observations are i.i.d., $L(\theta) = \Prob(\data_1|\theta).\Prob(\data_2|\theta) ... \Prob(\data_N|\theta)$
 % % \end{itemize}
 
 % % \end{frame}
@@ -1063,7 +1063,7 @@ $$
 % % \begin{itemize}
 % % 	\item  
 % % \begin{align*}  
-% % P(\data_i|\theta) =  \left
+% % \Prob(\data_i|\theta) =  \left
 % % \{\begin{array}{lr} \theta, & \text{for~} \data_i =H \\
 % % 1-\theta, & \text{for~} \data_i = T
 % % \end{array}\right.\
@@ -1107,8 +1107,8 @@ $$
 % % Goal: Maximize the Posterior
 % % \begin{tcolorbox}
 % % 	\begin{align}
-% % \hat{\theta}_{MAP} = \argmin_\theta P(\theta|\data)\\
-% % \hat{\theta}_{MAP}= \argmin_\theta P(\data|\theta)P(\theta)
+% % \hat{\theta}_{MAP} = \argmin_\theta \Prob(\theta|\data)\\
+% % \hat{\theta}_{MAP}= \argmin_\theta \Prob(\data|\theta)\Prob(\theta)
 % % \end{align}
 % % \end{tcolorbox}
 
