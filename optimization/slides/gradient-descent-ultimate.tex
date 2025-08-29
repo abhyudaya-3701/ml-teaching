@@ -886,12 +886,12 @@
     
     \pause
     \begin{keypointsbox}{}
-    \textbf{Modern ML Standard:} Mini-batch GD with batch sizes 32-256
+    {\scriptsize \textbf{Standard:} Mini-batch GD (batches 32-256)
     \begin{itemize}
-        \item Good balance of stability and efficiency
-        \item Enables parallel computation (GPUs!)
-        \item Better gradient estimates than pure SGD
-    \end{itemize}
+        \item Balance of stability and efficiency
+        \item Parallel computation on GPUs
+        \item Better estimates than pure SGD
+    \end{itemize}}
     \end{keypointsbox}
   \end{frame}
 
@@ -913,26 +913,30 @@
 
   \section{Mathematical Properties}
 
-  \begin{frame}{Step 1: The Gradient Computation Challenge}
-    \textbf{The fundamental question:} How do we compute gradients efficiently?
+  \begin{frame}{Step 1: The Modern ML Computational Challenge}
+    \textbf{Real-world machine learning problems:}
+    
+    \begin{itemize}[<+->]
+        \item \textbf{Massive datasets:} $n = 1,000,000+$ examples (ImageNet, web data)
+        \item \textbf{Large models:} Neural networks with millions of parameters
+        \item \textbf{Complex computations:} Each forward pass through model is expensive
+    \end{itemize}
     
     \pause
-    \textbf{True gradient (what we want):}
-    \begin{align}
-    \nabla L(\vtheta) &= \nabla \left(\frac{1}{n}\sum_{i=1}^n \ell(f(\vx_i;\vtheta),y_i)\right)\\
-    &= \frac{1}{n}\sum_{i=1}^n \nabla \ell(f(\vx_i;\vtheta),y_i) \qquad \text{\small (linearity of gradient)}
-    \end{align}
-
+    \textbf{The gradient computation bottleneck:}
+    $$\nabla L(\vtheta) = \nabla \left(\frac{1}{n}\sum_{i=1}^n \ell(f(\vx_i;\vtheta),y_i)\right)$$
+    
     \pause
-    \textbf{The challenge:}
-    \begin{itemize}[<+->]
-        \item Computing all $n$ gradients is expensive for large datasets
-        \item Need faster approximation that still gives good direction
-        \item Enter: Stochastic Gradient Descent (SGD)
-    \end{itemize}
+    \begin{alertbox}{The Problem}
+    Computing $f(\vx_i;\vtheta)$ for ALL $n$ samples is too slow!
+    
+    Need: Fast approximation that still gives good direction
+    \end{alertbox}
   \end{frame}
 
-  \begin{frame}{Step 2a: Computing $\nabla L = \nabla \frac{1}{n}\sum_{i=1}^n \ell(f(\vx_i;\vtheta),y_i)$}
+  \begin{frame}{Step 2: Computational Graph - Can We Break This?}
+    \textbf{Current approach:} Sum first, then take gradient
+    
     \begin{center}
     \begin{tikzpicture}[
         node distance=1.5cm,
@@ -972,18 +976,18 @@
     \node[red] at (7.5,1.7) {\scriptsize $\nabla$};
 
     % Labels
-    \node at (1.5,3.2) {\textbf{All Samples}};
-    \node at (6,0.5) {\scriptsize Sum all losses};
-    \node at (9,0.5) {\scriptsize Take gradient};
+    \node at (1.5,3.2) {\textbf{All $n$ Samples}};
+    \node at (6,0.5) {\scriptsize Expensive!};
+    \node at (9,0.5) {\scriptsize Final gradient};
     \end{tikzpicture}
     \end{center}
     
-    \begin{alertbox}{The Challenge}
-    How do we compute $\nabla L$ efficiently?
-    \end{alertbox}
+    \begin{keypointsbox}{}
+    {\scriptsize \textbf{Problem:} Computing losses for all $n$ samples is expensive!}
+    \end{keypointsbox}
   \end{frame}
 
-  \begin{frame}{Step 2b: Using Linearity $= \frac{1}{n}\sum_{i=1}^n \nabla \ell(f(\vx_i;\vtheta),y_i)$}
+  \begin{frame}{Step 3: The Linearity Insight - What If We Flip the Order?}
     \begin{center}
     \begin{tikzpicture}[
         node distance=1.5cm,
@@ -1041,7 +1045,7 @@
     \end{theorembox}
   \end{frame}
 
-  \begin{frame}{Step 2c: The Equivalence - Linearity of Gradient}
+  \begin{frame}{Step 4: The Mathematical Equivalence - Linearity of Gradient}
     \textbf{Mathematical equivalence:}
     \begin{align}
     \nabla L(\vtheta) &= \nabla \left(\frac{1}{n}\sum_{i=1}^n \ell(f(\vx_i;\vtheta),y_i)\right)\\
@@ -1053,55 +1057,53 @@
     \end{keypointsbox}
   \end{frame}
 
-  \begin{frame}{Step 3: SGD as Unbiased Estimator Implementation}
-    \textbf{SGD solution:} Instead of computing all $n$ gradients, sample one!
+  \begin{frame}{Step 5: SGD as Unbiased Estimator - The Solution}
+    {\small \textbf{SGD solution:} Sample one gradient instead of all $n$!}
     
     \pause
-    \textbf{SGD gradient estimate:}
-    $$\nabla \tilde{L}(\vtheta) = \nabla \ell(f(\vx_j;\vtheta),y_j)$$
-    where $(\vx_j,y_j)$ is sampled uniformly from $\{(\vx_i,y_i)\}_{i=1}^n$
+    {\small \textbf{Estimate:} $\nabla \tilde{L}(\vtheta) = \nabla \ell(f(\vx_j;\vtheta),y_j)$ for random $j$}
 
     \pause
     \begin{center}
     \begin{tikzpicture}[
-        node distance=1.5cm,
-        sample/.style={rectangle, draw=blue, fill=blue!10, thick, minimum width=1.2cm, minimum height=0.8cm},
-        grad/.style={rectangle, draw=red, fill=red!10, thick, minimum width=1.2cm, minimum height=0.8cm},
-        avg/.style={rectangle, draw=green, fill=green!10, thick, minimum width=1.6cm, minimum height=0.8cm},
-        arrow/.style={-{Latex[scale=1.2]}, thick},
-        scale=0.9
+        node distance=1cm,
+        sample/.style={rectangle, draw=blue, fill=blue!10, thick, minimum width=0.8cm, minimum height=0.5cm},
+        grad/.style={rectangle, draw=red, fill=red!10, thick, minimum width=0.8cm, minimum height=0.5cm},
+        avg/.style={rectangle, draw=green, fill=green!10, thick, minimum width=1cm, minimum height=0.5cm},
+        arrow/.style={-{Latex[scale=0.8]}, thick},
+        scale=0.6
     ]
 
     % Show sampling process
-    \node[sample, fill=yellow!30] (sgd) at (0,1) {\scriptsize Random pick};
-    \node[grad, fill=yellow!30] (gsgd) at (3.5,1) {\scriptsize $\nabla\ell_i$};
+    \node[sample, fill=yellow!30] (sgd) at (0,0.5) {\tiny Pick};
+    \node[grad, fill=yellow!30] (gsgd) at (2.5,0.5) {\tiny $\nabla\ell_i$};
     
     % True gradient reference
-    \node[avg] (gtrue) at (7,1) {\scriptsize $\nabla L$ (true)};
+    \node[avg] (gtrue) at (5,0.5) {\tiny $\nabla L$};
 
     % Arrows
-    \draw[arrow, yellow, very thick] (sgd) -- (gsgd);
-    \draw[arrow, yellow, dashed, thick] (gsgd) -- (gtrue);
+    \draw[arrow, yellow, thick] (sgd) -- (gsgd);
+    \draw[arrow, yellow, dashed] (gsgd) -- (gtrue);
 
     % Show expectation
-    \node[yellow, font=\small] at (3.5,0.2) {SGD estimate};
-    \node[green, font=\small] at (7,0.3) {Target};
-    \node at (5.2,1.4) {\scriptsize $\E[\cdot] =$};
+    \node at (3.7,0.8) {\tiny $\E[\cdot] =$};
     \end{tikzpicture}
     \end{center}
 
-    \begin{alertbox}{Unbiased Property: The Foundation}
-    $\E[\nabla \tilde{L}(\vtheta)] = \nabla L(\vtheta)$ - SGD points in the right direction on average!
+    \begin{alertbox}{Unbiased Property}
+    {\scriptsize $\E[\nabla \tilde{L}(\vtheta)] = \nabla L(\vtheta)$ - correct direction on average!}
     \end{alertbox}
   \end{frame}
 
   \begin{frame}{The Unbiased Property: Mathematical Proof}
     \begin{theorembox}{SGD Unbiased Estimator Property}
+      {\small
     $$\E[\nabla \tilde{L}(\vtheta)] = \nabla L(\vtheta)$$
+      }
     \end{theorembox}
 
     \pause
-    \textbf{Detailed Proof:}
+    {\small
     \begin{align}
     \E[\nabla \tilde{L}(\vtheta)] &= \E\left[\nabla \ell(f(\vx_j;\vtheta),y_j)\right]\\
     &= \sum_{i=1}^n P(\text{sample } i) \cdot \nabla \ell(f(\vx_i;\vtheta),y_i)\\
@@ -1109,104 +1111,102 @@
     &= \frac{1}{n}\sum_{i=1}^n \nabla \ell(f(\vx_i;\vtheta),y_i) \qquad \text{\small (linearity of expectation)}\\
     &= \nabla L(\vtheta) \qquad \text{\small (from previous slide)}
     \end{align}
+    }
 
-    \pause
-    \textbf{Reference:} Florian Hartmann's \emph{Mathematical Foundations of Estimators} \\
-    \url{https://florian.github.io/estimators/}
   \end{frame}
 
-  \begin{frame}{SGD Computational Graph: Batch Gradient Descent}
-    \textbf{How Batch GD computes the true gradient:}
+  % \begin{frame}{SGD Computational Graph: Batch Gradient Descent}
+  %   \textbf{How Batch GD computes the true gradient:}
     
-    \begin{center}
-    \begin{tikzpicture}[
-        node distance=1.5cm,
-        sample/.style={rectangle, draw=blue, fill=blue!10, thick, minimum width=1.2cm, minimum height=0.8cm},
-        loss/.style={rectangle, draw=orange, fill=orange!10, thick, minimum width=1.2cm, minimum height=0.8cm},
-        grad/.style={rectangle, draw=red, fill=red!10, thick, minimum width=1.2cm, minimum height=0.8cm},
-        avg/.style={rectangle, draw=green, fill=green!10, thick, minimum width=1.6cm, minimum height=0.8cm},
-        arrow/.style={-{Latex[scale=1.2]}, thick}
-    ]
+  %   \begin{center}
+  %   \begin{tikzpicture}[
+  %       node distance=1.5cm,
+  %       sample/.style={rectangle, draw=blue, fill=blue!10, thick, minimum width=1.2cm, minimum height=0.8cm},
+  %       loss/.style={rectangle, draw=orange, fill=orange!10, thick, minimum width=1.2cm, minimum height=0.8cm},
+  %       grad/.style={rectangle, draw=red, fill=red!10, thick, minimum width=1.2cm, minimum height=0.8cm},
+  %       avg/.style={rectangle, draw=green, fill=green!10, thick, minimum width=1.6cm, minimum height=0.8cm},
+  %       arrow/.style={-{Latex[scale=1.2]}, thick}
+  %   ]
 
-    % Individual samples
-    \node[sample] (s1) at (0,2.5) {\scriptsize $(\vx_1,y_1)$};
-    \node[sample] (s2) at (0,1.25) {\scriptsize $(\vx_2,y_2)$};
-    \node[sample] (s3) at (0,0) {\scriptsize $(\vx_3,y_3)$};
-    \node at (0,-0.8) {\scriptsize $\vdots$};
+  %   % Individual samples
+  %   \node[sample] (s1) at (0,2.5) {\scriptsize $(\vx_1,y_1)$};
+  %   \node[sample] (s2) at (0,1.25) {\scriptsize $(\vx_2,y_2)$};
+  %   \node[sample] (s3) at (0,0) {\scriptsize $(\vx_3,y_3)$};
+  %   \node at (0,-0.8) {\scriptsize $\vdots$};
 
-    % Individual losses  
-    \node[loss] (l1) at (3,2.5) {\scriptsize $\ell_1(\vtheta)$};
-    \node[loss] (l2) at (3,1.25) {\scriptsize $\ell_2(\vtheta)$};
-    \node[loss] (l3) at (3,0) {\scriptsize $\ell_3(\vtheta)$};
+  %   % Individual losses  
+  %   \node[loss] (l1) at (3,2.5) {\scriptsize $\ell_1(\vtheta)$};
+  %   \node[loss] (l2) at (3,1.25) {\scriptsize $\ell_2(\vtheta)$};
+  %   \node[loss] (l3) at (3,0) {\scriptsize $\ell_3(\vtheta)$};
 
-    % Individual gradients
-    \node[grad] (g1) at (6,2.5) {\scriptsize $\nabla\ell_1$};
-    \node[grad] (g2) at (6,1.25) {\scriptsize $\nabla\ell_2$};
-    \node[grad] (g3) at (6,0) {\scriptsize $\nabla\ell_3$};
+  %   % Individual gradients
+  %   \node[grad] (g1) at (6,2.5) {\scriptsize $\nabla\ell_1$};
+  %   \node[grad] (g2) at (6,1.25) {\scriptsize $\nabla\ell_2$};
+  %   \node[grad] (g3) at (6,0) {\scriptsize $\nabla\ell_3$};
 
-    % True gradient (average) - made smaller
-    \node[avg] (gtrue) at (9,1.25) {\scriptsize $\nabla L$};
+  %   % True gradient (average) - made smaller
+  %   \node[avg] (gtrue) at (9,1.25) {\scriptsize $\nabla L$};
 
-    % Arrows
-    \draw[arrow] (s1) -- (l1);
-    \draw[arrow] (s2) -- (l2);
-    \draw[arrow] (s3) -- (l3);
-    \draw[arrow] (l1) -- (g1);
-    \draw[arrow] (l2) -- (g2);
-    \draw[arrow] (l3) -- (g3);
-    \draw[arrow] (g1) -- (gtrue);
-    \draw[arrow] (g2) -- (gtrue);
-    \draw[arrow] (g3) -- (gtrue);
+  %   % Arrows
+  %   \draw[arrow] (s1) -- (l1);
+  %   \draw[arrow] (s2) -- (l2);
+  %   \draw[arrow] (s3) -- (l3);
+  %   \draw[arrow] (l1) -- (g1);
+  %   \draw[arrow] (l2) -- (g2);
+  %   \draw[arrow] (l3) -- (g3);
+  %   \draw[arrow] (g1) -- (gtrue);
+  %   \draw[arrow] (g2) -- (gtrue);
+  %   \draw[arrow] (g3) -- (gtrue);
 
-    % Labels
-    \node at (1.5,3.2) {\textbf{All Samples}};
-    \node at (9,0.5) {\scriptsize Average all};
-    \end{tikzpicture}
-    \end{center}
+  %   % Labels
+  %   \node at (1.5,3.2) {\textbf{All Samples}};
+  %   \node at (9,0.5) {\scriptsize Average all};
+  %   \end{tikzpicture}
+  %   \end{center}
 
-    \begin{keypointsbox}{}
-    {\small Batch GD uses \textbf{all} samples to compute the exact gradient: $\nabla L = \frac{1}{n}\sum_{i=1}^n \nabla\ell_i$}
-    \end{keypointsbox}
-  \end{frame}
+  %   \begin{keypointsbox}{}
+  %   {\small Batch GD uses \textbf{all} samples to compute the exact gradient: $\nabla L = \frac{1}{n}\sum_{i=1}^n \nabla\ell_i$}
+  %   \end{keypointsbox}
+  % \end{frame}
 
-  \begin{frame}{SGD Computational Graph: Stochastic Sampling}
-    \textbf{How SGD randomly picks one gradient:}
+  % \begin{frame}{SGD Computational Graph: Stochastic Sampling}
+  %   \textbf{How SGD randomly picks one gradient:}
     
-    \begin{center}
-    \begin{tikzpicture}[
-        node distance=1.5cm,
-        sample/.style={rectangle, draw=blue, fill=blue!10, thick, minimum width=1.2cm, minimum height=0.8cm},
-        grad/.style={rectangle, draw=red, fill=red!10, thick, minimum width=1.2cm, minimum height=0.8cm},
-        avg/.style={rectangle, draw=green, fill=green!10, thick, minimum width=1.6cm, minimum height=0.8cm},
-        arrow/.style={-{Latex[scale=1.2]}, thick}
-    ]
+  %   \begin{center}
+  %   \begin{tikzpicture}[
+  %       node distance=1.5cm,
+  %       sample/.style={rectangle, draw=blue, fill=blue!10, thick, minimum width=1.2cm, minimum height=0.8cm},
+  %       grad/.style={rectangle, draw=red, fill=red!10, thick, minimum width=1.2cm, minimum height=0.8cm},
+  %       avg/.style={rectangle, draw=green, fill=green!10, thick, minimum width=1.6cm, minimum height=0.8cm},
+  %       arrow/.style={-{Latex[scale=1.2]}, thick}
+  %   ]
 
-    % Show sampling process
-    \node[sample, fill=yellow!30] (sgd) at (0,1) {\scriptsize Random $(\vx_i,y_i)$};
-    \node[grad, fill=yellow!30] (gsgd) at (4,1) {\scriptsize $\nabla\ell_i$};
+  %   % Show sampling process
+  %   \node[sample, fill=yellow!30] (sgd) at (0,1) {\scriptsize Random $(\vx_i,y_i)$};
+  %   \node[grad, fill=yellow!30] (gsgd) at (4,1) {\scriptsize $\nabla\ell_i$};
     
-    % True gradient reference
-    \node[avg] (gtrue) at (8,1) {\scriptsize $\nabla L$ (true)};
+  %   % True gradient reference
+  %   \node[avg] (gtrue) at (8,1) {\scriptsize $\nabla L$ (true)};
 
-    % Arrows
-    \draw[arrow, yellow, very thick] (sgd) -- (gsgd);
-    \draw[arrow, yellow, dashed, thick] (gsgd) -- (gtrue);
+  %   % Arrows
+  %   \draw[arrow, yellow, very thick] (sgd) -- (gsgd);
+  %   \draw[arrow, yellow, dashed, thick] (gsgd) -- (gtrue);
 
-    % Show expectation
-    \node[yellow, font=\small] at (4,-0.5) {SGD estimate};
-    \node[green, font=\small] at (8,0.3) {Target};
-    \end{tikzpicture}
-    \end{center}
+  %   % Show expectation
+  %   \node[yellow, font=\small] at (4,-0.5) {SGD estimate};
+  %   \node[green, font=\small] at (8,0.3) {Target};
+  %   \end{tikzpicture}
+  %   \end{center}
 
-    \vspace{0.5cm}
-    \begin{alertbox}{Unbiased Property}
-    {\small $\E[\nabla\ell_i] = \nabla L$ $\Rightarrow$ SGD points toward true gradient \textbf{on average}}
-    \end{alertbox}
+  %   \vspace{0.5cm}
+  %   \begin{alertbox}{Unbiased Property}
+  %   {\small $\E[\nabla\ell_i] = \nabla L$ $\Rightarrow$ SGD points toward true gradient \textbf{on average}}
+  %   \end{alertbox}
 
-    \begin{keypointsbox}{}
-    {\small Individual SGD steps may be "wrong", but they're unbiased estimates of the true direction!}
-    \end{keypointsbox}
-  \end{frame}
+  %   \begin{keypointsbox}{}
+  %   {\small Individual SGD steps may be "wrong", but they're unbiased estimates of the true direction!}
+  %   \end{keypointsbox}
+  % \end{frame}
 
   \begin{frame}{Why Unbiasedness Matters}
     \begin{keypointsbox}{}
@@ -1224,53 +1224,47 @@
   \end{frame}
 
   \begin{frame}{Visual Intuition 1: Overall Loss Surface}
-    \textbf{True loss function using all data points:}
+    {\small True loss function using all data points:}
     
+    \vspace{0.5cm}
     \begin{center}
-    \begin{tikzpicture}[scale=1.3]
+    \begin{tikzpicture}[scale=0.8]
       % Define colors
       \definecolor{contourblue}{RGB}{30,90,150}
       \definecolor{gradred}{RGB}{180,30,30}
       \definecolor{pointred}{RGB}{200,50,50}
       \definecolor{minimumgreen}{RGB}{0,120,50}
       
-      % Overall loss contours with gradient colors
-      \draw[contourblue!30, line width=1.5pt] (0,0) ellipse (3.2 and 2);
-      \draw[contourblue!50, line width=1.8pt] (0,0) ellipse (2.4 and 1.5);
-      \draw[contourblue!70, line width=2pt] (0,0) ellipse (1.6 and 1);
-      \draw[contourblue!90, line width=2.2pt] (0,0) ellipse (0.9 and 0.55);
-      \draw[contourblue, line width=2.5pt] (0,0) ellipse (0.4 and 0.25);
+      % Cleaner contours - fewer lines
+      \draw[contourblue!40, line width=1pt] (0,0) ellipse (2.8 and 1.6);
+      \draw[contourblue!60, line width=1pt] (0,0) ellipse (1.8 and 1);
+      \draw[contourblue!80, line width=1.2pt] (0,0) ellipse (0.9 and 0.5);
 
-      % Current point theta with better styling
-      \coordinate (theta) at (2.2,1.2);
-      \fill[pointred, drop shadow={shadow xshift=0.1cm, shadow yshift=-0.1cm, opacity=0.3}] 
-        (theta) circle (0.12);
-      \node[pointred, font=\Large\bfseries] at (2.7,1.5) {$\vtheta$};
+      % Current point - simpler
+      \coordinate (theta) at (2,1);
+      \fill[pointred] (theta) circle (0.06);
+      \node[pointred, font=\small] at (2.4,1.1) {$\vtheta$};
 
-      % True gradient vector with professional arrow
-      \draw[-{Stealth[scale=1.8]}, gradred, line width=4pt, 
-            drop shadow={shadow xshift=0.05cm, shadow yshift=-0.05cm, opacity=0.2}] 
-        (theta) -- +(-1.8,-0.9);
+      % True gradient vector - smaller arrow
+      \draw[-{Stealth[scale=1.0]}, gradred, line width=2pt] 
+        (theta) -- +(-1.2,-0.6);
       
-      % Gradient label with background
-      \node[gradred, font=\Large\bfseries, fill=white, fill opacity=0.9, 
-            rounded corners=2pt, inner sep=4pt] at (0.2,2.1) {True Gradient};
-      \node[gradred, font=\large] at (0.2,1.7) {$\nabla L(\vtheta)$};
-      \node[gradred, font=\small] at (0.2,1.4) {(computed from all $n$ samples)};
+      % Clean labels
+      \node[gradred, font=\small] at (0.5,1.5) {$\nabla L(\vtheta)$};
+      \node[gradred, font=\tiny] at (0.5,1.2) {(all samples)};
 
-      % Global minimum with halo effect
-      \fill[minimumgreen!20] (0,0) circle (0.15);
-      \fill[minimumgreen] (0,0) circle (0.08);
-      \node[minimumgreen, font=\small\bfseries] at (0,-0.6) {Global Minimum};
+      % Global minimum
+      \fill[minimumgreen] (0,0) circle (0.05);
+      \node[minimumgreen, font=\tiny] at (0,-0.4) {minimum};
 
-      % Contour label
-      \node[contourblue, font=\Large] at (-2.8,1.8) {Loss Surface $L(\vtheta)$};
+      % Surface label
+      \node[contourblue, font=\small] at (-2,1.3) {$L(\vtheta)$};
     \end{tikzpicture}
     \end{center}
     
-    \vspace{0.3cm}
+    \vspace{0.5cm}
     \begin{keypointsbox}{}
-    {\small \textbf{Gold standard:} Gradient computed using ALL data points gives true direction}
+    {\scriptsize Gradient uses ALL data points for true direction}
     \end{keypointsbox}
   \end{frame}
 
