@@ -932,83 +932,125 @@
     \end{itemize}
   \end{frame}
 
-  \begin{frame}{Step 2a: Setting up the Gradient Computation}
-    \textbf{Starting with our total loss function:}
-    
+  \begin{frame}{Step 2a: Computing $\nabla L = \nabla \frac{1}{n}\sum_{i=1}^n \ell(f(\vx_i;\vtheta),y_i)$}
     \begin{center}
     \begin{tikzpicture}[
         node distance=1.5cm,
-        loss/.style={rectangle, draw=orange, fill=orange!10, thick, minimum width=2cm, minimum height=1cm},
-        arrow/.style={-{Latex[scale=1.5]}, thick},
-        scale=1.2
+        sample/.style={rectangle, draw=blue, fill=blue!10, thick, minimum width=1.2cm, minimum height=0.8cm},
+        loss/.style={rectangle, draw=orange, fill=orange!10, thick, minimum width=1.2cm, minimum height=0.8cm},
+        grad/.style={rectangle, draw=green, fill=green!10, thick, minimum width=1.6cm, minimum height=0.8cm},
+        arrow/.style={-{Latex[scale=1.2]}, thick}
     ]
 
-    % Total loss - larger and more prominent
-    \node[loss] (total) at (0,1) {\large $L(\vtheta) = \frac{1}{n}\sum_{i=1}^n \ell(f(\vx_i;\vtheta),y_i)$};
-    
-    % Gradient operation
-    \node[rectangle, draw=blue, fill=blue!10, thick, minimum width=3cm, minimum height=1cm] (grad) at (0,-1.5) {\large $\nabla L(\vtheta) = \nabla \left(\frac{1}{n}\sum_{i=1}^n \ell(f(\vx_i;\vtheta),y_i)\right)$};
+    % Individual samples
+    \node[sample] (s1) at (0,2.5) {\scriptsize $(\vx_1,y_1)$};
+    \node[sample] (s2) at (0,1.25) {\scriptsize $(\vx_2,y_2)$};
+    \node[sample] (s3) at (0,0) {\scriptsize $(\vx_3,y_3)$};
+    \node at (0,-0.8) {\scriptsize $\vdots$};
 
-    % Arrow showing the gradient operation
-    \draw[arrow, red, very thick] (total) -- (grad);
-    \node[red] at (1.5,0) {\textbf{Take gradient}};
+    % Individual losses  
+    \node[loss] (l1) at (3,2.5) {\scriptsize $\ell_1(\vtheta)$};
+    \node[loss] (l2) at (3,1.25) {\scriptsize $\ell_2(\vtheta)$};
+    \node[loss] (l3) at (3,0) {\scriptsize $\ell_3(\vtheta)$};
+
+    % Total loss
+    \node[grad] (total) at (6,1.25) {\scriptsize $L = \frac{1}{n}\sum \ell_i$};
+
+    % Final gradient
+    \node[grad, fill=red!20] (final) at (9,1.25) {\scriptsize $\nabla L$};
+
+    % Arrows
+    \draw[arrow] (s1) -- (l1);
+    \draw[arrow] (s2) -- (l2);
+    \draw[arrow] (s3) -- (l3);
+    \draw[arrow] (l1) -- (total);
+    \draw[arrow] (l2) -- (total);
+    \draw[arrow] (l3) -- (total);
+    
+    % Gradient operator arrow
+    \draw[arrow, red, very thick] (total) -- (final);
+    \node[red] at (7.5,1.7) {\scriptsize $\nabla$};
+
+    % Labels
+    \node at (1.5,3.2) {\textbf{All Samples}};
+    \node at (6,0.5) {\scriptsize Sum all losses};
+    \node at (9,0.5) {\scriptsize Take gradient};
     \end{tikzpicture}
     \end{center}
     
-    \pause
-    \begin{alertbox}{The Question}
-    Can we compute this gradient more efficiently than evaluating all $n$ terms?
+    \begin{alertbox}{The Challenge}
+    How do we compute $\nabla L$ efficiently?
     \end{alertbox}
   \end{frame}
 
-  \begin{frame}{Step 2b: Gradient Linearity - The Key Mathematical Insight}
-    \textbf{The magic of linearity:}
-    
+  \begin{frame}{Step 2b: Using Linearity $= \frac{1}{n}\sum_{i=1}^n \nabla \ell(f(\vx_i;\vtheta),y_i)$}
     \begin{center}
     \begin{tikzpicture}[
         node distance=1.5cm,
-        sample/.style={rectangle, draw=blue, fill=blue!10, thick, minimum width=1.4cm, minimum height=0.8cm},
-        loss/.style={rectangle, draw=orange, fill=orange!10, thick, minimum width=1.4cm, minimum height=0.8cm},
-        grad/.style={rectangle, draw=red, fill=red!10, thick, minimum width=1.4cm, minimum height=0.8cm},
-        sum/.style={circle, draw=green, fill=green!10, thick, minimum width=1.2cm, minimum height=1.2cm},
-        arrow/.style={-{Latex[scale=1.2]}, thick},
-        scale=0.8
+        sample/.style={rectangle, draw=blue, fill=blue!10, thick, minimum width=1.2cm, minimum height=0.8cm},
+        loss/.style={rectangle, draw=orange, fill=orange!10, thick, minimum width=1.2cm, minimum height=0.8cm},
+        grad/.style={rectangle, draw=red, fill=red!10, thick, minimum width=1.2cm, minimum height=0.8cm},
+        avg/.style={rectangle, draw=green, fill=green!10, thick, minimum width=1.6cm, minimum height=0.8cm},
+        arrow/.style={-{Latex[scale=1.2]}, thick}
     ]
 
+    % Individual samples
+    \node[sample] (s1) at (0,2.5) {\scriptsize $(\vx_1,y_1)$};
+    \node[sample] (s2) at (0,1.25) {\scriptsize $(\vx_2,y_2)$};
+    \node[sample] (s3) at (0,0) {\scriptsize $(\vx_3,y_3)$};
+    \node at (0,-0.8) {\scriptsize $\vdots$};
+
     % Individual losses  
-    \node[loss] (l1) at (-2,1) {\scriptsize $\ell_1(\vtheta)$};
-    \node[loss] (l2) at (0,1) {\scriptsize $\ell_2(\vtheta)$};
-    \node[loss] (l3) at (2,1) {\scriptsize $\ell_n(\vtheta)$};
+    \node[loss] (l1) at (3,2.5) {\scriptsize $\ell_1(\vtheta)$};
+    \node[loss] (l2) at (3,1.25) {\scriptsize $\ell_2(\vtheta)$};
+    \node[loss] (l3) at (3,0) {\scriptsize $\ell_3(\vtheta)$};
 
     % Individual gradients
-    \node[grad] (g1) at (-2,-1) {\scriptsize $\nabla\ell_1$};
-    \node[grad] (g2) at (0,-1) {\scriptsize $\nabla\ell_2$};  
-    \node[grad] (g3) at (2,-1) {\scriptsize $\nabla\ell_n$};
+    \node[grad] (g1) at (6,2.5) {\scriptsize $\nabla\ell_1$};
+    \node[grad] (g2) at (6,1.25) {\scriptsize $\nabla\ell_2$};
+    \node[grad] (g3) at (6,0) {\scriptsize $\nabla\ell_3$};
 
-    % Sum operation
-    \node[sum] (gradsum) at (4,0) {\scriptsize $\frac{1}{n}\sum$};
-    
-    % Final gradient
-    \node[grad, fill=green!20] (final) at (6.5,0) {\scriptsize $\nabla L$};
+    % True gradient (average)
+    \node[avg] (gtrue) at (9,1.25) {\scriptsize $\nabla L$};
 
     % Arrows
-    \draw[arrow] (l1) -- (g1);
-    \draw[arrow] (l2) -- (g2);
-    \draw[arrow] (l3) -- (g3);
-    \draw[arrow] (g1) -- (gradsum);
-    \draw[arrow] (g2) -- (gradsum);
-    \draw[arrow] (g3) -- (gradsum);
-    \draw[arrow] (gradsum) -- (final);
+    \draw[arrow] (s1) -- (l1);
+    \draw[arrow] (s2) -- (l2);
+    \draw[arrow] (s3) -- (l3);
+    
+    % Gradient operator arrows
+    \draw[arrow, red, thick] (l1) -- (g1);
+    \draw[arrow, red, thick] (l2) -- (g2);
+    \draw[arrow, red, thick] (l3) -- (g3);
+    \node[red] at (4.5,2.8) {\scriptsize $\nabla$};
+    \node[red] at (4.5,1.55) {\scriptsize $\nabla$};
+    \node[red] at (4.5,0.3) {\scriptsize $\nabla$};
+    
+    \draw[arrow] (g1) -- (gtrue);
+    \draw[arrow] (g2) -- (gtrue);
+    \draw[arrow] (g3) -- (gtrue);
 
-    % Linearity annotation
-    \node at (1,2.2) {\textbf{Linearity of $\nabla$}};
-    \draw[<->, thick, blue] (-2,0.5) -- (2,0.5);
+    % Labels
+    \node at (1.5,3.2) {\textbf{All Samples}};
+    \node at (9,0.5) {\scriptsize Average all};
     \end{tikzpicture}
     \end{center}
-    
-    \begin{theorembox}{Linearity of Gradient Operator}
-    $\nabla L(\vtheta) = \frac{1}{n}\sum_{i=1}^n \nabla \ell(f(\vx_i;\vtheta),y_i)$
+
+    \begin{theorembox}{Linearity of Gradient}
+    $\nabla L = \frac{1}{n}\sum_{i=1}^n \nabla \ell_i$
     \end{theorembox}
+  \end{frame}
+
+  \begin{frame}{Step 2c: The Equivalence - Linearity of Gradient}
+    \textbf{Mathematical equivalence:}
+    \begin{align}
+    \nabla L(\vtheta) &= \nabla \left(\frac{1}{n}\sum_{i=1}^n \ell(f(\vx_i;\vtheta),y_i)\right)\\
+    &= \frac{1}{n}\sum_{i=1}^n \nabla \ell(f(\vx_i;\vtheta),y_i)
+    \end{align}
+
+    \begin{keypointsbox}{}
+    \textbf{This linearity property is the foundation for all gradient-based optimization!}
+    \end{keypointsbox}
   \end{frame}
 
   \begin{frame}{Step 3: SGD as Unbiased Estimator Implementation}
