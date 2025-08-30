@@ -9,8 +9,8 @@
 % 	\ifx\relax#1\relax  \item \else \item[#1] \fi
 % 	\abovedisplayskip=0pt\abovedisplayshortskip=0pt~\vspace*{-\baselineskip}}
 
-
-\graphicspath{ {./SVM/} }
+\setcounter{popquiz}{0}
+\graphicspath{ {../assets/svm/} }
 
 \title{SVM Soft Margin Classification}
 \date{\today}
@@ -25,19 +25,15 @@
 }
 
 	
-	\begin{frame}{Pop Quiz \#1}
-	\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Quick Question!]
-	Why might we need a "soft margin" SVM?
-	\begin{itemize}
-		\item a) Data is perfectly linearly separable
-		\item b) Data has some noise and outliers
-		\item c) We want smaller margins
-		\item d) To avoid using kernels
-	\end{itemize}
-	\pause
-	\textbf{Answer:} b) Data has some noise and outliers - soft margin allows controlled violations.
-	\end{tcolorbox}
-	\end{frame}
+	\popquiz{\textbf{Why might we need a "soft margin" SVM?}
+	\begin{enumerate}[A)]
+		\item Data is perfectly linearly separable
+		\item Data has some noise and outliers
+		\item We want smaller margins
+		\item To avoid using kernels
+	\end{enumerate}
+	}{{\color{magenta}\textbf{B) Data has some noise and outliers}} - soft margin allows controlled violations.
+	}
 
 	\begin{frame}{Soft-Margin SVM}
 	\begin{itemize}[<+->]
@@ -74,19 +70,15 @@
 	\includepdf[page=59-61]{../assets/Svm-notes.pdf}
 }
 
-\begin{frame}{Pop Quiz \#2}
-\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Quick Question!]
-What happens when the regularization parameter $C$ is very large?
-\begin{itemize}
-	\item a) The model becomes more tolerant to misclassifications
-	\item b) The model tries to classify all training points correctly
-	\item c) The margin becomes larger
-	\item d) Regularization increases
-\end{itemize}
-\pause
-\textbf{Answer:} b) The model tries to classify all training points correctly - high variance!
-\end{tcolorbox}
-\end{frame}
+	\popquiz{\textbf{What happens when the regularization parameter $C$ is very large?}
+	\begin{enumerate}[A)]
+		\item The model becomes more tolerant to misclassifications
+		\item The model tries to classify all training points correctly
+		\item The margin becomes larger
+		\item Regularization increases
+	\end{enumerate}
+	}{{\color{magenta}\textbf{B) The model tries to classify all training points correctly}} - high variance!
+	}
 
 \begin{frame}{Bias Variance Trade-off for Soft-Margin SVM}
 	Low C $\implies$ Higher train error (higher bias) \\
@@ -104,31 +96,24 @@ What happens when the regularization parameter $C$ is very large?
 		If C $\rightarrow \infty$ (or very large) 
 		\hspace{0.3cm} Objective $\rightarrow \minimize C\sum\xi_{i}$ or choose $\vw$, $b$, s.t. $\xi_{i}$ is small!
 	\end{frame}
-	\begin{frame}{Pop Quiz \#3}
-	\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Quick Question!]
-	What is the equivalent of hard margin?
-	\begin{itemize}
-		\item a) C $\rightarrow 0$
-		\item b) C $\rightarrow \infty$
-	\end{itemize}
-	\pause
-	\textbf{Answer:} b) C $\rightarrow \infty$ - No violations allowed!
-	\end{tcolorbox}
-	\end{frame}
 	
-	\begin{frame}{Pop Quiz \#4}
-	\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Quick Question!]
-	For a support vector with slack variable $\xi_i = 1.5$, this point is:
-	\begin{itemize}
-		\item a) On the margin boundary
-		\item b) Correctly classified but within margin
-		\item c) Misclassified
-		\item d) Outside both margins
-	\end{itemize}
-	\pause
-	\textbf{Answer:} c) Misclassified - since $\xi_i > 1$!
-	\end{tcolorbox}
-	\end{frame}
+	\popquiz{\textbf{What is the equivalent of hard margin?}
+	\begin{enumerate}[A)]
+		\item C $\rightarrow 0$
+		\item C $\rightarrow \infty$
+	\end{enumerate}
+	}{{\color{magenta}\textbf{B) C $\rightarrow \infty$}} - No violations allowed!
+	}
+	
+	\popquiz{\textbf{For a support vector with slack variable $\xi_i = 1.5$, this point is:}
+	\begin{enumerate}[A)]
+		\item On the margin boundary
+		\item Correctly classified but within margin
+		\item Misclassified
+		\item Outside both margins
+	\end{enumerate}
+	}{{\color{magenta}\textbf{C) Misclassified}} - since $\xi_i > 1$!
+	}
 
 	\begin{frame}{Soft-Margin SVM}
 		Types of support vectors:
@@ -150,19 +135,16 @@ What happens when the regularization parameter $C$ is very large?
 		But $\xi_{i} \geq 0$ \\
 		$$\therefore \xi_{i} = \max \big[0, 1 - y_{i}(\vw \cdot \vx_{i} + b)\big]$$
 	\end{frame}
-	\begin{frame}{Pop Quiz \#5}
-	\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Quick Question!]
-	The hinge loss function $\max[0, 1-y_i(\vw \cdot \vx_i + b)]$ is:
-	\begin{itemize}
-		\item a) Convex and differentiable everywhere
-		\item b) Convex but not differentiable at one point
-		\item c) Non-convex but differentiable
-		\item d) Neither convex nor differentiable
-	\end{itemize}
-	\pause
-	\textbf{Answer:} b) Convex but not differentiable at $y_i(\vw \cdot \vx_i + b) = 1$!
-	\end{tcolorbox}
-	\end{frame}
+	
+	\popquiz{\textbf{The hinge loss function $\max[0, 1-y_i(\vw \cdot \vx_i + b)]$ is:}
+	\begin{enumerate}[A)]
+		\item Convex and differentiable everywhere
+		\item Convex but not differentiable at one point
+		\item Non-convex but differentiable
+		\item Neither convex nor differentiable
+	\end{enumerate}
+	}{{\color{magenta}\textbf{B) Convex but not differentiable at one point}} - at $y_i(\vw \cdot \vx_i + b) = 1$!
+	}
 
 	\begin{frame}{SVM Formulation in the Loss + Penalty Form}
 		$\therefore$ Objective is:

@@ -43,7 +43,7 @@ Algorithms that learn from labeled data.
 - [Bias-Variance Tradeoff](supervised/slides/bias-variance.pdf)
 - [Bias-Variance II](supervised/slides/bias-variance-2.pdf)
 - [Decision Tree Pruning](supervised/slides/decision-tree-pruning.pdf)
-- [Cross-Validation](supervised/slides/cross-validation.pdf)
+- [Cross-Validation](supervised/slides/cross-validation-handout.pdf)
 - [Ensemble Methods](supervised/slides/ensemble-handout.pdf)
 - [Linear Regression](supervised/slides/linear-regression.pdf)
 - [Logistic Regression](supervised/slides/logistic-regression.pdf)

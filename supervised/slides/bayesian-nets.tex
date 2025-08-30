@@ -1,27 +1,14 @@
 \documentclass{beamer}
 \usepackage{../../shared/styles/custom}
 \usepackage{../../shared/styles/conventions}
-
-
-%\beamerdefaultoverlayspecification{<+->}
-
-
-	\ifx\relax#1\relax  \item \else \item[#1] \fi
-	\abovedisplayskip=0pt\abovedisplayshortskip=0pt~\vspace*{-\baselineskip}}
-
-
-
+\usepackage{../../shared/notation/notation}
 
 \title{Naive Bayes}
 \date{\today}
-\author{Nipun Batra}
+\author{Nipun Batra and teaching staff}
 \institute{IIT Gandhinagar}
 \begin{document}
   \maketitle
-  
-  
-  
-% \section{Linear Regression}
 
 \begin{frame}{Bayesian Networks}
     \begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
@@ -82,14 +69,14 @@
 \end{frame}
 
 \begin{frame}{Bayesian Nets}
-    $P(X_{1},X_{2},X_{3},\dots,X_{N})$ denotes the joint probability, where $X_{i}$ are random variables.
+    $\Prob(X_{1},X_{2},X_{3},\dots,X_{N})$ denotes the joint probability, where $X_{i}$ are random variables.
     \begin{equation*}
-        P(X_{1},X_{2},X_{3},\dots,X_{N}) = \Pi_{k=1}^{N} P(X_{k} | parents(X_{k}))
+        \Prob(X_{1},X_{2},X_{3},\dots,X_{N}) = \Pi_{k=1}^{N} \Prob(X_{k} | parents(X_{k}))
     \end{equation*}
     
     
     \begin{equation*}
-        P(S,G,R) =  P(G|S,R)P(S|R)P(R)
+        \Prob(S,G,R) =  \Prob(G|S,R)\Prob(S|R)\Prob(R)
     \end{equation*}
     
 \end{frame}
@@ -99,7 +86,7 @@
     \begin{itemize}[<+->]
         \item $y \in\{0,1\}$ where 0 means not spam and 1 means spam
         \item From the emails construct a vector $X$.
-        \item $\left[\begin{array}{c}a \\ a n \\ \vdots \\ \text { computer } \\ \vdots \\ \text { lotery } \\ \vdots \\ 200\end{array}\right]\}$ N words
+        \item $\left. \left[\begin{array}{c}a \\ a n \\ \vdots \\ \text { computer } \\ \vdots \\ \text { lotery } \\ \vdots \\ 200\end{array}\right]\right\}$ N words
         \item The vector has ones if the word is present, and zeros is the word is absent.
         \item Each email corresponds to vector/feature of length N containing zeros or ones.
     \end{itemize}
@@ -112,9 +99,9 @@
         \item Scalable
         \item Generative and Bayesian
         \item Usually a simple/good baselines
-        \item  We want to model $P(class (y) \mid$ features (x)) 
+        \item  We want to model $\Prob(class (y) \mid$ features (x)) 
         \item We can use Bayes rule as follows:
-        $P(class(y) \mid \text { features (x) })=\frac{P(\text { features (x) } \mid class(y)) P(class(y))}{P(\text { features (x) })}$
+        $\Prob(class(y) \mid \text { features (x) })=\frac{\Prob(\text { features (x) } \mid class(y)) \Prob(class(y))}{\Prob(\text { features (x) })}$
     \end{itemize}
     
    
@@ -164,7 +151,7 @@
     
     
     \pause \begin{equation*}
-        P(x_{1},x_{2},x_{3},\dots,x_{N} \vert y) = P(x_{1}|y) P(x_{2}|y) \dots P(x_{N}|y)
+        \Prob(x_{1},x_{2},x_{3},\dots,x_{N} \vert y) = \Prob(x_{1}|y) \Prob(x_{2}|y) \dots \Prob(x_{N}|y)
     \end{equation*}
     \pause Why is Naive Bayes model called Naive? \\
 
@@ -182,7 +169,7 @@
 
 \begin{frame}{What do we need to predict?}
     \begin{equation*}
-        P(y|x_{1},x_{2},\dots,x_{N}) =  \frac{P(x_{1},x_{2},\dots,x_{N}|y)P(y)}{P(x_{1},x_{2},\dots,x_{N})}
+        \Prob(y|x_{1},x_{2},\dots,x_{N}) =  \frac{\Prob(x_{1},x_{2},\dots,x_{N}|y)\Prob(y)}{\Prob(x_{1},x_{2},\dots,x_{N})}
     \end{equation*}
 \end{frame}
 
@@ -190,13 +177,13 @@
 \begin{frame}{Spam Mail Classification}
     Probability of $x_{i}$ being a spam email\\
     $$
-    P(x_{i} = 1|y = 1) = \frac{\text{Count} (x_{i} = 1 \text{ and } y = 1)}{\text{Count }(y=1)}
+    \Prob(x_{i} = 1|y = 1) = \frac{\text{Count} (x_{i} = 1 \text{ and } y = 1)}{\text{Count }(y=1)}
     $$
     
     Similarly,
     
     $$
-    P(x_{i} = 0|y = 1) = \frac{\text{Count} (x_{i} = 0 \text{ and } y = 1)}{\text{Count }(y=1)}
+    \Prob(x_{i} = 0|y = 1) = \frac{\text{Count} (x_{i} = 0 \text{ and } y = 1)}{\text{Count }(y=1)}
     $$
     
     
@@ -205,13 +192,13 @@
 
 \begin{frame}{Spam Mail classification}
     $$
-        P(y = 1) = \frac{\text{Count }(y=1) }{\text{Count }(y=1) +\text{Count }(y=0) }
+        \Prob(y = 1) = \frac{\text{Count }(y=1) }{\text{Count }(y=1) +\text{Count }(y=0) }
     $$
     
     Similarly,
     
     $$
-        P(y = 0) = \frac{\text{Count }(y=0) }{\text{Count }(y=1) +\text{Count }(y=0) }
+        \Prob(y = 0) = \frac{\text{Count }(y=0) }{\text{Count }(y=1) +\text{Count }(y=0) }
     $$
     
     
@@ -242,18 +229,18 @@
 \begin{frame}{Spam Classification}
     if y=0
     \begin{itemize}
-        \item $P(w_{1}=0\vert y=0)$ = $\frac{3}{5}$ = 0.6 \\
-        \item $P(w_{2}=0\vert y=0)$ = $\frac{2}{5}$ = 0.4 \\
-        \item $P(w_{3}=0\vert y=0)$ = $\frac{3}{5}$ = 0.6 \\
+        \item $\Prob(w_{1}=0\vert y=0)$ = $\frac{3}{5}$ = 0.6 \\
+        \item $\Prob(w_{2}=0\vert y=0)$ = $\frac{2}{5}$ = 0.4 \\
+        \item $\Prob(w_{3}=0\vert y=0)$ = $\frac{3}{5}$ = 0.6 \\
     \end{itemize}
-    P(y=0) = 0.5\\
+    $\Prob(y=0) = 0.5$\\
     Similarly, if y=1
     \begin{itemize}
-        \item $P(w_{1}=1\vert y=1)$ = $\frac{2}{5}$ = 0.4 \\
-        \item $P(w_{2}=1\vert y=1)$ = $\frac{1}{5}$ = 0.2 \\
-        \item $P(w_{3}=1\vert y=1)$ = $\frac{3}{5}$ = 0.6 \\
+        \item $\Prob(w_{1}=1\vert y=1)$ = $\frac{2}{5}$ = 0.4 \\
+        \item $\Prob(w_{2}=1\vert y=1)$ = $\frac{1}{5}$ = 0.2 \\
+        \item $\Prob(w_{3}=1\vert y=1)$ = $\frac{3}{5}$ = 0.6 \\
     \end{itemize}
-    P(y=1) = 0.5
+    $\Prob(y=1) = 0.5$
 \end{frame}
 
 \begin{frame}{Spam Classification}
@@ -261,14 +248,14 @@
     Given, test email {0,0,1}, classify using naive bayes
     \pause 
 $$
-        P(y=1\vert w_{1}=0,w_{2} = 0,w_{3}=1) 
+\Prob(y=1\vert w_{1}=0,w_{2} = 0,w_{3}=1) 
 $$
-$$ = \frac{P(w_{1}=0|y=1) P(w_{2}=0|y=1) P(w_{3}=1|y=1) P(y=1)}{P(w_{1}=0, w_{2}=0, w_{3}=1)}
+$$ = \frac{\Prob(w_{1}=0|y=1) \Prob(w_{2}=0|y=1) \Prob(w_{3}=1|y=1) \Prob(y=1)}{\Prob(w_{1}=0, w_{2}=0, w_{3}=1)}
     $$
     $$ = \frac{0.6\times 0.8 \times 0.6 \times 0.5}{Z}
     $$
     
-\pause Similarly, we can calculate $P(y=0\vert w_{1}=0,w_{2} = 0,w_{3}=1) = \frac{0.6*0.4*0.6*0.5}{Z} $
+\pause Similarly, we can calculate $\Prob(y=0\vert w_{1}=0,w_{2} = 0,w_{3}=1) = \frac{0.6*0.4*0.6*0.5}{Z} $
 
 \pause $\frac{P\left(y=1 \mid w_{1}=0, w_{2}=0, w_{3}=1\right)}{P\left(y=0 \mid w_{1}=0, w_{2}=0, w_{3}=1\right)} = 2 > 1$. Thus, classified as a spam example.
     
@@ -286,9 +273,9 @@ $$ = \frac{P(w_{1}=0|y=1) P(w_{2}=0|y=1) P(w_{3}=1|y=1) P(y=1)}{P(w_{1}=0, w_{2}
 
 %\begin{frame}{Spam Classification}
 %    
-%    Calculate, $P(y=1 \vert w_{1}=0, w_{2}=0, w_{3}=1)$ and $P(y=1 \vert w_{1}=0, w_{2}=0, w_{3}=1)$
+%    Calculate, $\Prob(y=1 \vert w_{1}=0, w_{2}=0, w_{3}=1)$ and $\Prob(y=1 \vert w_{1}=0, w_{2}=0, w_{3}=1)$
 %    
-%    if $P(y=1 \vert w_{1}=0, w_{2}=0, w_{3}=1)$ $\gt$ $P(y=0 \vert w_{1}=0, w_{2}=0, w_{3}=1)$, then it is a spam mail
+%    if $\Prob(y=1 \vert w_{1}=0, w_{2}=0, w_{3}=1)$ $\gt$ $\Prob(y=0 \vert w_{1}=0, w_{2}=0, w_{3}=1)$, then it is a spam mail
 %\end{frame}
 
 
@@ -324,7 +311,7 @@ $$ = \frac{P(w_{1}=0|y=1) P(w_{2}=0|y=1) P(w_{3}=1|y=1) P(y=1)}{P(w_{1}=0, w_{2}
 \begin{frame}{Guassian Naive Bayes}
     Now for x = some observation 'v'\\
     \begin{equation*}
-        P(x=v\vert C_{k}) = \frac{1}{\sqrt{2\pi \sigma_{k}^{2}}} \exp^{\frac{-(v-\mu_{k})^{2}}{2\sigma_{k}^{2}}}
+        \Prob(x=v\vert C_{k}) = \frac{1}{\sqrt{2\pi \sigma_{k}^{2}}} \exp^{\frac{-(v-\mu_{k})^{2}}{2\sigma_{k}^{2}}}
     \end{equation*}
 \end{frame}
 
@@ -383,8 +370,8 @@ $$ = \frac{P(w_{1}=0|y=1) P(w_{2}=0|y=1) P(w_{3}=1|y=1) P(y=1)}{P(w_{1}=0, w_{2}
 \begin{frame}{Classify the Person}
     \begin{itemize}[<+->]
         \item  Given height = 6ft, weight = 130 lbs, feet = 8 units, classify if it's male or female.
-        \item $P(F|6ft, 130 lbs, 8 units) = \dfrac{P(6 ft|F)P(130 lbs|F)P(8 units|F)P(F)}{P(130 lbs, 8 units, 6 ft)}$
-        \item $P(130 lbs|F) = \frac{1}{\sqrt{2\pi\times 550}}\times \exp{\frac{-(132.5-130)^2}{2\times 550}} = .0167$
+        \item $\Prob(F|6ft, 130 lbs, 8 units) = \dfrac{\Prob(6 ft|F)\Prob(130 lbs|F)\Prob(8 units|F)\Prob(F)}{\Prob(130 lbs, 8 units, 6 ft)}$
+        \item $\Prob(130 lbs|F) = \frac{1}{\sqrt{2\pi\times 550}}\times \exp{\frac{-(132.5-130)^2}{2\times 550}} = .0167$
         \item Finally, we get probability of female given data is greater than the probability of class being male given data.
 
     \end{itemize}

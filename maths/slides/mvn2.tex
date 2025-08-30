@@ -1,20 +1,12 @@
 \documentclass{beamer}
 \usepackage{../../shared/styles/custom}
 \usepackage{../../shared/styles/conventions}
+\usepackage{../../shared/notation/notation}
 
 \mathtoolsset{showonlyrefs}  
-
-%\beamerdefaultoverlayspecification{<+->}
-
-
-	\ifx\relax#1\relax  \item \else \item[#1] \fi
-	\abovedisplayskip=0pt\abovedisplayshortskip=0pt~\vspace*{-\baselineskip}}
-
-
-
 \title{Multivariate Normal Distribution II}
 \date{\today}
-\author{Nipun Batra}
+\author{Nipun Batra and teaching staff}
 \institute{IIT Gandhinagar}
 \begin{document}
 	\maketitle
@@ -25,22 +17,22 @@
 	
 	\begin{frame}{Detour: Inverse of partioned symmetric matrix \footnote{Courtesy: \nodeSix}}
 		
-		Consider an $n\times n$ symmetric matrix $A$ and divide it into four blocks
+		Consider an $n\times n$ symmetric matrix $\mA$ and divide it into four blocks
 		
 		$
-		A = \begin{bmatrix}
-		A_{11} & A_{12}\\
-		A_{21} & A_{22} \\
+		\mA = \begin{bmatrix}
+		\mA_{11} & \mA_{12}\\
+		\mA_{21} & \mA_{22} \\
 		\end{bmatrix} =  \begin{bmatrix}
-		A_{11} & A_{12}\\
-		A_{12}^T & A_{22} \\
+		\mA_{11} & \mA_{12}\\
+		\mA_{12}\tp & \mA_{22} \\
 		\end{bmatrix}
 		$
 		
 		For example, let $n=3$, we have
 		
 		$$
-		A =  \begin{bmatrix}
+		\mA =  \begin{bmatrix}
 		1 & 2 & 3\\
 		2 & 5 & 6 \\
 		3 & 6 & 8 \\
@@ -50,142 +42,136 @@
 	
 	We could for example have 
 	
-	$A_{11} = \begin{bmatrix}
+	$\mA_{11} = \begin{bmatrix}
 	1 & 2 \\
 	2 & 5 \\
-	\end{bmatrix}$ and $A_{12} = \begin{bmatrix}
+	\end{bmatrix}$ and $\mA_{12} = \begin{bmatrix}
 	3 \\ 6
 	\end{bmatrix}
-	$ and $A_{22} = \begin{bmatrix}
+	$ and $\mA_{22} = \begin{bmatrix}
 	8
 	\end{bmatrix}$
 \end{frame}
 
 \begin{frame}{Detour: Inverse of partioned symmetric matrix}
-	Question: Write $B = A^{-1}$ in terms of the four blocks
-	$
-	B = \begin{bmatrix}
-	B_{11} & B_{12}\\
-	B_{12}^T & A_{22} \\
+	Question: Write $\mB = \mA\inv$ in terms of the four blocks
+	$$
+	\mB = \begin{bmatrix}
+	\mB_{11} & \mB_{12}\\
+	\mB_{12}\tp & \mB_{22} \\
 	\end{bmatrix}
-	= A^{-1}$
-	
-	$A_{11}$ and $B_{11} \in R^{p\times p}$ 
-	
-	$A_{22}$ and $B_{22} \in R^{q\times q}$
-	
-	$A_{12} = A_{21}^T$ and $B_{12} = B_{21}^T \in R^{p\times q}$
-	
+	= \mA\inv$$
+
+	$\mA_{11}$ and $\mB_{11} \in \Real^{p\times p}$ \\
+	$\mA_{22}$ and $\mB_{22} \in \Real^{q\times q}$ \\
+	$\mA_{12} = \mA_{21}\tp$ and $\mB_{12} = \mB_{21}\tp \in \Real^{p\times q}$ \\
 	and, p + q = n 
-	
 \end{frame}
 
 \begin{frame}{Detour: Inverse of partioned symmetric matrix}
-	$I_n = AA^{-1} = AB$
+	$\mI_n = \mA\mA\inv = \mA\mB$
 	
 	$=\begin{bmatrix}
-	A_{11} & A_{12}\\
-	A_{12}^T & A_{22} \\
+	\mA_{11} & \mA_{12}\\
+	\mA_{12}\tp & \mA_{22} \\
 	\end{bmatrix} \begin{bmatrix}
-	B_{11} & B_{12}\\
-	B_{12}^T & B_{22} \\
+	\mB_{11} & \mB_{12}\\
+	\mB_{12}\tp & \mB_{22} \\
 	\end{bmatrix}
 	= \begin{bmatrix}
-	A_{11}B_{11} +A_{12}B_{12}^T & A_{11}B_{12} + A_{12}A_{22}\\
-	A_{12}^TB_{11} + A_{22}B_{12}^T & A_{12}^TB_{12} + A_{22}B_{22}  \\
+	\mA_{11}\mB_{11} +\mA_{12}\mB_{12}\tp & \mA_{11}\mB_{12} + \mA_{12}\mB_{22}\\
+	\mA_{12}\tp\mB_{11} + \mA_{22}\mB_{12}\tp & \mA_{12}\tp\mB_{12} + \mA_{22}\mB_{22}  \\
 	\end{bmatrix} = \begin{bmatrix}
-	I_p & 0 \\
-	0 & I_q
+	\mI_p & \vzero \\
+	\vzero & \mI_q
 	\end{bmatrix}$
 	
 	Thus, we have
 	\begin{gather}
-	A_{11}B_{11} +A_{12}B_{12}^T = I_p\\
-	A_{11}B_{12} + A_{12}A_{22} = 0^{p\times q}\\
-	A_{12}^TB_{11} + A_{22}B_{12}^T = 0^{q\times p}\\
-	A_{12}^TB_{12} + A_{22}B_{22} = I_q
+	\mA_{11}\mB_{11} +\mA_{12}\mB_{12}\tp = \mI_p\\
+	\mA_{11}\mB_{12} + \mA_{12}\mB_{22} = \vzero^{p\times q}\\
+	\mA_{12}\tp\mB_{11} + \mA_{22}\mB_{12}\tp = \vzero^{q\times p}\\
+	\mA_{12}\tp\mB_{12} + \mA_{22}\mB_{22} = \mI_q
 	\end{gather}
 \end{frame}
 
 \begin{frame}{Detour: Inverse of partioned symmetric matrix}
 	Moving the expressions around we get the following results.
-	
-	\begin{gather}
-	B_{11} = (A_{11} - A_{12}A_{22}^{-1}A_{12}^T)^{-1} = A_{11}^{-1} + A_{11}^{-1}A_{12}(A_{22} - A_{12}^TA_{11}^{-1}A_{12})^{-1}A_{12}^TA_{11}^{-1}\\
-	B_{22} = (A_{22} - A_{12}^TA_{11}^{-1}A_{12})^{-1} = A_{22}^{-1} + A_{22}^{-1}A_{12}^T(A_{11} - A_{12}A_{22}^{-1}A_{12}^T)^{-1}A_{12}A_{22}^{-1}\\
-	B_{12}^T = - A_{22}^{-1}A_{12}^T ( A_{11} - A_{12} A_{22}^{-1} A_{12}^T)^{-1}\\\\
-	B_{12}^T = - A_{11}^{-1}A_{12}^T ( A_{22} - A_{12} ^TA_{11}^{-1} A_{12})^{-1}
-	\end{gather}
+	\begin{align*}
+	\mB_{11} &= (\mA_{11} - \mA_{12}\mA_{22}\inv \mA_{12}\tp)\inv \\
+	&= \mA_{11}\inv + \mA_{11}\inv \mA_{12}(\mA_{22} - \mA_{12}\tp\mA_{11}\inv \mA_{12})\inv \mA_{12}\tp\mA_{11}\inv\\
+	\mB_{22} &= (\mA_{22} - \mA_{12}\tp\mA_{11}\inv \mA_{12})\inv \\
+	&= \mA_{22}\inv + \mA_{22}\inv \mA_{12}\tp(\mA_{11} - \mA_{12}\mA_{22}\inv \mA_{12}\tp)\inv \mA_{12}\mA_{22}\inv\\
+	\mB_{12}\tp &= - \mA_{22}\inv \mA_{12}\tp ( \mA_{11} - \mA_{12} \mA_{22}\inv \mA_{12}\tp)\inv\\
+	\mB_{12}\tp &= - \mA_{11}\inv \mA_{12}\tp ( \mA_{22} - \mA_{12}\tp \mA_{11}\inv \mA_{12})\inv
+	\end{align*}
 \end{frame}
 
 \begin{frame}{Determinant of Partitioned Symmetric Matrix}
 	
 	\textbf{Theorem:} Determinant of a partitioned symmetric matrix can be written as follows
 	\begin{gather}
-	\vert A \vert 
-	= \bigg| 
-	\begin{bmatrix}
-	A_{11}&A_{12}\\
-	A_{21}&A_{22}
-	\end{bmatrix}
-	\bigg| \\
-	=\vert A_{11}\vert \vert A_{22}-A_{12}^TA_{11}^{-1}A_{12}\vert \\
-	=\vert A_{22}\vert \vert
-	A_{11}-A_{12}A_{22}^{-1}A_{12}^T \vert 
+	\det(\mA) = \det \left( 
+	\begin{matrix}
+	\mA_{11}&\mA_{12}\\
+	\mA_{21}&\mA_{22}
+	\end{matrix}
+	\right) \\
+	=\det(\mA_{11})\det(\mA_{22}-\mA_{12}\tp\mA_{11}\inv\mA_{12}) \\
+	=\det(\mA_{22})\det(\mA_{11}-\mA_{12}\mA_{22}\inv\mA_{12}\tp)
 	\end{gather}
 \end{frame}
 
 \begin{frame}{Determinant of Partitioned Symmetric Matrix}
 	\textbf{Proof:} Note that
 	\begin{gather}
-	A = 
+	\mA = 
 	\begin{bmatrix}
-	A_{11}&A_{12} \\
-	A_{21}&A_{22}
+	\mA_{11}&\mA_{12} \\
+	\mA_{21}&\mA_{22}
 	\end{bmatrix}
 	= 
 	\begin{bmatrix}
-	A_{11}& 0 \\
-	A_{12}^T& I
+	\mA_{11}& \vzero \\
+	\mA_{12}\tp& \mI
 	\end{bmatrix}
 	\begin{bmatrix}
-	I & A_{11}^{-1}A_{12} \\
-	0 & A_{22} - A_{12}^TA_{11}^{-1}A_{12}
+	\mI & \mA_{11}\inv\mA_{12} \\
+	\vzero & \mA_{22} - \mA_{12}\tp\mA_{11}\inv\mA_{12}
 	\end{bmatrix}\\
 	= 
 	\begin{bmatrix}
-	I & A_{12} \\
-	0 & A_{22}
+	\mI & \mA_{12} \\
+	\vzero & \mA_{22}
 	\end{bmatrix}
 	\begin{bmatrix}
-	A_{11} - A_{12}A_{22}^{-1}A_{12}^T & 0\\
-	A_{22}^{-1}A_{21}  & I
+	\mA_{11} - \mA_{12}\mA_{22}\inv\mA_{12}\tp & \vzero\\
+	\mA_{22}\inv\mA_{21}  & \mI
 	\end{bmatrix}
 	\end{gather} 
 	
 	The theorem is proved as we also know that
 	\begin{equation}
-	\vert AB\vert=\vert A\vert  \vert B\vert 
+	\det(\mA\mB)=\det(\mA) \det(\mB) 
 	\end{equation}
 	
 	and
 	\begin{equation}
-	\left\vert 
+	\det \left( 
 	\begin{matrix}
-	B&0 \\
-	C&D
+	\mB&\vzero \\
+	\mC&\mD
 	\end{matrix} 
-	\right\vert
+	\right)
 	=
-	\left\vert 
+	\det \left(
 	\begin{matrix}
-	B&C \\
-	0&D
-	\end{matrix} 
-	\right\vert
+	\mB&\mC \\
+	\vzero&\mD
+	\end{matrix}
+	\right)
 	=
-	\vert B\vert\
-	\vert D\vert 
+	\det(\mB)\det(\mD)
 	\end{equation}	
 \end{frame}
 
@@ -193,155 +179,182 @@
 	Assume an n-dimensional random vector
 	
 	\begin{equation}
-	{\bf x}=\begin{bmatrix}\vx_1 & \vx_2\end{bmatrix} 
+	{\vx}=\begin{bmatrix}\vx_1 & \vx_2\end{bmatrix} 
 	\end{equation}
 	
-	has a normal distribution $N({\bf x},\mu,\Sigma)$ with
-	\begin{gather}\mu=
+	has a normal distribution $\distribReal{N}{\vmu}{\mSigma}$ with
+	\begin{gather}\vmu=
 	\begin{bmatrix}
-	\mu_1 \\
-	\mu_2
+	\vmu_1 \\
+	\vmu_2
 	\end{bmatrix} 
 	\text{and }
-	\Sigma = \begin{bmatrix}
-	\Sigma_{11}& \Sigma_{12}\\
-	\Sigma_{21}&\Sigma_{22}
+	\mSigma = \begin{bmatrix}
+	\mSigma_{11}& \mSigma_{12}\\
+	\mSigma_{21}&\mSigma_{22}
 	\end{bmatrix} 
 	\end{gather}
-	
-	where $\vx_1$ and $\vx_2$ are two subvectors of respective dimensions $p$ and $q$ with $p+q=n$. Note that $\Sigma=\Sigma^T$, and $\Sigma_{21}=\Sigma_{21}^T$.
+
+	where $\vx_1$ and $\vx_2$ are two subvectors of respective dimensions $p$ and $q$ with $p+q=n$. Note that $\mSigma=\mSigma\tp$, and $\mSigma_{21}=\mSigma_{21}\tp$.
 \end{frame}
 
 \begin{frame}{Marginalisation and Conditional of multivariate normal}
 	\textbf{Theorem:}
 	
-	\textbf{part a:} The marginal distributions of $\vx_1$ and $\vx_2$ are also normal with mean vector $\mu_i$ and covariance matrix $\Sigma_{ii}$ ($i=1,2$), respectively.
+	\textbf{part a:} The marginal distributions of $\vx_1$ and $\vx_2$ are also normal with mean vector $\vmu_i$ and covariance matrix $\mSigma_{ii}$ ($i=1,2$), respectively.
 	
-	\textbf{part b:} The conditional distribution of ${\bf x}_i$ given ${\bf x}_j$ is also normal with mean vector
-	
+	\textbf{part b:} The conditional distribution of $\vx_i$ given $\vx_j$ is also normal with mean vector
+	\begin{gather}
+	\vmu_{i|j} = \vmu_i + \mSigma_{ij}\mSigma_{jj}^{-1}(\vx_j - \vmu_j)\\
+	\end{gather}
 \end{frame}
 
 \begin{frame}{Marginalisation and Conditional of multivariate normal}
 	\textbf{Proof:}
 	
-	The joint density of ${\bf x}$ is:
+	The joint density of ${\vx}$ is:
 	
 	\begin{equation}
-	f({\bf x})=f(\vx_1,\vx_2)=\frac{1}{(2\pi)^{n/2\vert\Sigma\vert^{1/2}}}exp[-\frac{1}{2}Q(\vx_1,\vx_2)] 
+	f({\vx})=f(\vx_1,\vx_2)=\frac{1}{(2\pi)^{n/2}\det(\mSigma)^{1/2}}exp\left[-\frac{1}{2}Q(\vx_1,\vx_2)\right] 
 	\end{equation}
 	
 	where $Q$ is defined as
+    \small
 	\begin{gather}
-	Q(\vx_1,\vx_2) = ({\bf x}-\mu)^T\Sigma^{-1}({\bf x}-\mu)\\
-	= [(\vx_1-\mu_1)^T, (\vx_2-\mu_2)^T] 
+	Q(\vx_1,\vx_2) = ({\vx}-\vmu)\tp\mSigma\inv({\vx}-\vmu)\\
+	= [(\vx_1-\vmu_1)\tp, (\vx_2-\vmu_2)\tp] 
 	\begin{bmatrix}
-	\Sigma^{11} & \Sigma^{12}\\
-	\Sigma^{21} & \Sigma^{22}
+	\mSigma^{11} & \mSigma^{12}\\
+	\mSigma^{21} & \mSigma^{22}
 	\end{bmatrix}
 	\begin{bmatrix}
-	\vx_1-\mu_1 \\
-	\vx_2-\mu_2
+	\vx_1-\vmu_1 \\
+	\vx_2-\vmu_2
 	\end{bmatrix}\\
-	= (\vx_1-\mu_1)^T\Sigma^{11}(\vx_1-\mu_1)+ 2(\vx_1-\mu_1)^T\Sigma^{12}(\vx_2-\mu_2) + (\vx_2-\mu_2)^T \cdots \\
-	\cdots \Sigma^{22}(\vx_2-\mu_2)
+	= (\vx_1-\vmu_1)\tp\mSigma^{11}(\vx_1-\vmu_1)+ 2(\vx_1-\vmu_1)\tp\mSigma^{12}(\vx_2-\vmu_2) + (\vx_2-\vmu_2)\tp \cdots \\
+	\cdots \mSigma^{22}(\vx_2-\vmu_2)
 	\end{gather}
 \end{frame}
 
 \begin{frame}{Marginalisation and Conditional of multivariate normal}
-	Here we have assumed 
-	$$	
-	\Sigma^{-1}=\left[\begin{array}{cc}
-	{\Sigma_{11}} & {\Sigma_{12}} \\
-	{\Sigma_{21}} & {\Sigma_{22}}
-	\end{array}\right]^{-1}=\left[\begin{array}{cc}
-	{\Sigma^{11}} & {\Sigma^{12}} \\
-	{\Sigma^{21}} & {\Sigma^{22}}
-	\end{array}\right]
-	$$
-	
-	According to inverse of a partitioned symmetric matrix we have, 
-	\begin{gather}
-	\Sigma^{11}=\left(\Sigma_{11}-\Sigma_{12} \Sigma_{22}^{-1} \Sigma_{12}^{T}\right)^{-1}=\Sigma_{11}^{-1}+\Sigma_{11}^{-1} \Sigma_{12}\left(\Sigma_{22}-A_{12}^{T} \Sigma_{11}^{T} \Sigma_{12}\right)^{-1} \Sigma_{12}^{T} \Sigma_{11}^{-1}\\
-	\Sigma^{22}=\left(\Sigma_{22}-\Sigma_{12}^{T} \Sigma_{11}^{-1} \Sigma_{12}\right)^{-1}=\Sigma_{22}^{-1}+\Sigma_{22}^{-1} \Sigma_{12}^{T}\left(\Sigma_{11}-\Sigma_{12} \Sigma_{22}^{-1} \Sigma_{12}^{T}\right)^{-1} \Sigma_{12} \Sigma_{22}^{-1}\\
-	\Sigma^{12}=-\Sigma_{11}^{-1} \Sigma_{12}\left(\Sigma_{22}-\Sigma_{12}^{T} \Sigma_{11}^{-1} \Sigma_{12}\right)^{-1}=\left(\Sigma^{21}\right)^{T}
-	\end{gather}
+Here we have assumed 
+$$	
+\mSigma\inv=\left[\begin{array}{cc}
+{\mSigma_{11}} & {\mSigma_{12}} \\
+{\mSigma_{21}} & {\mSigma_{22}}
+\end{array}\right]\inv=\left[\begin{array}{cc}
+{\mSigma^{11}} & {\mSigma^{12}} \\
+{\mSigma^{21}} & {\mSigma^{22}}
+\end{array}\right]
+$$
+According to inverse of a partitioned symmetric matrix we have, 
+\begin{align*}
+\mSigma^{11}&=\left(\mSigma_{11}-\mSigma_{12} \mSigma_{22}\inv \mSigma_{12}\tp\right)\inv \\
+&=\mSigma_{11}\inv+\mSigma_{11}\inv \mSigma_{12}\left(\mSigma_{22}-\mA_{12}\tp \mSigma_{11}\tp \mSigma_{12}\right)\inv \mSigma_{12}\tp \mSigma_{11}\inv \\
+\mSigma^{22}&=\left(\mSigma_{22}-\mSigma_{12}\tp \mSigma_{11}\inv \mSigma_{12}\right)\inv \\
+&=\mSigma_{22}\inv+\mSigma_{22}\inv \mSigma_{12}\tp\left(\mSigma_{11}-\mSigma_{12} \mSigma_{22}\inv \mSigma_{12}\tp\right)\inv \mSigma_{12} \mSigma_{22}\inv \\
+\mSigma^{12}&=-\mSigma_{11}\inv \mSigma_{12}\left(\mSigma_{22}-\mSigma_{12}\tp \mSigma_{11}\inv \mSigma_{12}\right)\inv=\left(\mSigma^{21}\right)\tp
+\end{align*}
 	
 \end{frame}
 
 \begin{frame}{Marginalisation and Conditional of multivariate normal}
-	Substituting the second expression for $\Sigma^{11}$, first expression for $\Sigma^{22}$, and $\Sigma^{12}$ into $Q(\vx_1,\vx_2)$ to get:
-	
+	Substituting the second expression for $\mSigma^{11}$, first expression for $\mSigma^{22}$, and $\mSigma^{12}$ into $Q(\vx_1,\vx_2)$ to get:
+	\footnotesize
 	\begin{gather}
 	\begin{aligned}
-	Q\left(\vx_{1}, \vx_{2}\right)=&\left(\vx_{1}-\mu_{1}\right)^{T}\left[\Sigma_{11}^{-1}+\Sigma_{11}^{-1} \Sigma_{12}\left(\Sigma_{22}-A_{12}^{T} \Sigma_{11}^{-1} \Sigma_{12}\right)^{-1} \Sigma_{12}^{T} \Sigma_{11}^{-1}\right]\left(\vx_{1}-\mu_{1}\right) \\
-	&-2\left(\vx_{1}-\mu_{1}\right)^{T}\left[\Sigma_{11}^{-1} \Sigma_{12}\left(\Sigma_{22}-\Sigma_{12}^{T} \Sigma_{11}^{-1} \Sigma_{12}\right)^{-1}\right]\left(\vx_{2}-\mu_{2}\right) \\
-	&+\left(\vx_{2}-\mu_{2}\right)^{T}\left[\left(\Sigma_{22}-\Sigma_{12}^{T} \Sigma_{11}^{-1} \Sigma_{12}\right)^{-1}\right]\left(\vx_{2}-\mu_{2}\right)\\
-	=&\left(\vx_{1}-\mu_{1}\right)^{T} \Sigma_{11}^{-1}\left(\vx_{1}-\mu_{1}\right) \\
-	&\left.+\left(\vx_{1}-\mu_{1}\right)^{T} \Sigma_{11}^{-1} \Sigma_{12}\left(\Sigma_{22}-A_{12}^{T} \Sigma_{11}^{-1} \Sigma_{12}\right)^{-1} \Sigma_{12}^{T} \Sigma_{11}^{-1}\right]\left(\vx_{1}-\mu_{1}\right) \\
-	&-2\left(\vx_{1}-\mu_{1}\right)^{T}\left[\Sigma_{11}^{-1} \Sigma_{12}\left(\Sigma_{22}-\Sigma_{12}^{T} \Sigma_{11}^{-1} \Sigma_{12}\right)^{-1}\right]\left(\vx_{2}-\mu_{2}\right) \\
-	&+\left(\vx_{2}-\mu_{2}\right)^{T}\left[\left(\Sigma_{22}-\Sigma_{12}^{T} \Sigma_{11}^{-1} \Sigma_{12}\right)^{-1}\right]\left(\vx_{2}-\mu_{2}\right)
+	&Q\left(\vx_{1}, \vx_{2}\right)= \\
+    &\left(\vx_{1}-\vmu_{1}\right)\tp\left[\mSigma_{11}\inv+\mSigma_{11}\inv \mSigma_{12}\left(\mSigma_{22}-\mA_{12}\tp \mSigma_{11}\inv \mSigma_{12}\right)\inv \mSigma_{12}\tp \mSigma_{11}\inv\right]\left(\vx_{1}-\vmu_{1}\right) \\
+	&-2\left(\vx_{1}-\vmu_{1}\right)\tp\left[\mSigma_{11}\inv \mSigma_{12}\left(\mSigma_{22}-\mSigma_{12}\tp \mSigma_{11}\inv \mSigma_{12}\right)\inv\right]\left(\vx_{2}-\vmu_{2}\right) \\
+	&+\left(\vx_{2}-\vmu_{2}\right)\tp\left[\left(\mSigma_{22}-\mSigma_{12}\tp \mSigma_{11}\inv \mSigma_{12}\right)\inv\right]\left(\vx_{2}-\vmu_{2}\right)\\
+	=&\left(\vx_{1}-\vmu_{1}\right)\tp \mSigma_{11}\inv\left(\vx_{1}-\vmu_{1}\right) \\
+	&\left.+\left(\vx_{1}-\vmu_{1}\right)\tp \mSigma_{11}\inv \mSigma_{12}\left(\mSigma_{22}-\mA_{12}\tp \mSigma_{11}\inv \mSigma_{12}\right)\inv \mSigma_{12}\tp \mSigma_{11}\inv\right]\left(\vx_{1}-\vmu_{1}\right) \\
+	&-2\left(\vx_{1}-\vmu_{1}\right)\tp\left[\mSigma_{11}\inv \mSigma_{12}\left(\mSigma_{22}-\mSigma_{12}\tp \mSigma_{11}\inv \mSigma_{12}\right)\inv\right]\left(\vx_{2}-\vmu_{2}\right) \\
+	&+\left(\vx_{2}-\vmu_{2}\right)\tp\left[\left(\mSigma_{22}-\mSigma_{12}\tp \mSigma_{11}\inv \mSigma_{12}\right)\inv\right]\left(\vx_{2}-\vmu_{2}\right)
 	\end{aligned}\\
-	\end{gather})
+	\end{gather}
 \end{frame}
 
 \begin{frame}{Marginalisation and Conditional of multivariate normal}
+	\footnotesize
 	\begin{gather}
 	\begin{aligned}
-	=&\left(\vx_{1}-\mu_{1}\right)^{T} \Sigma_{11}^{-1}\\
-	&+\left[\left(\vx_{2}-\mu_{2}\right)-\Sigma_{12}^{T} \Sigma_{11}^{-1}\left(\vx_{1}-\mu_{1}\right)\right]^{T}\left(\Sigma_{22}-\Sigma_{12}^{T} \Sigma_{11}^{-1} \Sigma_{12}\right)^{-1}\left[\left(\vx_{2}-\mu_{2}\right)-\Sigma_{12}^{T} \Sigma_{11}^{-1}\left(\vx_{1}-\mu_{1}\right)\right]
+	=&\left(\vx_{1}-\vmu_{1}\right)\tp \mSigma_{11}\inv\\
+	&+\left[\left(\vx_{2}-\vmu_{2}\right)-\mSigma_{12}\tp \mSigma_{11}\inv\left(\vx_{1}-\vmu_{1}\right)\right]\tp \cdot \left(\mSigma_{22}-\mSigma_{12}\tp \mSigma_{11}\inv \mSigma_{12}\right)\inv \\
+    & \cdot \left[\left(\vx_{2}-\vmu_{2}\right)-\mSigma_{12}\tp \mSigma_{11}\inv\left(\vx_{1}-\vmu_{1}\right)\right]
 	\end{aligned}
 	\end{gather}
-	The last equal sign is due to the following equations for any vectors $u$ and $v$ and a symmetric matrix $A=A^T$:
+	\normalsize
+	The last equal sign is due to the following equations for any vectors $\vu$ and $\vv$ and a symmetric matrix $\mA=\mA\tp$:
 	
 	\begin{gather}
 	\begin{aligned}
-	& u^{T} A u-2 u^{T} A v+v^{T} A v=u^{T} A u-u^{T} A v-u^{T} A v+v^{T} A v \\
-	=& u^{T} A(u-v)-(u-v)^{T} A v=u^{T} A(u-v)-v^{T} A(u-v) \\
-	=&(u-v)^{T} A(u-v)=(v-u)^{T} A(v-u)
-	\end{aligned} 
+	& \vu\tp \mA \vu-2 \vu\tp \mA \vv+\vv\tp \mA \vv=\vu\tp \mA \vu-\vu\tp \mA \vv-\vu\tp \mA \vv+\vv\tp \mA \vv \\
+	=& \vu\tp \mA (\vu-\vv)-(\vu-\vv)\tp \mA \vv=\vu\tp \mA (\vu-\vv)-\vv\tp \mA (\vu-\vv) \\
+	=&(\vu-\vv)\tp \mA (\vu-\vv)=(\vv-\vu)\tp \mA (\vv-\vu)
+	\end{aligned}
 	\end{gather}
 \end{frame}
 
 \begin{frame}{Marginalisation and Conditional of multivariate normal}
-	We define  
-	$b \triangleq \mu_{2}+\Sigma_{12}^{T} \Sigma_{11}^{-1}\left(\vx_{1}-\mu_{1}\right)$
+	We define  \\
+	$\vb \triangleq \vmu_{2}+\mSigma_{12}\tp \mSigma_{11}\inv\left(\vx_{1}-\vmu_{1}\right)$
 	\[
-	A \triangleq \Sigma_{22}-\Sigma_{12}^{T} \Sigma_{11}^{-1} \Sigma_{12}
+	\mA \triangleq \mSigma_{22}-\mSigma_{12}\tp \mSigma_{11}\inv \mSigma_{12}
 	\]
 	
 	and 
-	$$\left\{\begin{array}{l}{Q_{1}\left(\mathrm{x}_{1}\right) \quad \triangleq\left(\mathrm{x}_{1}-\mu_{1}\right)^{T} \Sigma_{1}^{-1}\left(\mathrm{x}_{1}-\mu_{1}\right)} \\ {Q_{2}\left(\mathrm{x}_{1}, \mathrm{x}_{2}\right) \triangleq\left[\left(\mathrm{x}_{2}-\mu_{2}\right)-\Sigma_{12}^{T} \Sigma_{11}^{-1}\left(\mathrm{x}_{1}-\mu_{1}\right)\right]^{T}\left(\Sigma_{22}-\Sigma_{12}^{T} \Sigma_{11}^{-1} \Sigma_{12}\right)^{-1}\left[\left(\mathrm{x}_{2}-\mu_{2}\right)-\Sigma_{12}^{T} \Sigma_{11}^{-1}\left(\mathrm{x}_{1}-\mu_{1}\right)\right]} \\ {=\left(\mathrm{x}_{2}-b\right)^{T} A^{-1}\left(\mathrm{x}_{2}-b\right)}\end{array}\right.$$
-	
+
+	$$\left\{\begin{array}{l}{Q_{1}\left(\vx_{1}\right) \quad \triangleq\left(\vx_{1}-\vmu_{1}\right)\tp \mSigma_{1}\inv\left(\vx_{1}-\vmu_{1}\right)} \\ 
+		{\mN=\left[\left(\vx_{2}-\vmu_{2}\right)-\mSigma_{12}\tp \mSigma_{11}\inv\left(\vx_{1}-\vmu_{1}\right)\right]} \\
+		{Q_{2}\left(\vx_{1}, \vx_{2}\right) \triangleq \mN\tp\left(\mSigma_{22}-\mSigma_{12}\tp \mSigma_{11}\inv \mSigma_{12}\right)\inv \mN} \\
+		{=\left(\vx_{2}-\vb\right)\tp \mA\inv\left(\vx_{2}-\vb\right)}\end{array}\right.$$
+
 	and get 
 	$$Q\left(\vx_{1}, \vx_{2}\right)=Q_{1}\left(\vx_{1}\right)+Q_{2}\left(\vx_{1}, \vx_{2}\right)$$
 \end{frame}
 
 
 \begin{frame}{Marginalisation and Conditional of multivariate normal}
-	Now the joint distribution can be written as: 
+	\small
+    Now the joint distribution can be written as: 
 	
-	$$\begin{aligned} f(\mathrm{x}) &=f\left(\mathrm{x}_{1}, \mathrm{x}_{2}\right)=\frac{1}{(2 \pi)^{n / 2}\vert\Sigma\vert^{1 / 2}} \exp \left[-\frac{1}{2} Q\left(\mathrm{x}_{1}, \mathrm{x}_{2}\right)\right] \\ &=\frac{1}{(2 \pi)^{n / 2}\left|\Sigma_{11}\right|^{1 / 2}\left|\Sigma_{22}-\Sigma_{12}^{T} \Sigma_{11}^{-1} \Sigma_{12}\right|^{1 / 2}} \exp \left[-\frac{1}{2} Q\left(\mathrm{x}_{1}, \mathrm{x}_{2}\right)\right] \\ &=\frac{1}{(2 \pi)^{p / 2}\left|\Sigma_{11}\right|^{1 / 2}} \exp \left[-\frac{1}{2}\left(\mathrm{x}_{1}-\mu_{1}\right)^{T} \Sigma_{11}^{-1}\left(\mathrm{x}_{1}-\mu_{1}\right)\right] \frac{1}{(2 \pi)^{q / 2}|A|^{1 / 2}} \exp \left[-\frac{1}{2}\left(\mathrm{x}_{2}-b\right)^{T} A^{-1}\left(\mathrm{x}_{2}-b\right)\right] \\ &=N\left(\mathrm{x}_{1}, \mu_{1}, \Sigma_{11}\right) N\left(\mathrm{x}_{2}, b, A\right) \end{aligned}$$
+	$$
+	\begin{aligned}
+		f(\vx) &=f\left(\vx_{1}, \vx_{2}\right)=\frac{1}{(2 \pi)^{n / 2}\det(\mSigma)^{1 / 2}} \exp \left[-\frac{1}{2} Q\left(\vx_{1}, \vx_{2}\right)\right] \\ 
+		&=\frac{1}{(2 \pi)^{n / 2}\det(\mSigma_{11})^{1 / 2}\det(\mSigma_{22}-\mSigma_{12}\tp \mSigma_{11}\inv \mSigma_{12})^{1 / 2}} \exp \left[-\frac{1}{2} Q\left(\vx_{1}, \vx_{2}\right)\right] \\ 
+		&=\frac{1}{(2 \pi)^{p / 2}\det(\mSigma_{11})^{1 / 2}} \exp \left[-\frac{1}{2}\left(\vx_{1}-\vmu_{1}\right)\tp \mSigma_{11}\inv\left(\vx_{1}-\vmu_{1}\right)\right] \\
+		&\quad \times \frac{1}{(2 \pi)^{q / 2}\det(\mA)^{1 / 2}} \exp \left[-\frac{1}{2}\left(\vx_{2}-\vb\right)\tp \mA\inv\left(\vx_{2}-\vb\right)\right] \\ 
+		&=\distribReal{N}{\vmu_1}{\mSigma_{11}}_{\vx_1}\ \distribReal{N}{\vb}{\mA}_{\vx_2}
+	\end{aligned}
+	$$
 	
 	The third equal sign is due to Determinant of a partitioned symmetric matrix:
-	
-	$|\Sigma|=\left|\Sigma_{11}\right|\left|\Sigma_{22}-\Sigma_{12}^{T} \Sigma_{11}^{-1} \Sigma_{12}\right|$
+
+	$$
+	\det(\mSigma)=\det(\mSigma_{11})\det(\mSigma_{22}-\mSigma_{12}\tp \mSigma_{11}\inv \mSigma_{12})
+	$$
 \end{frame}
 
 \begin{frame}{Marginalisation and Conditional of multivariate normal}
 	The marginal distribution of $\vx_1$ is 
-	$$f_{1}\left(\vx_{1}\right)=\int f\left(\vx_{1}, \vx_{2}\right) d \vx_{2}=\frac{1}{(2 \pi)^{p / 2}\left|\Sigma_{11}\right|^{1 / 2}} \exp \left[-\frac{1}{2}\left(\vx_{1}-\mu_{1}\right)^{T} \Sigma_{11}^{-1}\left(\vx_{1}-\mu_{1}\right)\right]$$
-	
+	\begin{align*}
+    f_{1}\left(\vx_{1}\right)&=\int f\left(\vx_{1}, \vx_{2}\right) d \vx_{2} \\
+    &=\frac{1}{(2 \pi)^{p / 2}\det(\mSigma_{11})^{1 / 2}} \exp \left[-\frac{1}{2}\left(\vx_{1}-\vmu_{1}\right)\tp \mSigma_{11}\inv\left(\vx_{1}-\vmu_{1}\right)\right]
+	\end{align*}
 	and the conditional distribution of $\vx_2$ given $\vx_1$ is 
-	
-	$$f_{2 | 1}\left(\mathrm{x}_{2} | \mathrm{x}_{1}\right)=\frac{f\left(\mathrm{x}_{1}, \mathrm{x}_{2}\right)}{f\left(\mathrm{x}_{1}\right)}=\frac{1}{(2 \pi)^{q / 2}|A|^{1 / 2}} \exp \left[-\frac{1}{2}\left(\mathrm{x}_{2}-b\right)^{T} A^{-1}\left(\mathrm{x}_{2}-b\right)\right]$$
+	\begin{align*}
+	f_{2 | 1}\left(\vx_{2} | \vx_{1}\right)&=\frac{f\left(\vx_{1}, \vx_{2}\right)}{f\left(\vx_{1}\right)} \\
+	&=\frac{1}{(2 \pi)^{q / 2}\det(\mA)^{1 / 2}} \exp \left[-\frac{1}{2}\left(\vx_{2}-\vb\right)\tp \mA\inv\left(\vx_{2}-\vb\right)\right]
+	\end{align*}
 \end{frame}
 
 \begin{frame}{Marginalisation and Conditional of multivariate normal}
 	with
 	
-	$$b=\mu_{2}+\Sigma_{12}^{T} \Sigma_{11}^{-1}\left(\vx_{1}-\mu_{1}\right)$$
+	$$\vb=\vmu_{2}+\mSigma_{12}\tp \mSigma_{11}\inv\left(\vx_{1}-\vmu_{1}\right)$$
 	\[
-	A=\Sigma_{22}-\Sigma_{12}^{T} \Sigma_{11}^{-1} \Sigma_{12}
+	\mA=\mSigma_{22}-\mSigma_{12}\tp \mSigma_{11}\inv \mSigma_{12}
 	\]
 \end{frame}
 

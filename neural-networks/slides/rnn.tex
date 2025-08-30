@@ -45,33 +45,27 @@
 			\end{align}
 		\end{definitionbox}
 		
-		\begin{keypointsbox}
+		\begin{keypointsbox}{Important}
 			\begin{itemize}
 				\item Same weights shared across all time steps
-				\item Hidden state acts as "memory"
+				\item Hidden state acts as ``memory''
 				\item Can process variable length sequences
 			\end{itemize}
 		\end{keypointsbox}
 	\end{frame}
 	
-	\stepcounter{popquiz}
-	\begin{frame}{Pop Quiz \#\thepopquiz}
-		\begin{popquizbox}{\thepopquiz}
-			What happens to gradients in simple RNNs during backpropagation?
-			
+	\popquiz{
+			\textbf{What happens to gradients in simple RNNs during backpropagation?}
 			\begin{enumerate}[A)]
 				\item They remain constant
 				\item They can explode or vanish
 				\item They always improve
 				\item They disappear completely
 			\end{enumerate}
-		\end{popquizbox}
-	\end{frame}
-	
-	\begin{frame}{Pop Quiz \#\thepopquiz{} - Answer}
-		\textbf{Answer: B) They can explode or vanish}
-		
-		\begin{alertbox}{The Gradient Problem}
+	}{{\color{magenta}\textbf{B) They can explode or vanish}}}
+
+	\begin{frame}{The Issue}
+	\begin{alertbox}{The Gradient Problem}
 			\begin{itemize}
 				\item Gradients multiply by $W_{hh}$ at each time step
 				\item If $||W_{hh}|| > 1$: Exploding gradients
@@ -79,7 +73,6 @@
 			\end{itemize}
 		\end{alertbox}
 	\end{frame}
-	
 	\section{RNN Applications}
 	
 	\begin{frame}{Sentiment Analysis (Many-to-One)}
@@ -91,8 +84,8 @@
 			\end{itemize}
 		\end{examplebox}
 		
-		\begin{keypointsbox}
-			Applications: Document classification, spam detection, review analysis
+		\begin{keypointsbox}{Applications}
+			Document classification, spam detection, review analysis
 		\end{keypointsbox}
 	\end{frame}
 	
@@ -124,8 +117,7 @@
 	\end{frame}
 	
 	\begin{frame}{GRU: Gated Recurrent Unit}
-		\begin{keypointsbox}
-			\textbf{GRU vs LSTM:}
+		\begin{keypointsbox}{GRU vs LSTM}
 			\begin{itemize}
 				\item Simpler: Only 2 gates instead of 3
 				\item Faster training and inference
@@ -149,6 +141,7 @@
 	\end{frame}
 	
 	\begin{frame}{When to Still Use RNNs}
+		\footnotesize
 		\begin{definitionbox}{RNN Strengths}
 			\begin{itemize}
 				\item \textbf{Memory efficiency}: Constant memory usage
@@ -171,8 +164,7 @@
 	\section{Summary}
 	
 	\begin{frame}{Key Takeaways}
-		\begin{keypointsbox}
-			\textbf{What we learned:}
+		\begin{keypointsbox}{What we learned}
 			\begin{enumerate}
 				\item RNNs process sequential data with memory
 				\item Simple RNNs suffer from gradient problems

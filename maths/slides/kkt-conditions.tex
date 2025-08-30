@@ -1,21 +1,13 @@
 \documentclass{beamer}
 \usepackage{../../shared/styles/custom}
-
 \usepackage{../../shared/styles/conventions}
-
-%\beamerdefaultoverlayspecification{<+->}
-% \newcommand{\data}{\mathcal{D}}
-% \newcommand\Item[1][]{%
-% 	\ifx\relax#1\relax  \item \else \item[#1] \fi
-% 	\abovedisplayskip=0pt\abovedisplayshortskip=0pt~\vspace*{-\baselineskip}}
+\usepackage{../../shared/notation/notation}
 
 \graphicspath{ {../assets/kkt-conditions/diagrams/} }
 
-
-
 \title{KKT Conditions}
 \date{\today}
-\author{Nipun Batra}
+\author{Nipun Batra and teaching staff}
 \institute{IIT Gandhinagar}
 \begin{document}
 	\maketitle
@@ -23,7 +15,7 @@
 	\begin{frame}{KKT Conditions}
 	Used for constrained optimization of the form\\
 	\vspace{1cm}
-	Minimize $f(x)$, where $x \in \mathbb{R}^k$\\
+	Minimize $f(x)$, where $x \in \Real^k$\\
 	such that\\
 	\begin{center}
 	$h_i(x) = 0$,  $\forall i = 1, \dots, m$ (m equalities)\\
@@ -36,7 +28,7 @@
 	\only<1->{
 	\item Create a new function for minimization, \\
 	\vspace{0.5cm}
-	$L(x, \lambda_1, \dots, \lambda_m, \mu_1, \dots, \mu_n ) = f(x) + \sum\limits_{i=1}^{m}\lambda_ih_i(x) + \sum\limits_{j=1}^{n}\mu_jg_j(x)$\\
+	$\Lagra(x, \lambda_1, \dots, \lambda_m, \mu_1, \dots, \mu_n ) = f(x) + \sum\limits_{i=1}^{m}\lambda_ih_i(x) + \sum\limits_{j=1}^{n}\mu_jg_j(x)$\\
 	\vspace{0.5cm}
 	where,\\ $\lambda_1-\lambda_m$ are multipliers for the $m$ equalities \\
 	$\mu_1-\mu_n$ are multiplices for the $n$ inequalities \\
@@ -46,14 +38,14 @@
 
 	\begin{frame}{Step 2}
 	\begin{itemize}
-	\item Minimize $L(x, \lambda, \mu)$ w.rt. $x \implies \nabla_xL(x, \lambda, \mu) = 0 $\\
+	\item Minimize $\Lagra(x, \lambda, \mu)$ w.rt. $x \implies \nabla_x\Lagra(x, \lambda, \mu) = 0 $\\
 	Gives $k$ equations
 	\end{itemize}
 	\end{frame}
 
 	\begin{frame}{Step 3}
 	\begin{itemize}
-	\item Minimize $L(x, \lambda, \mu)$ w.rt. $\lambda \implies \nabla_\lambda L(x, \lambda, \mu) = 0 $\\
+	\item Minimize $\Lagra(x, \lambda, \mu)$ w.rt. $\lambda \implies \nabla_\lambda \Lagra(x, \lambda, \mu) = 0 $\\
 	Gives $m$ equations
 	\end{itemize}
 	\end{frame}
@@ -80,7 +72,7 @@
 	\begin{frame}{Constraint on $\mu_i$'s}
 	\centering
 	\includegraphics[width = 0.5\textwidth]{img3}
-	$min_xL(x, \lambda, \mu)  \implies \nabla_xf(x) + \nabla_x\mu_ig_i(x) = 0$\\
+	$min_x\Lagra(x, \lambda, \mu)  \implies \nabla_xf(x) + \nabla_x\mu_ig_i(x) = 0$\\
 	\vspace{0.5cm}
 	$\mu_i = \dfrac{\nabla_xf(x)}{\nabla_x\mu_ig_i(x)} = +ve$
 	\end{frame}
@@ -130,17 +122,17 @@
 	}
 	\only<6->{
 	\vspace{1cm}
-	$L(x,y, \lambda, \mu_1, \mu_2, \mu_3) = x^2 + y^2 + \lambda(x + 2y - 4) + \mu_1(x^2 + y^2 - 5) + \mu_2(-x) + \mu_3(-y)$\\
+	$\Lagra(x,y, \lambda, \mu_1, \mu_2, \mu_3) = x^2 + y^2 + \lambda(x + 2y - 4) + \mu_1(x^2 + y^2 - 5) + \mu_2(-x) + \mu_3(-y)$\\
 	}
 	\end{frame}
 
 	\begin{frame}{Example}
 	\only<1->{
 	\textbf{Stationarity}\\
-	$\nabla_xL(x,y, \lambda, \mu_1, \mu_2, \mu_3)  = 0$\\
+	$\nabla_x\Lagra(x,y, \lambda, \mu_1, \mu_2, \mu_3)  = 0$\\
 	$\implies 2x + \lambda + 2\mu_1x - \mu_2 = 0 \dots\dots\dots\dots\dots\dots (1)$\\
 	\vspace{0.5cm}
-	$\nabla_yL(x,y, \lambda, \mu_1, \mu_2, \mu_3)  = 0$\\
+	$\nabla_y\Lagra(x,y, \lambda, \mu_1, \mu_2, \mu_3)  = 0$\\
 	$\implies 2y + 2\lambda + 2\mu_1y - \mu_3 = 0 \dots\dots\dots\dots\dots\dots (2)$\\
 	}
 	\only<2->{

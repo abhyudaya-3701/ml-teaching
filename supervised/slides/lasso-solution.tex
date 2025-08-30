@@ -2,15 +2,6 @@
 \usepackage{../../shared/styles/custom}
 \usepackage{../../shared/styles/conventions}
 
-%\beamerdefaultoverlayspecification{<+->}
-
-
-	\ifx\relax#1\relax  \item \else \item[#1] \fi
-	\abovedisplayskip=0pt\abovedisplayshortskip=0pt~\vspace*{-\baselineskip}}
-
-
-
-
 \title{Coordinate Descent}
 \date{\today}
 \author{Nipun Batra}
@@ -18,22 +9,10 @@
 \begin{document}
   \maketitle
   
-  
-  
-% \section{Linear Regression}
-
-
-
-
-
 \begin{frame}{Coordinate Descent for Unregularized Regression}
 
 \begin{itemize}[<+->]
-    
 
-    
-    
-    
     \item Express error as a difference of $y_{i}$ and $\hat{y_{i}}$
     \begin{align}
     \hat{y_i} &= \sum_{j=0}^{d} \theta_{j}x^{j}_{i} = \theta_{0}x_{i}^{0} + \theta_{1}x_{i}^{1} +\theta_{2}x_{i}^{2} ...... + \theta_{d}x_{i}^{d}  \\
@@ -41,8 +20,6 @@
     &= y_{i} - \theta_{0}x_{i}^{0} + \theta_{1}x_{i}^{1} + ...... + \theta_{d}x_{i}^{d}\\
     &= y_{i} - \sum_{j=0}^{d} \theta_{j}x_{i}^{j}
     \end{align}
-   
-   
     
 \end{itemize}
     
