@@ -895,6 +895,77 @@
     \end{keypointsbox}
   \end{frame}
 
+  \begin{frame}{SGD Step-by-Step Example: Setup}
+    \textbf{Same data, same initial values:} $\theta_0 = 4, \theta_1 = 0$, $\alpha = 0.1$
+    
+    \begin{center}
+    \begin{tabular}{|c|c|}
+        \hline
+        \textbf{x} & \textbf{y} \\
+        \hline
+        1 & 1 \\
+        2 & 2 \\
+        3 & 3 \\
+        \hline
+    \end{tabular}
+    \end{center}
+    
+    \pause
+    \textbf{SGD: Use ONE sample per update}
+    \begin{itemize}[<+->]
+        \item \textbf{Iteration 1:} Pick sample $(\vx_1, y_1) = (1, 1)$
+        \item $\hat{y}_1 = \theta_0 + \theta_1 \cdot 1 = 4 + 0 \cdot 1 = 4$
+        \item $\epsilon_1 = y_1 - \hat{y}_1 = 1 - 4 = -3$
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{SGD Step-by-Step Example: Single Sample Gradients}
+    \textbf{Compute gradients using ONLY sample 1:}
+    \begin{itemize}[<+->]
+        \item $\frac{\partial \ell_1}{\partial \theta_0} = -2\epsilon_1 = -2(-3) = 6$
+        \item $\frac{\partial \ell_1}{\partial \theta_1} = -2\epsilon_1 x_1 = -2(-3)(1) = 6$
+    \end{itemize}
+    
+    \pause
+    \textbf{Parameter updates after sample 1:}
+    \begin{itemize}[<+->]
+        \item $\theta_0 = 4 - 0.1 \times 6 = 3.4$
+        \item $\theta_1 = 0 - 0.1 \times 6 = -0.6$
+    \end{itemize}
+    
+    \pause
+    \begin{keypointsbox}{}
+    After sample 1: $(\theta_0, \theta_1) = (3.4, -0.6)$
+    
+    Compare to batch GD: $(3.6, -0.67)$ - different path!
+    \end{keypointsbox}
+  \end{frame}
+
+  \begin{frame}{SGD Step-by-Step Example: Second Sample}
+    \textbf{Iteration 2: Pick sample $(\vx_2, y_2) = (2, 2)$}
+    
+    \pause
+    \textbf{Using updated parameters:} $\theta_0 = 3.4, \theta_1 = -0.6$
+    \begin{itemize}[<+->]
+        \item $\hat{y}_2 = 3.4 + (-0.6) \cdot 2 = 3.4 - 1.2 = 2.2$
+        \item $\epsilon_2 = y_2 - \hat{y}_2 = 2 - 2.2 = -0.2$
+    \end{itemize}
+    
+    \pause
+    \textbf{Gradients for sample 2:}
+    \begin{itemize}[<+->]
+        \item $\frac{\partial \ell_2}{\partial \theta_0} = -2(-0.2) = 0.4$
+        \item $\frac{\partial \ell_2}{\partial \theta_1} = -2(-0.2)(2) = 0.8$
+    \end{itemize}
+    
+    \pause
+    \textbf{Parameter updates:}
+    \begin{itemize}[<+->]
+        \item $\theta_0 = 3.4 - 0.1 \times 0.4 = 3.36$
+        \item $\theta_1 = -0.6 - 0.1 \times 0.8 = -0.68$
+    \end{itemize}
+  \end{frame}
+
   \begin{frame}{SGD: The Noisy Path}
     \textbf{SGD uses one sample at a time for updates}
     
@@ -1313,7 +1384,79 @@
     \end{alertbox}
   \end{frame}
 
-  \begin{frame}{Visual Intuition 3: Averaging Individual Gradients}
+  \begin{frame}{Visual Intuition 3: Gradients from Same Starting Point}
+    \textbf{What happens when we evaluate gradients from the same point $\vtheta_0$?}
+    
+    \begin{center}
+    \begin{tikzpicture}[scale=0.7]
+      % Common starting point
+      \coordinate (start) at (1.5, 1);
+      
+      % Individual loss surface 1 - more compact
+      \begin{scope}[shift={(-3,0)}]
+      \draw[blue, thick] (0,0) ellipse (1.0 and 0.7);
+      \draw[blue, thick] (0,0) ellipse (0.5 and 0.35);
+      \fill[blue] (0,0) circle (0.04);
+      \node[blue, below] at (0,-1.0) {\tiny $\ell_1(\vtheta)$};
+      
+      % Starting point on this surface
+      \fill[black] (start) circle (0.05);
+      % Gradient vector from starting point for surface 1
+      \draw[-{Latex[scale=1.5]}, blue, very thick] (start) -- +(-0.8, -0.3);
+      \node[blue, above] at (0.4, 1.0) {\tiny $\nabla\ell_1$};
+      \end{scope}
+
+      % Individual loss surface 2 
+      \begin{scope}[shift={(-1,-0.2)}, rotate=30]
+      \draw[red, thick] (0,0) ellipse (0.9 and 0.6);
+      \draw[red, thick] (0,0) ellipse (0.45 and 0.3);
+      \fill[red] (0,0) circle (0.04);
+      \end{scope}
+      \node[red, below] at (-1,-1.0) {\tiny $\ell_2(\vtheta)$};
+      
+      % Starting point and gradient for surface 2
+      \fill[black] (start) circle (0.05);
+      \draw[-{Latex[scale=1.5]}, red, very thick] (start) -- +(-1.2, -0.8);
+      \node[red, above] at (0.8, 0.5) {\tiny $\nabla\ell_2$};
+
+      % Individual loss surface 3
+      \begin{scope}[shift={(1,0.1)}, rotate=-45]
+      \draw[green, thick] (0,0) ellipse (0.9 and 0.5);
+      \draw[green, thick] (0,0) ellipse (0.45 and 0.25);
+      \fill[green] (0,0) circle (0.04);
+      \end{scope}
+      \node[green, below] at (1,-0.9) {\tiny $\ell_3(\vtheta)$};
+      
+      % Starting point and gradient for surface 3
+      \fill[black] (start) circle (0.05);
+      \draw[-{Latex[scale=1.5]}, green, very thick] (start) -- +(-0.6, -1.0);
+      \node[green, left] at (1.2, 0.2) {\tiny $\nabla\ell_3$};
+
+      % Sample n loss surface
+      \begin{scope}[shift={(3,0)}]
+      \draw[purple, thick] (0,0) ellipse (0.8 and 1.0);
+      \draw[purple, thick] (0,0) ellipse (0.4 and 0.5);
+      \fill[purple] (0,0) circle (0.04);
+      \end{scope}
+      \node[purple, below] at (3,-1.0) {\tiny $\ell_n(\vtheta)$};
+      
+      % Starting point and gradient for surface n
+      \fill[black] (start) circle (0.05);
+      \draw[-{Latex[scale=1.5]}, purple, very thick] (start) -- +(-0.4, -0.6);
+      \node[purple, right] at (2.2, 0.7) {\tiny $\nabla\ell_n$};
+      
+      % Label starting point
+      \node[black, font=\bfseries] at (1.5, 1.4) {$\vtheta_0$};
+    \end{tikzpicture}
+    \end{center}
+    
+    \pause
+    \begin{theorembox}{Key Insight}
+    {\small From the \textbf{same point}, each loss surface gives a \textbf{different gradient direction}!}
+    \end{theorembox}
+  \end{frame}
+
+  \begin{frame}{Visual Intuition 4: Averaging Individual Gradients}
     \textbf{The magic: Average of individual gradients = True gradient}
     
     \begin{center}
@@ -1408,13 +1551,138 @@
 
   \section{Computational Complexity}
 
-  \begin{frame}{GD vs Normal Equation: Complexity}
-    \textbf{For linear regression:}
+  \begin{frame}{Normal Equation: The Direct Approach}
+    \textbf{For linear regression, we can solve directly:}
     
+    \begin{definitionbox}{Normal Equation}
+    $$\hat{\vtheta} = (\mX^T\mX)^{-1}\mX^T\vy$$
+    \end{definitionbox}
+    
+    \pause
+    \textbf{What this means:}
+    \begin{itemize}[<+->]
+        \item Solves $\nabla_{\vtheta} ||\mX\vtheta - \vy||^2 = 0$ directly
+        \item Gives exact solution in one step (no iterations!)
+        \item Requires matrix inversion
+    \end{itemize}
+    
+    \pause
+    \begin{keypointsbox}{}
+    One computation gives the optimal $\hat{\vtheta}$ - no learning rate needed!
+    \end{keypointsbox}
+  \end{frame}
+
+  \begin{frame}{Normal Equation: Step-by-Step Complexity}
+    \textbf{Breaking down $\hat{\vtheta} = (\mX^T\mX)^{-1}\mX^T\vy$:}
+    
+    \pause
+    \textbf{Step 1: Compute $\mX^T\mX$}
+    \begin{itemize}[<+->]
+        \item $\mX$ is $n \times d$, so $\mX^T$ is $d \times n$
+        \item $\mX^T\mX$ is $d \times d$ matrix
+        \item \textbf{Cost:} $\mathcal{O}(d^2 n)$ operations
+    \end{itemize}
+    
+    \pause
+    \textbf{Step 2: Compute $\mX^T\vy$}
+    \begin{itemize}[<+->]
+        \item $\mX^T$ is $d \times n$, $\vy$ is $n \times 1$
+        \item Result is $d \times 1$ vector
+        \item \textbf{Cost:} $\mathcal{O}(dn)$ operations
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Normal Equation: Matrix Inversion Cost}
+    \textbf{Step 3: Invert $\mX^T\mX$}
+    
+    \pause
+    \textbf{Matrix inversion complexity:}
+    \begin{itemize}[<+->]
+        \item $\mX^T\mX$ is $d \times d$ matrix
+        \item Standard algorithms (LU, Cholesky): $\mathcal{O}(d^3)$
+        \item Most expensive step when $d$ is large!
+    \end{itemize}
+    
+    \pause
+    \begin{alertbox}{Memory Requirements}
+    \textbf{Space:} Need to store $\mX^T\mX$ matrix
+    
+    Size: $d \times d = d^2$ elements $\Rightarrow \mathcal{O}(d^2)$ space
+    \end{alertbox}
+    
+    \pause
+    \begin{keypointsbox}{}
+    \textbf{Total time:} $\mathcal{O}(d^2n + d^3)$ dominated by $\mathcal{O}(d^3)$ when $d$ large
+    \end{keypointsbox}
+  \end{frame}
+
+  \begin{frame}{Gradient Descent: Iterative Approach}
+    \textbf{GD update rule for linear regression:}
+    $$\vtheta_{t+1} = \vtheta_t - \alpha \nabla L(\vtheta_t)$$
+    
+    \pause
+    \textbf{Where the gradient is:}
+    $$\nabla L(\vtheta) = \frac{2}{n}\mX^T(\mX\vtheta - \vy)$$
+    
+    \pause
+    \textbf{So the update becomes:}
+    $$\vtheta_{t+1} = \vtheta_t - \alpha \frac{2}{n}\mX^T(\mX\vtheta_t - \vy)$$
+    
+    \pause
+    \begin{keypointsbox}{}
+    Each iteration requires gradient computation - let's analyze the cost!
+    \end{keypointsbox}
+  \end{frame}
+
+  \begin{frame}{Gradient Descent: Per-Iteration Complexity}
+    \textbf{Breaking down $\nabla L(\vtheta) = \frac{2}{n}\mX^T(\mX\vtheta - \vy)$:}
+    
+    \pause
+    \textbf{Step 1: Compute $\mX\vtheta$}
+    \begin{itemize}[<+->]
+        \item $\mX$ is $n \times d$, $\vtheta$ is $d \times 1$
+        \item Result: $n \times 1$ vector (predictions)
+        \item \textbf{Cost:} $\mathcal{O}(nd)$ operations
+    \end{itemize}
+    
+    \pause
+    \textbf{Step 2: Compute $\mX\vtheta - \vy$}
+    \begin{itemize}[<+->]
+        \item Element-wise subtraction of $n \times 1$ vectors
+        \item \textbf{Cost:} $\mathcal{O}(n)$ operations
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Gradient Descent: Completing One Iteration}
+    \textbf{Step 3: Compute $\mX^T(\mX\vtheta - \vy)$}
+    
+    \pause
+    \begin{itemize}[<+->]
+        \item $\mX^T$ is $d \times n$, $(\mX\vtheta - \vy)$ is $n \times 1$
+        \item Result: $d \times 1$ vector (the gradient!)
+        \item \textbf{Cost:} $\mathcal{O}(nd)$ operations
+    \end{itemize}
+    
+    \pause
+    \textbf{Step 4: Parameter update}
+    \begin{itemize}[<+->]
+        \item $\vtheta_{t+1} = \vtheta_t - \alpha \nabla L(\vtheta_t)$
+        \item Element-wise operations on $d \times 1$ vector
+        \item \textbf{Cost:} $\mathcal{O}(d)$ operations
+    \end{itemize}
+    
+    \pause
+    \begin{keypointsbox}{}
+    \textbf{Per iteration:} $\mathcal{O}(nd + n + nd + d) = \mathcal{O}(nd)$
+    \end{keypointsbox}
+  \end{frame}
+
+  \begin{frame}{GD vs Normal Equation: Final Complexity Comparison}
     \begin{alertbox}{Normal Equation}
     $\hat{\vtheta} = (\mX^T\mX)^{-1}\mX^T\vy$
     \\\textbf{Time:} $\mathcal{O}(d^2n + d^3)$
     \\\textbf{Space:} $\mathcal{O}(d^2)$ 
+    \\\textbf{Iterations:} 1 (exact solution)
     \end{alertbox}
     
     \pause
@@ -1422,7 +1690,15 @@
     $\vtheta_{t+1} = \vtheta_t - \alpha \mX^T(\mX\vtheta_t - \vy)$
     \\\textbf{Time:} $\mathcal{O}(T \cdot nd)$ for $T$ iterations
     \\\textbf{Space:} $\mathcal{O}(nd)$
+    \\\textbf{Iterations:} $T$ (approximate solution)
     \end{keypointsbox}
+    
+    \pause
+    \begin{theorembox}{Trade-off}
+    Normal equation: Fast but scales poorly with $d$
+    
+    Gradient descent: Slower but scales better with $d$
+    \end{theorembox}
   \end{frame}
 
   \begin{frame}{When to Use Which Method}
