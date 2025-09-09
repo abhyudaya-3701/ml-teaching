@@ -2,8 +2,6 @@
 \usepackage{../../shared/styles/custom}
 \usepackage{../../shared/styles/conventions}
 
-
-
 \newcommand{\vecuvec}[2] %start point, end point (of vector)
 {   \VECTORSUB(#2)(#1)(\sola,\solb,\solc)
 	\UNITVECTOR(\sola, \solb, \solc)(\sola,\solb,\solc)
@@ -13,14 +11,6 @@
 	\edef\temp{\noexpand\draw[->, thick,red] (#1) -- ($(#1)+(\sola,\solb,\solc)$);}
 	\temp
 }
-
-
-%\beamerdefaultoverlayspecification{<+->}
-
-
-
-
-
 
 \title{Linear Regression}
 \date{\today}
@@ -1212,6 +1202,7 @@ Span of ($\begin{bmatrix}
     \end{itemize}
     
     \pause
+    \footnotesize
     \begin{keypointsbox}{}
     \textbf{Solutions:} Drop one variable, or use regularization (Ridge/Lasso)
     \end{keypointsbox}
@@ -1393,6 +1384,7 @@ Span of ($\begin{bmatrix}
     \end{itemize}
     
     \pause
+    \footnotesize
     \begin{keypointsbox}{Interpretation}
     \begin{itemize}
         \item $\theta_{0}$ = overall average height across all people
