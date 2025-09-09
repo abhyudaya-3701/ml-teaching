@@ -2,12 +2,9 @@
 \usepackage{../../shared/styles/custom}
 \usepackage{../../shared/styles/conventions}
 
-\def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;} 
+\def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;}
 
 %\beamerdefaultoverlayspecification{<+->}
-
-
-
 
 \title{Ridge Regression}
 \date{\today}
@@ -16,54 +13,149 @@
 \begin{document}
   \maketitle
 
-\begin{frame}{Introduction}
-A known measure of overfitting can be the magnitude of the coefficient. \\ \bigskip
+\begin{frame}{Outline}
+\begin{itemize}
+\item Motivation: The Problem of Overfitting
+\item Ridge Regression Formulation
+\item Mathematical Derivation
+\item Geometric Interpretation  
+\item Hyperparameter Selection
+\item Examples and Applications
+\item Implementation Details
+\end{itemize}
+\end{frame}
+
+\begin{frame}{The Problem: Overfitting in Linear Regression}
+\begin{alertbox}{Overfitting Challenge}
+As model complexity increases (higher polynomial degree), we often observe:
+\begin{itemize}
+\item Training error decreases
+\item Test error increases  
+\item Model coefficients become very large
+\end{itemize}
+\end{alertbox}
 \pause
-In $f(x) = c_0 + c_1x + c_2x^2 + \dots$ it is $\max|c_i|$ \\ \bigskip
+
+\begin{keypointsbox}{Key Insight}
+Large coefficient magnitudes often indicate overfitting!
+\end{keypointsbox}
+\pause
+
+In polynomial $f(x) = c_0 + c_1x + c_2x^2 + \dots + c_dx^d$, watch $\max|c_i|$
 \end{frame}
   
-\begin{frame}{Introduction}
+\begin{frame}{Demonstration: Polynomial Degree vs Overfitting}
 \vspace{0.4cm}
 \only<1>{\begin{figure}\includegraphics[width=0.8\linewidth]{../assets/ridge-regression/figures/lin_1.pdf}\caption{Base Data Set}
 \end{figure}}
-\only<2>{\begin{figure}\includegraphics[width=0.8\linewidth]{../assets/ridge-regression/figures/lin_plot_1.pdf}\caption{Fit with Degree 1}
+\only<2>{\begin{figure}\includegraphics[width=0.8\linewidth]{../assets/ridge-regression/figures/lin_plot_1.pdf}\caption{Fit with Degree 1 - Underfitting}
 \end{figure}}
-\only<3>{\begin{figure}\includegraphics[width=0.8\linewidth]{../assets/ridge-regression/figures/lin_plot_3.pdf}\caption{Fit with Degree 3}
+\only<3>{\begin{figure}\includegraphics[width=0.8\linewidth]{../assets/ridge-regression/figures/lin_plot_3.pdf}\caption{Fit with Degree 3 - Good Fit}
 \end{figure}}
-\only<4>{\begin{figure}\includegraphics[width=0.8\linewidth]{../assets/ridge-regression/figures/lin_plot_6.pdf}\caption{Fit with Degree 6}
+\only<4>{\begin{figure}\includegraphics[width=0.8\linewidth]{../assets/ridge-regression/figures/lin_plot_6.pdf}\caption{Fit with Degree 6 - Starting to Overfit}
 \end{figure}}
-\only<5>{\begin{figure}\includegraphics[width=0.8\linewidth]{../assets/ridge-regression/figures/lin_plot_11.pdf}\caption{Fit with Degree 11}
+\only<5>{\begin{figure}\includegraphics[width=0.8\linewidth]{../assets/ridge-regression/figures/lin_plot_11.pdf}\caption{Fit with Degree 11 - Severe Overfitting}
 \end{figure}}
 \end{frame}  
 
-\begin{frame}{Introduction}
+\begin{frame}{Coefficient Explosion with Overfitting}
 \vspace{0.4cm}
-In the examples we notice that as the degree increases (as the prediction starts to overfit the base data), the maximum coefficient also increases.
-%\vspace{-0.3cm}
-\begin{figure}\includegraphics[width=0.7\linewidth]{../assets/ridge-regression/figures/lin_plot_coef.pdf}\caption{Trend of the coefficients}\end{figure}
+\begin{keypointsbox}{Key Observation}
+As polynomial degree increases $\rightarrow$ coefficients grow exponentially!
+\end{keypointsbox}
+\vspace{0.2cm}
+\begin{figure}\includegraphics[width=0.7\linewidth]{../assets/ridge-regression/figures/lin_plot_coef.pdf}\caption{Coefficient Magnitudes vs Polynomial Degree}\end{figure}
 
+\begin{alertbox}{Critical Question}
+How can we control coefficient magnitudes to prevent overfitting?
+\end{alertbox}
 \end{frame}
- 
-\begin{frame}{Introduction}
-\vspace{0.4cm}
-To prevent overfitting we place penalties on large $\theta_i$
-\pause
- \\ \bigskip
-\begin{tcolorbox}
-\textbf{Objective:}
-\begin{align*}
-\text{Minimise } & \left(\vy-\mX\vtheta\right)^T\left(\vy-\mX\vtheta\right) \\
-\text{s.t. } & \vtheta ^T\vtheta \leq S
-\end{align*}
-\end{tcolorbox}
-\pause
-This is equivalent to \vspace{-0.4cm}
-$$
-\text{Minimise } \left(\vy-\mX\vtheta\right)^T\left(\vy-\mX\vtheta\right) + \delta ^2\vtheta ^T\vtheta
-$$
-\end{frame}  
 
-\begin{frame}{Introduction}
+\stepcounter{popquiz}
+\begin{frame}{Pop Quiz \thepopquiz}
+\begin{popquizbox}{Pop Quiz \thepopquiz}
+Which statement about overfitting is TRUE?
+\begin{enumerate}[A)]
+\item Higher polynomial degree always improves generalization
+\item Large coefficients indicate good model fit
+\item Overfitting occurs when training error $>>$ test error
+\item Overfitting occurs when training error $<<$ test error
+\end{enumerate}
+\end{popquizbox}
+\end{frame}
+
+\begin{frame}{Answer: Pop Quiz \thepopquiz}
+\begin{popquizbox}{Answer: Pop Quiz \thepopquiz}
+\textbf{D) Overfitting occurs when training error $<<$ test error}
+
+\vspace{0.3cm}
+Explanation:
+\begin{itemize}
+\item Training error becomes very small (model memorizes training data)
+\item Test error remains large (model fails to generalize)  
+\item Large gap indicates overfitting
+\end{itemize}
+\end{popquizbox}
+\end{frame}
+\begin{frame}{Solution: Regularization}
+\begin{theorembox}{Ridge Regression Approach}
+Add a penalty term to control coefficient magnitudes:
+\end{theorembox}
+\pause
+
+\begin{definitionbox}{Constrained Formulation}
+\begin{align*}
+\min_{\vtheta} & \quad \left(\vy-\mX\vtheta\right)^T\left(\vy-\mX\vtheta\right) \\
+\text{subject to} & \quad \vtheta^T\vtheta \leq S
+\end{align*}
+where $S > 0$ controls the size of the coefficient vector.
+\end{definitionbox}
+\end{frame}
+
+\begin{frame}{Lagrangian Formulation}
+\begin{theorembox}{Equivalence Theorem}
+The constrained problem is equivalent to the unconstrained:
+$$\min_{\vtheta} \quad \left(\vy-\mX\vtheta\right)^T\left(\vy-\mX\vtheta\right) + \lambda \vtheta^T\vtheta$$
+where $\lambda \geq 0$ is the regularization parameter.
+\end{theorembox}
+\pause
+
+\begin{keypointsbox}{Key Insight}
+This transforms a constrained optimization into an unconstrained one with a penalty term.
+\end{keypointsbox}
+\end{frame}
+
+\begin{frame}{Understanding the Ridge Penalty}
+\begin{align}
+J(\vtheta) &= \underbrace{\left(\vy-\mX\vtheta\right)^T\left(\vy-\mX\vtheta\right)}_{\text{Fit to data (MSE)}} + \underbrace{\lambda \vtheta^T\vtheta}_{\text{Penalty term}} \\[0.5em]
+&= \text{MSE}(\vtheta) + \lambda \|\vtheta\|_2^2
+\end{align}
+\pause
+
+\begin{keypointsbox}{Key Components}
+\begin{itemize}
+\item \textbf{Data fitting term}: Ensures good fit to training data
+\item \textbf{Regularization term}: $L_2$ penalty shrinks coefficients toward zero
+\item \textbf{$\lambda$}: Controls trade-off between fitting vs. regularization
+\end{itemize}
+\end{keypointsbox}
+\end{frame}
+
+\begin{frame}{Effect of Regularization Parameter $\lambda$}
+\begin{keypointsbox}{Parameter Effects}
+\begin{itemize}
+\item $\lambda = 0$: No regularization (standard linear regression)
+\item $\lambda$ small: Light regularization (slight shrinkage)
+\item $\lambda$ large: Heavy regularization (strong shrinkage)
+\item $\lambda \to \infty$: Extreme regularization (coefficients $\to 0$)
+\end{itemize}
+\end{keypointsbox}
+\pause
+
+\begin{alertbox}{Key Trade-off}
+Higher $\lambda$ = more regularization = more bias, less variance
+\end{alertbox}
+\end{frame}\begin{frame}{Geometric Interpretation}
 \begin{figure}
         \begin{subfigure}[b]{0.5\textwidth}
                 \includegraphics[width=\linewidth]{../assets/ridge-regression/figures/ridge_base_contour.pdf}
@@ -73,42 +165,84 @@ $$
                 \includegraphics[width=\linewidth]{../assets/ridge-regression/figures/ridge_base_surface.pdf}
                 \caption{Surface Plot}
         \end{subfigure}%
-        \caption{Visualization of the Example}
+        \caption{Ridge regression finds solution where error contours touch constraint circle}
 \end{figure}
+
+\begin{keypointsbox}{Geometric Insight}
+Ridge regression finds the minimum of MSE subject to $\|\vtheta\|_2^2 \leq S$
+\end{keypointsbox}
 \end{frame}
 
-\begin{frame}{KKT Conditions}
-To implement this we use KKT Conditions
-\pause
+\begin{frame}{Mathematical Derivation: Step 1}
+\begin{codebox}{Step 1: Set up the Lagrangian}
+For the constrained optimization problem:
 \begin{align*}
-\text{Minimise } & \left(\vy-\mX\vtheta\right)^T\left(\vy-\mX\vtheta\right) \\
-\text{s.t. } & \vtheta ^T\vtheta \leq S \\
-L\left(\vtheta, \mu \right) =& \left(\vy-\mX\vtheta\right)^T\left(\vy-\mX\vtheta\right) + \mu\left(\vtheta^T\vtheta - S\right)
+\min_{\vtheta} & \quad \left(\vy-\mX\vtheta\right)^T\left(\vy-\mX\vtheta\right) \\
+\text{s.t.} & \quad \vtheta^T\vtheta \leq S
 \end{align*}
-where, $\mu \geq 0$ (and $\mu = \delta^2$)\bigskip
 
-\pause
-\begin{columns}
-\begin{column}{0.4\textwidth}
-If $\mu = 0$ \\
-There is no regularization \\
-No effect on constraint
-\end{column}
-\pause
-\begin{column}{0.4\textwidth}
-If $\mu\neq 0$ \\
-$\implies \vtheta^T\vtheta - S = 0$ 
-\end{column}
-\end{columns}
+The Lagrangian is:
+$$L(\vtheta, \lambda) = \left(\vy-\mX\vtheta\right)^T\left(\vy-\mX\vtheta\right) + \lambda\left(\vtheta^T\vtheta - S\right)$$
+where $\lambda \geq 0$ is the Lagrange multiplier.
+\end{codebox}
 \end{frame}
 
-\begin{frame}{Effect of $\mu$}
+\begin{frame}{Mathematical Derivation: Step 2}
+\begin{codebox}{Step 2: Apply KKT Conditions}
+For optimality, we need:
+\begin{align}
+\frac{\partial L}{\partial \vtheta} &= 0 \quad \text{(stationarity)} \\
+\lambda &\geq 0 \quad \text{(dual feasibility)} \\
+\vtheta^T\vtheta - S &\leq 0 \quad \text{(primal feasibility)} \\
+\lambda(\vtheta^T\vtheta - S) &= 0 \quad \text{(complementary slackness)}
+\end{align}
+\end{codebox}
+\pause
+
+\begin{keypointsbox}{Two Cases}
+\begin{itemize}
+\item \textbf{Case 1:} $\lambda = 0 \Rightarrow$ No constraint active (standard OLS)
+\item \textbf{Case 2:} $\lambda > 0 \Rightarrow$ $\vtheta^T\vtheta = S$ (constraint is tight)
+\end{itemize}
+\end{keypointsbox}
+\end{frame}
+
+\begin{frame}{Mathematical Derivation: Step 3}
+\begin{codebox}{Step 3: Compute the Gradient}
+Taking the derivative of the Lagrangian with respect to $\vtheta$:
+\begin{align}
+\frac{\partial L}{\partial \vtheta} &= \frac{\partial}{\partial \vtheta}\left[\left(\vy-\mX\vtheta\right)^T\left(\vy-\mX\vtheta\right) + \lambda \vtheta^T\vtheta\right] \\[0.3em]
+&= \frac{\partial}{\partial \vtheta}\left[\vy^T\vy - 2\vy^T\mX\vtheta + \vtheta^T\mX^T\mX\vtheta + \lambda \vtheta^T\vtheta\right] \\[0.3em]
+&= -2\mX^T\vy + 2\mX^T\mX\vtheta + 2\lambda\vtheta
+\end{align}
+\end{codebox}
+\end{frame}
+
+\begin{frame}{Mathematical Derivation: Step 4}
+\begin{codebox}{Step 4: Set Gradient to Zero}
+Setting $\frac{\partial L}{\partial \vtheta} = 0$:
+\begin{align}
+-2\mX^T\vy + 2\mX^T\mX\vtheta + 2\lambda\vtheta &= 0 \\[0.3em]
+-\mX^T\vy + (\mX^T\mX + \lambda\mI)\vtheta &= 0 \\[0.3em]
+(\mX^T\mX + \lambda\mI)\vtheta &= \mX^T\vy
+\end{align}
+\end{codebox}
+\pause
+
+\begin{theorembox}{Ridge Regression Solution}
+$$\hat{\vtheta}_{\text{ridge}} = (\mX^T\mX + \lambda\mI)^{-1}\mX^T\vy$$
+\end{theorembox}
+
+Compare with OLS: $\hat{\vtheta}_{\text{OLS}} = (\mX^T\mX)^{-1}\mX^T\vy$
+\end{frame}
+
+\begin{frame}{Effect of Regularization Parameter $\lambda$}
 \vspace{0.4cm}
-\only<1>{\begin{figure}\includegraphics[width=0.8\linewidth]{../assets/ridge-regression/figures/ridge_1.pdf}\caption{$\mu = 1$}
+\only<1>{\begin{figure}\includegraphics[width=0.8\linewidth]{../assets/ridge-regression/figures/ridge_1.pdf}\caption{$\lambda = 1$ - Mild Regularization}
 \end{figure}}
-\only<2>{\begin{figure}\includegraphics[width=0.8\linewidth]{../assets/ridge-regression/figures/ridge_10.pdf}\caption{$\mu = 10$}
+\only<2>{\begin{figure}\includegraphics[width=0.8\linewidth]{../assets/ridge-regression/figures/ridge_10.pdf}\caption{$\lambda = 10$ - Moderate Regularization}
 \end{figure}}
-\only<3>{\begin{figure}\includegraphics[width=0.8\linewidth]{../assets/ridge-regression/figures/ridge_1000.pdf}\caption{$\mu = 1000$}
+\only<3>{\begin{figure}\includegraphics[width=0.8\linewidth]{../assets/ridge-regression/figures/ridge_1000.pdf}\caption{$\lambda = 1000$ - Heavy Regularization}
 \end{figure}}
 \end{frame}
 
@@ -122,148 +256,265 @@ $\implies \vtheta^T\vtheta - S = 0$
 %\end{figure}}
 %\end{frame}
 
-\begin{frame}{Effect of $\mu$ - Regularization of Parameters}
-\vspace{0.4cm}
-\begin{figure}\includegraphics[width=0.8\linewidth]{../assets/ridge-regression/figures/rid_reg-without-lim.pdf}\caption{Comparing the magnitudes of the coefficients with varying $\mu$\\(on the \emph{Real Estate Data Set})}
+\stepcounter{popquiz}
+\begin{frame}{Pop Quiz \thepopquiz}
+\begin{popquizbox}{Pop Quiz \thepopquiz}
+What happens to the Ridge regression solution as $\lambda \to \infty$?
+\begin{enumerate}[A)]
+\item Coefficients approach the OLS solution
+\item Coefficients approach zero
+\item Solution becomes undefined
+\item Training error becomes zero
+\end{enumerate}
+\end{popquizbox}
+\end{frame}
+
+\begin{frame}{Answer: Pop Quiz \thepopquiz}
+\begin{popquizbox}{Answer: Pop Quiz \thepopquiz}
+\textbf{B) Coefficients approach zero}
+
+\vspace{0.3cm}
+As $\lambda \to \infty$, the penalty term dominates:
+$$\hat{\vtheta}_{\text{ridge}} = (\mX^T\mX + \lambda\mI)^{-1}\mX^T\vy \approx \lambda^{-1}\mI \mX^T\vy \to \mathbf{0}$$
+\end{popquizbox}
+\end{frame}
+
+\begin{frame}{Coefficient Shrinkage: Visual Evidence}
+\begin{figure}\includegraphics[width=0.8\linewidth]{../assets/ridge-regression/figures/rid_reg-without-lim.pdf}\caption{Coefficient Magnitudes vs $\lambda$ (Real Estate Dataset)}
 \end{figure}
-\pause Are $\theta_{i}$ all zero for high $\mu$?
+
+\begin{alertbox}{Important Question}
+Do coefficients ever become exactly zero?
+\end{alertbox}
 \end{frame}
 
-\begin{frame}{Effect of $\mu$ - Regularization of Parameters}
-\vspace{0.4cm}
-\begin{figure}\includegraphics[width=0.8\linewidth]{../assets/ridge-regression/figures/rid_reg-with-lim.pdf}\caption{Comparing the magnitudes of the coefficients with varying $\mu$\\(on the \emph{Real Estate Data Set})}
+\begin{frame}{Ridge vs. Lasso: Coefficient Behavior}
+\begin{figure}\includegraphics[width=0.8\linewidth]{../assets/ridge-regression/figures/rid_reg-with-lim.pdf}\caption{Ridge Coefficients Shrink but Never Reach Zero}
 \end{figure}
+
+\begin{keypointsbox}{Key Difference}
+\begin{itemize}
+\item \textbf{Ridge ($L_2$):} Coefficients shrink toward zero but remain non-zero
+\item \textbf{Lasso ($L_1$):} Coefficients can become exactly zero (feature selection)
+\end{itemize}
+\end{keypointsbox}
 \end{frame}
 
-\begin{frame}{Analytical Method}
-\begin{tcolorbox}
-\textbf{Ridge Objective:}
-\vspace{-0.4cm}
-$$
-\min_{\vtheta} \left(\vy-\mX\vtheta\right)^T\left(\vy-\mX\vtheta\right)+ \mu\vtheta^T\vtheta
-$$
-\end{tcolorbox}
-\begin{align*}
-\frac{\partial L\left(\vtheta, \mu\right)}{\partial \vtheta} &= 0 \\ 
-\frac{\partial}{\partial \vtheta}\left\lbrace \vy^T\vy - 2\vy^T\mX\vtheta + \vtheta^T\mX^T\mX\vtheta \right\rbrace +  \frac{\partial}{\partial \vtheta} \mu\vtheta^T\vtheta &= 0 \\
-\implies -\mX^T\vy + \left(\mX^T\mX + \mu \mI\right)\vtheta &= 0 \\
-\implies \vtheta^* &= \left(\mX^T\mX + \mu \mI\right)^{-1}\mX^T\vy
-\end{align*}
+\begin{frame}{Key Properties of Ridge Regression}
+\begin{theorembox}{Ridge Solution Properties}
+$$\hat{\vtheta}_{\text{ridge}} = (\mX^T\mX + \lambda\mI)^{-1}\mX^T\vy$$
+\end{theorembox}
+\pause
+
+\begin{keypointsbox}{Important Properties}
+\begin{enumerate}
+\item \textbf{Always invertible:} $(\mX^T\mX + \lambda\mI)$ is positive definite for $\lambda > 0$
+\item \textbf{Shrinkage:} Coefficients are shrunk toward zero
+\item \textbf{Bias-Variance trade-off:} Increases bias, reduces variance
+\item \textbf{Computational efficiency:} Closed-form solution available
+\end{enumerate}
+\end{keypointsbox}
 \end{frame}
 
-\begin{frame}{Bias/Variance}
+\begin{frame}{Choosing the Regularization Parameter $\lambda$}
+\begin{alertbox}{Hyperparameter Selection}
+How do we choose the optimal value of $\lambda$?
+\end{alertbox}
+\pause
+
+\begin{theorembox}{Cross-Validation Approach}
+\begin{enumerate}
+\item Split data into training and validation sets (k-fold CV)
+\item For each candidate $\lambda$ value:
+   \begin{itemize}
+   \item Train ridge model on training data
+   \item Compute validation error
+   \end{itemize}
+\item Select $\lambda$ that minimizes validation error
+\item Retrain on full dataset with chosen $\lambda$
+\end{enumerate}
+\end{theorembox}
+\end{frame}
+
+\begin{frame}{Cross-Validation for Ridge Regression}
+\begin{figure}
+\centering
+\includegraphics[width=0.8\linewidth]{ridge-cv.pdf}
+\caption{Cross-validation curve for Ridge regression showing optimal $\lambda$}
+\end{figure}
+
+\begin{keypointsbox}{CV Pattern}
+\begin{itemize}
+\item Small $\lambda$: High variance (overfitting)
+\item Large $\lambda$: High bias (underfitting)  
+\item Optimal $\lambda$: Best bias-variance trade-off
+\end{itemize}
+\end{keypointsbox}
+\end{frame}
+
+\begin{frame}{Bias-Variance Trade-off in Ridge Regression}
+\begin{theorembox}{Bias-Variance Decomposition}
+Total Error = Bias$^2$ + Variance + Irreducible Error
+\end{theorembox}
+\pause
+
+\begin{keypointsbox}{Ridge Effect}
+Regularization increases bias but reduces variance, often leading to lower total error.
+\end{keypointsbox}
+\end{frame}
+
+\begin{frame}{Small vs Large Regularization}
 \begin{columns}
-\begin{column}{0.4\textwidth}
+\begin{column}{0.48\textwidth}
 \begin{figure}
 \includegraphics[width=\linewidth]{../assets/ridge-regression/figures/ridge_new_0_17.pdf}
 \end{figure}
-Fit High Order Polynomial \\
-$\implies$ high variance \\
-$\implies \, \mu \rightarrow 0$
+\textbf{Small $\lambda$ ($\lambda \to 0$):}
+\begin{itemize}
+\item Low bias
+\item High variance
+\item Risk of overfitting
+\end{itemize}
 \end{column}
-\begin{column}{0.4\textwidth}
+\begin{column}{0.48\textwidth}
 \begin{figure}
 \includegraphics[width=\linewidth]{../assets/ridge-regression/figures/ridge_new_1_17.pdf}
 \end{figure}
-Fit High Order Polynomial \\
-$\implies$ low variance \\
-$\implies \, \mu \rightarrow \infty$
+\textbf{Large $\lambda$ ($\lambda \to \infty$):}
+\begin{itemize}
+\item High bias
+\item Low variance  
+\item Risk of underfitting
+\end{itemize}
 \end{column}
 \end{columns}
 \end{frame}
 
-\begin{frame}{Example}
-\vspace{0.4cm}
-\textbf{Q.)} Solve Regularized ($\mu = 2$) and Unregularized.
-\vspace{-0.6cm}
+\stepcounter{popquiz}
+\begin{frame}{Pop Quiz \thepopquiz}
+\begin{popquizbox}{Pop Quiz \thepopquiz}
+In ridge regression, as we increase $\lambda$, what happens to model bias and variance?
+\begin{enumerate}[A)]
+\item Both bias and variance increase
+\item Both bias and variance decrease
+\item Bias increases, variance decreases
+\item Bias decreases, variance increases
+\end{enumerate}
+\end{popquizbox}
+\end{frame}
+
+\begin{frame}{Answer: Pop Quiz \thepopquiz}
+\begin{popquizbox}{Answer: Pop Quiz \thepopquiz}
+\textbf{C) Bias increases, variance decreases}
+
+\vspace{0.3cm}
+Explanation:
+\begin{itemize}
+\item Increasing $\lambda$ constrains coefficients more severely
+\item Model becomes simpler (higher bias)
+\item Less sensitive to training data variations (lower variance)
+\item This is the fundamental bias-variance trade-off!
+\end{itemize}
+\end{popquizbox}
+\end{frame}
+
+\begin{frame}{Worked Example: Setup}
+\begin{examplebox}{Ridge Regression Example}
+Given the following simple dataset, compare OLS vs. Ridge regression with $\lambda = 2$:
+
+\vspace{0.3cm}
+Data: $(x_1, y_1) = (1, 1)$, $(x_2, y_2) = (2, 3)$, $(x_3, y_3) = (3, 2)$, $(x_4, y_4) = (4, 4)$
+
+Model: $y = \theta_0 + \theta_1 x$
+\end{examplebox}
+\pause
+
+\begin{codebox}{Step 1: Set up matrices}
+$$\mX = \begin{bmatrix} 1 & 1 \\ 1 & 2 \\ 1 & 3 \\ 1 & 4 \end{bmatrix}, \quad \vy = \begin{bmatrix} 1 \\ 3 \\ 2 \\ 4 \end{bmatrix}, \quad \vtheta = \begin{bmatrix} \theta_0 \\ \theta_1 \end{bmatrix}$$
+\end{codebox}
+\end{frame}
+
+\begin{frame}{Worked Example: OLS Setup}
+\begin{codebox}{Step 2: Ordinary Least Squares}
+$$\hat{\vtheta}_{\text{OLS}} = (\mX^{T}\mX)^{-1}(\mX^{T}\vy)$$
+\end{codebox}
+\pause
+
+\begin{codebox}{Step 3: Compute matrix products}
+\begin{align*}
+\mX^{T}\mX &= \begin{bmatrix} 4 & 10 \\ 10 & 30 \end{bmatrix} \\
+\mX^{T}\vy &= \begin{bmatrix} 10 \\ 28 \end{bmatrix}
+\end{align*}
+\end{codebox}
+\end{frame}
+
+\begin{frame}{Worked Example: Matrix Inverse}
+\begin{codebox}{Step 4: Compute the inverse}
+For $\mX^T\mX = \begin{bmatrix} 4 & 10 \\ 10 & 30 \end{bmatrix}$:
+
+$\det(\mX^T\mX) = 4 \cdot 30 - 10 \cdot 10 = 20$
+
+$$(\mX^{T}\mX)^{-1} = \frac{1}{20} \begin{bmatrix} 30 & -10 \\ -10 & 4 \end{bmatrix}$$
+\end{codebox}
+\end{frame}
+
+\begin{frame}{Worked Example: OLS Calculation}
+\begin{codebox}{Step 5: Final matrix multiplication}
+\begin{align*}
+\hat{\vtheta}_{\text{OLS}} &= (\mX^{T}\mX)^{-1}(\mX^{T}\vy) \\
+&= \frac{1}{20} \begin{bmatrix} 30 & -10 \\ -10 & 4 \end{bmatrix} \begin{bmatrix} 10 \\ 28 \end{bmatrix} \\
+&= \frac{1}{20} \begin{bmatrix} 20 \\ 12 \end{bmatrix} = \begin{bmatrix} 1.0 \\ 0.6 \end{bmatrix}
+\end{align*}
+\end{codebox}
+\end{frame}
+
+\begin{frame}{OLS Final Result}
+\begin{theorembox}{OLS Result}
+$\hat{y} = 1.0 + 0.6x$ \quad (No regularization)
+\end{theorembox}
+
 \begin{figure}
-%\includegraphics[width=\linewidth]{../assets/ridge-regression/figures/temp.pdf} % File missing
+\includegraphics[width=0.7\linewidth]{../assets/ridge-regression/figures/q_unreg.pdf}
 \end{figure}
 \end{frame}
 
-\begin{frame}{Example: Unregularised}
-\[
-\vtheta = (\mX^{T}\mX)^{-1}(\mX^{T}\vy)
-\]
+\begin{frame}{Worked Example: Ridge Regression Setup}
+\begin{codebox}{Step 5: Ridge regression with $\lambda = 2$}
+$$\hat{\vtheta}_{\text{ridge}} = (\mX^{T}\mX + \lambda\mI)^{-1}(\mX^{T}\vy)$$
+\end{codebox}
 \pause
+
+\begin{codebox}{Step 6: Add regularization term}
 \begin{align*}
-\mX^{T}\mX &= \begin{bmatrix}
-4 &10\\10&30
-\end{bmatrix} \\
-(\mX^{T}\mX)^{-1} &= \frac{1}{20} \begin{bmatrix}
-30 & -10\\
--10& 4
-\end{bmatrix}\\
-\mX^{T}\vy &= \begin{bmatrix}
-6\\
-14
-\end{bmatrix}
+\mX^{T}\mX + \lambda\mI &= \begin{bmatrix} 4 & 10 \\ 10 & 30 \end{bmatrix} + 2\begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix} \\
+&= \begin{bmatrix} 4 & 10 \\ 10 & 30 \end{bmatrix} + \begin{bmatrix} 2 & 0 \\ 0 & 2 \end{bmatrix} \\
+&= \begin{bmatrix} 6 & 10 \\ 10 & 32 \end{bmatrix}
 \end{align*}
-\end{frame}
-
-
-\begin{frame}{Example: Unregularised}
-\vspace{0.4cm}
-\begin{align*}
-\begin{split}
-\vtheta &= (\mX^{T}\mX)^{-1}(\mX^{T}\vy)\\
-\begin{bmatrix}
-\theta_{0}\\
-\theta_{1}
-\end{bmatrix} &= 
-\begin{bmatrix}
-2\\
-(-1/5)
-\end{bmatrix} 
-\end{split}
-\end{align*}
-\vspace{-0.8cm}
-\begin{figure}
-\includegraphics[width=0.8\linewidth]{../assets/ridge-regression/figures/q_unreg.pdf}
-\end{figure}
-\end{frame}
-
-\begin{frame}{Example: Regularised}
-\[
-\vtheta = (\mX^{T}\mX+\mu \mI)^{-1}(\mX^{T}\vy)
-\]
+\end{codebox}
 \pause
-\begin{align*}
-\mX^{T}\mX &= \begin{bmatrix}
-4 &10\\10&30
-\end{bmatrix} \\
-\mX^{T}\mX+\mu \mI &= \begin{bmatrix}
-6 &10\\10&32
-\end{bmatrix} \\
-(\mX^{T}\mX+\mu \mI)^{-1} &= \frac{1}{92} \begin{bmatrix}
-32 & -10\\
--10& 6
-\end{bmatrix}\\
-\mX^{T}\vy &= \begin{bmatrix}
-6\\
-14
-\end{bmatrix}
-\end{align*}
+
+Note: $\det(\mX^T\mX + \lambda\mI) = 6 \cdot 32 - 10 \cdot 10 = 192 - 100 = 92$
+$$(\mX^{T}\mX + \lambda\mI)^{-1} = \frac{1}{92} \begin{bmatrix} 32 & -10 \\ -10 & 6 \end{bmatrix}$$
 \end{frame}
 
-\begin{frame}{Example: Regularised}
-\vspace{0.4cm}
+\begin{frame}{Worked Example: Ridge Result}
+\begin{codebox}{Step 7: Final Ridge solution}
 \begin{align*}
-\begin{split}
-\vtheta &= (\mX^{T}\mX+\mu \mI)^{-1}(\mX^{T}\vy) \\
-\begin{bmatrix}
-\theta_{0}\\
-\theta_{1}
-\end{bmatrix} &= 
-\begin{bmatrix}
-0.56\\
-0.26
-\end{bmatrix} 
-\end{split}
+\hat{\vtheta}_{\text{ridge}} &= (\mX^{T}\mX + \lambda\mI)^{-1}(\mX^{T}\vy) \\
+&= \frac{1}{92} \begin{bmatrix} 32 & -10 \\ -10 & 6 \end{bmatrix} \begin{bmatrix} 10 \\ 28 \end{bmatrix} \\
+&= \frac{1}{92} \begin{bmatrix} 32 \cdot 10 + (-10) \cdot 28 \\ (-10) \cdot 10 + 6 \cdot 28 \end{bmatrix} \\
+&= \frac{1}{92} \begin{bmatrix} 320 - 280 \\ -100 + 168 \end{bmatrix} = \frac{1}{92} \begin{bmatrix} 40 \\ 68 \end{bmatrix} \\
+&= \begin{bmatrix} 0.435 \\ 0.739 \end{bmatrix}
 \end{align*}
-\vspace{-0.8cm}
+\end{codebox}
+\pause
+
+\begin{theorembox}{Ridge Result}
+$\hat{y} = 0.435 + 0.739x$ \quad (With $\lambda = 2$ regularization)
+\end{theorembox}
+
 \begin{figure}
-\includegraphics[width=0.8\linewidth]{../assets/ridge-regression/figures/q_reg.pdf}
+\includegraphics[width=0.6\linewidth]{../assets/ridge-regression/figures/q_reg.pdf}
 \end{figure}
 \end{frame}
 
@@ -314,36 +565,65 @@ where, $$\mI^* = \begin{bmatrix}
 \end{frame}
 
 
-{
-	\setbeamercolor{background canvas}{bg=}
-	\includepdf[page=-]{ridge-intercept.pdf}
-}
 
+\begin{frame}{Ridge Regression via Gradient Descent}
+\begin{theorembox}{Gradient Descent Update Rule}
+Standard gradient descent step for ridge regression:
+$$\vtheta^{(t+1)} = \vtheta^{(t)} - \alpha \nabla J(\vtheta^{(t)})$$
+\end{theorembox}
+\pause
 
-{
-	\setbeamercolor{background canvas}{bg=}
-	\includepdf[page=-]{ridge-cv.pdf}
-}
-
-\begin{frame}{Ridge Solution using Gradient Descent}
-\begin{itemize}[<+->]
-	\item \(\vtheta=\vtheta - \alpha \frac{\partial}{\partial \vtheta}(\left(\vy-\mX\vtheta\right)^{\top}\left(\vy-\mX\vtheta\right)+\mu\vtheta^{\top}\vtheta)\) 
-	\item \(\vtheta=\vtheta - \alpha(-2 \mX^{\top} \vy+2 \mX^{\top} \mX \vtheta + 2\mu \mI \vtheta)\)
-	\item \(\vtheta=(1-2\alpha\mu \mI)\vtheta - \alpha(-2 \mX^{\top} \vy+2 \mX^{\top} \mX \vtheta)\)
-	\item \(\vtheta=\underbrace{(1-2\alpha\mu \mI)\vtheta}_\text{Shrinking $\vtheta$} - \alpha(-2 \mX^{\top} \vy+2 \mX^{\top} \mX \vtheta)\)
-\end{itemize}
-\pause \begin{itemize}
-
-	\item Contrast with update equation for unregularised regression:
-	\item \(\vtheta=\underbrace{\vtheta}_\text{No Shrinking $\vtheta$} - \alpha(-2 \mX^{\top} \vy+2 \mX^{\top} \mX \vtheta)\)
-	
-\end{itemize}
-
+\begin{codebox}{Ridge Gradient Computation}
+\begin{align}
+\nabla J(\vtheta) &= \nabla \left[\frac{1}{2}\|\vy-\mX\vtheta\|_2^2 + \frac{\lambda}{2}\|\vtheta\|_2^2\right] \\
+&= -\mX^T(\vy-\mX\vtheta) + \lambda\vtheta \\
+&= -\mX^T\vy + \mX^T\mX\vtheta + \lambda\vtheta
+\end{align}
+\end{codebox}
 \end{frame}
 
-{
-	\setbeamercolor{background canvas}{bg=}
-	\includepdf[page=-]{ridge-gd.pdf}
-}
+\begin{frame}{Ridge vs OLS: Gradient Descent Updates}
+\begin{theorembox}{Ridge Update (with shrinkage)}
+$$\vtheta^{(t+1)} = \vtheta^{(t)} - \alpha(-\mX^T\vy + \mX^T\mX\vtheta^{(t)} + \lambda\vtheta^{(t)})$$
+$$= (1 - \alpha\lambda)\vtheta^{(t)} - \alpha(-\mX^T\vy + \mX^T\mX\vtheta^{(t)})$$
+\end{theorembox}
+\pause
+
+\begin{theorembox}{OLS Update (no shrinkage)}
+$$\vtheta^{(t+1)} = \vtheta^{(t)} - \alpha(-\mX^T\vy + \mX^T\mX\vtheta^{(t)})$$
+\end{theorembox}
+\pause
+
+\begin{keypointsbox}{Key Insight}
+The $(1 - \alpha\lambda)$ factor \textbf{shrinks} coefficients at each step!
+\end{keypointsbox}
+\end{frame}
+
+\begin{frame}{Summary: What We Learned}
+\begin{keypointsbox}{Ridge Regression Key Points}
+\begin{itemize}
+\item \textbf{Problem}: Overfitting in linear regression with large coefficients
+\item \textbf{Solution}: Add $L_2$ penalty $\lambda\|\vtheta\|_2^2$ to loss function
+\item \textbf{Effect}: Shrinks coefficients, improves generalization
+\item \textbf{Trade-off}: Higher bias, lower variance
+\end{itemize}
+\end{keypointsbox}
+\end{frame}
+
+\begin{frame}{Key Formula \& Next Steps}
+\begin{theorembox}{Ridge Regression Solution}
+$$\hat{\vtheta}_{\text{ridge}} = (\mX^T\mX + \lambda\mI)^{-1}\mX^T\vy$$
+\end{theorembox}
+\pause
+
+\begin{alertbox}{Next Steps}
+\begin{itemize}
+\item Compare with Lasso regression ($L_1$ penalty)
+\item Explore elastic net (combines $L_1$ and $L_2$)
+\item Apply to real-world datasets
+\end{itemize}
+\end{alertbox}
+\end{frame}
+
 
 \end{document}
