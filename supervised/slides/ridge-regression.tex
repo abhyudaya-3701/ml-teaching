@@ -53,12 +53,11 @@ In polynomial $f(x) = c_0 + c_1x + c_2x^2 + \dots + c_dx^d$, watch $\max|c_i|$
 \end{frame}  
 
 \begin{frame}{Coefficient Explosion with Overfitting}
-\vspace{0.1cm}
 \begin{keypointsbox}{Key Observation}
 As polynomial degree increases $\rightarrow$ coefficients grow exponentially!
 \end{keypointsbox}
-\vspace{0.1cm}
-\begin{figure}\includegraphics[width=0.7\linewidth]{../assets/ridge-regression/figures/lin_plot_coef.pdf}\caption{{\small Coefficient Magnitudes vs Polynomial Degree}}\end{figure}
+\vspace{0.05cm}
+\begin{figure}\includegraphics[width=0.65\linewidth]{../assets/ridge-regression/figures/lin_plot_coef.pdf}\caption{{\footnotesize Coefficient Magnitudes vs Polynomial Degree}}\end{figure}
 \end{frame}
 
 \begin{frame}{The Central Question}
@@ -236,11 +235,13 @@ For optimality, we need:
 \begin{frame}{Mathematical Derivation: Step 3}
 \begin{codebox}{Step 3: Compute the Gradient}
 Taking the derivative of the Lagrangian with respect to $\vtheta$:
+{\small
 \begin{align}
-\frac{\partial L}{\partial \vtheta} &= \frac{\partial}{\partial \vtheta}\left[\left(\vy-\mX\vtheta\right)^T\left(\vy-\mX\vtheta\right) + \lambda \vtheta^T\vtheta\right] \\[0.3em]
-&= \frac{\partial}{\partial \vtheta}\left[\vy^T\vy - 2\vy^T\mX\vtheta + \vtheta^T\mX^T\mX\vtheta + \lambda \vtheta^T\vtheta\right] \\[0.3em]
+\frac{\partial L}{\partial \vtheta} &= \frac{\partial}{\partial \vtheta}\left[\left(\vy-\mX\vtheta\right)^T\left(\vy-\mX\vtheta\right) + \lambda \vtheta^T\vtheta\right] \\[0.2em]
+&= \frac{\partial}{\partial \vtheta}\left[\vy^T\vy - 2\vy^T\mX\vtheta + \vtheta^T\mX^T\mX\vtheta + \lambda \vtheta^T\vtheta\right] \\[0.2em]
 &= -2\mX^T\vy + 2\mX^T\mX\vtheta + 2\lambda\vtheta
 \end{align}
+}
 \end{codebox}
 \end{frame}
 
@@ -306,7 +307,7 @@ $$\hat{\vtheta}_{\text{ridge}} = (\mX^T\mX + \lambda\mI)^{-1}\mX^T\vy \approx \l
 \end{frame}
 
 \begin{frame}{Coefficient Shrinkage: Visual Evidence}
-\begin{figure}\includegraphics[width=0.8\linewidth]{../assets/ridge-regression/figures/rid_reg-without-lim.pdf}\caption{Coefficient Magnitudes vs $\lambda$ (Real Estate Dataset)}
+\begin{figure}\includegraphics[width=0.75\linewidth]{../assets/ridge-regression/figures/rid_reg-without-lim.pdf}\caption{{\footnotesize Coefficient Magnitudes vs $\lambda$ (Real Estate Dataset)}}
 \end{figure}
 
 \begin{alertbox}{Important Question}
@@ -415,11 +416,8 @@ How do we choose the optimal value of $\lambda$?
 
 \vspace{-0.1cm}
 \begin{keypointsbox}{CV Pattern}
-{\small 
-\begin{itemize}
-\item Small $\lambda$: Overfitting  \quad Large $\lambda$: Underfitting
-\item Optimal $\lambda$: Best trade-off
-\end{itemize}
+{\footnotesize 
+Small $\lambda$: Overfitting \quad Large $\lambda$: Underfitting \quad Optimal $\lambda$: Best trade-off
 }
 \end{keypointsbox}
 \end{frame}
@@ -644,7 +642,7 @@ $\hat{y} = 0.565 + 0.261x$ \quad (With $\lambda = 2$)
 \end{frame}
 
 \begin{frame}{Coefficient Magnitude Comparison}
-\begin{theorembox}{OLS vs Ridge: $\sum \theta_i^2$}
+\begin{theorembox}{OLS vs Ridge Solutions}
 \begin{itemize}
 \item \textbf{OLS}: $\vtheta_{OLS} = \begin{bmatrix} 2.0 \\ -0.2 \end{bmatrix}$ 
 \item \textbf{Ridge}: $\vtheta_{Ridge} = \begin{bmatrix} 0.565 \\ 0.261 \end{bmatrix}$
@@ -652,18 +650,23 @@ $\hat{y} = 0.565 + 0.261x$ \quad (With $\lambda = 2$)
 \end{theorembox}
 \pause
 
-\begin{codebox}{Coefficient Norm Comparison}
+\begin{codebox}{L2 Norm Calculation}
 \begin{align}
-\|\vtheta_{OLS}\|_2^2 &= (2.0)^2 + (-0.2)^2 = 4.0 + 0.04 = 4.04 \\[0.3em]
-\|\vtheta_{Ridge}\|_2^2 &= (0.565)^2 + (0.261)^2 = 0.319 + 0.068 = 0.387
+\|\vtheta_{OLS}\|_2^2 &= (2.0)^2 + (-0.2)^2 = 4.04 \\
+\|\vtheta_{Ridge}\|_2^2 &= (0.565)^2 + (0.261)^2 = 0.387
 \end{align}
 \end{codebox}
-\pause
+\end{frame}
 
+\begin{frame}{Ridge Coefficient Shrinkage Result}
 \begin{alertbox}{Key Result}
 Ridge regression achieved a {\bf 90.4\% reduction} in coefficient magnitude!
 $$\frac{0.387}{4.04} = 0.096 \quad \text{(Ridge is 9.6\% of OLS magnitude)}$$
 \end{alertbox}
+
+\begin{keypointsbox}{Shrinkage Effect}
+Ridge systematically produces smaller coefficient magnitudes while maintaining prediction accuracy.
+\end{keypointsbox}
 \end{frame}
 
 \begin{frame}{Multi-collinearity}
@@ -713,17 +716,233 @@ Ridge regression elegantly handles multi-collinearity problems!
 \end{frame}
 
 
-\begin{frame}{Extension of the analytical model}
-For ridge with no penalty on $\theta_0$
-$$
-\hat{\vtheta} = \left(\mX^T\mX+\mu \mI^*\right)^{-1}\mX^T\vy
-$$
-where, $$\mI^* = \begin{bmatrix}
+\begin{frame}{The Intercept Penalty Problem}
+\begin{alertbox}{Critical Issue}
+Should we penalize the intercept $\theta_0$ in ridge regression?
+\end{alertbox}
+
+\begin{keypointsbox}{Two Approaches}
+\begin{itemize}
+\item \textbf{Standard Ridge}: $\hat{\vtheta} = (\mX^T\mX + \lambda\mI)^{-1}\mX^T\vy$ (penalizes intercept)
+\item \textbf{No-intercept penalty}: $\hat{\vtheta} = (\mX^T\mX + \lambda\mI^*)^{-1}\mX^T\vy$
+\end{itemize}
+\end{keypointsbox}
+\end{frame}
+
+\begin{frame}{Modified Identity Matrix $\mI^*$}
+\begin{codebox}{Definition of $\mI^*$}
+$$\mI^* = \begin{bmatrix}
     \color{red}0 & 0 & 0 & \dots  & 0 \\
     0 & 1& 0 & \dots  & 0\\
     \vdots & \vdots & \vdots & \ddots & \vdots \\
     0 & 0 & 0 & \dots  & 1
 \end{bmatrix}$$
+\end{codebox}
+
+\begin{alertbox}{Key Point}
+Zero in first position means NO penalty on intercept $\theta_0$
+\end{alertbox}
+\end{frame}
+
+\begin{frame}{Demonstration: Two Simple Functions}
+\begin{examplebox}{Setup}
+Compare two functions with different intercepts:
+\begin{itemize}
+\item \textbf{Function 1}: $f_1(x) = x$ (small intercept)
+\item \textbf{Function 2}: $f_2(x) = x + 100$ (large intercept)
+\end{itemize}
+\end{examplebox}
+\end{frame}
+
+\begin{frame}{Data Generation and Test Question}
+\begin{codebox}{Data Generation}
+For each function, generate data at $x = 1, 2$:
+\begin{align}
+\text{Function 1:} &\quad (1,1), (2,2) \\
+\text{Function 2:} &\quad (1,101), (2,102)
+\end{align}
+\end{codebox}
+\pause
+
+\begin{alertbox}{Test Question}
+How well can we predict $y$ at $x = 0$ using ridge regression with $\lambda = 100$?
+\end{alertbox}
+\end{frame}
+
+\begin{frame}{Function 1: Setup and Data}
+\begin{theorembox}{Function 1: $y = x$}
+True value at $x=0$: $y = 0$
+\end{theorembox}
+
+\begin{codebox}{Data matrices}
+$$\mX = \begin{bmatrix} 1 & 1 \\ 1 & 2 \end{bmatrix}, \quad \vy = \begin{bmatrix} 1 \\ 2 \end{bmatrix}$$
+\end{codebox}
+\end{frame}
+
+\begin{frame}{Function 1: Matrix Computations}
+\begin{codebox}{Matrix computations}
+\begin{align}
+\mX^T\mX &= \begin{bmatrix} 2 & 3 \\ 3 & 5 \end{bmatrix} \\
+\mX^T\vy &= \begin{bmatrix} 3 \\ 5 \end{bmatrix}
+\end{align}
+\end{codebox}
+\end{frame}
+
+\begin{frame}{Function 1: Ridge with Standard $\mI$}
+\begin{codebox}{Standard Ridge: $\mI$ penalties both $\theta_0$ and $\theta_1$}
+$$\mX^T\mX + \lambda\mI = \begin{bmatrix} 2 & 3 \\ 3 & 5 \end{bmatrix} + 100\begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix} = \begin{bmatrix} 102 & 3 \\ 3 & 105 \end{bmatrix}$$
+\end{codebox}
+\end{frame}
+
+\begin{frame}{Function 1: Standard Ridge Solution}
+\begin{codebox}{Solution}
+\begin{align}
+\hat{\vtheta} &= \begin{bmatrix} 102 & 3 \\ 3 & 105 \end{bmatrix}^{-1} \begin{bmatrix} 3 \\ 5 \end{bmatrix} \\
+&\approx \begin{bmatrix} 0.029 \\ 0.047 \end{bmatrix}
+\end{align}
+\end{codebox}
+\pause
+
+\begin{theorembox}{Prediction at $x=0$}
+$\hat{y}(0) = 0.029 + 0.047 \times 0 = 0.029$ \\
+{\small Error: $|0.029 - 0| = 0.029$}
+\end{theorembox}
+\end{frame}
+
+\begin{frame}{Function 1: Ridge with Modified $\mI^*$}
+\begin{codebox}{Modified Ridge: $\mI^*$ does NOT penalize $\theta_0$}
+$$\mX^T\mX + \lambda\mI^* = \begin{bmatrix} 2 & 3 \\ 3 & 5 \end{bmatrix} + 100\begin{bmatrix} 0 & 0 \\ 0 & 1 \end{bmatrix} = \begin{bmatrix} 2 & 3 \\ 3 & 105 \end{bmatrix}$$
+\end{codebox}
+\end{frame}
+
+\begin{frame}{Function 1: Modified Ridge Solution}
+\begin{codebox}{Solution}
+\begin{align}
+\hat{\vtheta} &= \begin{bmatrix} 2 & 3 \\ 3 & 105 \end{bmatrix}^{-1} \begin{bmatrix} 3 \\ 5 \end{bmatrix} \\
+&\approx \begin{bmatrix} -0.001 \\ 0.048 \end{bmatrix}
+\end{align}
+\end{codebox}
+\pause
+
+\begin{theorembox}{Prediction at $x=0$}
+$\hat{y}(0) = -0.001 + 0.048 \times 0 = -0.001$ \\
+{\small Error: $|-0.001 - 0| = 0.001$}
+\end{theorembox}
+\end{frame}
+
+\begin{frame}{Function 2: Setup and Data}
+\begin{theorembox}{Function 2: $y = x + 100$}
+True value at $x=0$: $y = 100$
+\end{theorembox}
+
+\begin{codebox}{Data matrices}
+$$\mX = \begin{bmatrix} 1 & 1 \\ 1 & 2 \end{bmatrix}, \quad \vy = \begin{bmatrix} 101 \\ 102 \end{bmatrix}$$
+\end{codebox}
+\end{frame}
+
+\begin{frame}{Function 2: Matrix Computations}
+\begin{codebox}{Matrix computations}
+\begin{align}
+\mX^T\mX &= \begin{bmatrix} 2 & 3 \\ 3 & 5 \end{bmatrix} \quad \text{(same as Function 1)} \\
+\mX^T\vy &= \begin{bmatrix} 203 \\ 305 \end{bmatrix}
+\end{align}
+\end{codebox}
+\end{frame}
+
+\begin{frame}{Function 2: Ridge with Standard $\mI$}
+\begin{codebox}{Standard Ridge: penalizes large intercept heavily}
+$$\mX^T\mX + \lambda\mI = \begin{bmatrix} 102 & 3 \\ 3 & 105 \end{bmatrix} \quad \text{(same matrix)}$$
+\end{codebox}
+\end{frame}
+
+\begin{frame}{Function 2: Standard Ridge Solution}
+\begin{codebox}{Solution}
+\begin{align}
+\hat{\vtheta} &= \begin{bmatrix} 102 & 3 \\ 3 & 105 \end{bmatrix}^{-1} \begin{bmatrix} 203 \\ 305 \end{bmatrix} \\
+&\approx \begin{bmatrix} 1.98 \\ 2.89 \end{bmatrix}
+\end{align}
+\end{codebox}
+\pause
+
+\begin{theorembox}{Prediction at $x=0$}
+$\hat{y}(0) = 1.98 + 2.89 \times 0 = 1.98$ \\
+{\color{red}\textbf{Error: $|1.98 - 100| = 98.02$ (TERRIBLE!)}}
+\end{theorembox}
+\end{frame}
+
+\begin{frame}{Function 2: Ridge with Modified $\mI^*$}
+\begin{codebox}{Modified Ridge: does NOT penalize intercept}
+$$\mX^T\mX + \lambda\mI^* = \begin{bmatrix} 2 & 3 \\ 3 & 105 \end{bmatrix} \quad \text{(same as Function 1)}$$
+\end{codebox}
+\end{frame}
+
+\begin{frame}{Function 2: Modified Ridge Solution}
+\begin{codebox}{Solution}
+\begin{align}
+\hat{\vtheta} &= \begin{bmatrix} 2 & 3 \\ 3 & 105 \end{bmatrix}^{-1} \begin{bmatrix} 203 \\ 305 \end{bmatrix} \\
+&\approx \begin{bmatrix} 99.91 \\ 1.05 \end{bmatrix}
+\end{align}
+\end{codebox}
+\pause
+
+\begin{theorembox}{Prediction at $x=0$}
+$\hat{y}(0) = 99.91 + 1.05 \times 0 = 99.91$ \\
+{\color{green}\textbf{Error: $|99.91 - 100| = 0.09$ (EXCELLENT!)}}
+\end{theorembox}
+\end{frame}
+
+\begin{frame}{Results Summary}
+\begin{table}
+\centering
+\begin{tabular}{|l|c|c|c|}
+\hline
+\textbf{Function} & \textbf{True $y(0)$} & \textbf{Standard $\mI$} & \textbf{Modified $\mI^*$} \\
+\hline
+$f_1: y = x$ & 0 & 0.029 & -0.001 \\
+Error & & 0.029 & \color{green}0.001 \\
+\hline
+$f_2: y = x + 100$ & 100 & 1.98 & 99.91 \\
+Error & & \color{red}98.02 & \color{green}0.09 \\
+\hline
+\end{tabular}
+\end{table}
+\pause
+
+\begin{alertbox}{Key Insight}
+Penalizing the intercept creates \textbf{biased predictions} when data has non-zero mean!
+\end{alertbox}
+\pause
+
+\begin{keypointsbox}{Solution}
+Use $\mI^*$ to avoid penalizing the intercept, or normalize data first.
+\end{keypointsbox}
+\end{frame}
+
+\begin{frame}{Alternative: Data Normalization}
+\begin{theorembox}{Normalization Approach}
+Center the data to have zero mean, then use standard $\mI$
+\end{theorembox}
+
+\begin{codebox}{Function 2 with normalization}
+Original: $(1,101), (2,102)$ \\
+Mean: $\bar{x} = 1.5, \bar{y} = 101.5$ \\
+Centered: $(-0.5, -0.5), (0.5, 0.5)$
+\end{codebox}
+\end{frame}
+
+\begin{frame}{Benefits of Data Normalization}
+\begin{keypointsbox}{Why Normalize?}
+\begin{itemize}
+\item Can use standard $\mI$ without bias
+\item Intercept becomes meaningful (deviation from mean)
+\item All features on similar scale
+\item More numerically stable
+\end{itemize}
+\end{keypointsbox}
+
+\begin{alertbox}{Best Practice}
+Always normalize data OR use $\mI^*$ for unbiased ridge regression!
+\end{alertbox}
 \end{frame}
 
 \section{Implementation Details}
@@ -759,6 +978,252 @@ $$\vtheta^{(t+1)} = \vtheta^{(t)} - \alpha(-\mX^T\vy + \mX^T\mX\vtheta^{(t)})$$
 \begin{keypointsbox}{Key Insight}
 The $(1 - \alpha\lambda)$ factor \textbf{shrinks} coefficients at each step!
 \end{keypointsbox}
+\end{frame}
+
+\begin{frame}{Visual: OLS Gradient Descent Step}
+\begin{columns}
+\column{0.5\textwidth}
+\begin{theorembox}{OLS Update}
+$\vtheta^{(t+1)} = \vtheta^{(t)} - \alpha \nabla J(\vtheta^{(t)})$
+\end{theorembox}
+
+\column{0.5\textwidth}
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+  % Axes
+  \draw[->] (-0.5,0) -- (4,0) node[right] {$\theta_0$};
+  \draw[->] (0,-0.5) -- (0,3.5) node[above] {$\theta_1$};
+  
+  % Current point theta^(t)
+  \coordinate (theta_t) at (2.5, 2.8);
+  \fill[blue] (theta_t) circle (3pt);
+  \node[blue, above right] at (theta_t) {$\vtheta^{(t)}$};
+  
+  % Gradient vector -∇J (pointing toward minimum)
+  \coordinate (grad_end) at (1.8, 1.5);
+  \draw[->, red, thick] (theta_t) -- (grad_end) node[midway, above left] {$-\alpha\nabla J$};
+  
+  % Grid for reference
+  \draw[gray!30, thin] (0,0) grid (4,3.5);
+\end{tikzpicture}
+\end{center}
+\end{columns}
+
+\begin{alertbox}{Step 1}
+Start at $\vtheta^{(t)}$ and compute negative gradient direction
+\end{alertbox}
+\end{frame}
+
+\begin{frame}{Visual: OLS Gradient Descent - Vector Sum}
+\begin{columns}
+\column{0.5\textwidth}
+\begin{theorembox}{Vector Addition}
+$\vtheta^{(t+1)} = \vtheta^{(t)} + (-\alpha \nabla J)$
+\end{theorembox}
+
+\column{0.5\textwidth}
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+  % Axes
+  \draw[->] (-0.5,0) -- (4,0) node[right] {$\theta_0$};
+  \draw[->] (0,-0.5) -- (0,3.5) node[above] {$\theta_1$};
+  
+  % Current point theta^(t)
+  \coordinate (theta_t) at (2.5, 2.8);
+  \fill[blue] (theta_t) circle (3pt);
+  \node[blue, above right] at (theta_t) {$\vtheta^{(t)}$};
+  
+  % Gradient vector
+  \coordinate (grad_end) at (1.8, 1.5);
+  \draw[->, red, thick] (theta_t) -- (grad_end) node[midway, above left] {$-\alpha\nabla J$};
+  
+  % New point theta^(t+1)
+  \fill[green!70!black] (grad_end) circle (3pt);
+  \node[green!70!black, below right] at (grad_end) {$\vtheta^{(t+1)}$};
+  
+  % Show L2 norm
+  \draw[dashed, blue] (0,0) -- (theta_t);
+  \draw[dashed, green!70!black] (0,0) -- (grad_end);
+  \node[blue] at (1.2, 1.8) {$\|\vtheta^{(t)}\|_2$};
+  \node[green!70!black] at (0.8, 0.8) {$\|\vtheta^{(t+1)}\|_2$};
+  
+  % Grid for reference
+  \draw[gray!30, thin] (0,0) grid (4,3.5);
+\end{tikzpicture}
+\end{center}
+\end{columns}
+
+\begin{keypointsbox}{Result}
+OLS: $\|\vtheta^{(t+1)}\|_2$ depends only on gradient direction
+\end{keypointsbox}
+\end{frame}
+
+\begin{frame}{Visual: Ridge Gradient Descent - Shrinkage Step}
+\begin{columns}
+\column{0.5\textwidth}
+\begin{theorembox}{Ridge Shrinkage}
+First: $\vtheta^{(t)} \rightarrow (1-\alpha\lambda)\vtheta^{(t)}$
+\end{theorembox}
+
+\column{0.5\textwidth}
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+  % Axes
+  \draw[->] (-0.5,0) -- (4,0) node[right] {$\theta_0$};
+  \draw[->] (0,-0.5) -- (0,3.5) node[above] {$\theta_1$};
+  
+  % Current point theta^(t)
+  \coordinate (theta_t) at (2.5, 2.8);
+  \fill[blue] (theta_t) circle (3pt);
+  \node[blue, above right] at (theta_t) {$\vtheta^{(t)}$};
+  
+  % Shrunk point
+  \coordinate (shrunk) at (2.25, 2.52);
+  \fill[purple] (shrunk) circle (3pt);
+  \node[purple, below] at (shrunk) {$(1-\alpha\lambda)\vtheta^{(t)}$};
+  
+  % Shrinkage arrow
+  \draw[->, purple, thick] (theta_t) -- (shrunk) node[midway, above left] {\small shrink};
+  
+  % Show norms
+  \draw[dashed, blue] (0,0) -- (theta_t);
+  \draw[dashed, purple] (0,0) -- (shrunk);
+  
+  % Grid for reference
+  \draw[gray!30, thin] (0,0) grid (4,3.5);
+\end{tikzpicture}
+\end{center}
+\end{columns}
+
+\begin{alertbox}{Ridge Step 1}
+Shrink current parameters by factor $(1-\alpha\lambda) < 1$
+\end{alertbox}
+\end{frame}
+
+\begin{frame}{Visual: Ridge Gradient Descent - Complete Update}
+\begin{columns}
+\column{0.5\textwidth}
+\begin{theorembox}{Ridge Complete Update}
+$\vtheta^{(t+1)} = (1-\alpha\lambda)\vtheta^{(t)} - \alpha\nabla J$
+\end{theorembox}
+
+\column{0.5\textwidth}
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+  % Axes
+  \draw[->] (-0.5,0) -- (4,0) node[right] {$\theta_0$};
+  \draw[->] (0,-0.5) -- (0,3.5) node[above] {$\theta_1$};
+  
+  % Current point theta^(t)
+  \coordinate (theta_t) at (2.5, 2.8);
+  \fill[blue] (theta_t) circle (3pt);
+  \node[blue, above right] at (theta_t) {$\vtheta^{(t)}$};
+  
+  % Shrunk point
+  \coordinate (shrunk) at (2.25, 2.52);
+  \fill[purple] (shrunk) circle (3pt);
+  \draw[->, purple, thick] (theta_t) -- (shrunk);
+  
+  % Gradient from shrunk point
+  \coordinate (final) at (1.55, 1.22);
+  \draw[->, red, thick] (shrunk) -- (final) node[midway, above left] {$-\alpha\nabla J$};
+  
+  % Final point
+  \fill[green!70!black] (final) circle (3pt);
+  \node[green!70!black, below] at (final) {$\vtheta^{(t+1)}_{\text{ridge}}$};
+  
+  % Show norms
+  \draw[dashed, blue] (0,0) -- (theta_t);
+  \draw[dashed, green!70!black] (0,0) -- (final);
+  \node[blue] at (1.2, 1.8) {$\|\vtheta^{(t)}\|_2$};
+  \node[green!70!black] at (0.6, 0.6) {$\|\vtheta^{(t+1)}_{\text{ridge}}\|_2$};
+  
+  % Grid for reference
+  \draw[gray!30, thin] (0,0) grid (4,3.5);
+\end{tikzpicture}
+\end{center}
+\end{columns}
+
+\begin{keypointsbox}{Key Insight}
+Ridge: $\|\vtheta^{(t+1)}_{\text{ridge}}\|_2 < \|\vtheta^{(t+1)}_{\text{OLS}}\|_2$ (smaller coefficients!)
+\end{keypointsbox}
+\end{frame}
+
+\begin{frame}{Side-by-Side Comparison: OLS vs Ridge Updates}
+\begin{columns}
+\column{0.48\textwidth}
+\begin{center}
+\textbf{OLS Gradient Descent}
+\begin{tikzpicture}[scale=0.6]
+  % Axes
+  \draw[->] (-0.5,0) -- (3.5,0) node[right] {$\theta_0$};
+  \draw[->] (0,-0.5) -- (0,3) node[above] {$\theta_1$};
+  
+  % Points
+  \coordinate (theta_t) at (2.2, 2.3);
+  \coordinate (theta_t1_ols) at (1.6, 1.3);
+  
+  \fill[blue] (theta_t) circle (2pt);
+  \fill[green!70!black] (theta_t1_ols) circle (2pt);
+  
+  % Vectors
+  \draw[->, red, thick] (theta_t) -- (theta_t1_ols);
+  
+  % Norms
+  \draw[dashed, blue] (0,0) -- (theta_t);
+  \draw[dashed, green!70!black] (0,0) -- (theta_t1_ols);
+  
+  \node[blue, above] at (theta_t) {\small $\vtheta^{(t)}$};
+  \node[green!70!black, below] at (theta_t1_ols) {\small $\vtheta^{(t+1)}$};
+  
+  % Grid
+  \draw[gray!30, thin] (0,0) grid (3.5,3);
+\end{tikzpicture}
+
+\textbf{No shrinkage} \\
+$\|\vtheta^{(t+1)}\|_2 = 1.98$
+\end{center}
+
+\column{0.48\textwidth}
+\begin{center}
+\textbf{Ridge Gradient Descent}
+\begin{tikzpicture}[scale=0.6]
+  % Axes
+  \draw[->] (-0.5,0) -- (3.5,0) node[right] {$\theta_0$};
+  \draw[->] (0,-0.5) -- (0,3) node[above] {$\theta_1$};
+  
+  % Points
+  \coordinate (theta_t) at (2.2, 2.3);
+  \coordinate (shrunk) at (1.98, 2.07);
+  \coordinate (theta_t1_ridge) at (1.38, 1.07);
+  
+  \fill[blue] (theta_t) circle (2pt);
+  \fill[purple] (shrunk) circle (2pt);
+  \fill[green!70!black] (theta_t1_ridge) circle (2pt);
+  
+  % Vectors
+  \draw[->, purple, thick] (theta_t) -- (shrunk);
+  \draw[->, red, thick] (shrunk) -- (theta_t1_ridge);
+  
+  % Norms
+  \draw[dashed, blue] (0,0) -- (theta_t);
+  \draw[dashed, green!70!black] (0,0) -- (theta_t1_ridge);
+  
+  \node[blue, above] at (theta_t) {\small $\vtheta^{(t)}$};
+  \node[green!70!black, below] at (theta_t1_ridge) {\small $\vtheta^{(t+1)}$};
+  
+  % Grid
+  \draw[gray!30, thin] (0,0) grid (3.5,3);
+\end{tikzpicture}
+
+\textbf{With shrinkage} \\
+$\|\vtheta^{(t+1)}\|_2 = 1.72$ \textcolor{red}{$<$ OLS}
+\end{center}
+\end{columns}
+
+\begin{alertbox}{Ridge Effect}
+Ridge regression systematically produces \textbf{smaller coefficient magnitudes} at every gradient descent step!
+\end{alertbox}
 \end{frame}
 
 \begin{frame}{Summary: What We Learned}
