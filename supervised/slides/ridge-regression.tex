@@ -172,17 +172,24 @@ Higher $\lambda$ = more regularization = more bias, less variance
     legend to name=legend3,
     axis equal=false
 ]
-% Constraint circle for Ridge (centered at origin, radius sqrt(0.387) ≈ 0.62)
-\addplot[blue, thick, domain=0:360, samples=100] ({0.62*cos(x)}, {0.62*sin(x)});
+% Constraint circle for Ridge (centered at origin)
+\addplot[blue, thick, domain=0:360, samples=100] ({0.8*cos(x)}, {0.8*sin(x)});
 % OLS solution point
 \addplot[only marks, mark=*, mark size=4pt, red] coordinates {(2.0, -0.2)};
-% Ridge solution point  
-\addplot[only marks, mark=square*, mark size=4pt, green!70!black] coordinates {(0.565, 0.261)};
-% MSE contour ellipses (simplified representation centered around OLS)
-\addplot[orange, thick, domain=0:360, samples=100] ({0.3*cos(x) + 2.0}, {0.15*sin(x) - 0.2});
+% MSE contour ellipses (centered around OLS)
+\addplot[orange, domain=0:360, samples=100] ({0.3*cos(x) + 2.0}, {0.15*sin(x) - 0.2});
 \addplot[orange, domain=0:360, samples=100] ({0.6*cos(x) + 2.0}, {0.3*sin(x) - 0.2});
-\addplot[orange, domain=0:360, samples=100] ({0.9*cos(x) + 2.0}, {0.45*sin(x) - 0.2});
-\legend{Constraint $\|\vtheta\|^2 \leq S$, OLS, Ridge, MSE contours}
+% Critical MSE contour that is tangent to constraint circle
+\addplot[orange, thick, domain=0:360, samples=100] ({1.2*cos(x) + 2.0}, {0.6*sin(x) - 0.2});
+% Ridge solution point at actual tangency point (where line from OLS to origin intersects constraint circle)
+% The tangency occurs along the line from OLS (2.0, -0.2) toward origin
+% Direction vector: (-2.0, 0.2), normalized and scaled to radius 0.8
+\addplot[only marks, mark=square*, mark size=5pt, green!70!black] coordinates {(0.781, -0.078)};
+% Add line showing the tangent direction
+\draw[dashed, gray, thick] (axis cs:0,0) -- (axis cs:0.781,-0.078);
+% Add invisible point for legend
+\addplot[only marks, mark=square*, mark size=0pt, green!70!black] coordinates {(0,0)};
+\legend{Constraint $\|\vtheta\|^2 \leq S$, OLS, MSE contours, Ridge Solution}
 \end{axis}
 \end{tikzpicture}
 \vspace{-0.2cm}
