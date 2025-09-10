@@ -14,16 +14,10 @@
   \maketitle
 
 \begin{frame}{Outline}
-\begin{itemize}
-\item Motivation: The Problem of Overfitting
-\item Ridge Regression Formulation
-\item Mathematical Derivation
-\item Geometric Interpretation  
-\item Hyperparameter Selection
-\item Examples and Applications
-\item Implementation Details
-\end{itemize}
+\tableofcontents
 \end{frame}
+
+\section{Motivation: The Problem of Overfitting}
 
 \begin{frame}{The Problem: Overfitting in Linear Regression}
 \begin{alertbox}{Overfitting Challenge}
@@ -59,16 +53,23 @@ In polynomial $f(x) = c_0 + c_1x + c_2x^2 + \dots + c_dx^d$, watch $\max|c_i|$
 \end{frame}  
 
 \begin{frame}{Coefficient Explosion with Overfitting}
-\vspace{0.4cm}
+\vspace{0.1cm}
 \begin{keypointsbox}{Key Observation}
 As polynomial degree increases $\rightarrow$ coefficients grow exponentially!
 \end{keypointsbox}
-\vspace{0.2cm}
-\begin{figure}\includegraphics[width=0.7\linewidth]{../assets/ridge-regression/figures/lin_plot_coef.pdf}\caption{Coefficient Magnitudes vs Polynomial Degree}\end{figure}
+\vspace{0.1cm}
+\begin{figure}\includegraphics[width=0.7\linewidth]{../assets/ridge-regression/figures/lin_plot_coef.pdf}\caption{{\small Coefficient Magnitudes vs Polynomial Degree}}\end{figure}
+\end{frame}
 
+\begin{frame}{The Central Question}
 \begin{alertbox}{Critical Question}
 How can we control coefficient magnitudes to prevent overfitting?
 \end{alertbox}
+\pause
+
+\begin{keypointsbox}{Answer Preview}
+Ridge regression adds a penalty term to shrink coefficients!
+\end{keypointsbox}
 \end{frame}
 
 \stepcounter{popquiz}
@@ -97,6 +98,9 @@ Explanation:
 \end{itemize}
 \end{popquizbox}
 \end{frame}
+
+\section{Ridge Regression Formulation}
+
 \begin{frame}{Solution: Regularization}
 \begin{theorembox}{Ridge Regression Approach}
 Add a penalty term to control coefficient magnitudes:
@@ -155,35 +159,57 @@ J(\vtheta) &= \underbrace{\left(\vy-\mX\vtheta\right)^T\left(\vy-\mX\vtheta\righ
 \begin{alertbox}{Key Trade-off}
 Higher $\lambda$ = more regularization = more bias, less variance
 \end{alertbox}
-\end{frame}\begin{frame}{Geometric Interpretation}
+\end{frame}
+
+\begin{frame}{Geometric Interpretation}
 \begin{figure}
-        \begin{subfigure}[b]{0.5\textwidth}
-                \includegraphics[width=\linewidth]{../assets/ridge-regression/figures/ridge_base_contour.pdf}
-                \caption{Contour Plot}
-        \end{subfigure}%
-        \begin{subfigure}[b]{0.5\textwidth}
-                \includegraphics[width=\linewidth]{../assets/ridge-regression/figures/ridge_base_surface.pdf}
-                \caption{Surface Plot}
-        \end{subfigure}%
-        \caption{Ridge regression finds solution where error contours touch constraint circle}
+\centering
+\begin{tikzpicture}[scale=0.7]
+\begin{axis}[
+    width=8cm, height=5cm,
+    xlabel={$\theta_0$ (intercept)}, ylabel={$\theta_1$ (slope)},
+    xmin=-0.5, xmax=2.5, ymin=-0.5, ymax=0.8,
+    grid=major, grid style={thin,gray!30},
+    legend to name=legend3,
+    axis equal=false
+]
+% Constraint circle for Ridge (centered at origin, radius sqrt(0.387) ≈ 0.62)
+\addplot[blue, thick, domain=0:360, samples=100] ({0.62*cos(x)}, {0.62*sin(x)});
+% OLS solution point
+\addplot[only marks, mark=*, mark size=4pt, red] coordinates {(2.0, -0.2)};
+% Ridge solution point  
+\addplot[only marks, mark=square*, mark size=4pt, green!70!black] coordinates {(0.565, 0.261)};
+% MSE contour ellipses (simplified representation centered around OLS)
+\addplot[orange, thick, domain=0:360, samples=100] ({0.3*cos(x) + 2.0}, {0.15*sin(x) - 0.2});
+\addplot[orange, domain=0:360, samples=100] ({0.6*cos(x) + 2.0}, {0.3*sin(x) - 0.2});
+\addplot[orange, domain=0:360, samples=100] ({0.9*cos(x) + 2.0}, {0.45*sin(x) - 0.2});
+\legend{Constraint $\|\vtheta\|^2 \leq S$, OLS, Ridge, MSE contours}
+\end{axis}
+\end{tikzpicture}
+\vspace{-0.2cm}
+\ref{legend3}
+\caption{{\small Ridge solution where MSE contours touch constraint region}}
 \end{figure}
 
-\begin{keypointsbox}{Geometric Insight}
-Ridge regression finds the minimum of MSE subject to $\|\vtheta\|_2^2 \leq S$
+\vspace{-0.2cm}
+\begin{keypointsbox}{Key Insight}
+{\small Ridge finds the minimum MSE point within the constraint $\|\vtheta\|_2^2 \leq S$}
 \end{keypointsbox}
 \end{frame}
 
+\section{Mathematical Derivation}
+
 \begin{frame}{Mathematical Derivation: Step 1}
 \begin{codebox}{Step 1: Set up the Lagrangian}
-For the constrained optimization problem:
+{\small For the constrained optimization problem:}
 \begin{align*}
 \min_{\vtheta} & \quad \left(\vy-\mX\vtheta\right)^T\left(\vy-\mX\vtheta\right) \\
 \text{s.t.} & \quad \vtheta^T\vtheta \leq S
 \end{align*}
 
-The Lagrangian is:
+{\small The Lagrangian is:}
 $$L(\vtheta, \lambda) = \left(\vy-\mX\vtheta\right)^T\left(\vy-\mX\vtheta\right) + \lambda\left(\vtheta^T\vtheta - S\right)$$
-where $\lambda \geq 0$ is the Lagrange multiplier.
+{\small where $\lambda \geq 0$ is the Lagrange multiplier.}
 \end{codebox}
 \end{frame}
 
@@ -288,33 +314,77 @@ Do coefficients ever become exactly zero?
 \end{alertbox}
 \end{frame}
 
-\begin{frame}{Ridge vs. Lasso: Coefficient Behavior}
+\begin{frame}{Ridge Coefficient Behavior}
 \begin{figure}\includegraphics[width=0.8\linewidth]{../assets/ridge-regression/figures/rid_reg-with-lim.pdf}\caption{Ridge Coefficients Shrink but Never Reach Zero}
 \end{figure}
+\end{frame}
 
-\begin{keypointsbox}{Key Difference}
+\begin{frame}{Ridge vs. Lasso: Key Difference}
+\begin{keypointsbox}{Coefficient Behavior Comparison}
 \begin{itemize}
 \item \textbf{Ridge ($L_2$):} Coefficients shrink toward zero but remain non-zero
 \item \textbf{Lasso ($L_1$):} Coefficients can become exactly zero (feature selection)
 \end{itemize}
 \end{keypointsbox}
+\pause
+
+\begin{alertbox}{Important Insight}
+Ridge provides shrinkage, Lasso provides selection!
+\end{alertbox}
 \end{frame}
 
-\begin{frame}{Key Properties of Ridge Regression}
-\begin{theorembox}{Ridge Solution Properties}
+\begin{frame}{Ridge Regression Solution}
+\begin{theorembox}{Ridge Solution Formula}
 $$\hat{\vtheta}_{\text{ridge}} = (\mX^T\mX + \lambda\mI)^{-1}\mX^T\vy$$
+\end{theorembox}
+\end{frame}
+
+\begin{frame}{Key Property 1: Always Invertible}
+\begin{theorembox}{Invertibility Guarantee}
+$(\mX^T\mX + \lambda\mI)$ is always positive definite for $\lambda > 0$
 \end{theorembox}
 \pause
 
-\begin{keypointsbox}{Important Properties}
-\begin{enumerate}
-\item \textbf{Always invertible:} $(\mX^T\mX + \lambda\mI)$ is positive definite for $\lambda > 0$
-\item \textbf{Shrinkage:} Coefficients are shrunk toward zero
-\item \textbf{Bias-Variance trade-off:} Increases bias, reduces variance
-\item \textbf{Computational efficiency:} Closed-form solution available
-\end{enumerate}
+\begin{keypointsbox}{Why This Matters}
+\begin{itemize}
+\item No singularity issues (unlike OLS)
+\item Always has unique solution
+\item Handles multi-collinearity gracefully
+\end{itemize}
 \end{keypointsbox}
 \end{frame}
+
+\begin{frame}{Key Property 2: Coefficient Shrinkage}
+\begin{theorembox}{Shrinkage Effect}
+Ridge regression shrinks coefficients toward zero (but not exactly zero)
+\end{theorembox}
+\pause
+
+\begin{keypointsbox}{Shrinkage Benefits}
+\begin{itemize}
+\item Reduces overfitting
+\item Stabilizes coefficient estimates
+\item Improves generalization
+\end{itemize}
+\end{keypointsbox}
+\end{frame}
+
+\begin{frame}{Key Property 3: Bias-Variance Trade-off}
+\begin{theorembox}{Trade-off Effect}
+Ridge regression increases bias but reduces variance
+\end{theorembox}
+\pause
+
+\begin{keypointsbox}{Net Effect}
+\begin{itemize}
+\item Total error often decreases
+\item Better generalization to new data
+\item Controlled by $\lambda$ parameter
+\end{itemize}
+\end{keypointsbox}
+\end{frame}
+
+\section{Hyperparameter Selection}
 
 \begin{frame}{Choosing the Regularization Parameter $\lambda$}
 \begin{alertbox}{Hyperparameter Selection}
@@ -339,16 +409,18 @@ How do we choose the optimal value of $\lambda$?
 \begin{frame}{Cross-Validation for Ridge Regression}
 \begin{figure}
 \centering
-\includegraphics[width=0.8\linewidth]{ridge-cv.pdf}
-\caption{Cross-validation curve for Ridge regression showing optimal $\lambda$}
+\includegraphics[width=0.75\linewidth]{ridge-cv.pdf}
+\caption{{\small Cross-validation curve showing optimal $\lambda$}}
 \end{figure}
 
+\vspace{-0.1cm}
 \begin{keypointsbox}{CV Pattern}
+{\small 
 \begin{itemize}
-\item Small $\lambda$: High variance (overfitting)
-\item Large $\lambda$: High bias (underfitting)  
-\item Optimal $\lambda$: Best bias-variance trade-off
+\item Small $\lambda$: Overfitting  \quad Large $\lambda$: Underfitting
+\item Optimal $\lambda$: Best trade-off
 \end{itemize}
+}
 \end{keypointsbox}
 \end{frame}
 
@@ -418,19 +490,21 @@ Explanation:
 \end{popquizbox}
 \end{frame}
 
+\section{Examples and Applications}
+
 \begin{frame}{Worked Example: Setup}
 \begin{examplebox}{Ridge Regression Example}
 Given the following simple dataset, compare OLS vs. Ridge regression with $\lambda = 2$:
 
 \vspace{0.3cm}
-Data: $(x_1, y_1) = (1, 1)$, $(x_2, y_2) = (2, 3)$, $(x_3, y_3) = (3, 2)$, $(x_4, y_4) = (4, 4)$
+Data: $(x_1, y_1) = (1, 1)$, $(x_2, y_2) = (2, 2)$, $(x_3, y_3) = (3, 3)$, $(x_4, y_4) = (4, 0)$
 
 Model: $y = \theta_0 + \theta_1 x$
 \end{examplebox}
 \pause
 
 \begin{codebox}{Step 1: Set up matrices}
-$$\mX = \begin{bmatrix} 1 & 1 \\ 1 & 2 \\ 1 & 3 \\ 1 & 4 \end{bmatrix}, \quad \vy = \begin{bmatrix} 1 \\ 3 \\ 2 \\ 4 \end{bmatrix}, \quad \vtheta = \begin{bmatrix} \theta_0 \\ \theta_1 \end{bmatrix}$$
+$$\mX = \begin{bmatrix} 1 & 1 \\ 1 & 2 \\ 1 & 3 \\ 1 & 4 \end{bmatrix}, \quad \vy = \begin{bmatrix} 1 \\ 2 \\ 3 \\ 0 \end{bmatrix}, \quad \vtheta = \begin{bmatrix} \theta_0 \\ \theta_1 \end{bmatrix}$$
 \end{codebox}
 \end{frame}
 
@@ -443,7 +517,7 @@ $$\hat{\vtheta}_{\text{OLS}} = (\mX^{T}\mX)^{-1}(\mX^{T}\vy)$$
 \begin{codebox}{Step 3: Compute matrix products}
 \begin{align*}
 \mX^{T}\mX &= \begin{bmatrix} 4 & 10 \\ 10 & 30 \end{bmatrix} \\
-\mX^{T}\vy &= \begin{bmatrix} 10 \\ 28 \end{bmatrix}
+\mX^{T}\vy &= \begin{bmatrix} 6 \\ 14 \end{bmatrix}
 \end{align*}
 \end{codebox}
 \end{frame}
@@ -462,23 +536,43 @@ $$(\mX^{T}\mX)^{-1} = \frac{1}{20} \begin{bmatrix} 30 & -10 \\ -10 & 4 \end{bmat
 \begin{codebox}{Step 5: Final matrix multiplication}
 \begin{align*}
 \hat{\vtheta}_{\text{OLS}} &= (\mX^{T}\mX)^{-1}(\mX^{T}\vy) \\
-&= \frac{1}{20} \begin{bmatrix} 30 & -10 \\ -10 & 4 \end{bmatrix} \begin{bmatrix} 10 \\ 28 \end{bmatrix} \\
-&= \frac{1}{20} \begin{bmatrix} 20 \\ 12 \end{bmatrix} = \begin{bmatrix} 1.0 \\ 0.6 \end{bmatrix}
+&= \frac{1}{20} \begin{bmatrix} 30 & -10 \\ -10 & 4 \end{bmatrix} \begin{bmatrix} 6 \\ 14 \end{bmatrix} \\
+&= \frac{1}{20} \begin{bmatrix} 180-140 \\ -60+56 \end{bmatrix} = \frac{1}{20} \begin{bmatrix} 40 \\ -4 \end{bmatrix} = \begin{bmatrix} 2.0 \\ -0.2 \end{bmatrix}
 \end{align*}
 \end{codebox}
 \end{frame}
 
 \begin{frame}{OLS Final Result}
 \begin{theorembox}{OLS Result}
-$\hat{y} = 1.0 + 0.6x$ \quad (No regularization)
+$\hat{y} = 2.0 - 0.2x$ \quad (No regularization)
 \end{theorembox}
 
 \begin{figure}
-\includegraphics[width=0.7\linewidth]{../assets/ridge-regression/figures/q_unreg.pdf}
+\centering
+\begin{tikzpicture}[scale=0.8]
+\begin{axis}[
+    width=8cm, height=4.5cm,
+    xlabel={$x$}, ylabel={$y$},
+    xmin=0.5, xmax=4.5, ymin=0.5, ymax=4.5,
+    grid=major, grid style={thin,gray!30},
+    legend to name=legend1
+]
+% Data points
+\addplot[only marks, mark=*, mark size=3pt, blue] coordinates {
+    (1,1) (2,2) (3,3) (4,0)
+};
+% OLS line: y = 2.0 - 0.2x
+\addplot[red, thick, domain=0.5:4.5] {2.0 - 0.2*x};
+\legend{Data, OLS: $\hat{y} = 2.0 - 0.2x$}
+\end{axis}
+\end{tikzpicture}
+\vspace{-0.2cm}
+\ref{legend1}
+\caption{{\small OLS fit to our example data}}
 \end{figure}
 \end{frame}
 
-\begin{frame}{Worked Example: Ridge Regression Setup}
+\begin{frame}{Worked Example: Ridge Setup}
 \begin{codebox}{Step 5: Ridge regression with $\lambda = 2$}
 $$\hat{\vtheta}_{\text{ridge}} = (\mX^{T}\mX + \lambda\mI)^{-1}(\mX^{T}\vy)$$
 \end{codebox}
@@ -486,36 +580,90 @@ $$\hat{\vtheta}_{\text{ridge}} = (\mX^{T}\mX + \lambda\mI)^{-1}(\mX^{T}\vy)$$
 
 \begin{codebox}{Step 6: Add regularization term}
 \begin{align*}
-\mX^{T}\mX + \lambda\mI &= \begin{bmatrix} 4 & 10 \\ 10 & 30 \end{bmatrix} + 2\begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix} \\
-&= \begin{bmatrix} 4 & 10 \\ 10 & 30 \end{bmatrix} + \begin{bmatrix} 2 & 0 \\ 0 & 2 \end{bmatrix} \\
+\mX^{T}\mX + \lambda\mI &= \begin{bmatrix} 4 & 10 \\ 10 & 30 \end{bmatrix} + 2\mI \\
 &= \begin{bmatrix} 6 & 10 \\ 10 & 32 \end{bmatrix}
 \end{align*}
 \end{codebox}
-\pause
-
-Note: $\det(\mX^T\mX + \lambda\mI) = 6 \cdot 32 - 10 \cdot 10 = 192 - 100 = 92$
-$$(\mX^{T}\mX + \lambda\mI)^{-1} = \frac{1}{92} \begin{bmatrix} 32 & -10 \\ -10 & 6 \end{bmatrix}$$
 \end{frame}
 
-\begin{frame}{Worked Example: Ridge Result}
-\begin{codebox}{Step 7: Final Ridge solution}
+\begin{frame}{Worked Example: Matrix Inverse}
+\begin{codebox}{Step 7: Compute inverse}
+$\det(\mX^T\mX + \lambda\mI) = 6 \cdot 32 - 10 \cdot 10 = 92$
+
+$$(\mX^{T}\mX + \lambda\mI)^{-1} = \frac{1}{92} \begin{bmatrix} 32 & -10 \\ -10 & 6 \end{bmatrix}$$
+\end{codebox}
+\end{frame}
+
+\begin{frame}{Worked Example: Ridge Calculation}
+\begin{codebox}{Step 8: Matrix multiplication}
 \begin{align*}
 \hat{\vtheta}_{\text{ridge}} &= (\mX^{T}\mX + \lambda\mI)^{-1}(\mX^{T}\vy) \\
-&= \frac{1}{92} \begin{bmatrix} 32 & -10 \\ -10 & 6 \end{bmatrix} \begin{bmatrix} 10 \\ 28 \end{bmatrix} \\
-&= \frac{1}{92} \begin{bmatrix} 32 \cdot 10 + (-10) \cdot 28 \\ (-10) \cdot 10 + 6 \cdot 28 \end{bmatrix} \\
-&= \frac{1}{92} \begin{bmatrix} 320 - 280 \\ -100 + 168 \end{bmatrix} = \frac{1}{92} \begin{bmatrix} 40 \\ 68 \end{bmatrix} \\
-&= \begin{bmatrix} 0.435 \\ 0.739 \end{bmatrix}
+&= \frac{1}{92} \begin{bmatrix} 32 & -10 \\ -10 & 6 \end{bmatrix} \begin{bmatrix} 6 \\ 14 \end{bmatrix}
 \end{align*}
 \end{codebox}
 \pause
 
+\begin{codebox}{Step 9: Compute products}
+\begin{align*}
+&= \frac{1}{92} \begin{bmatrix} 32 \cdot 6 + (-10) \cdot 14 \\ (-10) \cdot 6 + 6 \cdot 14 \end{bmatrix} \\
+&= \frac{1}{92} \begin{bmatrix} 192-140 \\ -60+84 \end{bmatrix} = \frac{1}{92} \begin{bmatrix} 52 \\ 24 \end{bmatrix} = \begin{bmatrix} 0.565 \\ 0.261 \end{bmatrix}
+\end{align*}
+\end{codebox}
+\end{frame}
+
+\begin{frame}{Ridge vs OLS: Final Comparison}
 \begin{theorembox}{Ridge Result}
-$\hat{y} = 0.435 + 0.739x$ \quad (With $\lambda = 2$ regularization)
+$\hat{y} = 0.565 + 0.261x$ \quad (With $\lambda = 2$)
 \end{theorembox}
 
 \begin{figure}
-\includegraphics[width=0.6\linewidth]{../assets/ridge-regression/figures/q_reg.pdf}
+\centering
+\begin{tikzpicture}[scale=0.8]
+\begin{axis}[
+    width=8cm, height=4.5cm,
+    xlabel={$x$}, ylabel={$y$},
+    xmin=0.5, xmax=4.5, ymin=-0.5, ymax=3.5,
+    grid=major, grid style={thin,gray!30},
+    legend to name=legend2
+]
+% Data points
+\addplot[only marks, mark=*, mark size=3pt, blue] coordinates {
+    (1,1) (2,2) (3,3) (4,0)
+};
+% OLS line: y = 2.0 - 0.2x
+\addplot[red, thick, domain=0.5:4.5] {2.0 - 0.2*x};
+% Ridge line: y = 0.565 + 0.261x
+\addplot[green!70!black, thick, domain=0.5:4.5] {0.565 + 0.261*x};
+\legend{Data, OLS: $\hat{y} = 2.0 - 0.2x$, Ridge: $\hat{y} = 0.565 + 0.261x$}
+\end{axis}
+\end{tikzpicture}
+\vspace{-0.3cm}
+\ref{legend2}
+\caption{{\small Ridge regression provides more stable coefficients}}
 \end{figure}
+\end{frame}
+
+\begin{frame}{Coefficient Magnitude Comparison}
+\begin{theorembox}{OLS vs Ridge: $\sum \theta_i^2$}
+\begin{itemize}
+\item \textbf{OLS}: $\vtheta_{OLS} = \begin{bmatrix} 2.0 \\ -0.2 \end{bmatrix}$ 
+\item \textbf{Ridge}: $\vtheta_{Ridge} = \begin{bmatrix} 0.565 \\ 0.261 \end{bmatrix}$
+\end{itemize}
+\end{theorembox}
+\pause
+
+\begin{codebox}{Coefficient Norm Comparison}
+\begin{align}
+\|\vtheta_{OLS}\|_2^2 &= (2.0)^2 + (-0.2)^2 = 4.0 + 0.04 = 4.04 \\[0.3em]
+\|\vtheta_{Ridge}\|_2^2 &= (0.565)^2 + (0.261)^2 = 0.319 + 0.068 = 0.387
+\end{align}
+\end{codebox}
+\pause
+
+\begin{alertbox}{Key Result}
+Ridge regression achieved a {\bf 90.4\% reduction} in coefficient magnitude!
+$$\frac{0.387}{4.04} = 0.096 \quad \text{(Ridge is 9.6\% of OLS magnitude)}$$
+\end{alertbox}
 \end{frame}
 
 \begin{frame}{Multi-collinearity}
@@ -534,8 +682,10 @@ This was a drawback of using linear regression
 The matrix $\mX$ is not full rank. 
 \end{frame}
 
-\begin{frame}{Multi-collinearity}
-But with ridge regression, the matrix to be inverted is $\mX^{T}\mX + \mu \mI$ and not $\mX^{T}\mX$.
+\begin{frame}{Ridge Solution to Multi-collinearity}
+\begin{keypointsbox}{Ridge Advantage}
+With ridge regression, we invert $\mX^{T}\mX + \mu \mI$ instead of $\mX^{T}\mX$
+\end{keypointsbox}
 
 \begin{equation*}
 \mX^T\mX + \mu \mI = \begin{bmatrix}
@@ -544,10 +694,22 @@ But with ridge regression, the matrix to be inverted is $\mX^{T}\mX + \mu \mI$ a
 12 & 28& 56+\mu \\
 \end{bmatrix}
 \end{equation*}
+\end{frame}
 
-The matrix $\mX^T\mX$ would be full rank for $\mu>0$. 
+\begin{frame}{Why Ridge Fixes Singularity}
+\begin{theorembox}{Key Result}
+The matrix $\mX^T\mX + \mu \mI$ is always full rank for $\mu > 0$
+\end{theorembox}
+\pause
 
-\pause Another interpretation of ``regularisation''
+\begin{alertbox}{Another Interpretation}
+Ridge regression = regularization = fixing singularity issues!
+\end{alertbox}
+\pause
+
+\begin{keypointsbox}{Summary}
+Ridge regression elegantly handles multi-collinearity problems!
+\end{keypointsbox}
 \end{frame}
 
 
@@ -564,7 +726,7 @@ where, $$\mI^* = \begin{bmatrix}
 \end{bmatrix}$$
 \end{frame}
 
-
+\section{Implementation Details}
 
 \begin{frame}{Ridge Regression via Gradient Descent}
 \begin{theorembox}{Gradient Descent Update Rule}
