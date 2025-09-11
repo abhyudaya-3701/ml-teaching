@@ -194,44 +194,47 @@ We'll see why $L_p$ norms with $p < 2$ promote sparsity
 \begin{axis}[
     width=6cm, height=6cm,
     xlabel={$\theta_0$}, ylabel={$\theta_1$},
-    xmin=-3, xmax=3, ymin=-3, ymax=3,
+    xmin=-2.5, xmax=2.5, ymin=-2.5, ymax=2.5,
     axis equal,
     grid=major,
     legend pos=outer north east
 ]
-% Multiple RSS ellipses for consistency
-\addplot[domain=0:360, samples=100, thick, blue!30] ({2.5*cos(x)}, {1.8*sin(x)});
-\addplot[domain=0:360, samples=100, thick, blue!50] ({2.0*cos(x)}, {1.5*sin(x)});
-\addplot[domain=0:360, samples=100, very thick, blue!80] ({1.7*cos(x)}, {1.25*sin(x)});
+% OLS solution point (unconstrained minimum)
+\addplot[only marks, mark=*, mark size=4pt, color=black] coordinates {(1.8, 1.2)};
+\addlegendentry{OLS solution}
+
+% RSS ellipses centered around OLS solution
+\addplot[domain=0:360, samples=100, thick, blue!30] ({0.8*cos(x) + 1.8}, {0.6*sin(x) + 1.2});
+\addplot[domain=0:360, samples=100, thick, blue!50] ({1.2*cos(x) + 1.8}, {0.9*sin(x) + 1.2});
+% Critical RSS ellipse that touches the diamond constraint at corner
+\addplot[domain=0:360, samples=100, very thick, blue!80] ({1.8*cos(x) + 1.8}, {1.35*sin(x) + 1.2});
 \addlegendentry{RSS contours}
 
-% Enhanced L1 constraint diamond
-\addplot[ultra thick, red, fill=red!10, fill opacity=0.3] coordinates {(1.5,0) (0,1.5) (-1.5,0) (0,-1.5) (1.5,0)};
+% L1 constraint diamond (centered at origin)
+\addplot[ultra thick, red, fill=red!10, fill opacity=0.3] coordinates {(2,0) (0,2) (-2,0) (0,-2) (2,0)};
 \addlegendentry{$|\theta_0| + |\theta_1| = K$}
 
-% Highlight the sharp corners
-\addplot[only marks, mark=square, mark size=3pt, color=red!80!black] coordinates {(1.5,0) (0,1.5) (-1.5,0) (0,-1.5)};
-
-% Intersection point (on axis) with emphasis
-\addplot[only marks, mark=*, mark size=6pt, color=green!70!black] coordinates {(0, 1.5)};
+% Lasso solution at corner (on axis for sparsity)
+\addplot[only marks, mark=*, mark size=6pt, color=green!70!black] coordinates {(0, 2)};
 \addlegendentry{Lasso Solution}
-\node[fill=white] at (axis cs:-0.8,1.8) {\footnotesize \textbf{$\theta_0 = 0$}};
-\node[fill=white] at (axis cs:-0.8,1.4) {\footnotesize \textbf{Sparse!}};
 
-% Add arrow showing optimization direction
-\draw[->, thick, purple] (1.8,1.3) -- (0,1.5);
-\node at (axis cs:2.2,1.5) {\footnotesize \color{purple} Constrained};
-\node at (axis cs:2.2,1.2) {\footnotesize \color{purple} optimum};
+% Show that solution is on axis (sparse)
+\node[fill=white, inner sep=2pt] at (axis cs:-0.8,2.2) {\footnotesize \textbf{$\theta_0 = 0$}};
+\node[fill=white, inner sep=2pt] at (axis cs:-0.8,1.8) {\footnotesize \textbf{Sparse!}};
 
-% Emphasize the corner where intersection occurs
-\draw[very thick, orange, dashed] (-0.3,1.5) -- (0.3,1.5);
-\draw[very thick, orange, dashed] (0,1.2) -- (0,1.8);
-\node at (axis cs:0.8,2.2) {\footnotesize \color{orange} \textbf{Sharp corner}};
-\node at (axis cs:0.8,1.9) {\footnotesize \color{orange} \textbf{promotes sparsity}};
+% Arrow from OLS to constrained solution
+\draw[->, thick, purple] (1.8,1.2) -- (0.2,1.8);
+\node at (axis cs:1.2,0.8) {\footnotesize \color{purple} Constrained};
+\node at (axis cs:1.2,0.5) {\footnotesize \color{purple} optimum};
+
+% Emphasize the sharp corner
+\draw[very thick, orange, dashed] (-0.3,2) -- (0.3,2);
+\draw[very thick, orange, dashed] (0,1.7) -- (0,2.3);
+\node at (axis cs:1.2,2.3) {\footnotesize \color{orange} \textbf{Sharp corner}};
 
 % Mark the axes
-\draw[dashed, gray] (-3,0) -- (3,0);
-\draw[dashed, gray] (0,-3) -- (0,3);
+\draw[dashed, gray] (-2.5,0) -- (2.5,0);
+\draw[dashed, gray] (0,-2.5) -- (0,2.5);
 \end{axis}
 \end{tikzpicture}
 \end{figure}
@@ -263,41 +266,59 @@ We'll see why $L_p$ norms with $p < 2$ promote sparsity
     grid=major,
     legend pos=outer north east
 ]
-% RSS ellipse for consistency
-\addplot[domain=0:360, samples=100, thick, blue!50] ({1.5*cos(x)}, {1.2*sin(x)});
+% OLS solution point (unconstrained minimum) positioned off-axis
+\addplot[only marks, mark=*, mark size=4pt, color=black] coordinates {(1.6, 1.0)};
+\addlegendentry{OLS solution}
+
+% RSS ellipses centered around OLS solution showing increasing error levels
+\addplot[domain=0:360, samples=100, thick, blue!30] ({0.6*cos(x) + 1.6}, {0.4*sin(x) + 1.0});
+\addplot[domain=0:360, samples=100, thick, blue!50] ({1.0*cos(x) + 1.6}, {0.7*sin(x) + 1.0});
+% Critical RSS ellipse that touches the ultra-sharp constraint at corner
+\addplot[domain=0:360, samples=100, very thick, blue!80] ({1.6*cos(x) + 1.6}, {1.0*sin(x) + 1.0});
 \addlegendentry{RSS contours}
 
-% Enhanced L_p constraint visualization (p=0.5)
-% Create a more accurate representation of the L_0.5 "ball"
-\draw[ultra thick, red, fill=red!10, fill opacity=0.3] 
-    (1.2,0) -- (0.8,0.8) -- (0,1.2) -- (-0.8,0.8) -- (-1.2,0) -- 
-    (-0.8,-0.8) -- (0,-1.2) -- (0.8,-0.8) -- cycle;
+% L_p constraint shape (p=0.5) - ultra-sharp at axes showing extreme sparsity
+% Create accurate L_0.5 "ball" with proper curvature showing concave nature
+\addplot[ultra thick, red, fill=red!10, fill opacity=0.3] coordinates {
+    (1.4,0) (1.2,0.3) (1.0,0.5) (0.8,0.6) (0.6,0.8) (0.5,1.0) (0.3,1.2) (0,1.4)
+    (-0.3,1.2) (-0.5,1.0) (-0.6,0.8) (-0.8,0.6) (-1.0,0.5) (-1.2,0.3) (-1.4,0)
+    (-1.2,-0.3) (-1.0,-0.5) (-0.8,-0.6) (-0.6,-0.8) (-0.5,-1.0) (-0.3,-1.2) (0,-1.4)
+    (0.3,-1.2) (0.5,-1.0) (0.6,-0.8) (0.8,-0.6) (1.0,-0.5) (1.2,-0.3) (1.4,0)
+};
 \addlegendentry{$|\theta_0|^{0.5} + |\theta_1|^{0.5} = K$}
 
-% Show multiple levels for better understanding
-\draw[thick, red!60] (0.8,0) -- (0.5,0.5) -- (0,0.8) -- (-0.5,0.5) -- (-0.8,0) -- (-0.5,-0.5) -- (0,-0.8) -- (0.5,-0.5) -- cycle;
+% Show nested constraint for better understanding of p<1 behavior
+\addplot[thick, red!60] coordinates {
+    (1.0,0) (0.8,0.2) (0.6,0.4) (0.4,0.6) (0.2,0.8) (0,1.0)
+    (-0.2,0.8) (-0.4,0.6) (-0.6,0.4) (-0.8,0.2) (-1.0,0)
+    (-0.8,-0.2) (-0.6,-0.4) (-0.4,-0.6) (-0.2,-0.8) (0,-1.0)
+    (0.2,-0.8) (0.4,-0.6) (0.6,-0.4) (0.8,-0.2) (1.0,0)
+};
 
-% Emphasize the extremely sharp corners
-\addplot[only marks, mark=square, mark size=4pt, color=red!80!black] coordinates {(1.2,0) (0,1.2) (-1.2,0) (0,-1.2)};
+% Lp solution at ultra-sharp corner (on axis for extreme sparsity)
+\addplot[only marks, mark=*, mark size=6pt, color=green!70!black] coordinates {(0, 1.4)};
+\addlegendentry{$L_p$ Solution}
 
-% Intersection point (on axis) with strong emphasis
-\addplot[only marks, mark=*, mark size=6pt, color=green!70!black] coordinates {(1.2, 0)};
-\addlegendentry{Ultra-Sparse Solution}
-\node[fill=white] at (axis cs:1.2,0.4) {\footnotesize \textbf{$\theta_1 = 0$}};
-\node[fill=white] at (axis cs:1.2,-0.3) {\footnotesize \textbf{Extreme sparsity!}};
+% Emphasize the extreme sparsity at solution
+\node[fill=white, inner sep=2pt] at (axis cs:-0.6,1.6) {\footnotesize \textbf{$\theta_0 = 0$}};
+\node[fill=white, inner sep=2pt] at (axis cs:-0.6,1.2) {\footnotesize \textbf{Extreme sparsity!}};
 
-% Add arrows and annotations
-\draw[->, thick, purple] (1.5,1.0) -- (1.2,0);
-\node at (axis cs:1.7,1.2) {\footnotesize \color{purple} Constrained};
-\node at (axis cs:1.7,0.9) {\footnotesize \color{purple} optimum};
+% Arrow from OLS to constrained solution showing optimization path
+\draw[->, thick, purple] (1.6,1.0) -- (0.2,1.3);
+\node at (axis cs:1.0,0.5) {\footnotesize \color{purple} Constrained};
+\node at (axis cs:1.0,0.2) {\footnotesize \color{purple} optimum};
 
-% Highlight the ultra-sharp corner
-\node at (axis cs:-1.5,1.5) {\footnotesize \color{orange} \textbf{Ultra-sharp}};
-\node at (axis cs:-1.5,1.2) {\footnotesize \color{orange} \textbf{corners}};
-\draw[orange, very thick] (1.1,-0.1) -- (1.1,0.1);
-\draw[orange, very thick] (1.0,0) -- (1.4,0);
+% Emphasize the ultra-sharp corners that promote even stronger sparsity than L1
+\draw[very thick, orange, dashed] (-0.3,1.4) -- (0.3,1.4);
+\draw[very thick, orange, dashed] (0,1.1) -- (0,1.7);
+\node at (axis cs:1.0,1.7) {\footnotesize \color{orange} \textbf{Ultra-sharp}};
+\node at (axis cs:1.0,1.5) {\footnotesize \color{orange} \textbf{corners}};
 
-% Mark the axes
+% Show the concave nature of p<1 constraints
+\node at (axis cs:-1.4,-1.4) {\footnotesize \color{red!80!black} \textbf{Concave}};
+\node at (axis cs:-1.4,-1.6) {\footnotesize \color{red!80!black} \textbf{(non-convex)}};
+
+% Mark the axes clearly
 \draw[dashed, gray] (-2,0) -- (2,0);
 \draw[dashed, gray] (0,-2) -- (0,2);
 \end{axis}
