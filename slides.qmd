@@ -25,6 +25,7 @@ Core mathematical concepts underlying machine learning algorithms.
 - [KKT Conditions](maths/slides/kkt-conditions.pdf)
 - [Constrained Optimization I](maths/slides/constrained-1.pdf)
 - [Constrained Optimization II](maths/slides/constrained-2.pdf)
+- [Constrained Optimization III](https://nipunbatra.github.io/ml2022/lectures/ml-maths-3.pdf)
 - [Time Complexity](maths/slides/time_complexity.pdf)
 
 ### Optimization Algorithms
@@ -51,8 +52,8 @@ Algorithms that learn from labeled data.
 - [KNN Approximation Methods](supervised/slides/knn-approx.pdf)
 - [Naive Bayes](supervised/slides/naive-bayes.pdf)
 - [Bayesian Networks](supervised/slides/bayesian-nets.pdf)
-- [Ridge Regression](supervised/slides/ridge-regression.pdf)
-- [Lasso Regression](supervised/slides/lasso-regression.pdf)
+- [Ridge Regression][Slides](supervised/slides/ridge-regression.pdf) | [Handouts](supervised/slides/ridge-regression-handout.pdf)
+- [Lasso Regression][Slides](supervised/slides/lasso-regression.pdf) | [Handouts](supervised/slides/lasso-regression-handout.pdf)
 - [Movie Recommendation Systems](supervised/slides/movie-recommendation.pdf)
 - [Feature Selection](supervised/slides/feature-selection.pdf)
 - [SVM Introduction](supervised/slides/svm-intro.pdf)
