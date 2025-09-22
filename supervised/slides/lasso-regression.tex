@@ -52,6 +52,7 @@ Ridge regression shrinks coefficients but \textbf{never makes them exactly zero}
 \end{frame}
 
 \begin{frame}{Lasso Objective Function}
+\footnotesize
 \begin{definitionbox}{Constrained Form}
 $$\vtheta_{\text{opt}} = \argmin_{\vtheta} \|(\vy-\mX\vtheta)\|_2^2 \text{ subject to } \|\vtheta\|_1 \leq s$$
 \end{definitionbox}
@@ -69,6 +70,7 @@ $$\|\vtheta\|_1 = |\theta_1| + |\theta_2| + \cdots + |\theta_d| = \sum_{j=1}^d |
 \end{frame}
 
 \begin{frame}{The Challenge: Non-Differentiability}
+\footnotesize
 \begin{alertbox}{Problem}
 The L1 norm $\|\vtheta\|_1 = \sum_j |\theta_j|$ is \textbf{not differentiable} at $\theta_j = 0$
 \end{alertbox}
@@ -114,9 +116,9 @@ We'll see why $L_p$ norms with $p < 2$ promote sparsity
 
 \begin{frame}{L2 Norm: Ridge Constraint}
 \begin{columns}
-\begin{column}{0.6\textwidth}
+\begin{column}{0.4\textwidth}
 \begin{center}
-\begin{tikzpicture}[scale=0.8]
+\begin{tikzpicture}[scale=0.65]
 \begin{axis}[
     width=7cm, height=6cm,
     xlabel={$\theta_0$}, ylabel={$\theta_1$},
@@ -139,7 +141,7 @@ We'll see why $L_p$ norms with $p < 2$ promote sparsity
 \end{center}
 \end{column}
 
-\begin{column}{0.4\textwidth}
+\begin{column}{0.6\textwidth}
 \begin{keypointsbox}{L2 Properties}
 \begin{itemize}
 \item \textbf{Shape}: Perfect circle
@@ -159,9 +161,9 @@ Ridge shrinks coefficients but never makes them exactly zero
 
 \begin{frame}{L1 Norm: Lasso Constraint}
 \begin{columns}
-\begin{column}{0.6\textwidth}
+\begin{column}{0.4\textwidth}
 \begin{center}
-\begin{tikzpicture}[scale=0.8]
+\begin{tikzpicture}[scale=0.65]
 \begin{axis}[
     width=7cm, height=6cm,
     xlabel={$\theta_0$}, ylabel={$\theta_1$},
@@ -187,7 +189,7 @@ Ridge shrinks coefficients but never makes them exactly zero
 \end{center}
 \end{column}
 
-\begin{column}{0.4\textwidth}
+\begin{column}{0.6\textwidth}
 \begin{keypointsbox}{L1 Properties}
 \begin{itemize}
 \item \textbf{Shape}: Diamond/rhombus
@@ -207,9 +209,9 @@ Sharp corners at axes $\Rightarrow$ solutions with $\theta_0 = 0$ or $\theta_1 =
 
 \begin{frame}{$L_p$ Norm: Even More Sparsity ($p < 1$)}
 \begin{columns}
-\begin{column}{0.6\textwidth}
+\begin{column}{0.4\textwidth}
 \begin{center}
-\begin{tikzpicture}[scale=0.8]
+\begin{tikzpicture}[scale=0.65]
 \begin{axis}[
     width=7cm, height=6cm,
     xlabel={$\theta_0$}, ylabel={$\theta_1$},
@@ -237,7 +239,8 @@ Sharp corners at axes $\Rightarrow$ solutions with $\theta_0 = 0$ or $\theta_1 =
 \end{center}
 \end{column}
 
-\begin{column}{0.4\textwidth}
+\begin{column}{0.6\textwidth}
+\footnotesize
 \begin{keypointsbox}{$L_p$ Properties $(p<1)$}
 \begin{itemize}
 \item \textbf{Shape}: Highly concave
@@ -256,6 +259,7 @@ Better sparsity but computational difficulty (non-convex optimization)
 \end{frame}
 
 \begin{frame}{Sparsity Progression: $L_2 \to L_1 \to L_p$}
+\footnotesize
 \begin{theorembox}{Key Insight}
 As $p$ decreases from 2 to 1 to $p < 1$:
 \begin{itemize}
@@ -411,6 +415,7 @@ As $\lambda$ increases $\rightarrow$ more coefficients become exactly zero (auto
     \label{fig:my_label}
 \end{figure}
 
+\footnotesize
 \begin{keypointsbox}{Key Observations}
 {\small
 \begin{itemize}
@@ -466,7 +471,7 @@ The L1 penalty $|\theta_j|$ is non-differentiable at $\theta_j = 0$
 
 \begin{frame}{Subgradient: Visual Intuition}
 \begin{columns}
-\begin{column}{0.6\textwidth}
+\begin{column}{0.5\textwidth}
 \begin{figure}
 \centering
 \includegraphics[width=\linewidth]{../assets/lasso-regression/diagrams/subgradient_1.jpg}
@@ -474,7 +479,7 @@ The L1 penalty $|\theta_j|$ is non-differentiable at $\theta_j = 0$
 \label{fig:Non-differentiable function}
 \end{figure}
 \end{column}
-\begin{column}{0.4\textwidth}
+\begin{column}{0.5\textwidth}
 \begin{alertbox}{Task}
 Find the "derivative" of $f(x)$ at the non-differentiable point $x = x_0$
 \end{alertbox}
@@ -492,14 +497,14 @@ Find differentiable $g(x)$ such that:
 
 \begin{frame}{Subgradient of $|x|$ at $x = 0$}
 \begin{columns}
-\begin{column}{0.5\textwidth}
+\begin{column}{0.4\textwidth}
 \begin{figure}
 \centering
-\includegraphics[width=\linewidth]{../assets/lasso-regression/diagrams/subgradient_3.jpg}
+\includegraphics[width=0.8\linewidth]{../assets/lasso-regression/diagrams/subgradient_3.jpg}
 \caption{{\footnotesize Supporting lines with slopes in $[-1,1]$}}
 \end{figure}
 \end{column}
-\begin{column}{0.5\textwidth}
+\begin{column}{0.6\textwidth}
 \begin{codebox}{Subgradient Set}
 For $f(x) = |x|$ at $x = 0$:
 $$\partial f(0) = [-1, 1]$$
@@ -755,6 +760,7 @@ $$\frac{\partial}{\partial \theta_{j}}|\theta_{j}| = \begin{cases}
 \end{frame}
 
 \begin{frame}{Soft-Thresholding Solution}
+\footnotesize
 \begin{theorembox}{Complete Lasso Update Rule}
 $$\theta_{j} = \begin{cases}
 \frac{\rho_{j} + \lambda/2}{z_{j}} & \text{if } \rho_{j} < -\lambda/2 \\
@@ -844,6 +850,7 @@ Best for & Multicollinearity & Feature selection \\
 \end{frame}
 
 \begin{frame}{Applications and Extensions}
+\footnotesize
 \begin{examplebox}{Real-World Applications}
 {\small
 \begin{itemize}
