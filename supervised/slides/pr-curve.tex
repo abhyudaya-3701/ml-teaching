@@ -31,9 +31,10 @@
 \textbf{Problem:} Identify illegal brick kilns using satellite imagery
 \end{center}
 
-\vspace{0.3cm}
+\vspace{0.15cm}
 
 \begin{keypointsbox}{Why This Matters}
+\small
 \begin{itemize}
     \item Environmental monitoring and air quality
     \item Thousands of square kilometers to survey
@@ -52,7 +53,7 @@
 \end{itemize}
 \end{block}
 
-\vspace{0.5cm}
+\vspace{0.2cm}
 
 \begin{center}
 \Large
@@ -62,6 +63,7 @@ Can we automate this with machine learning?
 
 \begin{frame}{Why Not Just Use Accuracy?}
 \begin{alertblock}{Three Models to Choose From}
+\small
 \begin{itemize}
     \item Model A: 95\% accuracy
     \item Model B: 92\% accuracy
@@ -69,16 +71,18 @@ Can we automate this with machine learning?
 \end{itemize}
 \end{alertblock}
 
-\vspace{0.5cm}
+\vspace{0.2cm}
 \pause
 
 \begin{keypointsbox}{The Problem}
+\small
 Accuracy doesn't tell us about the \textbf{types of errors}!
 \end{keypointsbox}
 \end{frame}
 
 \begin{frame}{Types of Errors Matter}
 \begin{examplebox}{False Positive (Type I Error)}
+\small
 Model says ``brick kiln detected'' but there isn't one
 \begin{itemize}
     \item Wastes inspector's time
@@ -86,9 +90,10 @@ Model says ``brick kiln detected'' but there isn't one
 \end{itemize}
 \end{examplebox}
 
-\vspace{0.3cm}
+\vspace{0.15cm}
 
 \begin{examplebox}{False Negative (Type II Error)}
+\small
 Model misses an actual brick kiln
 \begin{itemize}
     \item Environmental violation goes undetected
@@ -99,79 +104,97 @@ Model misses an actual brick kiln
 
 \begin{frame}{Scenario 1: High Precision Model}
 \begin{examplebox}{Conservative Classifier}
+\small
 \textbf{Model behavior:} Only flags when very confident
 \end{examplebox}
 
-\vspace{0.3cm}
+\vspace{0.2cm}
 
 \begin{block}{Results}
 \begin{itemize}
     \item Flags 100 images as ``has brick kiln''
-    \item Inspector checks: $100 \times 30s = 50$ minutes
+    \item Inspector time: $100 \times 30s = 50$ minutes
 \end{itemize}
 \end{block}
 
-\vspace{0.3cm}
+\vspace{0.2cm}
 
+\begin{keypointsbox}{Trade-offs}
+\small
 \begin{itemize}
-    \item[\textcolor{green}{\checkmark}] Very few false alarms
+    \item[\textcolor{green}{\checkmark}] Few false alarms
     \item[\textcolor{green}{\checkmark}] Inspector time well-spent
-    \item[\textcolor{red}{\times}] Might miss many actual kilns
+    \item[\textcolor{red}{\times}] Might miss many kilns
 \end{itemize}
+\end{keypointsbox}
 \end{frame}
 
 \begin{frame}{Scenario 2: High Recall Model}
 \begin{examplebox}{Aggressive Classifier}
+\small
 \textbf{Model behavior:} Flags anything suspicious
 \end{examplebox}
 
-\vspace{0.3cm}
+\vspace{0.2cm}
 
 \begin{block}{Results}
 \begin{itemize}
     \item Flags 2,000 images as ``has brick kiln''
-    \item Inspector checks: $2{,}000 \times 30s = 16.7$ hours
+    \item Inspector time: $2{,}000 \times 30s = 16.7$ hours
 \end{itemize}
 \end{block}
 
-\vspace{0.3cm}
+\vspace{0.2cm}
 
+\begin{keypointsbox}{Trade-offs}
+\small
 \begin{itemize}
-    \item[\textcolor{green}{\checkmark}] Catches almost all brick kilns
+    \item[\textcolor{green}{\checkmark}] Catches almost all kilns
     \item[\textcolor{red}{\times}] Many false alarms
     \item[\textcolor{red}{\times}] Wastes inspector time
 \end{itemize}
+\end{keypointsbox}
 \end{frame}
 
 \section{Classification Metrics Fundamentals}
 
 \begin{frame}{The Confusion Matrix}
+\begin{columns}
+\begin{column}{0.48\textwidth}
 \begin{definitionbox}{Confusion Matrix}
+\small
 \begin{center}
 \begin{tabular}{cc|c|c|}
 & \multicolumn{1}{c}{} & \multicolumn{2}{c}{Predicted} \\
-& \multicolumn{1}{c}{} & \multicolumn{1}{c}{Positive} & \multicolumn{1}{c}{Negative} \\
+& \multicolumn{1}{c}{} & \multicolumn{1}{c}{Pos} & \multicolumn{1}{c}{Neg} \\
 \cline{3-4}
-\multirow{2}{*}{\rotatebox{90}{Actual}} & Positive & TP & FN \\
+\multirow{2}{*}{\rotatebox{90}{Actual}} & Pos & TP & FN \\
 \cline{3-4}
-& Negative & FP & TN \\
+& Neg & FP & TN \\
 \cline{3-4}
 \end{tabular}
 \end{center}
 \end{definitionbox}
 
-\vspace{0.3cm}
+\vspace{0.2cm}
 
+\small
 \begin{itemize}
-    \item \textbf{TP} (True Positive): Correct positive prediction
-    \item \textbf{FP} (False Positive): Type I error
-    \item \textbf{TN} (True Negative): Correct negative prediction
-    \item \textbf{FN} (False Negative): Type II error
+    \item \textbf{TP}: Correct positive
+    \item \textbf{FP}: Type I error
+    \item \textbf{TN}: Correct negative
+    \item \textbf{FN}: Type II error
 \end{itemize}
+\end{column}
+\begin{column}{0.48\textwidth}
+\includegraphics[width=\textwidth]{confusion-matrix-diagram.pdf}
+\end{column}
+\end{columns}
 \end{frame}
 
 \begin{frame}{Precision: Reliability of Positive Predictions}
 \begin{definitionbox}{Precision}
+\small
 $$\text{Precision} = \frac{\text{TP}}{\text{TP} + \text{FP}}$$
 
 \vspace{0.2cm}
@@ -184,27 +207,29 @@ what fraction was actually positive?
 
 \begin{frame}{Precision: Example}
 \begin{examplebox}{Brick Kiln Detection}
+\small
 \begin{itemize}
     \item Model flags 100 images as having brick kilns
-    \item 80 actually have brick kilns
-    \item 20 are false alarms
+    \item 80 actually have brick kilns (TP)
+    \item 20 are false alarms (FP)
 \end{itemize}
 
-\vspace{0.3cm}
+\vspace{0.2cm}
 
 $$\text{Precision} = \frac{80}{100} = 0.80 \text{ or } 80\%$$
 \end{examplebox}
 
-\vspace{0.3cm}
+\vspace{0.2cm}
 
 \begin{keypointsbox}{Interpretation}
-When the model says ``brick kiln detected,'' \\
-it's correct 80\% of the time
+\small
+When the model says ``brick kiln detected,'' it's correct 80\% of the time
 \end{keypointsbox}
 \end{frame}
 
 \begin{frame}{Recall: Completeness of Detection}
 \begin{definitionbox}{Recall (Sensitivity, TPR)}
+\small
 $$\text{Recall} = \frac{\text{TP}}{\text{TP} + \text{FN}}$$
 
 \vspace{0.2cm}
@@ -217,31 +242,40 @@ what fraction did we correctly identify?
 
 \begin{frame}{Recall: Example}
 \begin{examplebox}{Brick Kiln Detection}
+\small
 \begin{itemize}
     \item 150 images actually contain brick kilns
-    \item Model correctly identifies 80 of them
-    \item Model misses 70 of them
+    \item Model correctly identifies 80 (TP)
+    \item Model misses 70 of them (FN)
 \end{itemize}
 
-\vspace{0.3cm}
+\vspace{0.2cm}
 
 $$\text{Recall} = \frac{80}{150} = 0.533 \text{ or } 53.3\%$$
 \end{examplebox}
 
-\vspace{0.3cm}
+\vspace{0.2cm}
 
 \begin{keypointsbox}{Interpretation}
+\small
 The model finds only about half of all brick kilns
 \end{keypointsbox}
 \end{frame}
 
 \begin{frame}{The Precision-Recall Trade-off}
 \begin{keypointsbox}{Fundamental Tension}
+\small
 Improving one metric often hurts the other!
 \end{keypointsbox}
 
-\vspace{0.5cm}
+\vspace{0.2cm}
 
+\begin{center}
+\includegraphics[width=0.55\textwidth]{pr-curve-diagram.pdf}
+\end{center}
+\end{frame}
+
+\begin{frame}{Trade-off: Model Behavior}
 \begin{columns}
 \begin{column}{0.48\textwidth}
 \begin{block}{Conservative Model}
@@ -270,10 +304,13 @@ Improving one metric often hurts the other!
 \section{Classification Thresholds}
 
 \begin{frame}{From Probabilities to Predictions}
+\begin{columns}
+\begin{column}{0.48\textwidth}
 \begin{definitionbox}{How Classifiers Work}
+\small
 Most classifiers output \textbf{probabilities}, not direct predictions
 
-\vspace{0.3cm}
+\vspace{0.15cm}
 
 Classification threshold $\tau$ converts probabilities to classes:
 $$\hat{y} = \begin{cases}
@@ -283,10 +320,16 @@ $$\hat{y} = \begin{cases}
 
 Default: $\tau = 0.5$
 \end{definitionbox}
+\end{column}
+\begin{column}{0.48\textwidth}
+\includegraphics[width=\textwidth]{threshold-effect-diagram.pdf}
+\end{column}
+\end{columns}
 \end{frame}
 
 \begin{frame}{Threshold Example}
 \begin{examplebox}{Three Images, Different Thresholds}
+\small
 \begin{center}
 \begin{tabular}{|c|c|c|c|}
 \hline
@@ -300,9 +343,10 @@ C & 0.38 & Negative & Negative \\
 \end{center}
 \end{examplebox}
 
-\vspace{0.3cm}
+\vspace{0.15cm}
 
 \begin{keypointsbox}{Key Insight}
+\small
 Same model, different thresholds = different predictions!
 \end{keypointsbox}
 \end{frame}
@@ -312,7 +356,7 @@ Same model, different thresholds = different predictions!
 Classify as positive if $P(y=1|x) \geq 0.3$
 \end{block}
 
-\vspace{0.3cm}
+\vspace{0.15cm}
 
 \begin{itemize}
     \item More instances classified as positive
@@ -321,7 +365,7 @@ Classify as positive if $P(y=1|x) \geq 0.3$
     \item More false alarms
 \end{itemize}
 
-\vspace{0.3cm}
+\vspace{0.15cm}
 
 \begin{center}
 \textbf{Use when:} Missing positives is costly
@@ -333,7 +377,7 @@ Classify as positive if $P(y=1|x) \geq 0.3$
 Classify as positive if $P(y=1|x) \geq 0.7$
 \end{block}
 
-\vspace{0.3cm}
+\vspace{0.15cm}
 
 \begin{itemize}
     \item Fewer instances classified as positive
@@ -342,7 +386,7 @@ Classify as positive if $P(y=1|x) \geq 0.7$
     \item Fewer false alarms
 \end{itemize}
 
-\vspace{0.3cm}
+\vspace{0.15cm}
 
 \begin{center}
 \textbf{Use when:} False alarms are costly
@@ -352,11 +396,14 @@ Classify as positive if $P(y=1|x) \geq 0.7$
 \section{Precision-Recall Curves}
 
 \begin{frame}{What is a PR Curve?}
+\begin{columns}
+\begin{column}{0.48\textwidth}
 \begin{definitionbox}{Precision-Recall Curve}
+\small
 A plot showing precision vs. recall \\
 for all possible threshold values
 
-\vspace{0.3cm}
+\vspace{0.15cm}
 
 \begin{itemize}
     \item \textbf{X-axis:} Recall
@@ -365,17 +412,29 @@ for all possible threshold values
 \end{itemize}
 \end{definitionbox}
 
-\vspace{0.3cm}
+\vspace{0.15cm}
 
 \begin{keypointsbox}{What It Shows}
+\small
 The complete trade-off space between precision and recall
 \end{keypointsbox}
+\end{column}
+\begin{column}{0.48\textwidth}
+\includegraphics[width=\textwidth]{pr-curve-diagram.pdf}
+\end{column}
+\end{columns}
 \end{frame}
 
-\begin{frame}{Building a PR Curve}
+\begin{frame}{Building a PR Curve: Steps}
 \begin{enumerate}
     \item Train classifier (e.g., Logistic Regression)
+
+    \vspace{0.15cm}
+
     \item Get predicted probabilities for test set
+
+    \vspace{0.15cm}
+
     \item For each threshold $\tau \in [0, 1]$:
     \begin{itemize}
         \item Apply threshold to get predictions
@@ -383,8 +442,20 @@ The complete trade-off space between precision and recall
         \item Calculate precision and recall
         \item Plot (recall, precision) point
     \end{itemize}
-    \item Connect points to form curve
 \end{enumerate}
+\end{frame}
+
+\begin{frame}{Building a PR Curve: Visualization}
+\begin{center}
+\includegraphics[width=0.8\textwidth]{pr-curve-diagram.pdf}
+\end{center}
+
+\vspace{0.15cm}
+
+\begin{keypointsbox}{Result}
+\small
+Connect all threshold points to form the complete PR curve
+\end{keypointsbox}
 \end{frame}
 
 \begin{frame}[fragile]{Implementation in Scikit-learn}
@@ -404,6 +475,7 @@ precision, recall, thresholds = \
 
 \begin{frame}{Example: Synthetic Dataset}
 \begin{examplebox}{Dataset from Notebook}
+\small
 \begin{itemize}
     \item Created using \texttt{make\_blobs()}
     \item 100 samples, 2 features, 2 classes
@@ -417,6 +489,7 @@ precision, recall, thresholds = \
 
 \begin{frame}{Threshold Analysis: Low Values}
 \begin{examplebox}{From Notebook: Threshold = 0.00}
+\small
 \begin{itemize}
     \item \textbf{Precision:} 0.48
     \item \textbf{Recall:} 1.00
@@ -435,6 +508,7 @@ precision, recall, thresholds = \
 
 \begin{frame}{Threshold Analysis: Medium Values}
 \begin{examplebox}{From Notebook: Threshold = 0.50}
+\small
 \begin{itemize}
     \item \textbf{Precision:} 0.74
     \item \textbf{Recall:} 0.69
@@ -454,6 +528,7 @@ precision, recall, thresholds = \
 
 \begin{frame}{Threshold Analysis: High Values}
 \begin{examplebox}{From Notebook: Threshold = 0.90}
+\small
 \begin{itemize}
     \item \textbf{Precision:} 1.00
     \item \textbf{Recall:} 0.24
@@ -472,6 +547,8 @@ precision, recall, thresholds = \
 \end{frame}
 
 \begin{frame}{Complete Threshold Table}
+\begin{columns}
+\begin{column}{0.48\textwidth}
 \begin{center}
 \small
 \begin{tabular}{|c|c|c|}
@@ -492,39 +569,64 @@ precision, recall, thresholds = \
 \hline
 \end{tabular}
 \end{center}
+\end{column}
+\begin{column}{0.48\textwidth}
+\includegraphics[width=\textwidth]{threshold-effect-diagram.pdf}
+\end{column}
+\end{columns}
 
-\vspace{0.3cm}
+\vspace{0.2cm}
 
 \begin{keypointsbox}{Observation}
+\small
 As threshold increases: Precision $\uparrow$, Recall $\downarrow$
 \end{keypointsbox}
 \end{frame}
 
 \begin{frame}{Interpreting PR Curves}
+\begin{center}
+\includegraphics[width=0.7\textwidth]{pr-curve-diagram.pdf}
+\end{center}
+
+\vspace{0.15cm}
+
 \begin{keypointsbox}{What Makes a Good Curve?}
+\small
 \begin{itemize}
     \item Curve closer to top-right is better
     \item Top-right = high precision AND high recall
     \item Perfect classifier: stays at $(1, 1)$
 \end{itemize}
 \end{keypointsbox}
+\end{frame}
 
-\vspace{0.3cm}
-
+\begin{frame}{Interpreting PR Curves: Baseline}
 \begin{block}{Baseline: Random Classifier}
 Horizontal line at $y = \frac{\text{\# positives}}{\text{total}}$
 
-\vspace{0.2cm}
+\vspace{0.15cm}
 
 For balanced classes: $y = 0.5$
 \end{block}
+
+\vspace{0.2cm}
+
+\begin{examplebox}{Example}
+\small
+If 48\% of data is positive class: \\
+Random classifier has precision $\approx 0.48$ at all recall levels
+\end{examplebox}
 \end{frame}
 
 \begin{frame}{Comparing Models with PR Curves}
 \begin{alertblock}{Model Comparison Rules}
+\small
 \begin{enumerate}
     \item If one curve dominates (always above), \\
           that model is better
+
+    \vspace{0.15cm}
+
     \item If curves cross, choice depends on your needs:
     \begin{itemize}
         \item Need high precision? Use left side of curve
@@ -532,16 +634,23 @@ For balanced classes: $y = 0.5$
     \end{itemize}
 \end{enumerate}
 \end{alertblock}
+
+\vspace{0.15cm}
+
+\begin{center}
+\includegraphics[width=0.6\textwidth]{model-comparison-diagram.pdf}
+\end{center}
 \end{frame}
 
 \section{Application-Specific Decisions}
 
 \begin{frame}{When to Prioritize Precision}
 \begin{examplebox}{High Precision Scenarios}
+\small
 False positives are costly:
 \end{examplebox}
 
-\vspace{0.3cm}
+\vspace{0.15cm}
 
 \begin{itemize}
     \item \textbf{Spam detection} \\
@@ -554,7 +663,7 @@ False positives are costly:
           Don't block legitimate transactions
 \end{itemize}
 
-\vspace{0.3cm}
+\vspace{0.15cm}
 
 \begin{center}
 \textbf{Strategy:} Choose high threshold
@@ -563,10 +672,11 @@ False positives are costly:
 
 \begin{frame}{When to Prioritize Recall}
 \begin{examplebox}{High Recall Scenarios}
+\small
 False negatives are costly:
 \end{examplebox}
 
-\vspace{0.3cm}
+\vspace{0.15cm}
 
 \begin{itemize}
     \item \textbf{Cancer screening} \\
@@ -579,7 +689,7 @@ False negatives are costly:
           Must catch all violations
 \end{itemize}
 
-\vspace{0.3cm}
+\vspace{0.15cm}
 
 \begin{center}
 \textbf{Strategy:} Choose low threshold
@@ -595,9 +705,10 @@ False negatives are costly:
 \end{itemize}
 \end{block}
 
-\vspace{0.3cm}
+\vspace{0.15cm}
 
 \begin{examplebox}{Implications}
+\small
 \begin{itemize}
     \item Flags 200 images
     \item 170 true positives, 30 false positives
@@ -616,9 +727,10 @@ False negatives are costly:
 \end{itemize}
 \end{block}
 
-\vspace{0.3cm}
+\vspace{0.15cm}
 
 \begin{examplebox}{Implications}
+\small
 \begin{itemize}
     \item Flags 500 images
     \item 325 true positives, 175 false positives
@@ -630,6 +742,7 @@ False negatives are costly:
 
 \begin{frame}{Which Option to Choose?}
 \begin{alertblock}{Decision Factors}
+\small
 \begin{itemize}
     \item \textbf{Budget:} How much inspector time available?
     \item \textbf{Legal:} Required detection rate?
@@ -637,9 +750,10 @@ False negatives are costly:
 \end{itemize}
 \end{alertblock}
 
-\vspace{0.3cm}
+\vspace{0.15cm}
 
 \begin{keypointsbox}{Typical Choice}
+\small
 For environmental compliance: \\
 Option B (high recall) is usually preferred
 
@@ -654,6 +768,7 @@ spending extra inspection time
 
 \begin{frame}{F1 Score: Balancing Both Metrics}
 \begin{definitionbox}{F1 Score}
+\small
 Harmonic mean of precision and recall:
 
 $$F_1 = 2 \cdot \frac{\text{Precision} \cdot \text{Recall}}{\text{Precision} + \text{Recall}}$$
@@ -667,6 +782,7 @@ $$F_1 = \frac{2 \cdot \text{TP}}{2 \cdot \text{TP} + \text{FP} + \text{FN}}$$
 
 \begin{frame}{Why Harmonic Mean?}
 \begin{keypointsbox}{Properties of F1}
+\small
 \begin{itemize}
     \item Range: $[0, 1]$, higher is better
     \item Heavily penalizes imbalanced metrics
@@ -674,9 +790,10 @@ $$F_1 = \frac{2 \cdot \text{TP}}{2 \cdot \text{TP} + \text{FP} + \text{FN}}$$
 \end{itemize}
 \end{keypointsbox}
 
-\vspace{0.3cm}
+\vspace{0.15cm}
 
 \begin{examplebox}{Example Comparison}
+\small
 \begin{itemize}
     \item $P=0.80, R=0.60 \Rightarrow F_1 = 0.686$
     \item $P=0.70, R=0.70 \Rightarrow F_1 = 0.700$
@@ -688,6 +805,7 @@ Balanced metrics give better F1!
 
 \begin{frame}{$F_\beta$ Score: Weighted Version}
 \begin{definitionbox}{$F_\beta$ Score}
+\small
 $$F_\beta = (1 + \beta^2) \cdot \frac{\text{Precision} \cdot \text{Recall}}{\beta^2 \cdot \text{Precision} + \text{Recall}}$$
 
 \vspace{0.2cm}
@@ -701,31 +819,70 @@ $$F_\beta = (1 + \beta^2) \cdot \frac{\text{Precision} \cdot \text{Recall}}{\bet
 \end{definitionbox}
 \end{frame}
 
-\begin{frame}{$F_\beta$ Applications}
+\begin{frame}{$F_\beta$ Applications: High Recall}
 \begin{examplebox}{$F_2$ Score}
-\textbf{Use when:} Recall is 2× more important
+\small
+\textbf{Use when:} Recall is 2× more important than precision
 
+\vspace{0.15cm}
+
+\textbf{Applications:}
 \begin{itemize}
-    \item Cancer screening
-    \item Security threat detection
-    \item Our brick kiln example
+    \item \textbf{Cancer screening} \\
+          Missing a cancer case is catastrophic
+
+    \vspace{0.2cm}
+
+    \item \textbf{Security threat detection} \\
+          Can't afford to miss threats
+
+    \vspace{0.2cm}
+
+    \item \textbf{Environmental compliance} \\
+          Our brick kiln detection example
 \end{itemize}
 \end{examplebox}
 
-\vspace{0.3cm}
+\vspace{0.15cm}
 
+\begin{center}
+Higher $\beta$ = More weight on recall
+\end{center}
+\end{frame}
+
+\begin{frame}{$F_\beta$ Applications: High Precision}
 \begin{examplebox}{$F_{0.5}$ Score}
-\textbf{Use when:} Precision is 2× more important
+\textbf{Use when:} Precision is 2× more important than recall
 
+\vspace{0.15cm}
+
+\textbf{Applications:}
 \begin{itemize}
-    \item Search engines (relevant results)
-    \item Spam detection (avoid false positives)
+    \item \textbf{Search engines} \\
+          Show most relevant results first
+
+    \vspace{0.2cm}
+
+    \item \textbf{Spam detection} \\
+          Avoid false positives (legitimate emails in spam)
+
+    \vspace{0.2cm}
+
+    \item \textbf{Medical diagnoses} \\
+          Before expensive/invasive treatments
 \end{itemize}
 \end{examplebox}
+
+\vspace{0.15cm}
+
+\begin{center}
+Lower $\beta$ = More weight on precision
+\end{center}
 \end{frame}
 
 \begin{frame}{Average Precision (AP)}
 \begin{definitionbox}{Average Precision}
+\small
 Area under the precision-recall curve:
 
 $$\text{AP} = \sum_{n=1}^{N} (R_n - R_{n-1}) \cdot P_n$$
@@ -734,17 +891,28 @@ where $P_n$ and $R_n$ are precision and recall \\
 at the $n$-th threshold
 \end{definitionbox}
 
-\vspace{0.3cm}
+\vspace{0.15cm}
 
+\begin{center}
+\includegraphics[width=0.6\textwidth]{auc-diagram.pdf}
+\end{center}
+\end{frame}
+
+\begin{frame}{Average Precision: Properties}
+\begin{keypointsbox}{Key Properties}
+\small
 \begin{itemize}
     \item Range: $[0, 1]$, higher is better
     \item Single number summarizing entire curve
     \item Perfect classifier: $\text{AP} = 1.0$
+    \item Weighted by recall changes
 \end{itemize}
+\end{keypointsbox}
 \end{frame}
 
 \begin{frame}{When to Use Average Precision}
 \begin{keypointsbox}{Use Cases}
+\small
 \begin{itemize}
     \item Comparing models across all thresholds
     \item When you can't choose single operating point
@@ -752,9 +920,10 @@ at the $n$-th threshold
 \end{itemize}
 \end{keypointsbox}
 
-\vspace{0.3cm}
+\vspace{0.15cm}
 
 \begin{examplebox}{Object Detection}
+\small
 \textbf{mAP} (mean Average Precision):
 
 \vspace{0.2cm}
@@ -767,29 +936,52 @@ Standard metric in COCO, Pascal VOC
 \end{examplebox}
 \end{frame}
 
-\begin{frame}{Specificity and FPR}
-\begin{definitionbox}{Additional Metrics}
-\textbf{Specificity (True Negative Rate):}
+\begin{frame}{Specificity (True Negative Rate)}
+\begin{definitionbox}{Specificity}
+\small
 $$\text{Specificity} = \frac{\text{TN}}{\text{TN} + \text{FP}}$$
 
+\vspace{0.15cm}
+
 Fraction of negatives correctly identified
+\end{definitionbox}
 
-\vspace{0.4cm}
+\vspace{0.2cm}
 
-\textbf{False Positive Rate:}
+\begin{examplebox}{Example}
+\small
+Out of 100 non-kiln images, if we correctly identify 90: \\
+Specificity = 90/100 = 0.90
+\end{examplebox}
+\end{frame}
+
+\begin{frame}{False Positive Rate (FPR)}
+\begin{definitionbox}{FPR}
+\small
 $$\text{FPR} = \frac{\text{FP}}{\text{FP} + \text{TN}} = 1 - \text{Specificity}$$
+
+\vspace{0.15cm}
 
 Fraction of negatives wrongly classified
 \end{definitionbox}
+
+\vspace{0.2cm}
+
+\begin{keypointsbox}{Relationship}
+\small
+FPR and Specificity are complements: \\
+FPR + Specificity = 1
+\end{keypointsbox}
 \end{frame}
 
 \section{ROC Curves}
 
 \begin{frame}{What is ROC?}
 \begin{definitionbox}{ROC: Receiver Operating Characteristic}
+\small
 Developed during World War II for analyzing radar signals
 
-\vspace{0.3cm}
+\vspace{0.15cm}
 
 \textbf{Breaking down the name:}
 \begin{itemize}
@@ -799,19 +991,23 @@ Developed during World War II for analyzing radar signals
 \end{itemize}
 \end{definitionbox}
 
-\vspace{0.3cm}
+\vspace{0.15cm}
 
 \begin{keypointsbox}{Historical Context}
+\small
 Originally used to analyze radar operators' ability \\
 to correctly detect enemy aircraft from radar signals
 \end{keypointsbox}
 \end{frame}
 
 \begin{frame}{ROC Curve Definition}
+\begin{columns}
+\begin{column}{0.48\textwidth}
 \begin{definitionbox}{What ROC Plots}
+\small
 ROC curve plots TPR vs FPR at all thresholds
 
-\vspace{0.3cm}
+\vspace{0.15cm}
 
 \begin{itemize}
     \item \textbf{X-axis:} False Positive Rate (FPR)
@@ -821,10 +1017,16 @@ ROC curve plots TPR vs FPR at all thresholds
     $$\text{TPR} = \frac{\text{TP}}{\text{TP} + \text{FN}}$$
 \end{itemize}
 \end{definitionbox}
+\end{column}
+\begin{column}{0.48\textwidth}
+\includegraphics[width=\textwidth]{roc-curve-diagram.pdf}
+\end{column}
+\end{columns}
 \end{frame}
 
 \begin{frame}{Intuitive Understanding: TPR}
 \begin{examplebox}{True Positive Rate (TPR)}
+\small
 $$\text{TPR} = \frac{\text{TP}}{\text{TP} + \text{FN}} = \frac{\text{TP}}{\text{All Actual Positives}}$$
 
 \vspace{0.2cm}
@@ -833,7 +1035,7 @@ $$\text{TPR} = \frac{\text{TP}}{\text{TP} + \text{FN}} = \frac{\text{TP}}{\text{
 Of all actual brick kilns, what fraction did we detect?
 \end{examplebox}
 
-\vspace{0.3cm}
+\vspace{0.15cm}
 
 \begin{itemize}
     \item Same as Recall!
@@ -845,6 +1047,7 @@ Of all actual brick kilns, what fraction did we detect?
 
 \begin{frame}{Intuitive Understanding: FPR}
 \begin{examplebox}{False Positive Rate (FPR)}
+\small
 $$\text{FPR} = \frac{\text{FP}}{\text{FP} + \text{TN}} = \frac{\text{FP}}{\text{All Actual Negatives}}$$
 
 \vspace{0.2cm}
@@ -854,7 +1057,7 @@ Of all non-kiln images, what fraction did we \\
 incorrectly flag as having kilns?
 \end{examplebox}
 
-\vspace{0.3cm}
+\vspace{0.15cm}
 
 \begin{itemize}
     \item Measures: False alarm rate
@@ -866,6 +1069,7 @@ incorrectly flag as having kilns?
 
 \begin{frame}{The ROC Trade-off}
 \begin{keypointsbox}{Fundamental Trade-off}
+\small
 As we vary the threshold:
 \begin{itemize}
     \item Lower threshold $\rightarrow$ Higher TPR, Higher FPR
@@ -873,7 +1077,7 @@ As we vary the threshold:
 \end{itemize}
 \end{keypointsbox}
 
-\vspace{0.3cm}
+\vspace{0.15cm}
 
 \begin{columns}
 \begin{column}{0.48\textwidth}
@@ -898,9 +1102,12 @@ As we vary the threshold:
 \end{columns}
 \end{frame}
 
-\begin{frame}{Building a ROC Curve}
+\begin{frame}{Building a ROC Curve: Steps}
 \begin{enumerate}
     \item Train classifier, get predicted probabilities
+
+    \vspace{0.15cm}
+
     \item For each threshold $\tau \in [0, 1]$:
     \begin{itemize}
         \item Apply threshold to get predictions
@@ -908,43 +1115,63 @@ As we vary the threshold:
         \item Calculate TPR and FPR
         \item Plot point (FPR, TPR)
     \end{itemize}
+
+    \vspace{0.15cm}
+
     \item Connect points to form curve
-    \item Perfect classifier: Curve hugs top-left
-    \item Random classifier: Diagonal line
 \end{enumerate}
 \end{frame}
 
-\begin{frame}{Interpreting ROC Curves}
-\begin{keypointsbox}{What Makes a Good ROC Curve?}
+\begin{frame}{Building a ROC Curve: Interpretation}
+\begin{center}
+\includegraphics[width=0.7\textwidth]{roc-curve-diagram.pdf}
+\end{center}
+
+\vspace{0.15cm}
+
 \begin{itemize}
-    \item Curve closer to top-left corner is better
-    \item Top-left = TPR=1, FPR=0 (perfect!)
-    \item Want high TPR with low FPR
+    \item \textbf{Perfect classifier:} Curve hugs top-left corner
+    \item \textbf{Random classifier:} Diagonal line
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Interpreting ROC Curves}
+\begin{columns}
+\begin{column}{0.48\textwidth}
+\begin{keypointsbox}{Good ROC Curve}
+\small
+\begin{itemize}
+    \item Closer to top-left
+    \item Top-left = perfect!
+    \item TPR=1, FPR=0
+    \item High TPR, low FPR
 \end{itemize}
 \end{keypointsbox}
 
-\vspace{0.3cm}
+\vspace{0.15cm}
 
 \begin{block}{Baselines}
+\small
 \begin{itemize}
-    \item \textbf{Perfect classifier:}
-    Goes straight up (FPR=0, TPR=1), then right
-
-    \item \textbf{Random classifier:}
-    Diagonal line from (0,0) to (1,1)
-
-    \item \textbf{Worse than random:}
-    Below diagonal (don't use this model!)
+    \item \textbf{Perfect:} Top-left
+    \item \textbf{Random:} Diagonal
+    \item \textbf{Bad:} Below diagonal
 \end{itemize}
 \end{block}
+\end{column}
+\begin{column}{0.48\textwidth}
+\includegraphics[width=\textwidth]{roc-curve-diagram.pdf}
+\end{column}
+\end{columns}
 \end{frame}
 
 \begin{frame}{Example: Same Dataset}
 \begin{examplebox}{From Notebook}
+\small
 Using our Logistic Regression model
 \end{examplebox}
 
-\vspace{0.3cm}
+\vspace{0.15cm}
 
 \begin{center}
 \small
@@ -965,15 +1192,19 @@ Using our Logistic Regression model
 \end{tabular}
 \end{center}
 
-\vspace{0.3cm}
+\vspace{0.15cm}
 
 \begin{keypointsbox}{Observation}
+\small
 As threshold increases: TPR $\downarrow$, FPR $\downarrow$
 \end{keypointsbox}
 \end{frame}
 
 \begin{frame}{AUC-ROC: Area Under ROC Curve}
+\begin{columns}
+\begin{column}{0.48\textwidth}
 \begin{definitionbox}{AUC-ROC}
+\small
 Single number summarizing entire ROC curve
 
 \vspace{0.2cm}
@@ -985,23 +1216,30 @@ $$\text{AUC-ROC} = \int_0^1 \text{TPR}(\text{FPR}) \, d(\text{FPR})$$
 \textbf{Interpretation:}
 \begin{itemize}
     \item Range: $[0, 1]$
-    \item Perfect classifier: AUC = 1.0
-    \item Random classifier: AUC = 0.5
+    \item Perfect: AUC = 1.0
+    \item Random: AUC = 0.5
     \item Higher is better
 \end{itemize}
 \end{definitionbox}
+\end{column}
+\begin{column}{0.48\textwidth}
+\includegraphics[width=\textwidth]{auc-diagram.pdf}
+\end{column}
+\end{columns}
 \end{frame}
 
 \begin{frame}{AUC-ROC Intuition}
 \begin{keypointsbox}{Probabilistic Interpretation}
+\small
 AUC-ROC = Probability that the model ranks \\
 a random positive example higher than \\
 a random negative example
 \end{keypointsbox}
 
-\vspace{0.3cm}
+\vspace{0.15cm}
 
 \begin{examplebox}{Example}
+\small
 \begin{itemize}
     \item AUC = 0.95: 95\% chance model scores \\
           a true kiln higher than a non-kiln
@@ -1037,6 +1275,7 @@ display.plot()
 
 \begin{frame}{Comparing Multiple Models}
 \begin{examplebox}{From Notebook: 3 Classifiers}
+\small
 \begin{itemize}
     \item Logistic Regression (linear boundary)
     \item Random Forest (non-linear, ensemble)
@@ -1044,7 +1283,7 @@ display.plot()
 \end{itemize}
 \end{examplebox}
 
-\vspace{0.3cm}
+\vspace{0.15cm}
 
 \begin{center}
 \begin{tabular}{|l|c|c|}
@@ -1067,38 +1306,26 @@ Logistic Regression & 0.86 & 0.83 \\
 \section{PR vs ROC: When to Use Each}
 
 \begin{frame}{Comparing PR and ROC Curves}
+\begin{center}
+\includegraphics[width=0.95\textwidth]{model-comparison-diagram.pdf}
+\end{center}
+
+\vspace{0.2cm}
+
 \begin{columns}
 \begin{column}{0.48\textwidth}
 \begin{block}{PR Curve}
-\textbf{Plots:} \\
-Precision vs Recall
-
-\vspace{0.2cm}
-
-\textbf{Focuses on:} \\
-Positive class performance
-
-\vspace{0.2cm}
-
-\textbf{Sensitive to:} \\
-Class imbalance
+\textbf{Plots:} Precision vs Recall \\
+\textbf{Focus:} Positive class \\
+\textbf{Sensitive to:} Imbalance
 \end{block}
 \end{column}
 
 \begin{column}{0.48\textwidth}
 \begin{block}{ROC Curve}
-\textbf{Plots:} \\
-TPR vs FPR
-
-\vspace{0.2cm}
-
-\textbf{Focuses on:} \\
-Both classes equally
-
-\vspace{0.2cm}
-
-\textbf{Robust to:} \\
-Class imbalance
+\textbf{Plots:} TPR vs FPR \\
+\textbf{Focus:} Both classes \\
+\textbf{Robust to:} Imbalance
 \end{block}
 \end{column}
 \end{columns}
@@ -1106,13 +1333,15 @@ Class imbalance
 
 \begin{frame}{Key Difference: Class Imbalance}
 \begin{alertblock}{Critical Insight}
+\small
 ROC curves can be overly optimistic \\
 on highly imbalanced datasets!
 \end{alertblock}
 
-\vspace{0.3cm}
+\vspace{0.15cm}
 
 \begin{examplebox}{Why?}
+\small
 FPR uses TN in denominator:
 $$\text{FPR} = \frac{\text{FP}}{\text{FP} + \textcolor{red}{\text{TN}}}$$
 
@@ -1121,34 +1350,60 @@ can give a low FPR
 \end{examplebox}
 \end{frame}
 
-\begin{frame}{Example: Imbalanced Data}
-\begin{examplebox}{Scenario: 5\% Positive Class}
+\begin{frame}{Example: Imbalanced Data Setup}
+\begin{examplebox}{Scenario: Highly Imbalanced Dataset}
+\small
 \begin{itemize}
-    \item 1,000 images
-    \item 50 have brick kilns (5\%)
-    \item 950 don't have kilns (95\%)
+    \item \textbf{Total images:} 1,000
+    \item \textbf{Positive class} (has brick kilns): 50 (5\%)
+    \item \textbf{Negative class} (no kilns): 950 (95\%)
 \end{itemize}
 \end{examplebox}
 
-\vspace{0.3cm}
-
-\begin{alertblock}{Model with 100 False Positives}
-\begin{itemize}
-    \item Precision: Low (many false alarms per true positive)
-    \item FPR: $\frac{100}{100 + 850} = 0.105$ (looks good!)
-\end{itemize}
-\end{alertblock}
-
 \vspace{0.2cm}
 
-\textbf{Conclusion:} PR curve shows the problem, \\
-ROC curve can hide it
+\begin{center}
+\Large
+This is a realistic scenario! \\
+Many real-world problems have imbalanced classes
+\end{center}
+\end{frame}
+
+\begin{frame}{Example: Imbalanced Data Analysis}
+\begin{alertblock}{Model with 100 False Positives}
+\small
+Suppose our model produces 100 false alarms:
+
+\vspace{0.15cm}
+
+\textbf{Precision impact:}
+\begin{itemize}
+    \item Many false alarms per true positive
+    \item Precision will be \textbf{low} (obvious problem!)
+\end{itemize}
+
+\vspace{0.15cm}
+
+\textbf{FPR appears good:}
+$$\text{FPR} = \frac{100}{100 + 850} = \frac{100}{950} = 0.105$$
+
+Even with 100 false positives, FPR is only 10.5\%!
+\end{alertblock}
+
+\vspace{0.15cm}
+
+\begin{keypointsbox}{Conclusion}
+\small
+\textbf{PR curve:} Shows the problem clearly \\
+\textbf{ROC curve:} Can hide issues in imbalanced data
+\end{keypointsbox}
 \end{frame}
 
 \section{Practical Considerations}
 
 \begin{frame}{PR Curves vs ROC Curves}
 \begin{keypointsbox}{Use PR Curves When:}
+\small
 \begin{itemize}
     \item Classes are highly imbalanced
     \item You care primarily about positive class
@@ -1158,7 +1413,7 @@ ROC curve can hide it
 \textbf{Examples:} Rare disease, fraud, information retrieval
 \end{keypointsbox}
 
-\vspace{0.3cm}
+\vspace{0.15cm}
 
 \begin{block}{Use ROC Curves When:}
 \begin{itemize}
@@ -1170,6 +1425,7 @@ ROC curve can hide it
 
 \begin{frame}{Why PR for Imbalanced Data?}
 \begin{examplebox}{Brick Kiln Dataset}
+\small
 \begin{itemize}
     \item Total: 10,000 images
     \item Positive (has kiln): 150 (1.5\%)
@@ -1177,9 +1433,10 @@ ROC curve can hide it
 \end{itemize}
 \end{examplebox}
 
-\vspace{0.3cm}
+\vspace{0.15cm}
 
 \begin{alertblock}{Naive Classifier}
+\small
 Always predict ``no kiln'':
 \begin{itemize}
     \item Accuracy: 98.5\% \textcolor{green}{(looks great!)}
@@ -1191,6 +1448,7 @@ Always predict ``no kiln'':
 
 \begin{frame}{The Problem with Accuracy}
 \begin{keypointsbox}{Why Accuracy Fails}
+\small
 With extreme imbalance (1.5\% positive):
 \begin{itemize}
     \item Accuracy dominated by majority class
@@ -1199,7 +1457,7 @@ With extreme imbalance (1.5\% positive):
 \end{itemize}
 \end{keypointsbox}
 
-\vspace{0.3cm}
+\vspace{0.15cm}
 
 \begin{center}
 \Large
@@ -1251,7 +1509,7 @@ Your model achieves:
 Out of 10,000 products, how many will be flagged?
 \end{popquizbox}
 
-\vspace{0.3cm}
+\vspace{0.15cm}
 
 \begin{enumerate}
     \item 150
@@ -1263,10 +1521,11 @@ Out of 10,000 products, how many will be flagged?
 
 \begin{frame}{Pop Quiz \thepopquiz: Answer}
 \begin{examplebox}{Solution}
+\small
 \textbf{Answer: (b) 300}
 \end{examplebox}
 
-\vspace{0.3cm}
+\vspace{0.15cm}
 
 \textbf{Step 1:} Actual defective products
 $$10{,}000 \times 0.02 = 200$$
@@ -1287,7 +1546,7 @@ Precision=0.70, Recall=0.85 \\
 over Precision=0.85, Recall=0.70?
 \end{popquizbox}
 
-\vspace{0.3cm}
+\vspace{0.15cm}
 
 \begin{enumerate}
     \item Email spam detection \\
@@ -1302,10 +1561,11 @@ over Precision=0.85, Recall=0.70?
 
 \begin{frame}{Pop Quiz \thepopquiz: Answer}
 \begin{examplebox}{Solution}
+\small
 \textbf{Answer: (b) Airport security screening}
 \end{examplebox}
 
-\vspace{0.3cm}
+\vspace{0.15cm}
 
 \textbf{Reasoning:}
 \begin{itemize}
@@ -1315,7 +1575,7 @@ over Precision=0.85, Recall=0.70?
     \item Better to have false alarms than miss threats
 \end{itemize}
 
-\vspace{0.3cm}
+\vspace{0.15cm}
 
 Options (a) and (c): False positives are costly \\
 $\Rightarrow$ Need high precision
@@ -1325,6 +1585,7 @@ $\Rightarrow$ Need high precision
 
 \begin{frame}{Key Takeaways (1/2)}
 \begin{keypointsbox}{Core Concepts}
+\small
 \begin{enumerate}
     \item \textbf{Precision:} Reliability of predictions
     \item \textbf{Recall:} Completeness of detection
@@ -1336,6 +1597,7 @@ $\Rightarrow$ Need high precision
 
 \begin{frame}{Key Takeaways (2/2)}
 \begin{keypointsbox}{Practical Insights}
+\small
 \begin{enumerate}
     \setcounter{enumi}{4}
     \item \textbf{PR curves:} Show all trade-offs
@@ -1369,7 +1631,7 @@ $\Rightarrow$ Need high precision
 The best model makes the right trade-offs \\
 for \textbf{your specific application}
 
-\vspace{0.5cm}
+\vspace{0.2cm}
 
 Not the highest accuracy, \\
 not the highest F1, \\
