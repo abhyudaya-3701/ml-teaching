@@ -35,6 +35,7 @@ Techniques for finding optimal solutions in machine learning.
 - [Coordinate Descent](optimization/slides/coordinate_descent.pdf)
 - [Subgradient Methods](optimization/slides/subgradient.pdf)
 - [Convexity](optimization/slides/convexity.pdf)
+- [Convexity, Hessian, IRLS](optimization/slides/convexity-hessian-irls.pdf)
 - [Stochastic Gradient Descent](optimization/slides/SGD.pdf)
 
 ### Supervised Learning
