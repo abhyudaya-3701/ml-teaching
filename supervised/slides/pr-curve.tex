@@ -2,8 +2,6 @@
 \usepackage{../../shared/styles/custom}
 \usepackage{../../shared/styles/conventions}
 
-\newcounter{popquiz}
-
 % Add slide numbers with total
 \setbeamertemplate{footline}{
   \hfill%
@@ -103,12 +101,11 @@ Model misses an actual brick kiln
 \end{frame}
 
 \begin{frame}{Scenario 1: High Precision Model}
+\footnotesize
 \begin{examplebox}{Conservative Classifier}
 \small
 \textbf{Model behavior:} Only flags when very confident
 \end{examplebox}
-
-\vspace{0.2cm}
 
 \begin{block}{Results}
 \begin{itemize}
@@ -117,25 +114,22 @@ Model misses an actual brick kiln
 \end{itemize}
 \end{block}
 
-\vspace{0.2cm}
-
 \begin{keypointsbox}{Trade-offs}
 \small
 \begin{itemize}
     \item[\textcolor{green}{\checkmark}] Few false alarms
     \item[\textcolor{green}{\checkmark}] Inspector time well-spent
-    \item[\textcolor{red}{\times}] Might miss many kilns
+    \item[\textcolor{red}{$\times$}] Might miss many kilns
 \end{itemize}
 \end{keypointsbox}
 \end{frame}
 
 \begin{frame}{Scenario 2: High Recall Model}
+\footnotesize
 \begin{examplebox}{Aggressive Classifier}
 \small
 \textbf{Model behavior:} Flags anything suspicious
 \end{examplebox}
-
-\vspace{0.2cm}
 
 \begin{block}{Results}
 \begin{itemize}
@@ -144,14 +138,12 @@ Model misses an actual brick kiln
 \end{itemize}
 \end{block}
 
-\vspace{0.2cm}
-
 \begin{keypointsbox}{Trade-offs}
 \small
 \begin{itemize}
     \item[\textcolor{green}{\checkmark}] Catches almost all kilns
-    \item[\textcolor{red}{\times}] Many false alarms
-    \item[\textcolor{red}{\times}] Wastes inspector time
+    \item[\textcolor{red}{$\times$}] Many false alarms
+    \item[\textcolor{red}{$\times$}] Wastes inspector time
 \end{itemize}
 \end{keypointsbox}
 \end{frame}
@@ -321,7 +313,7 @@ $$\hat{y} = \begin{cases}
 Default: $\tau = 0.5$
 \end{definitionbox}
 \end{column}
-\begin{column}{0.48\textwidth}
+\begin{column}{0.52\textwidth}
 \includegraphics[width=\textwidth]{threshold-effect-diagram.pdf}
 \end{column}
 \end{columns}
@@ -396,12 +388,12 @@ Classify as positive if $P(y=1|x) \geq 0.7$
 \section{Precision-Recall Curves}
 
 \begin{frame}{What is a PR Curve?}
+\footnotesize
 \begin{columns}
 \begin{column}{0.48\textwidth}
 \begin{definitionbox}{Precision-Recall Curve}
 \small
-A plot showing precision vs. recall \\
-for all possible threshold values
+A plot showing precision vs. recall for all possible threshold values
 
 \vspace{0.15cm}
 
@@ -411,11 +403,7 @@ for all possible threshold values
     \item Each point = one threshold value
 \end{itemize}
 \end{definitionbox}
-
-\vspace{0.15cm}
-
 \begin{keypointsbox}{What It Shows}
-\small
 The complete trade-off space between precision and recall
 \end{keypointsbox}
 \end{column}
@@ -585,13 +573,13 @@ As threshold increases: Precision $\uparrow$, Recall $\downarrow$
 
 \begin{frame}{Interpreting PR Curves}
 \begin{center}
-\includegraphics[width=0.7\textwidth]{pr-curve-diagram.pdf}
+\includegraphics[width=0.8\textwidth]{pr-curve-diagram.pdf}
 \end{center}
 
-\vspace{0.15cm}
+\end{frame}
 
+\begin{frame}{Interpreting PR Curves}
 \begin{keypointsbox}{What Makes a Good Curve?}
-\small
 \begin{itemize}
     \item Curve closer to top-right is better
     \item Top-right = high precision AND high recall
@@ -1003,8 +991,8 @@ to correctly detect enemy aircraft from radar signals
 \begin{frame}{ROC Curve Definition}
 \begin{columns}
 \begin{column}{0.48\textwidth}
+\footnotesize
 \begin{definitionbox}{What ROC Plots}
-\small
 ROC curve plots TPR vs FPR at all thresholds
 
 \vspace{0.15cm}
@@ -1124,10 +1112,8 @@ As we vary the threshold:
 
 \begin{frame}{Building a ROC Curve: Interpretation}
 \begin{center}
-\includegraphics[width=0.7\textwidth]{roc-curve-diagram.pdf}
+\includegraphics[width=0.6\textwidth]{roc-curve-diagram.pdf}
 \end{center}
-
-\vspace{0.15cm}
 
 \begin{itemize}
     \item \textbf{Perfect classifier:} Curve hugs top-left corner
@@ -1148,10 +1134,8 @@ As we vary the threshold:
 \end{itemize}
 \end{keypointsbox}
 
-\vspace{0.15cm}
-
 \begin{block}{Baselines}
-\small
+\footnotesize
 \begin{itemize}
     \item \textbf{Perfect:} Top-left
     \item \textbf{Random:} Diagonal
@@ -1202,13 +1186,13 @@ As threshold increases: TPR $\downarrow$, FPR $\downarrow$
 
 \begin{frame}{AUC-ROC: Area Under ROC Curve}
 \begin{columns}
-\begin{column}{0.48\textwidth}
+\begin{column}{0.52\textwidth}
 \begin{definitionbox}{AUC-ROC}
 \small
 Single number summarizing entire ROC curve
 
 \vspace{0.2cm}
-
+\footnotesize
 $$\text{AUC-ROC} = \int_0^1 \text{TPR}(\text{FPR}) \, d(\text{FPR})$$
 
 \vspace{0.2cm}
@@ -1371,7 +1355,7 @@ Many real-world problems have imbalanced classes
 
 \begin{frame}{Example: Imbalanced Data Analysis}
 \begin{alertblock}{Model with 100 False Positives}
-\small
+\footnotesize
 Suppose our model produces 100 false alarms:
 
 \vspace{0.15cm}
@@ -1390,8 +1374,7 @@ $$\text{FPR} = \frac{100}{100 + 850} = \frac{100}{950} = 0.105$$
 Even with 100 false positives, FPR is only 10.5\%!
 \end{alertblock}
 
-\vspace{0.15cm}
-
+\footnotesize
 \begin{keypointsbox}{Conclusion}
 \small
 \textbf{PR curve:} Shows the problem clearly \\
@@ -1491,38 +1474,28 @@ display.plot()
 \end{block}
 \end{frame}
 
-\stepcounter{popquiz}
-\begin{frame}{Pop Quiz \thepopquiz}
-\begin{popquizbox}{Pop Quiz \thepopquiz}
+\popquiz{
+\textbf{
 A model detects defective products (2\% of all products).
-
-\vspace{0.2cm}
-
 Your model achieves:
 \begin{itemize}
     \item Precision: 0.60
     \item Recall: 0.90
 \end{itemize}
-
-\vspace{0.2cm}
-
-Out of 10,000 products, how many will be flagged?
-\end{popquizbox}
-
-\vspace{0.15cm}
-
-\begin{enumerate}
+Out of 10,000 products, how many will be flagged?}
+\begin{enumerate}[A)]
     \item 150
     \item 300
     \item 600
     \item 900
 \end{enumerate}
-\end{frame}
+}{{\color{magenta}\textbf{B) 300}}}
 
-\begin{frame}{Pop Quiz \thepopquiz: Answer}
+
+\begin{frame}{Pop Quiz Answer}
 \begin{examplebox}{Solution}
 \small
-\textbf{Answer: (b) 300}
+\textbf{Answer: B) 300}
 \end{examplebox}
 
 \vspace{0.15cm}
@@ -1538,17 +1511,10 @@ $$0.60 = \frac{180}{\text{Total flagged}}$$
 $$\text{Total flagged} = \frac{180}{0.60} = 300$$
 \end{frame}
 
-\stepcounter{popquiz}
-\begin{frame}{Pop Quiz \thepopquiz}
-\begin{popquizbox}{Pop Quiz \thepopquiz}
-Which scenario needs model with \\
-Precision=0.70, Recall=0.85 \\
-over Precision=0.85, Recall=0.70?
-\end{popquizbox}
+\popquiz{
+\textbf{Which scenario needs model with Precision=0.70, Recall=0.85 over Precision=0.85, Recall=0.70?}
 
-\vspace{0.15cm}
-
-\begin{enumerate}
+\begin{enumerate}[A)]
     \item Email spam detection \\
           (false positives lose legitimate mail)
     \item Airport security screening \\
@@ -1557,12 +1523,12 @@ over Precision=0.85, Recall=0.70?
           (false positives block legitimate purchases)
     \item All equally
 \end{enumerate}
-\end{frame}
+}{{\color{magenta}\textbf{B) Airport security screening}}}
 
-\begin{frame}{Pop Quiz \thepopquiz: Answer}
+\begin{frame}{Pop Quiz Answer}
 \begin{examplebox}{Solution}
 \small
-\textbf{Answer: (b) Airport security screening}
+\textbf{Answer: B) Airport security screening}
 \end{examplebox}
 
 \vspace{0.15cm}
@@ -1641,7 +1607,7 @@ but the one that aligns with your goals!
 
 \begin{frame}{Further Resources}
 \begin{itemize}
-    \item \textbf{Notebook:} \texttt{pr-curve.html} \\
+    \item \textbf{Notebook:} \href{https://nipunbatra.github.io/ml-teaching/notebooks/pr-curve.html}{\texttt{pr-curve.html}} \\
           Running example with visualization code
 
     \item \textbf{Documentation:} \\

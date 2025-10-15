@@ -35,6 +35,7 @@ Techniques for finding optimal solutions in machine learning.
 - [Coordinate Descent](optimization/slides/coordinate_descent.pdf)
 - [Subgradient Methods](optimization/slides/subgradient.pdf)
 - [Convexity](optimization/slides/convexity.pdf)
+- [Convexity, Hessian, IRLS](optimization/slides/convexity-hessian-irls.pdf)
 - [Stochastic Gradient Descent](optimization/slides/SGD.pdf)
 
 ### Supervised Learning
@@ -48,6 +49,7 @@ Algorithms that learn from labeled data.
 - Ensemble Methods: [Slides](supervised/slides/ensemble.pdf) | [Handouts](supervised/slides/ensemble-handout.pdf)
 - Linear Regression: [Slides](supervised/slides/linear-regression.pdf) | [Handouts](supervised/slides/linear-regression-handout.pdf)
 - Logistic Regression: [slides](supervised/slides/logistic-regression.pdf) | [Handouts](supervised/slides/logistic-regression-handout.pdf)
+- [Precision-Recall Curves](supervised/slides/pr-curve.pdf)
 - [K-Nearest Neighbors](supervised/slides/knn.pdf)
 - [KNN Approximation Methods](supervised/slides/knn-approx.pdf)
 - [Naive Bayes](supervised/slides/naive-bayes.pdf)
