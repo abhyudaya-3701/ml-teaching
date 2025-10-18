@@ -296,3 +296,4 @@ _site
 __pycache__
 
 MLEnv/
+**/*.quarto_ipynb
