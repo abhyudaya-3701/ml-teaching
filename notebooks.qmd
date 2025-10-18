@@ -33,6 +33,7 @@ Interactive notebooks provide practical coding examples and visualizations to co
 - [Gradient Descent 2D](notebooks/gradient-descent-2d.ipynb) - Visual optimization
 - [Cost vs Iterations](notebooks/cost-iteration-notebook.ipynb) - Convergence analysis
 - [Automatic Differentiation](notebooks/autodiff.ipynb) - Modern backpropagation
+- [Introduction to Autograd](notebooks/autograd.ipynb) - Computing gradients efficiently
 - [2nd Order Logistic Regression](notebooks/logistic-torch-second-order.ipynb)
 
 ### Supervised Learning Algorithms
