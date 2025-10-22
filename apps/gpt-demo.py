@@ -31,7 +31,7 @@ decode_mode = st.sidebar.selectbox(
     help="Greedy: picks the single most likely next token.\nSampling: draws from probability distribution for diversity."
 )
 temperature = st.sidebar.slider(
-    "Temperature", 0.1, 2.0, 0.8, 0.05,
+    "Temperature", 0.1, 2.0, 1.0, 0.05,
     help="Controls randomness. Lower = deterministic, Higher = more creative."
 )
 top_p = st.sidebar.slider(
